@@ -3,6 +3,17 @@ manuals
 
 A bunch of wget-ed documentation I regularly reference offline.
 
+Purpose
+-------
+
+Over the years, I've accrued favorite online documentation & references for the various tools, programs, and languages I regularly use for work & leisure. So long as I'm working on my oldest computer--and all of its bookmarks--and connected to the internet, I'm happy.
+
+But I don't always use my oldest computer, and I don't always have internet access.
+
+Accordingly, a manuals repository.
+
+This way, I can use my preferred documentation offline on any computer, but easily add & sync new documentation once I'm back online.
+
 Suggested Use
 -------------
 
