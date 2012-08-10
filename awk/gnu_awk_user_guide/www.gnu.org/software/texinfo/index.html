@@ -1,0 +1,236 @@
+<HTML>
+<!-- $Id: texinfo.html,v 1.56 2012/07/11 00:27:57 karl Exp $ -->
+<HEAD>
+<TITLE>Texinfo - GNU Documentation System - GNU Project - Free Software Foundation (FSF)</TITLE>
+<META NAME="keywords" CONTENT="texinfo, free documentation">
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000" LINK="#1F00FF" ALINK="#FF0000" VLINK="#9900DD">
+<H2>Texinfo - The GNU Documentation System</H2>
+
+<A HREF="http://www.gnu.org/graphics/gnu-head.jpg"><IMG SRC="../../graphics/gnu-head-sm.jpg"
+ALT=" [image of the Head of a GNU] "
+WIDTH="129" HEIGHT="122"></A>
+
+<p>Texinfo is the official documentation format of the <a
+href="../../index.html">GNU project</a>.  It was invented by Richard
+Stallman and Bob Chassell many years ago, loosely based on Brian Reid's
+Scribe and other formatting languages of the time.  It is used by many
+non-GNU projects as well.
+
+<p>Texinfo uses a single source file to produce output in a number of
+formats, both online and printed (dvi, html, info, pdf, xml, etc.).  This
+means that instead of writing different documents for online information
+and another for a printed manual, you need write only one document.  And
+when the work is revised, you need revise only that one document.  The
+Texinfo system is well-integrated with <a href="http://www.gnu.org/software/emacs/">GNU
+Emacs</a>.
+
+<p>Help wanted: I would be grateful for help maintaining Texinfo.  I
+have a long list of bug reports and feature requests for makeinfo, the
+Texinfo language, etc.  For an overview of some of them, see the <a
+href="https://savannah.gnu.org/bugs/?group=texinfo">Texinfo tracker</a>
+on Savannah and the <a
+href="http://savannah.gnu.org/cgi-bin/viewcvs/texinfo/texinfo/TODO?rev=HEAD">TODO</a>
+file in the distribution.  There have also been requests for <a
+href="https://savannah.gnu.org/people/viewjob.php?group_id=1548&job_id=561">conversion
+from Texinfo to MediaWiki</a> and <a
+href="https://savannah.gnu.org/people/viewjob.php?group_id=1548&job_id=562">helping
+packages create Texinfo manuals</a>.  Please <a
+href="mailto:karl@freefriends.org">write me</a> if you can help.
+
+
+<h3>Basics</h3>
+
+<ul>
+<li><a href="http://ftp.gnu.org/gnu/texinfo/">Download</a>
+    the latest official release as a gzipped tar file
+    (also on all <a href="../../order/ftp.html">GNU mirrors</a>).
+    Or <a href="http://www.ctan.org/tex-archive/macros/texinfo/texinfo/">browse
+    the unpacked release</a> (also on all
+    <a href="http://www.ctan.org/tex-archive/CTAN.sites">CTAN
+    mirrors</a>).  Older releases are also available.
+
+<li>The <a href="http://www.gnu.org/software/texinfo/manual/texinfo/">Texinfo manual</a>,
+    <a href="http://www.gnu.org/software/texinfo/manual/info/">Info manual</a>, and
+    <a href="http://www.gnu.org/software/texinfo/manual/info-stnd/">standalone Info reader manual</a> from the
+    latest official release, in various formats.  See the
+    <a href="http://www.gnu.org/doc/doc.html">GNU documentation page</a> for manuals for
+    other GNU packages (and more).
+
+<li>The <a
+    href="http://cvs.savannah.gnu.org/viewvc/*checkout*/texinfo/doc/refcard/txirefcard.pdf?root=texinfo">Texinfo
+    reference card</a> formatted for letter-size paper (four landscape
+    pages) and for <a
+    href="http://cvs.savannah.gnu.org/viewvc/*checkout*/texinfo/doc/refcard/txirefcard-a4.pdf?root=texinfo">A4-size
+    paper</a>.
+
+<li>The <a
+href="http://cvs.savannah.gnu.org/viewvc/*checkout*/texinfo/doc/texinfo.tex?root=texinfo&content-type=text%2Fplain">latest
+    texinfo.tex macro file</a> used for converting Texinfo source to DVI
+    or PDF files for
+    printing and viewing, using the <a href="http://tug.org/">TeX
+    typesetting system</a>.  The latest texinfo.tex is also available
+    via the <a href="http://savannah.gnu.org/projects/gnulib">Savannah
+    gnulib project</a>,
+    <a href="http://ftpmirror.gnu.org/texinfo/texinfo.tex">ftp.gnu.org
+      mirrors</a>,
+    and <a href="http://mirror.ctan.org/macros/texinfo/latest/texinfo.tex">CTAN
+      mirrors</a>, among other places.
+    (texinfo.tex is updated much more frequently than full Texinfo
+    releases are made; please use the latest version.)
+
+<li>If available, the
+    <a href="http://alpha.gnu.org/gnu/texinfo/">latest pretest</a>.
+    Pretests are inherently unstable.  Please try them and report
+    problems&mdash;that's why they are done, so the official release
+    will be as reliable as it can be.
+
+<li>The <a
+    href="http://savannah.gnu.org/cgi-bin/viewcvs/texinfo/">development
+    sources via CVS</a>, from <a
+    href="http://savannah.gnu.org">savannah.gnu.org</a>.
+
+<li>The <a href="http://savannah.gnu.org/cgi-bin/viewcvs/texinfo/texinfo/NEWS?rev=HEAD">NEWS</a>
+    file listing notable changes by release, the
+    <a href="http://savannah.gnu.org/cgi-bin/viewcvs/texinfo/texinfo/ChangeLog?rev=HEAD">ChangeLog</a>
+    file detailing all changes, and the
+    <a href="http://savannah.gnu.org/cgi-bin/viewcvs/texinfo/texinfo/TODO?rev=HEAD">TODO</a>
+    file with future projects large and small, awaiting volunteers.
+
+</ul>
+
+
+<h3>Mailing lists</h3>
+
+<dl>
+<dt><tt>bug-texinfo@gnu.org</tt>
+<dd>The main address for bug reporting, developer discussion, pretest
+    announcements, and more
+    (<a href="http://lists.gnu.org/mailman/listinfo/bug-texinfo">info</a>,
+     <a href="http://lists.gnu.org/pipermail/bug-texinfo/">web archive</a>,
+     <a href="ftp://lists.gnu.org/bug-texinfo/">plain text archive</a>).
+
+<dt><tt>help-texinfo@gnu.org</tt>
+<dd>For Texinfo authoring help and discussion
+    (<a href="http://lists.gnu.org/mailman/listinfo/help-texinfo">info</a>,
+     <a href="http://lists.gnu.org/pipermail/help-texinfo/">web archive</a>,
+     <a href="ftp://lists.gnu.org/help-texinfo/">plain text archive</a>).
+
+<dt><tt>texinfo-commits@gnu.org</tt>
+<dd>To get mail with every commit to the repository
+    (<a href="http://lists.gnu.org/mailman/listinfo/texinfo-commits">info</a>,
+     <a href="http://lists.gnu.org/pipermail/texinfo-commits/">web archive</a>,
+     <a href="ftp://lists.gnu.org/texinfo-commits/">plain text archive</a>).
+</dl>
+
+<p>To subscribe to these or any GNU mailing lists, please send an empty
+mail with a Subject: header of just <tt>subscribe</tt> to the relevant
+-request list.  For example, to subscribe yourself to the GNU
+announcement list, you would send mail to <a
+href="mailto:info-gnu-request@gnu.org?Subject=subscribe">&lt;info-gnu-request@gnu.org&gt;</a>.
+Or you can use the <a
+href="http://lists.gnu.org/mailman/listinfo/info-gnu">mailing list web
+interface</a>.</p>
+
+
+<h3>More Texinfo</h3>
+
+<p>Documentation:
+
+<ul>
+<li>The <a href="http://www.gnu.org/doc/">official GNU documentation
+    page</a> contains much more information about Texinfo and GNU manuals.
+<li>You can <a href="http://www.delorie.com/search/">search all GNU
+    documentation</a> (among other interesting things).
+<li>An <a href="http://www2.linuxjournal.com/lj-issues/issue6/2840.html">introductory
+    article</a> written by Arnold Robbins.
+</ul>
+
+<p>Programs:
+
+<ul>
+<li><a href="http://www.gnu.org/software/a2ps/">a2ps</a>,
+    for generating printable files from plain text, has a Texinfo style option.
+<li><a href="http://docbook2x.sourceforge.net/">docbook2x</a>,
+    conversion from Docbook to Texinfo.
+<li><a href="http://josefsson.org/gdoc/">gdoc</a>,
+    for extracting Texinfo (and other format) documentation from source files.
+<li><a href="http://www.gnu.org/software/help2man/">help2man</a>,
+    for generating good man pages from <tt>--help</tt> output.
+<li><a href="http://www.ctan.org/tex-archive/macros/latex/contrib/ltxindex/">ltxindex</a>,
+    for typesetting indices of LaTeX documents with Texinfo's texindex program.
+<li><a href="http://www.math.utah.edu/pub/man2texi/">man2texi</a>,
+    generate Texinfo from man pages.
+<li><a href="http://www.gnu.org/software/texinfo/my-bib-macros.texi">my-bib-macros.texi</a>, a start at
+    bibliography support via Texinfo macros.  For a start at integration
+    with BibTeX, see the <a
+    href="http://tug.org/texlive/devsrc/Build/source/texk/web2c/doc/">Web2C
+    manual sources</a>.
+<li><a href="http://pinfo.alioth.debian.org/">pinfo</a>,
+    a curses-based Info reader with color support and a lynx-like interface.
+<li><a href="http://packages.debian.org/stable/doc/sgmltexi">sgmltexi</a>,
+    Texinfo authoring via SGML tools.
+<li><a href="http://www-sop.inria.fr/members/Manuel.Serrano/scribe/">Scheme
+    Scribe</a>, which can convert Texinfo to Scribe and generate Info files.
+<li><a href="http://sphinx.pocoo.org/latest/config.html#options-for-texinfo-output">Sphinx
+    Python documentation generator</a> has support for Texinfo, used by
+    <a href="http://mediagoblin.org/">MediaGoblin</a>.
+<li><a href="http://www.nongnu.org/texi2html/">texi2html</a>, 
+    a prior translator for generating HTML, roff, and chm.  texi2html
+    has been merged into the Texinfo sources and will be the basis of
+    the next major release.
+<li><a href="http://savannah.nongnu.org/projects/texi2latex">texi2latex</a>,
+    converting Texinfo to LaTeX via XML, no longer maintainer.
+<li><a href="http://texinfo.org/texi2roff/">texi2roff</a>,
+    an old standalone program that converts to troff format; it is not
+    maintained and not up to date.
+<li><a href="http://www.gnu.org/software/avl/">TexiWEB</a>, a <a
+    href="http://en.wikipedia.org/wiki/Literate_programming">literate
+    programming</a> system based on Texinfo and C, by Ben Pfaff as part
+    of his <a href="http://www.gnu.org/software/avl/">GNU AVL</a> package.
+<li><a href="http://math-www.uni-paderborn.de/~axel/tkinfo/">tkinfo</a>,
+    a Tk-based Info reader.
+</ul>
+
+<p>If you know of free software or documentation that would be useful to
+add here, please email.
+
+
+<h3>Translating Texinfo</h3>
+
+<p>To translate Texinfo's messages into other languages, please see the <a
+href="http://translationproject.org/domain/texinfo.html">Translation
+Project page for Texinfo</a>.  If you have a new translation of the message
+strings, or updates to the existing strings, please have the changes
+made in this repository.  Only translations from this site will be
+incorporated into Texinfo.  For more information, see the <a
+href="http://translationproject.org/html/welcome.html">Translation
+Project welcome page</a>.
+
+
+<hr>
+<p>Please send FSF &amp; GNU inquiries to
+<a href="mailto:gnu@gnu.org">&lt;gnu@gnu.org&gt;</a>.
+There are also <a href="http://www.gnu.org/contact/">other ways to contact</a>
+the FSF.<br />
+Please send broken links and other corrections or suggestions to
+<!-- If you are a project maintainer or developer, please use your own -->
+<!-- project email, as webmasters does not manage project web pages. -->
+<!-- However, please report problems in this boilerplate file -->
+<!-- itself to webmasters.  -->
+<!-- And remove this whole comment when you copy the file to a new page. -->
+<a href="mailto:bug-texinfo@gnu.org">&lt;bug-texinfo@gnu.org&gt;</a>.</p>
+
+<P>Copyright &copy; 2011 Free Software Foundation, Inc.
+
+<P>Verbatim copying and distribution of this entire article is
+permitted in any medium, provided this notice is preserved.
+
+<P>
+Updated:
+<!-- timestamp start -->
+$Date: 2012/07/11 00:27:57 $
+<!-- timestamp end -->
+<HR>
+</BODY>
+</HTML>
