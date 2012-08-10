@@ -1,0 +1,73 @@
+<HTML>
+<HEAD>
+<TITLE>Changing Fonts in Mathematics Mode</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Changing Fonts in Mathematics Mode</H3>
+
+<P>
+<EM>(The following applies to <CODE>LaTeX2e</CODE>, a
+recent version of LaTeX.  It does not apply to older
+versions of LaTeX.)</EM>
+</P>
+
+<P>
+The `math italic' font is automatically
+used in mathematics mode unless you explicitly change the font.
+The rules for changing the font in mathematics mode are rather different
+to those applying when typesetting ordinary text. 
+In mathematics mode any change only applies to the single character
+or symbol that follows (or to any text enclosed within braces
+immediately following the control sequence).  Also, to change
+a character to the roman or boldface font, the control sequences
+<CODE>\mathrm</CODE> and <CODE>\mathbf</CODE> must be used
+(rather than <CODE>\textrm</CODE> and <CODE>\textbf</CODE>).
+</P>
+
+<P>
+The following example illustrates the use of boldface in mathematical
+formulae.  To obtain
+<BLOCKQUOTE>
+<IMG SRC="EX_mathbf.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_mathbf.gif"
+Let $\mathbf{u}$,$\mathbf{v}$ and $\mathbf{w}$ be three
+vectors in ${\mathbf R}^3$. The volume~$V$ of the
+parallelepiped with corners at the points
+$\mathbf{0}$, $\mathbf{u}$, $\mathbf{v}$,
+$\mathbf{w}$, $\mathbf{u}+\mathbf{v}$,
+$\mathbf{u}+\mathbf{w}$, $\mathbf{v}+\mathbf{w}$
+and $\mathbf{u}+\mathbf{v}+\mathbf{w}$
+is given by the formula
+\[ V = (\mathbf{u} \times \mathbf{v}) \cdot \mathbf{w}.\] 
+EndTeX -->
+</BLOCKQUOTE>
+one could type
+<BLOCKQUOTE>
+<PRE>
+Let $\mathbf{u}$,$\mathbf{v}$ and $\mathbf{w}$ be three
+vectors in ${\mathbf R}^3$. The volume~$V$ of the
+parallelepiped with corners at the points
+$\mathbf{0}$, $\mathbf{u}$, $\mathbf{v}$,
+$\mathbf{w}$, $\mathbf{u}+\mathbf{v}$,
+$\mathbf{u}+\mathbf{w}$, $\mathbf{v}+\mathbf{w}$
+and $\mathbf{u}+\mathbf{v}+\mathbf{w}$
+is given by the formula
+\[ V = (\mathbf{u} \times \mathbf{v}) \cdot \mathbf{w}.\] 
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+There is also a `calligraphic' font available in mathematics mode.
+This is obtained using the control sequence <CODE>\mathcal</CODE>. 
+<EM>This font can only be used for uppercase letters.</EM> 
+These calligraphic letters have the form
+<BLOCKQUOTE>
+<IMG SRC="DM_calligr.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_calligr.gif"
+\[\mathcal{ABCDEFGHIJKLMNOPQRSTUVWXYZ}. \]
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>

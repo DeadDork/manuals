@@ -1,0 +1,47 @@
+<HTML>
+<HEAD>
+<TITLE>Accents in Mathematics Mode</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Accents in Mathematics Mode</H3>
+
+<P>
+There are various control sequences for producing underlining,
+overlining and various accents in mathematics mode.  The
+following table lists these control sequences, applying them
+to the letter <I>a</I>:
+<BLOCKQUOTE>
+<IMG SRC="TB_MAccents.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TB_MAccents.gif"
+\def\exhibitaccent#1#2{\rlap{$\csname #1\endcsname{#2}$}%
+                      \qquad \texttt{\char92 #1\char123 #2\char125}}
+$$\vcenter{\halign{#\hfil\cr
+\exhibitaccent{underline}{a}\cr
+\exhibitaccent{overline}{a}\cr
+\exhibitaccent{hat}{a}\cr
+\exhibitaccent{check}{a}\cr
+\exhibitaccent{tilde}{a}\cr
+\exhibitaccent{acute}{a}\cr
+\exhibitaccent{grave}{a}\cr
+\exhibitaccent{dot}{a}\cr
+\exhibitaccent{ddot}{a}\cr
+\exhibitaccent{breve}{a}\cr
+\exhibitaccent{bar}{a}\cr
+\exhibitaccent{vec}{a}\cr
+}}$$
+EndTeX -->
+</BLOCKQUOTE>
+It should be borne in mind that when a character is underlined in
+a mathematical manuscript then it is normally typeset in
+bold face without any underlining. Underlining is used very
+rarely in print.
+</P>
+
+<P>
+The control sequences such as <CODE>\'</CODE> and <CODE>\"</CODE>, used
+to produce accents in ordinary text, may not be used in
+mathematics mode.
+</P>
+
+</BODY>
+</HTML>

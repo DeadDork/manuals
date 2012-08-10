@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<TITLE>Fractions and Roots</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Fractions and Roots</H3>
+
+<P>
+Fractions of the form
+<BLOCKQUOTE>
+<IMG SRC="DM_frac.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_frac.gif"
+\[ \frac{\mbox{\textit{numerator}}}{\mbox{\textit{denominator}}} \]
+EndTeX -->
+</BLOCKQUOTE>
+are obtained in LaTeX using the construction
+<BLOCKQUOTE>
+<CODE>\frac{</CODE><EM>numerator</EM><CODE>}{</CODE><EM>denominator</EM><CODE>}</CODE>.
+</BLOCKQUOTE>
+For example, to obtain
+<BLOCKQUOTE>
+<IMG SRC="EX_frac.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_frac.gif"
+The function $f$ is given by
+\[ f(x) = 2x + \frac{x - 7}{x^2 + 4}\] 
+for all real numbers $x$.
+EndTeX -->
+</BLOCKQUOTE>
+one would type
+<BLOCKQUOTE>
+<PRE>
+The function $f$ is given by
+\[ f(x) = 2x + \frac{x - 7}{x^2 + 4}\] 
+for all real numbers $x$.
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+To obtain square roots one uses the control sequence
+<BLOCKQUOTE>
+<CODE>\sqrt{</CODE><EM>expression</EM><CODE>}</CODE>.
+</BLOCKQUOTE>
+For example, to obtain
+<BLOCKQUOTE>
+<IMG SRC="EX_QuadRoots.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_QuadRoots.gif"
+The roots of a quadratic polynomial $a x^2 + bx + c$ with
+$a \neq 0$ are given by the formula
+\[ \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \]
+EndTeX -->
+</BLOCKQUOTE>
+one would type
+<BLOCKQUOTE>
+<PRE>
+The roots of a quadratic polynomial $a x^2 + bx + c$ with
+$a \neq 0$ are given by the formula
+\[ \frac{-b \pm \sqrt{b^2 - 4ac}}{2a} \]
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+In LaTeX, an 
+<I>n</I>th root is produced using
+<BLOCKQUOTE>
+<CODE>\sqrt[n]{</CODE><EM>expression</EM><CODE>}</CODE>.
+</BLOCKQUOTE>
+For example, to obtain
+<BLOCKQUOTE>
+<IMG SRC="EX_CubicRoots.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_CubicRoots.gif"
+The roots of a cubic polynomial of the form $x^3 - 3px - 2q$
+are given by the formula
+\[ \sqrt[3]{q + \sqrt{ q^2 - p^3 }}
+  + \sqrt[3]{q - \sqrt{ q^2 - p^3 }} \]
+where the values of the two cube roots must are chosen
+so as to ensure that their product is equal to $p$.
+EndTeX -->
+</BLOCKQUOTE>
+in LaTeX, one would type
+<BLOCKQUOTE>
+<PRE>
+The roots of a cubic polynomial of the form $x^3 - 3px - 2q$
+are given by the formula
+\[ \sqrt[3]{q + \sqrt{ q^2 - p^3 }}
+  + \sqrt[3]{q - \sqrt{ q^2 - p^3 }} \]
+where the values of the two cube roots must are chosen
+so as to ensure that their product is equal to $p$.
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>

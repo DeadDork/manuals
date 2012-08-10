@@ -1,0 +1,192 @@
+<HTML>
+<HEAD>
+<TITLE>Changing Fonts in Text Mode</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Changing Fonts in Text Mode</H3>
+
+<P>
+LaTeX has numerous commands for changing the typestyle.
+The most useful of these is
+<CODE>\emph{</CODE><EM>text</EM><CODE>}</CODE>
+which <EM>emphasizes</EM> some piece of text, setting it
+usually in an italic font (unless the surrounding
+text is already italicized).  Thus for example, the text
+<BLOCKQUOTE>
+<IMG SRC="EX_emphcalc.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_emphcalc.gif"
+The basic results and techniques of \emph{Calculus}
+were discovered and developed by \emph{Newton}
+and \emph{Leibniz}, though many of the basic ideas
+can be traced to earlier work of \emph{Cavalieri},
+\emph{Fermat}, \emph{Barrow} and others.
+\end{quotation}
+EndTeX -->
+</BLOCKQUOTE>
+is obtained by typing
+<BLOCKQUOTE>
+<PRE>
+The basic results and techniques of \emph{Calculus}
+were discovered and developed by \emph{Newton}
+and \emph{Leibniz}, though many of the basic ideas
+can be traced to earlier work of \emph{Cavalieri},
+\emph{Fermat}, \emph{Barrow} and others.
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Another useful font-changing command is
+<CODE>\textbf{</CODE><EM>text</EM><CODE>}</CODE>,
+which typesets the specified portion of text in boldface.
+</P>
+
+<P>
+A <EM>font family</EM> or <EM>typeface</EM> in LaTeX consists of a
+collection of related fonts characterized by <EM>size</EM>, <EM>shape</EM>
+and <EM>series</EM>.  The font families available in LaTeX include
+roman, sans serif and typewriter:
+<BLOCKQUOTE>
+<IMG SRC="EX_tfonts.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_tfonts.gif"
+\begin{itemize}
+\item
+\textrm{Roman is normally the default family and includes
+\textup{upright}, \textit{italic}, \textsl{slanted}, \textsc{small caps}
+and \textbf{boldface} fonts of various sizes.}
+\item
+\textsf{There is a sans serif family with
+\textup{upright}, \textsl{slanted}
+and \textbf{boldface} fonts of various sizes.}
+\item
+\texttt{There is a typewriter family with
+\textup{upright}, \textit{italic}, \textsl{slanted}\newline
+and \textsc{small caps} fonts of various sizes.}
+\end{itemize}
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+<P>
+The sizes of fonts used in LaTeX are can be determined
+and changed by means of the control sequences
+<CODE>\tiny</CODE>,
+<CODE>\scriptsize</CODE>,
+<CODE>\footnotesize</CODE>,
+<CODE>\small</CODE>,
+<CODE>\normalsize</CODE>,
+<CODE>\large</CODE>,
+<CODE>\Large</CODE>,
+<CODE>\LARGE</CODE>,
+<CODE>\huge</CODE> and
+<CODE>\HUGE</CODE>:
+<BLOCKQUOTE>
+<IMG SRC="EX_tfsize.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_tfsize.gif"
+\begin{quote}
+{\tiny This text is \texttt{tiny}}.
+
+{\scriptsize This text is \texttt{scriptsize}}.
+
+{\footnotesize This text is \texttt{footnotesize}}.
+
+{\small This text is \texttt{small}}.
+
+{\normalsize This text is \texttt{normalsize}}.
+
+{\large This text is \texttt{large}}.
+
+{\Large This text is \texttt{Large}}.
+
+{\LARGE This text is \texttt{LARGE}}.
+
+{\huge This text is \texttt{huge}}.
+
+{\Huge This text is \texttt{Huge}}.
+\end{quote}
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+<P>
+The <EM>shape</EM> of a font can be upright,
+italic, slanted or small caps:
+<BLOCKQUOTE>
+<IMG SRC="EX_tfshape.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_tfshape.gif"
+\begin{itemize}
+\item
+\textup{The LaTeX command}
+   \verb/\textup{/\emph{text}\verb/}/
+   \textup{typesets the specified text with an upright shape:
+   this is normally the default shape.}
+\item
+\textit{The LaTeX command}
+   \verb/\textit{/\emph{text}\verb/}/
+   \textit{typesets the specified text with an italic shape.}
+\item
+\textsl{The LaTeX command}
+   \verb/\textsl{/\emph{text}\verb/}/
+   \textsl{typesets the specified text with a slanted shape:
+   slanted text is similar to italic.}
+\item
+\textsc{The LaTeX command}
+   \verb/\textsc{/\emph{text}\verb/}/
+   \textsc{typesets the specified text with a small caps shape
+   in which all letters are capitals (with uppercase letters taller than
+   lowercase letters).}
+\end{itemize}
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+<P>
+The <EM>series</EM> of a font can be <EM>medium</EM> (the default) or
+<EM>boldface</EM>:
+<BLOCKQUOTE>
+<IMG SRC="EX_tfseries.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_tfseries.gif"
+\begin{itemize}
+\item
+\textup{The LaTeX command}
+   \verb/\textmd{/\emph{text}\verb/}/
+   \textmd{typesets the specified text with a medium series font.}
+\item
+\textbf{The LaTeX command}
+   \verb/\textbf{/\emph{text}\verb/}/
+   \textbf{typesets the specified text with a boldface series font.}
+\end{itemize}
+EndTeX -->
+</BLOCKQUOTE>
+If the necessary fonts are available, one can combine changes to
+the size, shape and series of a font, for example producing
+boldface slanted text by typing
+<CODE>\textbf{\textsl{boldface slanted text}}</CODE>.
+</P>
+
+<P>
+There are in LaTeX font declarations corresponding to the
+the font-changing commands described above.  When included in the
+LaTeX input such declarations determine the type-style of the
+subsequent text (till the next font declaration or the end
+of the current `group' delimited by braces
+or by appropriate <CODE>\begin</CODE> and <CODE>\end</CODE>
+commands).  Here is a list of font-changing commands and
+declarations in text mode:
+<BLOCKQUOTE>
+<PRE>
+Command   Declaration
+
+\textrm   \rmfamily   Roman family
+\textsf   \sffamily   Sans serif family
+\texttt   \ttfamily   Typewriter family
+
+\textup   \upshape    Upright shape
+\textit   \itshape    Italic shape
+\textsl   \slshape    Slanted shape
+\textsc   \scshape    Small caps shape
+
+\textmd   \mdseries   Medium series
+\textbf   \bfseries   Boldface series
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>

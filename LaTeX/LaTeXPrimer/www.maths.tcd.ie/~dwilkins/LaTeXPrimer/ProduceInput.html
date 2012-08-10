@@ -1,0 +1,61 @@
+<HTML>
+<HEAD>
+<TITLE>Producing a LaTeX Input File</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Producing a LaTeX Input File</H3>
+
+<P>
+The first line of the input file should normally
+consist of an appropriate <CODE>\documentclass</CODE> command.
+If an article (or similar document) is to be produced
+on A4 paper, and if the main body of the text is to be
+set with a font whose natural size is `12 point',
+then the appropriate <CODE>\documentclass</CODE> command is
+<BLOCKQUOTE>
+<PRE>
+\documentclass[a4paper,12pt]{article}
+</PRE>
+</BLOCKQUOTE>
+Other forms of the <CODE>\documentclass</CODE> command can be used
+for letters, reports or books.  If <CODE>12pt</CODE> is omitted from
+the <CODE>\documentclass</CODE> command (with the preceding comma),
+then the document will be set in a `10 point' size.  One may
+also replace <CODE>12pt</CODE> with <CODE>11pt</CODE>.
+</P>
+
+<P>
+The <CODE>documentstyle</CODE> command may be followed by certain
+other optional commands, such as the <CODE>\pagestyle</CODE> command.
+It is not necessary to find out about these commands when first
+learning to use LaTeX.
+</P>
+
+<P>
+After the <CODE>\documentclass</CODE> command and these other
+optional commands, we place the command
+<BLOCKQUOTE>
+<PRE>
+\begin{document}
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+This command is then followed by the main body of the text,
+in the format prescribed by the rules of LaTeX.
+</P>
+
+<P>
+Finally, we end the input file with a line containing the
+command
+<BLOCKQUOTE>
+<PRE>
+\end{document}
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>

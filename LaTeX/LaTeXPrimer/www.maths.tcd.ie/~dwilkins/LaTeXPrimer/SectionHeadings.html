@@ -1,0 +1,72 @@
+<HTML>
+<HEAD>
+<TITLE>Section Headings in LaTeX</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Section Headings in LaTeX</H3>
+
+<P>
+Section headings of various sizes are produced (in the
+<STRONG>article</STRONG> document style) using the commands
+<CODE>\section</CODE>,<CODE>\subsection</CODE> and
+<CODE>\subsubsection</CODE>
+commands. LaTeX will number the sections and subsections
+automatically.  The title of the section should be surrounded
+by braces and placed immediately after the relevant
+command.  Thus if we type
+<BLOCKQUOTE>
+<PRE>
+\section{Section Headings}
+
+We explain in this section how to obtain headings
+for the various sections and subsections of our
+document.
+
+\subsection{Headings in the `article' Document Style}
+
+In the `article' style, the document may be divided up
+into sections, subsections and subsubsections, and each
+can be given a title, printed in a boldface font,
+simply by issuing the appropriate command.
+</PRE>
+</BLOCKQUOTE>
+then the title of the section and that of the subsection
+will be printed in a large boldface font, and will be
+numbered accordingly.
+</P>
+
+<P>
+Other document styles (such as the <STRONG>book</STRONG> and
+<STRONG>letter</STRONG> styles) have other `sectioning'
+commands available (for example, the <STRONG>book</STRONG>
+style has a <CODE>\chapter</CODE> command for beginning
+a new chapter).
+</P>
+
+<P>
+Sometimes one wishes to suppress the automatic numbering
+provided by LaTeX.  This can be done by placing an
+asterisk before the title of the section or subsection.
+Thus, for example, the section numbers in the above example
+could be suppressed by typing
+<BLOCKQUOTE>
+<PRE>
+\section*{Section Headings}
+
+We explain in this section how to obtain headings
+for the various sections and subsections of our
+document.
+
+\subsection*{Headings in the `article' Document Style}
+
+In the `article' style, the document may be divided up
+into sections, subsections and subsubsections, and each
+can be given a title, printed in a boldface font,
+simply by issuing the appropriate command.
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>

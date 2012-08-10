@@ -1,0 +1,123 @@
+<HTML>
+<HEAD>
+<TITLE>The Preamble of the LaTeX Input file</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>The Preamble of the LaTeX Input file</H3>
+
+<P>
+We describe the options available in LaTeX for specifying
+the overall style of a document.
+</P>
+
+<P>
+A LaTeX document should begin with a <CODE>\documentclass</CODE>
+command and any text to be printed must be included between
+<CODE>\begin{document}</CODE> and <CODE>\end{document}</CODE>
+commands.  The <CODE>\begin{document}</CODE> command is often
+preceded by commands that set the page-style and set up
+user-defined control sequences.
+</P>
+
+<P>
+Here is a typical LaTeX input file:
+<BLOCKQUOTE>
+<PRE>
+\documentclass[a4paper,12pt]{article}
+\begin{document}
+
+This is the first paragraph of a typical document. It is
+produced in a `12~point' size. A \emph{point} is a unit
+of length used by printers. One point is approximately
+$1/72$~inch. In a `12~point' font the height of the
+parentheses is 12~points (i.e. about $1/6$~inch) and the
+letter~`m' is about 12 points long. 
+
+This is the second paragraph of the document. There are
+also `10 point' and `11 point' styles available in LaTeX.
+The required size is specified in the `documentstyle'
+command. If no such size is specified then the 10~point
+size is assumed.
+
+\end{document}
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+The syntax of the <CODE>\documentclass</CODE> command is as
+follows. The command begins with <CODE>\documentclass</CODE>
+and ends with the names of one of the available styles,
+enclosed in braces. The available styles are
+<CODE>article</CODE>, <CODE>report</CODE>, <CODE>book</CODE>
+and <CODE>letter</CODE>. Between the ``<CODE>\documentclass</CODE>''
+and the name of the document style, one may place a
+list of <EM>options</EM>. These options are separated by
+commas and the list of options is enclosed in square
+brackets (as in the above example). The options
+available include the following:
+<DL>
+<DT><CODE>11pt</CODE>
+<DD>Specifies a size of type known as
+   <EM>eleven-point</EM>, which is ten percent larger than
+   the ten-point type normally used.
+<DT><CODE>12pt</CODE>
+<DD>Specifies a twelve-point type size, which is
+   twenty percent larger than ten-point.
+<DT><CODE>twocolumn</CODE>
+<DD>Produces two-column output.
+<DT><CODE>a4paper</CODE>
+<DD>This ensures that the page is appropriately positioned
+   on A4 size paper.
+</DL>
+</P>
+
+<P>
+Typing simply <CODE>\documentclass{article}</CODE> will produce a
+document in ten-point type size. However the printed output
+will not be nicely positioned on A4 paper, since the default
+size is intended for a different (American) paper size.
+</P>
+
+<P>
+Pages will be automatically numbered at the bottom of the
+page, unless you specify otherwise. This can be done using the
+<CODE>\pagestyle</CODE> command. This command should come after the
+<CODE>\documentclass</CODE> command and before the
+<CODE>\begin{document}</CODE> command. This command has the
+syntax <CODE>\pagestyle{</CODE><EM>option</EM><CODE>}</CODE>, where
+the <EM>option</EM> is one of the following:
+<DL>
+<DT><STRONG>plain</STRONG>
+<DD>The page number is at the foot of the page.
+   This is the default page style for the <CODE>article</CODE>
+   and <CODE>report</CODE> document styles.
+<DT><STRONG>empty</STRONG>
+<DD>No page number is printed.
+<DT><STRONG>headings</STRONG>
+<DD>The page number (and any other information
+   determined by the document style) is put at the top of
+   the page.
+<DT><STRONG>myheadings</STRONG>
+<DD>Similar to the <STRONG>headings</STRONG> pagestyle,
+   except that the material to go at the top of the
+   page is determined by <CODE>\markboth</CODE> and
+   <CODE>\markright</CODE> commands (see the LaTeX manual).
+</DL>
+For example, the input file
+<BLOCKQUOTE>
+<PRE>
+\documentclass[a4paper]{article}
+\pagestyle{empty}
+\begin{document}
+The main body of the document is placed here.
+\end{document}
+</PRE>
+</BLOCKQUOTE>
+produces a document without page numbers, using the
+standard ten-point type size.
+</P>
+
+</BODY>
+</HTML>

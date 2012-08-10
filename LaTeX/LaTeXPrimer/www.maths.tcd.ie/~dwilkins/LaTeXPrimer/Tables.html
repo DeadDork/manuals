@@ -1,0 +1,204 @@
+<HTML>
+<HEAD>
+<TITLE>Tables</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Tables</H3>
+
+<P>
+Tables can be produced in LaTeX using the <STRONG>tabular</STRONG> environment.
+For example, the text
+<BLOCKQUOTE>
+<IMG SRC="EX_ICMDates.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_ICMDates.gif"
+The first five International Congresses of Mathematicians
+were held in the following cities:
+\begin{quote}
+\begin{tabular}{lll}
+Chicago&U.S.A.&1893\\
+Z\"{u}rich&Switzerland&1897\\
+Paris&France&1900\\
+Heidelberg&Germany&1904\\
+Rome&Italy&1908
+\end{tabular}
+\end{quote}
+EndTeX -->
+</BLOCKQUOTE>
+is coded in LaTeX as follows:
+<BLOCKQUOTE>
+<PRE>
+The first five International Congresses of Mathematicians
+were held in the following cities:
+\begin{quote}
+\begin{tabular}{lll}
+Chicago&U.S.A.&1893\\
+Z\"{u}rich&Switzerland&1897\\
+Paris&France&1900\\
+Heidelberg&Germany&1904\\
+Rome&Italy&1908
+\end{tabular}
+\end{quote}
+</PRE>
+</BLOCKQUOTE>
+The <CODE>\begin{tabular}</CODE> command must be followed by a string
+of characters enclosed within braces which specifies the format
+of the table.  In the above example, the string <CODE>{lll}</CODE> is a
+format specification for a table with three columns of left-justified text.
+Within the body of the table the ampersand character <CODE>&</CODE> is used
+to separate columns of text within each row, and the double
+backslash <CODE>\\</CODE> is used to separate the rows of the table.
+</P>
+
+<P>
+The next example shows how to obtain a table with
+vertical and horizontal lines.  The table
+<BLOCKQUOTE>
+<IMG SRC="EX_Factorial.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_Factorial.gif"
+\begin{quote}
+\begin{tabular}{|r|r|}
+\hline
+$n$&$n!$\\
+\hline
+1&1\\
+2&2\\
+3&6\\
+4&24\\
+5&120\\
+6&720\\
+7&5040\\
+8&40320\\
+9&362880\\
+10&3628800\\
+\hline
+\end{tabular}
+\end{quote}
+EndTeX -->
+</BLOCKQUOTE>
+is coded in LaTeX as follows:
+<BLOCKQUOTE>
+<PRE>
+\begin{tabular}{|r|r|}
+\hline
+$n$&$n!$\\
+\hline
+1&1\\
+2&2\\
+3&6\\
+4&24\\
+5&120\\
+6&720\\
+7&5040\\
+8&40320\\
+9&362880\\
+10&3628800\\
+\hline
+\end{tabular}
+</PRE>
+</BLOCKQUOTE>
+In this example the format specification <CODE>{|r|r|}</CODE> after
+<CODE>\begin{tabular}</CODE> specifies that the table should consist
+of two columns of right-justified text, with vertical lines
+to the left and to the right of the table, and between columns.
+</P>
+
+<P>
+Within the body of the table, the command <CODE>\hline</CODE> produces
+a horizontal line; this command can only be placed between the
+format specification and the body of the table (to produce a line
+along the top of the table) or immediately after a row separator
+(to produce a horizontal line between rows or at the bottom of the
+table).
+</P>
+
+<P>
+In a <STRONG>tabular</STRONG> environment, the format specification after
+<CODE>\begin{tabular}</CODE> should consist of one or more of the following,
+enclosed within braces <CODE>{</CODE> and <CODE>}</CODE>:
+<BLOCKQUOTE>
+<CODE>l</CODE> specifies a column of left-justified text<BR>
+<CODE>c</CODE> specifies a column of centred text<BR>
+<CODE>r</CODE> specifies a column of right-justified text<BR>
+<CODE>p{</CODE><EM>width</EM><CODE>}</CODE> specifies a left-justified column
+   of the given width<BR>
+<CODE>|</CODE> inserts a vertical line between columns<BR>
+<CODE>@{</CODE><EM>text</EM><CODE>}</CODE> inserts the given <EM>text</EM>
+   between columns<BR>
+</BLOCKQUOTE>
+</P>
+
+<P>
+A string <EM>str</EM> of characters in the format specification can be
+repeated <EM>num</EM> times using the construction
+<CODE>*{</CODE><EM>num</EM><CODE>}{</CODE><EM>str</EM><CODE>}</CODE>.
+For example, a table with 15 columns of right-justified text enclosed
+within vertical lines can be produced using the format specification
+<CODE>{|*{15}{r|}}</CODE>.
+</P>
+
+<P>
+If additional vertical space is required between rows of the table,
+then this can be produced by specifying the amount of space within
+square brackets after <CODE>\\</CODE>.  For example, one would use
+<CODE>\\[6pt]</CODE> to separate two rows of the table by 6 points of
+blank space.
+</P>
+
+<P>
+A horizontal line in a table from column <I>i</I> to column <I>j</I>
+inclusive can be produced using
+<CODE>\cline{</CODE><I>i</I><CODE>-</CODE><I>j</I><CODE>}</CODE>.
+For example <CODE>\cline{3-5}</CODE> produces a horizontal line
+spanning columns 3, 4 and 5 of some table.
+</P>
+
+<P>
+A command of the form
+<CODE>\multicolumn{</CODE><EM>num</EM><CODE>}{</CODE><EM>fmt</EM><CODE>}{</CODE><EM>text</EM><CODE>}</CODE>
+can be used within the body of a table to produce an entry spanning
+several columns.  Here <EM>num</EM> specifies the number of columns
+to be spanned, <EM>fmt</EM> specifies the format for the entry
+(e.g., <CODE>l</CODE> if the entry is to be left-justified entry,
+or <CODE>c</CODE> if the entry is to be centred), and <EM>text</EM> is
+the text of the entry.
+</P>
+
+<P>
+Many of these features are used in typesetting the table
+<BLOCKQUOTE>
+<IMG SRC="EX_agam.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_agam.gif"
+\begin{tabular}{|l||l|l||l|l|}
+\hline
+ &\multicolumn{2}{l||}{Singular}&\multicolumn{2}{l|}{Plural}\\
+\cline{2-5}
+ &English&\textbf{Gaeilge}&English&\textbf{Gaeilge}\\
+\hline\hline
+1st Person&at me&\textbf{agam}&at us&\textbf{againn}\\
+2nd Person&at you&\textbf{agat}&at you&\textbf{agaibh}\\
+3rd Person&at him&\textbf{aige}&at them&\textbf{acu}\\
+ &at her&\textbf{aici}& & \\
+\hline
+\end{tabular}
+EndTeX -->
+</BLOCKQUOTE>
+which is coded in LaTeX as follows:
+<BLOCKQUOTE>
+<PRE>
+\begin{tabular}{|l||l|l||l|l|}
+\hline
+ &\multicolumn{2}{l|}{Singular}&\multicolumn{2}{l|}{Plural}\\
+\cline{2-5}
+ &English&\textbf{Gaeilge}&English&\textbf{Gaeilge}\\
+\hline\hline
+1st Person&at me&\textbf{agam}&at us&\textbf{againn}\\
+2nd Person&at you&\textbf{agat}&at you&\textbf{agaibh}\\
+3rd Person&at him&\textbf{aige}&at them&\textbf{acu}\\
+ &at her&\textbf{aici}& & \\
+\hline
+\end{tabular}
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>
+

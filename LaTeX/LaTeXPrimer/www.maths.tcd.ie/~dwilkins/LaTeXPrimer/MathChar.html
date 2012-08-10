@@ -1,0 +1,51 @@
+<HTML>
+<HEAD>
+<TITLE>Characters in Mathematics Mode</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Characters in Mathematics Mode</H3>
+
+<P>
+All the characters on the keyboard have their standard meaning
+in mathematics mode, with the exception of the characters
+<BLOCKQUOTE>
+<PRE>
+      # $ % &amp; ~ _ ^ \ { } '
+</PRE>
+</BLOCKQUOTE>
+Letters are set in italic type. In mathematics mode the character
+<CODE>'</CODE> has a special meaning: typing <CODE>$u' + v''$</CODE>
+produces 
+<IMG SRC="TM_primes.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TM_primes.gif"
+$u' + v''$
+EndTeX -->.
+Spaces and single carriage returns in the input file between
+letters and other symbols do not have any effect on the typesetting
+of mathematical formulae, since LaTeX determines spacing within
+formulae by its own internal rules.  Thus
+<CODE>$u v + w = x$</CODE> and <CODE>$uv+w=x$</CODE> both produce 
+<IMG SRC="TM_spacing.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TM_spacing.gif"
+$u v + w = x$
+EndTeX -->.
+</P>
+
+<P>
+The characters
+<BLOCKQUOTE>
+<PRE>
+      #   $   %   &amp;   _   {   }
+</PRE>
+</BLOCKQUOTE>
+are obtained in mathematics mode by typing
+<BLOCKQUOTE>
+<PRE>
+      \#   \$   \%   \&amp;   \_   \{   \} .
+</PRE>
+</BLOCKQUOTE>
+A backslash \ can be obtained in mathematics mode
+by typing <CODE>\backslash</CODE>.
+</P>
+
+</BODY>
+</HTML>

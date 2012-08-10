@@ -1,0 +1,67 @@
+<HTML>
+<HEAD>
+<TITLE>Active Characters and Special Symbols in Text</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Active Characters and Special Symbols in Text</H3>
+
+<P>
+The `active characters'
+<BLOCKQUOTE>
+<PRE>
+# $ % &amp; \ ^ _ { } ~
+</PRE>
+</BLOCKQUOTE>
+have special purposes within LaTeX.  Thus they cannot be produced
+in the  final document simply by typing them directly.  On the
+rare occasions when one needs to use the special characters
+<BLOCKQUOTE>
+# $ % &amp; _ { }
+</BLOCKQUOTE>
+in the final document, they can be produced by typing the control
+sequences
+<BLOCKQUOTE>
+<PRE>
+\# \$ \% \&amp; \_ \{ \}
+</PRE>
+</BLOCKQUOTE>
+respectively.  However the characters
+<CODE>\</CODE>, <CODE>^</CODE> and <CODE>~</CODE> cannot be
+produced simply by preceding them with a backslash.  They can
+however be produced using <CODE>\char92</CODE> (in the
+<CODE>\texttt</CODE> font only),
+<CODE>\char94</CODE> and <CODE>\char126</CODE> respectively.
+(The decimal numbers 92, 94 and 126 are the ASCII codes of these
+characters.)
+</P>
+
+Other special symbols can be introduced into
+text using the appropriate control sequences:
+<BLOCKQUOTE>
+<IMG SRC="TB_TCntlSeq.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TB_TCntlSeq.gif"
+\begin{tabular}{l|l}
+\emph{Symbol} & \emph{Control Sequence}\\
+\hline
+\oe, \OE   & \verb/\oe, \OE/   \\
+\ae, \AE   & \verb/\ae, \AE/   \\
+\aa, \AA   & \verb/\aa, \AA/   \\
+\o, \O     & \verb/\o, \O/     \\
+\l, \L     & \verb/\l, \L/     \\
+\ss        & \verb/\ss/        \\
+?`         & \verb/?`/         \\
+!`         & \verb/!`/         \\
+\dag       & \verb/\dag/       \\
+\ddag      & \verb/\ddag/      \\
+\S         & \verb/\S/         \\
+\P         & \verb/\P/         \\
+\copyright & \verb/\copyright/ \\
+\pounds    & \verb/\pounds/    \\
+\i         & \verb/\i/         \\
+\j         & \verb/\j/         \\
+\end{tabular}
+EndTeX -->
+</BLOCKQUOTE>
+
+</BODY>
+</HTML>

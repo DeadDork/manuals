@@ -1,0 +1,157 @@
+/* ========================================== *
+ * Body definitions. 'color' defines the text
+ * colour of the page. 'background-color'
+ * defines... yes. The background colour. 
+ * ========================================== */
+
+body {
+		margin: 0;
+		padding: 0;
+		font-family: verdana, arial, helvetica, sans-serif;
+		font-size: small;
+		color: #000;
+		background-color: #fff;
+}
+
+/* ========================================== *
+ * Typography - links. Attributes can be
+ * changed in these rules, but do not adjust
+ * the order in which these four elements are
+ * written.
+ * ========================================== */
+
+a:link {
+        text-decoration: underline;
+		color: #3333FF;
+}
+
+a:visited {
+		text-decoration: underline;
+		color: #3333FF;
+}
+
+a:hover {
+		text-decoration: underline;
+		color:#699;
+}
+
+a:active {
+		text-decoration: underline;
+		color:#699;
+}
+
+h1 { 
+		color: #666666; font-family: arial, helvetica, sans-serif; margin: 5px 10px 8px 0px;
+}
+
+.toph1 {
+		margin: 15px 10px 8px 10px;
+}
+
+h2, h3 { 
+		color: #666666; font-family: arial, helvetica, sans-serif;
+}
+
+#main {
+		height: auto;
+        margin-right: auto;	
+		margin-left: auto;
+        padding: 5px 5px 5px 5px;
+}
+
+#content {
+		height: auto;
+		margin-left: 205px;
+       	margin-right: 5px;
+		padding: 1px 10px 10px 5px;
+}
+
+#panel {
+		clear: both;
+		float: left;
+		height: auto;
+		margin-right: 5px;
+		margin-left: 15px;
+		padding-right: 15px;
+		padding-left: 5px;
+		line-height: 25px;
+		position: relative;
+        left: 0;
+		border: 0;
+		text-align: left;
+}
+
+#panel ul {
+		margin: 0 0 4px 0;
+		padding: 0px;
+		width: 170px;
+}
+
+#panel li {
+		margin: 0px;
+		padding: 0px;
+		list-style-type: none;
+}
+
+#panel a {
+		text-decoration: none;
+		color: #666;
+		font-weight: bold;
+		display: block;
+		padding: 2px 18px 2px 8px;
+		background-position: 100% 50% !important;
+		background-color: #fff;
+		background-image: url(images/bg.jpg);
+		border: 1px solid;
+		margin-bottom:4px;
+		border-color: #DFE3CA #333 #333 #DFE3CA;
+}
+
+#panel a:hover, #panel a:active, #panel a:focus {
+		padding: 3px 17px 1px 9px;
+		background-color: #C1C1C1;
+		border-color:#fff;
+}
+
+
+#header {
+		margin:0px 0px 10px 0px;
+		padding:8px 10px 3px 4%;
+   		font-weight: bold;
+		line-height:11px;
+		background-color:#A4D3EE;
+		color: #ffffff;
+}
+
+#header a {
+		color: #ffffff;
+    	text-decoration: none;
+}
+
+body>#header {height:14px;}
+
+#footer {
+		position: relative;
+		font-size: 0.8em;
+		clear: both;
+    	top: 10px;
+		padding-top:8px;
+    	color: #666666;
+		height:20px;
+}
+
+body>#footer {height:20px;}
+
+#footer ul{
+		padding-left: 1em;
+}
+
+#footer li{
+    	display: inline;
+    	float: left;
+		text-align: left;
+		padding-right: 20px;
+		list-style-type: none;
+		font-weight: bold;
+}
+

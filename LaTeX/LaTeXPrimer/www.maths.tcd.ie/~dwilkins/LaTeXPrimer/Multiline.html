@@ -1,0 +1,90 @@
+<HTML>
+<HEAD>
+<TITLE>Multiline Formulae in LaTeX</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Multiline Formulae in LaTeX</H3>
+
+<P>
+Consider the problem of typesetting the formula
+<BLOCKQUOTE>
+<IMG SRC="EX_cosdoub.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_cosdoub.gif"
+\begin{eqnarray*}
+\cos 2\theta &amp; = &amp; \cos^2 \theta - \sin^2 \theta \\
+             &amp; = &amp; 2 \cos^2 \theta - 1.
+\end{eqnarray*}
+EndTeX -->
+</BLOCKQUOTE>
+It is necessary to ensure that the = signs are aligned with one
+another. In LaTeX, such a formula is typeset using the
+<CODE>eqnarray*</CODE> environment. The above example was obtained by
+typing the lines
+<BLOCKQUOTE>
+<PRE>
+\begin{eqnarray*}
+\cos 2\theta &amp; = &amp; \cos^2 \theta - \sin^2 \theta \\
+             &amp; = &amp; 2 \cos^2 \theta - 1.
+\end{eqnarray*}
+</PRE>
+</BLOCKQUOTE>
+Note the use of the special character <CODE>&amp;</CODE> as an
+<EM>alignment tab</EM>. When the formula is typeset, the part of
+the second line of the formula beginning with an occurrence of
+<CODE>&amp;</CODE> will be placed immediately beneath that part of
+the first line of the formula which begins with the corresponding
+occurrence of <CODE>&amp;</CODE>.  Also <CODE>\\</CODE> is used to
+separate the lines of the formula.
+</P>
+
+<P>
+Although we have placed corresponding occurrences of <CODE>&amp;</CODE>
+beneath one another in the above example, it is not necessary to
+do this in the input file. It was done in the above example merely
+to improve the appearance (and readability) of the input file.
+</P>
+
+<P>
+The more complicated example
+<BLOCKQUOTE>
+<IMG SRC="EX_eqnarray.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_eqnarray.gif"
+If $h \leq \frac{1}{2} |\zeta - z|$ then
+\[ |\zeta - z - h| \geq \frac{1}{2} |\zeta - z|\] 
+and hence
+\begin{eqnarray*}
+\left| \frac{1}{\zeta - z - h} - \frac{1}{\zeta - z} \right|
+&amp; = &amp; \left|
+\frac{(\zeta - z) - (\zeta - z - h)}{(\zeta - z - h)(\zeta - z)}
+\right| \\  &amp; = &amp;
+\left| \frac{h}{(\zeta - z - h)(\zeta - z)} \right| \\
+  &amp; \leq &amp; \frac{2 |h|}{|\zeta - z|^2}.
+\end{eqnarray*}
+EndTeX -->
+</BLOCKQUOTE>
+was obtained by typing
+<BLOCKQUOTE>
+<PRE>
+If $h \leq \frac{1}{2} |\zeta - z|$ then
+\[ |\zeta - z - h| \geq \frac{1}{2} |\zeta - z|\] 
+and hence
+\begin{eqnarray*}
+\left| \frac{1}{\zeta - z - h} - \frac{1}{\zeta - z} \right|
+&amp; = &amp; \left|
+\frac{(\zeta - z) - (\zeta - z - h)}{(\zeta - z - h)(\zeta - z)}
+\right| \\  &amp; = &amp;
+\left| \frac{h}{(\zeta - z - h)(\zeta - z)} \right| \\
+  &amp; \leq &amp; \frac{2 |h|}{|\zeta - z|^2}.
+\end{eqnarray*}
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+The asterisk in <CODE>eqnarray*</CODE> is put there to suppress the
+automatic equation numbering produced by LaTeX. If you wish for
+an automatically numbered multiline formula, you should use
+<CODE>\begin{eqnarray}</CODE> and <CODE>\end{eqnarray}</CODE>.
+</P>
+
+</BODY>
+</HTML>

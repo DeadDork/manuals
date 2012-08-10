@@ -1,0 +1,78 @@
+<HTML>
+<HEAD>
+<TITLE>Displayed Quotations</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Displayed Quotations</H3>
+
+Displayed quotations can be embedded in text using the
+<STRONG>quote</STRONG> and <STRONG>quotation</STRONG> environments
+<BLOCKQUOTE>
+<PRE>
+\begin{quote} ... \end{quote}
+</PRE>
+</BLOCKQUOTE>
+and
+<BLOCKQUOTE>
+<PRE>
+\begin{quotation} ... \end{quotation}.
+</PRE>
+</BLOCKQUOTE>
+The <STRONG>quote</STRONG> environment is recommended for short quotations:
+the whole quotation is indended in the <STRONG>quote</STRONG> environment,
+but the first lines of individual paragraphs are not further indented.
+The input file
+<BLOCKQUOTE>
+<PRE>
+Isaac Newton discovered the basic techiques of
+the differential and integral calculus, and
+applied them in the study of many problems
+in mathematical physics.  His main mathematical
+works are the \emph{Principia} and the \emph{Optics}.
+He summed up his own estimate of his work as follows:
+\begin{quote}
+I do not know what I may appear to the world; but to
+myself I seem to have been only like a boy, playing
+on the sea-shore, and diverting myself, in now and
+then finding a smoother pebble, or a prettier shell
+than ordinary, whilst the great ocean of truth lay
+all undiscovered before me.
+\end{quote}
+In later years Newton became embroiled in a bitter
+priority dispute with Leibniz over the discovery
+of the basic techniques of calculus.
+</PRE>
+</BLOCKQUOTE>
+is typeset by LaTeX as follows:
+<BLOCKQUOTE>
+<IMG SRC="EX_NQuote.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_NQuote.gif"
+Isaac Newton discovered the basic techiques of
+the differential and integral calculus, and
+applied them in the study of many problems
+in mathematical physics.  His main mathematical
+works are the \emph{Principia} and the \emph{Optics}.
+He summed up his own estimate of his work as follows:
+\begin{quote}
+I do not know what I may appear to the world; but to
+myself I seem to have been only like a boy, playing
+on the sea-shore, and diverting myself, in now and
+then finding a smoother pebble, or a prettier shell
+than ordinary, whilst the great ocean of truth lay
+all undiscovered before me.
+\end{quote}
+In later years Newton became embroiled in a bitter
+priority dispute with Leibniz over the discovery
+of the basic techniques of calculus.
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+<P>
+For longer quotations one may use the <STRONG>quotation</STRONG>
+environment: the whole quotation is indented, and the openings
+of paragraphs are then further indented in the normal fashion.
+</P>
+
+</BODY>
+</HTML>

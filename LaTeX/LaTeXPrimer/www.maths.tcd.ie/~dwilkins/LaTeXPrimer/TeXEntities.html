@@ -1,0 +1,92 @@
+<HTML>
+<HEAD>
+<TITLE>Characters and Control Sequences</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Characters and Control Sequences</H3>
+
+<P>
+Most characters on the keyboard, such as letters and
+numbers, have their usual meaning. However the characters
+<BLOCKQUOTE>
+<PRE>
+\ { } $ ^ _ % ~ # &amp;
+</PRE>
+</BLOCKQUOTE>
+are used for special purposes within LaTeX. Thus typing one of
+these characters will not produce the corresponding character
+in the final document. Of course these characters are very
+rarely used in ordinary text, and there are methods of
+producing them when they are required in the final document.
+</P>
+
+<P>
+In order to typeset a mathematical document it is
+necessary to produce a considerable number of special
+mathematical symbols, and to change fonts where appropriate.
+Mathematical documents often contain arrays of numbers
+or symbols (matrices) and other complicated expressions.
+These are produced in LaTeX using <EM>control sequences</EM>.
+Most control sequences consist of a backslash <CODE>\</CODE>
+followed by a string of (upper or lower case) letters.
+For example, <CODE>\delta</CODE>, <CODE>\emph</CODE> and <CODE>\to</CODE>
+are control sequences: the control sequence <CODE>\delta</CODE>
+produces the greek letter
+<IMG SRC="TM_delta.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TM_delta.gif"
+$\delta$
+EndTeX -->,
+the control sequence <CODE>\emph</CODE>, when followed by text
+enclosed within braces, will cause that text to be  emphasized
+(usually by typesetting it in an <I>italic font</I>),
+and the control sequence <CODE>\to</CODE>
+(or <CODE>\rightarrow</CODE>) produces the arrow
+<IMG SRC="TM_rarrow.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TM_rarrow.gif"
+$\to$
+EndTeX -->.
+</P>
+
+<P>
+There is another type of control sequence which consists
+of a backslash followed by a <EM>single</EM> character that
+is not a letter.  Examples of control sequences of this type
+are <CODE>\{</CODE>, <CODE>\"</CODE> and <CODE>\$</CODE>.
+</P>
+
+<P>
+The `braces' <CODE>{</CODE> and <CODE>}</CODE> are used for grouping:
+the characters they enclose are treated as a single `group',
+which can be specified as an `argument' of a control sequence
+such as <CODE>\emph</CODE>, or as a superscript or subscript in
+a mathematical formula.  Control sequences included in such
+a group apply only to the contents of the group.
+<P>
+
+<P>
+The special character <CODE>$</CODE> is used when embedding
+mathematical expressions in paragraphs of ordinary text
+in order to change into and out of `mathematics mode'.
+</P>
+
+<P>
+The special characters <CODE>^</CODE> and <CODE>_</CODE>
+are used in mathematical expressions to produce superscripts
+and subscripts respectively.
+</P>
+
+<P>
+The special character <CODE>%</CODE> is used to introduce
+`comments' into the input file that do not appear in the
+final document: all characters occuring after <CODE>%</CODE>
+on any line of the input file are ignored by LaTeX.
+</P>
+
+<P>
+The special character <CODE>#</CODE> is used to specify arguments
+in definitions of control sequences.
+The special character <CODE>&amp;</CODE> is used when typesetting
+tables in order to separate entries in different columns.
+</P>
+
+</BODY>
+</HTML>

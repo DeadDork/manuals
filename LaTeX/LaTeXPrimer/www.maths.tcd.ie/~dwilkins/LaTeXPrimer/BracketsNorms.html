@@ -1,0 +1,102 @@
+<HTML>
+<HEAD>
+<TITLE>Brackets and Norms</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Brackets and Norms</H3>
+
+<P>
+The frequently used left delimiters include (, [ and {,
+which are obtained by typing <CODE>(</CODE>, <CODE>[</CODE> and
+<CODE>\{</CODE>
+respectively. The corresponding right delimiters are of course 
+obtained by typing <CODE>)</CODE>,
+<CODE>]</CODE> and <CODE>\}</CODE>.  In addition | and ||
+are used as both left and right delimiters, and are obtained by typing
+<CODE>|</CODE> and <CODE>\|</CODE> respectively. For example, we obtain
+<BLOCKQUOTE>
+<IMG SRC="EX_norms.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_norms.gif"
+Let $X$ be a Banach space and let $f \colon B \to \textbf{R}$
+be a bounded linear functional on $X$. The \textit{norm} of
+$f$, denoted by $\|f\|$, is defined by
+\[ \|f\| = \inf \{ K \in [0,+\infty) :
+          |f(x)| \leq K \|x\| \mbox{ for all } x \in X \}.\] 
+EndTeX -->
+</BLOCKQUOTE>
+by typing
+<BLOCKQUOTE>
+<PRE>
+Let $X$ be a Banach space and let $f \colon B \to \textbf{R}$
+be a bounded linear functional on $X$. The \textit{norm} of
+$f$, denoted by $\|f\|$, is defined by
+\[ \|f\| = \inf \{ K \in [0,+\infty) :
+          |f(x)| \leq K \|x\| \mbox{ for all } x \in X \}.\] 
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Larger delimiters are sometimes required which have the
+appropriate height to match the size of the subformula which
+they enclose. Consider, for instance, the problem of typesetting
+the following formula:
+<BLOCKQUOTE>
+<IMG SRC="DM_bigpar.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_bigpar.gif"
+\[ f(x,y,z) = 3y^2 z \left( 3 + \frac{7x+5}{1 + y^2} \right). \]
+EndTeX -->
+</BLOCKQUOTE>
+The way to type the large parentheses is to type <CODE>\left(</CODE>
+for the left parenthesis and <CODE>\right)</CODE> for the right
+parenthesis, and let LaTeX do the rest of the work for you.
+Thus the above formula was obtained by typing
+<BLOCKQUOTE>
+<PRE>
+\[ f(x,y,z) = 3y^2 z \left( 3 + \frac{7x+5}{1 + y^2} \right).\] 
+</PRE>
+</BLOCKQUOTE>
+If you type a delimiter which is preceded by <CODE>\left</CODE> then
+LaTeX will search for a corresponding delimiter preceded by
+<CODE>\right</CODE> and calculate the size of the delimiters required
+to enclose the intervening subformula. One is allowed to balance
+a <CODE>\left(</CODE> with a <CODE>\right]</CODE> (say) if one desires: there
+is no reason why the enclosing delimiters have to have the same
+shape. One may also nest pairs of delimiters within one another:
+by typing
+<BLOCKQUOTE>
+<PRE>
+\[ \left| 4 x^3 + \left( x + \frac{42}{1+x^4} \right) \right|.\] 
+</PRE>
+</BLOCKQUOTE>
+we obtain
+<BLOCKQUOTE>
+<IMG SRC="DM_nestdel.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_nestdel.gif"
+\[ \left| 4 x^3 + \left( x + \frac{42}{1+x^4} \right) \right|. \]
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+<P>
+By typing <CODE>\left.</CODE> and <CODE>\right.</CODE> one obtains
+<EM>null delimiters</EM> which are completely invisible. Consider,
+for example, the problem of typesetting
+<BLOCKQUOTE>
+<IMG SRC="DM_deratzero.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_deratzero.gif"
+\[ \left. \frac{du}{dx} \right|_{x=0}.\] 
+EndTeX -->
+</BLOCKQUOTE>
+We wish to make the vertical bar big enough to match the
+derivative preceding it. To do this, we suppose that the
+derivative is enclosed by delimiters, where the left delimiter
+is invisible and the right delimiter is the vertical line.
+The invisible delimiter is produced using <CODE>\left.</CODE> and thus
+the whole formula is produced by typing
+<BLOCKQUOTE>
+<PRE>
+\[ \left. \frac{du}{dx} \right|_{x=0}.\] 
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>

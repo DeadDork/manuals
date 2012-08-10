@@ -1,0 +1,68 @@
+<HTML>
+<HEAD>
+<TITLE>Accents used in Text</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Accents used in Text</H3>
+
+<P>
+There are a variety of control sequences for producing accents.
+For example, the control sequence <CODE>\'{o}</CODE> produces an
+acute accent on the letter <CODE>o</CODE>. Thus typing
+<BLOCKQUOTE>
+<PRE>
+Se\'{a}n \'{O} Cinn\'{e}ide.
+</PRE>
+</BLOCKQUOTE>
+produces
+<BLOCKQUOTE>
+<IMG SRC="EX_fada.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_fada.gif"
+Se\'{a}n \'{O} Cinn\'{e}ide.
+EndTeX -->
+</BLOCKQUOTE>
+Similarly we use the control sequence <CODE>\`</CODE> to
+produce the grave accent in `alg&egrave;bre' and we use
+<CODE>\"</CODE> to produce the umlaut in `Universit&auml;t'.
+The accents provided by LaTeX include the following:
+<BLOCKQUOTE>
+<IMG SRC="TB_TAccents.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TB_TB_TAccents.gif"
+\begin{tabular}{lll}
+\verb/\'{e}/  & \'{e}
+           & e.g., \verb/math\'{e}matique/ yields `math\'{e}matique' \\
+\verb/\`{e}/  & \`{e}
+           & e.g., \verb/alg\`{e}bre/ yields `alg\`{e}bre' \\
+\verb/\^{e}/  & \^{e}
+           & e.g., \verb/h\^{o}te/ yields `h\^{o}te' \\
+\verb/\"{o}/  & \"{o}
+           & e.g., \verb/H\"{o}lder/ yields `H\"{o}lder' \\
+\verb/\~{n}/  & \~{n}
+           & e.g., \verb/ma\~{n}ana/ yields `ma\~{n}ana' \\
+\verb/\={o}/  & \={o}  & \\
+\verb/\.{o}/  & \.{o}  & \\
+\verb/\u{o}/  & \u{o}  & \\
+\verb/\v{c}/  & \v{c}
+           & e.g., \verb/\v{C}ech/ yields `\v{C}ech' \\
+\verb/\H{o}/  & \H{o}  & \\
+\verb/\t{oo}/ & \t{oo} & \\
+\verb/\c{c}/  & \c{c}
+           & e.g., \verb/gar\c{c}on/ yields `gar\c{c}on' \\
+\verb/\d{o}/  & \d{o}  & \\
+\verb/\b{o}/  & \b{o}  &
+\end{tabular} 
+EndTeX -->
+</BLOCKQUOTE>
+These accents are for use in ordinary text. They cannot be
+used within mathematical formulae, since different control 
+sequences are used to produce accents within mathematics.
+</P>
+
+<P>
+The control sequences <CODE>\i</CODE> and <CODE>\j</CODE> produce
+dotless <I>i</I> and <I>j</I>.  These are required when placing an
+accent on the letter. Thus &iacute; is produced by typing
+<CODE>\'{\i}</CODE>.
+</P>
+
+</BODY>
+</HTML>

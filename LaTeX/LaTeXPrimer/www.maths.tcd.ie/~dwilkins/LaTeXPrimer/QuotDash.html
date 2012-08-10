@@ -1,0 +1,106 @@
+<HTML>
+<HEAD>
+<TITLE>Quotation Marks and Dashes</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Quotation Marks and Dashes</H3>
+
+<P>
+Single quotation marks are produced in LaTeX using
+<CODE>`</CODE> and <CODE>'</CODE>.  Double quotation marks are
+produced by typing <CODE>``</CODE> and <CODE>''</CODE>.  (The
+`undirected double quote character <CODE>"</CODE> produces
+double right quotation marks: it should <EM>never</EM> be
+used where left quotation marks are required.)
+</P>
+
+<P>
+LaTeX allows you to produce dashes of various length, known as
+`hyphens', `en-dashes' and `em-dashes'.  Hyphens are obtained
+in LaTeX by typing <CODE>-</CODE>, en-dashes by typing <CODE>--</CODE> and
+em-dashes by typing <CODE>---</CODE>.
+</P>
+
+<P>
+One normally uses en-dashes when specifying a range of numbers.
+Thus for example, to specify a range of page numbers, one would type
+<BLOCKQUOTE>
+<PRE>
+on pages 155--219.
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Dashes used for punctuating are often typeset as em-dashes,
+especially in older books.  These are obtained by typing
+<CODE>---</CODE>.
+</P>
+
+<P>
+The dialogue
+<BLOCKQUOTE>
+<IMG SRC="EX_AliceKt.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_AliceKt.gif"
+``You \emph{were} a little grave,'' said Alice.
+
+``Well just then I was inventing a new way of
+getting over a gate---would you like to hear it?''
+
+``Very much indeed,'' Alice said politely.
+
+``I'll tell you how I came to think of it,'' said
+the Knight.  ``You see, I said to myself `The only
+difficulty is with the feet: the \emph{head} is
+high enough already.'  Now, first I put my head on
+the top of the gate---then the head's high
+enough---then I stand on my head---then the feet
+are high enough, you see---then I'm over, you see.''
+EndTeX -->
+</BLOCKQUOTE>
+(taken from <EM>Alice through the Looking Glass</EM>, by Lewis Carroll)
+illustrates the use of quotation marks and dashes.  It is obtained in
+LaTeX from the following input:
+<BLOCKQUOTE>
+<PRE>
+``You \emph{were} a little grave,'' said Alice.
+
+``Well just then I was inventing a new way of
+getting over a gate---would you like to hear it?''
+
+``Very much indeed,'' Alice said politely.
+
+``I'll tell you how I came to think of it,'' said
+the Knight.  ``You see, I said to myself `The only
+difficulty is with the feet: the \emph{head} is
+high enough already.'  Now, first I put my head on
+the top of the gate---then the head's high
+enough---then I stand on my head---then the feet
+are high enough, you see---then I'm over, you see.''
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Sometimes you need single quotes immediately following double quotes,
+or vica versa, as in
+<BLOCKQUOTE>
+<IMG SRC="EX_spquot.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_spquot.gif"
+``I regard computer typesetting as being reasonably
+`straightforward'\,'' he said.
+EndTeX -->
+</BLOCKQUOTE>
+The way to typeset this correctly in LaTeX is to use the
+control sequence <CODE>\,</CODE> between the quotation marks,
+so as to obtain the necessary amount of separation.  The above
+example is thus produced with the input
+<BLOCKQUOTE>
+<PRE>
+``I regard computer typesetting as being reasonably
+`straightforward'\,'' he said.
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>

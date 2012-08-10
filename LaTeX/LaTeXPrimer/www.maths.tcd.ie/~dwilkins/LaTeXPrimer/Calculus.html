@@ -1,0 +1,300 @@
+<HTML>
+<HEAD>
+<TITLE>Derivatives, Limits, Sums and Integrals</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Derivatives, Limits, Sums and Integrals</H3>
+
+<P>
+The expressions
+<BLOCKQUOTE>
+<IMG SRC="DM_derivs.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_derivs.gif"
+\[ \frac{du}{dt} \mbox{ and } \frac{d^2 u}{dx^2} \]
+EndTeX -->
+</BLOCKQUOTE>
+are obtained in LaTeX by typing <CODE>\frac{du}{dt}</CODE>
+and <CODE>\frac{d^2 u}{dx^2}</CODE> respectively. The mathematical
+symbol 
+<IMG SRC="TM_partial.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TM_partial.gif"
+$\partial$
+EndTeX -->
+is produced using <CODE>\partial</CODE>. Thus the Heat Equation
+<BLOCKQUOTE>
+<IMG SRC="DM_heateq.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_heateq.gif"
+\[ \frac{\partial u}{\partial t}
+   = h^2 \left( \frac{\partial^2 u}{\partial x^2}
+      + \frac{\partial^2 u}{\partial y^2}
+      + \frac{\partial^2 u}{\partial z^2} \right) \]
+EndTeX -->
+</BLOCKQUOTE>
+is obtained in LaTeX by typing
+<BLOCKQUOTE>
+<PRE>
+\[ \frac{\partial u}{\partial t}
+   = h^2 \left( \frac{\partial^2 u}{\partial x^2}
+      + \frac{\partial^2 u}{\partial y^2}
+      + \frac{\partial^2 u}{\partial z^2} \right) \]
+</PRE>
+</BLOCKQUOTE>
+
+<P>
+To obtain mathematical expressions such as
+<BLOCKQUOTE>
+<IMG SRC="DM_limetc.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_limetc.gif"
+\[ \lim_{x \to +\infty} \mbox{, } \inf_{x &gt; s} \mbox{ and } \sup_K \]
+EndTeX -->
+</BLOCKQUOTE>
+in displayed equations we type <CODE>\lim_{x \to +\infty}</CODE>,
+<CODE>\inf_{x &gt; s}</CODE> and <CODE>\sup_K</CODE> respectively. Thus to obtain
+<BLOCKQUOTE>
+<IMG SRC="DM_liminfty.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_liminfty.gif"
+\[ \lim_{x \to +\infty} \frac{3x^2 +7}{x^2 +1} = 3. \]
+EndTeX -->
+</BLOCKQUOTE>
+(in LaTeX) we type
+<BLOCKQUOTE>
+<PRE>
+\[ \lim_{x \to +\infty} \frac{3x^2 +7x^3}{x^2 +5x^4} = 3.\] 
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+To obtain a summation sign such as
+<BLOCKQUOTE>
+<IMG SRC="DM_sumsign.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_sumsign.gif"
+\[ \sum_{i=1}^{2n} \]
+EndTeX -->
+</BLOCKQUOTE>
+we type <CODE>\sum_{i=1}^{2n}</CODE>. Thus
+<BLOCKQUOTE>
+<IMG SRC="DM_sumsq.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_sumsq.gif"
+\[ \sum_{k=1}^n k^2 = \frac{1}{2} n (n+1). \]
+EndTeX -->
+</BLOCKQUOTE>
+is obtained by typing
+<BLOCKQUOTE>
+<PRE>
+\[ \sum_{k=1}^n k^2 = \frac{1}{2} n (n+1).\] 
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+We now discuss how to obtain <EM>integrals</EM> in mathematical
+documents. A typical integral is the following:
+<BLOCKQUOTE>
+<IMG SRC="DM_intfx.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_intfx.gif"
+\[ \int_a^b f(x)\,dx. \]
+EndTeX -->
+</BLOCKQUOTE>
+This is typeset using
+<BLOCKQUOTE>
+<PRE>
+\[ \int_a^b f(x)\,dx.\] 
+</PRE>
+</BLOCKQUOTE>
+The integral sign 
+<IMG SRC="TM_int.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TM_int.gif"
+$\int$
+EndTeX -->
+is typeset using the control sequence
+<CODE>\int</CODE>, and the <EM>limits of integration</EM>
+(in this case <I>a</I> and <I>b</I> are treated as a
+subscript and a superscript on the integral sign.
+</P>
+
+<P>
+Most integrals occurring in mathematical documents begin with
+an integral sign and contain one or more instances of <I>d</I>
+followed by another (Latin or Greek) letter, as in 
+<I>dx</I>, <I>dy</I> and <I>dt</I>.
+To obtain the correct appearance one should put
+extra space before the  <I>d</I>,
+using <CODE>\,</CODE>. Thus
+<BLOCKQUOTE>
+<IMG SRC="DM_intlapl.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_intlapl.gif"
+\[ \int_0^{+\infty} x^n e^{-x} \,dx = n!. \]
+EndTeX -->
+</BLOCKQUOTE>
+<BLOCKQUOTE>
+<IMG SRC="DM_intcos.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_intcos.gif"
+\[ \int \cos \theta \,d\theta = \sin \theta. \]
+EndTeX -->
+</BLOCKQUOTE>
+<BLOCKQUOTE>
+<IMG SRC="DM_intdoub.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_intdoub.gif"
+\[ \int_{x^2 + y^2 \leq R^2} f(x,y)\,dx\,dy
+   = \int_{\theta=0}^{2\pi} \int_{r=0}^R
+      f(r\cos\theta,r\sin\theta) r\,dr\,d\theta. \]
+EndTeX -->
+</BLOCKQUOTE>
+and
+<BLOCKQUOTE>
+<IMG SRC="DM_intquot.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_intquot.gif"
+\[ \int_0^R \frac{2x\,dx}{1+x^2} = \log(1+R^2). \]
+EndTeX -->
+</BLOCKQUOTE>
+are obtained by typing
+<BLOCKQUOTE>
+<PRE>
+\[ \int_0^{+\infty} x^n e^{-x} \,dx = n!.\] 
+</PRE>
+</BLOCKQUOTE>
+<BLOCKQUOTE>
+<PRE>
+\[ \int \cos \theta \,d\theta = \sin \theta.\] 
+</PRE>
+</BLOCKQUOTE>
+<BLOCKQUOTE>
+<PRE>
+\[ \int_{x^2 + y^2 \leq R^2} f(x,y)\,dx\,dy
+   = \int_{\theta=0}^{2\pi} \int_{r=0}^R
+      f(r\cos\theta,r\sin\theta) r\,dr\,d\theta.\] 
+</PRE>
+</BLOCKQUOTE>
+and
+<BLOCKQUOTE>
+<PRE>
+\[ \int_0^R \frac{2x\,dx}{1+x^2} = \log(1+R^2).\] 
+</PRE>
+</BLOCKQUOTE>
+respectively.
+</P>
+
+<P>
+In some multiple integrals (i.e., integrals containing more than
+one integral sign) one finds that LaTeX puts too much space
+between the integral signs. The way to improve the appearance of
+of the integral is to use the control sequence <CODE>\!</CODE> to
+remove a thin strip of unwanted space. Thus, for example, the
+multiple integral
+<BLOCKQUOTE>
+<IMG SRC="DM_intrmsp.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_intrmsp.gif"
+\[ \int_0^1 \! \int_0^1 x^2 y^2\,dx\,dy. \]
+EndTeX -->
+</BLOCKQUOTE>
+is obtained by typing
+<BLOCKQUOTE>
+<PRE>
+\[ \int_0^1 \! \int_0^1 x^2 y^2\,dx\,dy.\] 
+</PRE>
+</BLOCKQUOTE>
+Had we typed
+<BLOCKQUOTE>
+<PRE>
+\[ \int_0^1 \int_0^1 x^2 y^2\,dx\,dy.\] 
+</PRE>
+</BLOCKQUOTE>
+we would have obtained
+<BLOCKQUOTE>
+<IMG SRC="DM_intbrmsp.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_intbrmsp.gif"
+\[ \int_0^1 \int_0^1 x^2 y^2\,dx\,dy. \]
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+<P>
+A particularly noteworthy example comes when we are
+typesetting a multiple integral such as
+<BLOCKQUOTE>
+<IMG SRC="DM_intthrm.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_intthrm.gif"
+\[ \int \!\!\! \int_D f(x,y)\,dx\,dy. \]
+EndTeX -->
+</BLOCKQUOTE>
+Here we use <CODE>\!</CODE> three times to obtain suitable spacing
+between the integral signs. We typeset this integral using
+<BLOCKQUOTE>
+<PRE>
+\[ \int \!\!\! \int_D f(x,y)\,dx\,dy.\] 
+</PRE>
+</BLOCKQUOTE>
+Had we typed
+<BLOCKQUOTE>
+<PRE>
+\[ \int \int_D f(x,y)\,dx\,dy.\] 
+</PRE>
+</BLOCKQUOTE>
+we would have obtained
+<BLOCKQUOTE>
+<IMG SRC="DM_intbthrm.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_intbthrm.gif"
+\[ \int \int_D f(x,y)\,dx\,dy. \]
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+<P>
+The following (reasonably complicated) passage exhibits a
+number of the features which we have been discussing:
+<BLOCKQUOTE>
+<IMG SRC="EX_schrod.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_schrod.gif"
+In non-relativistic wave mechanics, the wave function
+$\psi(\mathbf{r},t)$ of a particle satisfies the
+\emph{Schr\"{o}dinger Wave Equation}
+\[ i\hbar\frac{\partial \psi}{\partial t}
+  = \frac{-\hbar^2}{2m} \left(
+    \frac{\partial^2}{\partial x^2}
+    + \frac{\partial^2}{\partial y^2}
+    + \frac{\partial^2}{\partial z^2}
+  \right) \psi + V \psi.\] 
+It is customary to normalize the wave equation by
+demanding that
+\[ \int \!\!\! \int \!\!\! \int_{\textbf{R}^3}
+      \left| \psi(\mathbf{r},0) \right|^2\,dx\,dy\,dz = 1.\] 
+A simple calculation using the Schr\"{o}dinger wave
+equation shows that
+\[ \frac{d}{dt} \int \!\!\! \int \!\!\! \int_{\textbf{R}^3}
+      \left| \psi(\mathbf{r},t) \right|^2\,dx\,dy\,dz = 0,\] 
+and hence
+\[ \int \!\!\! \int \!\!\! \int_{\textbf{R}^3}
+      \left| \psi(\mathbf{r},t) \right|^2\,dx\,dy\,dz = 1\] 
+for all times~$t$. If we normalize the wave function in this
+way then, for any (measurable) subset~$V$ of $\textbf{R}^3$
+and time~$t$,
+\[ \int \!\!\! \int \!\!\! \int_V
+      \left| \psi(\mathbf{r},t) \right|^2\,dx\,dy\,dz\] 
+represents the probability that the particle is to be found
+within the region~$V$ at time~$t$.
+EndTeX -->
+</BLOCKQUOTE>
+One would typeset this in LaTeX by typing
+<BLOCKQUOTE>
+<PRE>
+In non-relativistic wave mechanics, the wave function
+$\psi(\mathbf{r},t)$ of a particle satisfies the
+\emph{Schr\"{o}dinger Wave Equation}
+\[ i\hbar\frac{\partial \psi}{\partial t}
+  = \frac{-\hbar^2}{2m} \left(
+    \frac{\partial^2}{\partial x^2}
+    + \frac{\partial^2}{\partial y^2}
+    + \frac{\partial^2}{\partial z^2}
+  \right) \psi + V \psi.\] 
+It is customary to normalize the wave equation by
+demanding that
+\[ \int \!\!\! \int \!\!\! \int_{\textbf{R}^3}
+      \left| \psi(\mathbf{r},0) \right|^2\,dx\,dy\,dz = 1.\] 
+A simple calculation using the Schr\"{o}dinger wave
+equation shows that
+\[ \frac{d}{dt} \int \!\!\! \int \!\!\! \int_{\textbf{R}^3}
+      \left| \psi(\mathbf{r},t) \right|^2\,dx\,dy\,dz = 0,\] 
+and hence
+\[ \int \!\!\! \int \!\!\! \int_{\textbf{R}^3}
+      \left| \psi(\mathbf{r},t) \right|^2\,dx\,dy\,dz = 1\] 
+for all times~$t$. If we normalize the wave function in this
+way then, for any (measurable) subset~$V$ of $\textbf{R}^3$
+and time~$t$,
+\[ \int \!\!\! \int \!\!\! \int_V
+      \left| \psi(\mathbf{r},t) \right|^2\,dx\,dy\,dz\] 
+represents the probability that the particle is to be found
+within the region~$V$ at time~$t$.
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+<! --  FILE la_furth.tex>
+</P>
+
+</BODY>
+</HTML>

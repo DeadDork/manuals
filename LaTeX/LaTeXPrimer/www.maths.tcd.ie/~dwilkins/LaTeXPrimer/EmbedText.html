@@ -1,0 +1,41 @@
+<HTML>
+<HEAD>
+<TITLE>Text Embedded in Displayed Equations</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Text Embedded in Displayed Equations</H3>
+
+
+<P>
+Text can be embedded in displayed equations (in LaTeX) by using
+<CODE>\mbox{</CODE><EM>embedded text</EM><CODE>}</CODE>.  For example,
+one obtains
+<BLOCKQUOTE>
+<IMG SRC="DM_mpgood.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_mpgood.gif"
+\[ M^\bot = \{ f \in V' : f(m) = 0 \mbox{ for all } m \in M \}. \]
+EndTeX -->
+</BLOCKQUOTE>
+by typing
+<BLOCKQUOTE>
+<PRE>
+\[ M^\bot = \{ f \in V' : f(m) = 0 \mbox{ for all } m \in M \}.\] 
+</PRE>
+</BLOCKQUOTE>
+Note the blank spaces before and after the words `for all' in the above
+example. Had we typed
+<BLOCKQUOTE>
+<PRE>
+\[ M^\bot = \{ f \in V' : f(m) = 0 \mbox{for all} m \in M \}.\] 
+</PRE>
+</BLOCKQUOTE>
+we would have obtained
+<BLOCKQUOTE>
+<IMG SRC="DM_mpbad.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_mpbad.gif"
+\[ M^\bot = \{ f \in V' : f(m) = 0 \mbox{for all} m \in M \}. \]
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>

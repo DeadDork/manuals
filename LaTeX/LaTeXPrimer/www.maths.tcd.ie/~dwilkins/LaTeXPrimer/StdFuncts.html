@@ -1,0 +1,62 @@
+<HTML>
+<HEAD>
+<TITLE>Standard Functions (sin, cos etc.)</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Standard Functions (sin, cos etc.)</H3>
+
+<P>
+The names of certain standard functions and abbreviations are
+obtained by typing a backlash <CODE>\</CODE> before the name.
+For example, one obtains
+<BLOCKQUOTE>
+<IMG SRC="DM_trigadd.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_trigadd.gif"
+\[ \cos(\theta + \phi) = \cos \theta \cos \phi
+      - \sin \theta \sin \phi \]
+EndTeX -->
+</BLOCKQUOTE>
+by typing
+<BLOCKQUOTE>
+<PRE>
+\[ \cos(\theta + \phi) = \cos \theta \cos \phi
+      - \sin \theta \sin \phi \]
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+The following standard functions are represented by control sequences
+defined in LaTeX:
+<BLOCKQUOTE>
+<IMG SRC="DM_stdfns.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_stdfns.gif"
+\[ 
+\vcenter{\halign{$\backslash$\texttt{#}&amp;&amp;\quad 
+$\backslash$\texttt{#}\cr
+arccos&amp;cos&amp;csc&amp;exp&amp;ker&amp;limsup&amp;min&amp;sinh\cr
+arcsin&amp;cosh&amp;deg&amp;gcd&amp;lg&amp;ln&amp;Pr&amp;sup\cr
+arctan&amp;cot&amp;det&amp;hom&amp;lim&amp;log&amp;sec&amp;tan\cr
+arg&amp;coth&amp;dim&amp;inf&amp;liminf&amp;max&amp;sin&amp;tanh\cr}} \]
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+<P>
+Names of functions and other abbreviations not in this list can be
+obtained by converting to the roman font. Thus one obtains
+<IMG SRC="TM_coseca.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TM_coseca.gif"
+$\mathrm{cosec} A$
+EndTeX -->
+by typing <CODE>$\mathrm{cosec} A$</CODE>.
+Note that if one were to type simply <CODE>$cosec A$</CODE> one
+would obtain
+<IMG SRC="TM_badcosec.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TM_badcosec.gif"
+$cosec A$,
+EndTeX -->
+because LaTeX has treated
+<CODE>cosec A</CODE> as the product of six quantities
+<I>c</I>, <I>o</I>, <I>s</I>, <I>e</I>, <I>c</I> and <I>A</I>
+and typeset the formula accordingly.
+</P>
+
+</BODY>
+</HTML>

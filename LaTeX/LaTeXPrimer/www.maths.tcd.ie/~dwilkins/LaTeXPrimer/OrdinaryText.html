@@ -1,0 +1,103 @@
+<HTML>
+<HEAD>
+<TITLE>Producing Ordinary Text using LaTeX</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Producing Ordinary Text using LaTeX</H3>
+
+<P>
+To produce a simple document using LaTeX one should create a
+LaTeX input file, beginning with a <CODE>\documentclass</CODE>
+command and the <CODE>\begin{document}</CODE> command, as
+described above.  The input file should end with the
+<CODE>\end{document}</CODE> command, and the text of the
+document should be sandwiched between the
+<CODE>\begin{document}</CODE> and <CODE>\end{document}</CODE>
+commands in the manner described below.
+</P>
+
+<P>
+If one merely wishes to type in ordinary text, without
+complicated mathematical formulae or special effects such
+as font changes, then one merely has to type it in as it
+is, leaving a completely blank line between successive
+paragraphs.  You do not have to worry about paragraph
+indentation: LaTeX will automatically indent all paragraphs
+with the exception of the first paragraph of a new section
+(unless you take special action to override the conventions
+adopted by LaTeX) 
+</P>
+
+<P>
+For example, suppose that we wish to create a document
+containing the following paragraphs:
+<BLOCKQUOTE>
+<IMG SRC="EX_ptext.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_ptext.gif"
+\normalsize
+\noindent
+If one merely wishes to type in ordinary text, without
+complicated mathematical formulae or special effects such
+as font changes, then one merely has to type it in as it
+is, leaving a completely blank line between successive
+paragraphs.
+
+You do not have to worry about paragraph indentation:
+all paragraphs will be indented with the exception of
+the first paragraph of a new section.
+One must take care to distinguish between the `left quote'
+and the `right quote' on the computer terminal.  Also, one
+should use two `single quote' characters in succession if
+one requires ``double quotes''.  One should never use the
+(undirected) `double quote' character on the computer
+terminal, since the computer is unable to tell whether it
+is a `left quote' or a `right quote'.  One also has to
+take care with dashes: a single dash is used for
+hyphenation, whereas three dashes in succession are required
+to produce a dash of the sort used for punctuation---such as
+the one used in this sentence.
+EndTeX -->
+</BLOCKQUOTE>
+To create this document using LaTeX we use the following
+input file:
+<BLOCKQUOTE>
+<PRE>
+\documentclass[a4paper,12pt]{article}
+\begin{document}
+
+If one merely wishes to type in ordinary text, without
+complicated mathematical formulae or special effects such
+as font changes, then one merely has to type it in as it
+is, leaving a completely blank line between successive
+paragraphs.
+
+You do not have to worry about paragraph indentation:
+all paragraphs will be indented with the exception of
+the first paragraph of a new section.
+
+One must take care to distinguish between the `left quote'
+and the `right quote' on the computer terminal.  Also, one
+should use two `single quote' characters in succession if
+one requires ``double quotes''.  One should never use the
+(undirected) `double quote' character on the computer
+terminal, since the computer is unable to tell whether it
+is a `left quote' or a `right quote'.  One also has to
+take care with dashes: a single dash is used for
+hyphenation, whereas three dashes in succession are required
+to produce a dash of the sort used for punctuation---such as
+the one used in this sentence.
+
+\end{document}
+
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+<P>
+Having created the input file, one then has to run it
+through the LaTeX program and then print it out the
+resulting output file (known as a `DVI' file).
+</P>
+
+</BODY>
+</HTML>

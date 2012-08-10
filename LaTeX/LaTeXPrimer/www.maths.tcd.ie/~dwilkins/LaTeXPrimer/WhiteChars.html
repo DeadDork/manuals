@@ -1,0 +1,83 @@
+<HTML>
+<HEAD>
+<TITLE>Blank Spaces and Carriage Returns in the Input File</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Blank Spaces and Carriage Returns in the Input File</H3>
+
+<P>
+LaTeX treats the carriage return at the end of a line
+as though it were a blank space.  Similarly LaTeX treats
+tab characters as blank spaces.  Moreover, LaTeX regards
+a sequence of blank spaces as though it were a single
+space, and similarly it will ignore blank spaces at the
+beginning or end of a line in the input file.  Thus, for
+example, if we type
+<BLOCKQUOTE>
+<PRE>
+This is
+    a
+        silly
+  example   of   LaTeX input
+with many spaces.
+
+
+                   This is the beginning
+of a new paragraph.
+</PRE>
+</BLOCKQUOTE>
+then we obtain
+<BLOCKQUOTE>
+<IMG SRC="EX_silly.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_silly.gif"
+This is
+    a
+        silly
+  example   of   LaTeX input
+with many spaces.
+
+
+                   This is the beginning
+of a new paragraph.
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+<P>
+It follows immediately from this that one will obtain
+the same results whether one types one space or two spaces
+after a full stop: LaTeX does not distinguish between the
+two cases.
+</P>
+
+<P>
+Any spaces which follow a control sequence will be ignored
+by LaTeX.
+</P>
+
+<P>
+A space following a control sequence may be obtained by preceding
+the space with a <EM>backslash</EM> <CODE>\</CODE>.  For example,
+the sentence
+<BLOCKQUOTE>
+<IMG SRC="EX_power.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_power.gif"
+\LaTeX\ is a very powerful computer typesetting program.
+EndTeX -->
+</BLOCKQUOTE>
+is obtained by typing
+<BLOCKQUOTE>
+<PRE>
+\LaTeX\ is a very powerful computer typesetting program.
+</PRE>
+</BLOCKQUOTE>
+(Here the control sequence <CODE>\LaTeX</CODE> is used to produce
+the LaTeX logo.)
+</P>
+
+<P>
+A blank space should not occur in the input file after a left
+parenthesis or before a right parenthesis.
+</P>
+
+</BODY>
+</HTML>

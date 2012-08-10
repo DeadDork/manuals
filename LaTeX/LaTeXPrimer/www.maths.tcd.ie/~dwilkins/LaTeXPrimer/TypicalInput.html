@@ -1,0 +1,107 @@
+<HTML>
+<HEAD>
+<TITLE>A Typical LaTeX Input File</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>A Typical LaTeX Input File</H3>
+
+<P>
+The LaTeX program reads in text from a suitably prepared
+input file, and creates a `DVI file' which encodes information
+on the fonts to be used and the positioning of the characters
+on the printed page.  There are many programs available that can
+translate the `DVI file' into page description languages such
+as `PostScript', or convert it into the format appropriate
+for previewing the document on a computer screen or printing
+it out on dot-matrix printers.
+</P>
+
+<P>
+Here is an example of a typical LaTeX input file:
+<BLOCKQUOTE>
+<PRE>
+\documentclass[a4paper,12pt]{article}
+\begin{document}
+
+The foundations of the rigorous study of \emph{analysis}
+were laid in the nineteenth century, notably by the
+mathematicians Cauchy and Weierstrass. Central to the
+study of this subject are the formal definitions of
+\emph{limits} and \emph{continuity}.
+
+Let $D$ be a subset of $\bf R$ and let
+$f \colon D \to \mathbf{R}$ be a real-valued function on
+$D$. The function $f$ is said to be \emph{continuous} on
+$D$ if, for all $\epsilon &gt; 0$ and for all $x \in D$,
+there exists some $\delta &gt; 0$ (which may depend on $x$)
+such that if $y \in D$ satisfies
+\[ |y - x| &lt; \delta \]
+then
+\[ |f(y) - f(x)| &lt; \epsilon. \]
+
+One may readily verify that if $f$ and $g$ are continuous
+functions on $D$ then the functions $f+g$, $f-g$ and
+$f.g$ are continuous. If in addition $g$ is everywhere
+non-zero then $f/g$ is continuous.
+
+\end{document}
+
+</PRE>
+</BLOCKQUOTE>
+When we apply LaTeX to these paragraphs we produce the text
+<BLOCKQUOTE>
+<IMG SRC="EX_analysis.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_analysis.gif"
+The foundations of the rigorous study of \emph{analysis}
+were laid in the nineteenth century, notably by the
+mathematicians Cauchy and Weierstrass. Central to the
+study of this subject are the formal definitions of
+\emph{limits} and \emph{continuity}.
+
+Let $D$ be a subset of $\bf R$ and let
+$f \colon D \to \mathbf{R}$ be a real-valued function on
+$D$. The function $f$ is said to be \emph{continuous} on
+$D$ if, for all $\epsilon &gt; 0$ and for all $x \in D$,
+there exists some $\delta &gt; 0$ (which may depend on $x$)
+such that if $y \in D$ satisfies
+\[ |y - x| &lt; \delta\] 
+then
+\[ |f(y) - f(x)| &lt; \epsilon.\] 
+
+One may readily verify that if $f$ and $g$ are continuous
+functions on $D$ then the functions $f+g$, $f-g$ and
+$f.g$ are continuous. If in addition $g$ is everywhere
+non-zero then $f/g$ is continuous.
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+<P>
+This example illustrates various features of LaTeX.  Note
+that the lines
+<BLOCKQUOTE>
+<PRE>
+\documentclass[a4paper,12pt]{article}
+\begin{document}
+</PRE>
+</BLOCKQUOTE>
+are placed at the beginning of the input file.  These are followed
+by the main body of the text, followed by the concluding line
+<BLOCKQUOTE>
+<PRE>
+\end{document}
+</PRE>
+</BLOCKQUOTE>
+Note also that, although most characters occurring in this file
+have their usual meaning, there are characters such
+as <CODE>\</CODE>, <CODE>$</CODE>, <CODE>{</CODE> and <CODE>}</CODE>
+which have special
+meanings within LaTeX.  In particular, there are
+sequences of characters which begin with a `backslash'
+<CODE>\</CODE> which are used to produce mathematical symbols and
+Greek letters and to accomplish tasks such as changing fonts.
+These are known as <EM>control sequences</EM>.
+</P>
+
+</BODY>
+</HTML>

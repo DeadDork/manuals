@@ -1,0 +1,86 @@
+<HTML>
+<HEAD>
+<TITLE>Greek Letters</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Greek Letters</H3>
+
+<P>
+Greek letters are produced in mathematics mode by preceding the
+name of the letter by a backslash <CODE>\</CODE>.  Thus to
+obtain the formula
+<IMG SRC="TM_areaform.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TM_areaform.gif"
+$A = \pi r^2$
+EndTeX -->
+one types <CODE>A = \pi r^2</CODE>.
+</P>
+
+<P>
+Here are the control sequences for the standard forms of the
+lowercase Greek letters:-
+</P>
+
+<BLOCKQUOTE>
+<IMG SRC="TB_LCGreek.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TB_LCGreek.gif"
+\def\displayandname#1{\rlap{$\displaystyle\csname #1\endcsname$}%
+                      \qquad \texttt{\char92 #1}}
+\def\mathlexicon#1{$$\vcenter{\halign{\displayandname{##}\hfil&&\qquad
+                   \displayandname{##}\hfil\cr #1}}$$}
+\mathlexicon{alpha&iota&rho\cr
+beta&kappa&sigma\cr
+gamma&lambda&tau\cr
+delta&mu&upsilon\cr
+epsilon&nu&phi\cr
+zeta&xi&chi\cr
+eta&\omit\qquad \rlap{$o$}\qquad \texttt{o}\hfil&psi\cr
+theta&pi&omega\cr}
+EndTeX -->
+</BLOCKQUOTE>
+
+<P>
+There is no special command for omicron: just use <CODE>o</CODE>.
+</P>
+
+<P>
+Some Greek letters occur in variant forms. The variant forms
+are obtained by preceding the name of the Greek letter by `var'.
+The following table lists the usual form of these letters and
+the variant forms:-
+<BLOCKQUOTE>
+<IMG SRC="TB_VarGreek.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TB_VarGreek.gif"
+\def\displayandname#1{\rlap{$\displaystyle\csname #1\endcsname$}%
+                      \qquad \texttt{\char92 #1}}
+$$\vcenter{\halign{\displayandname{#}\hfil&amp;&amp;\qquad
+                   \displayandname{#}\hfil\cr
+epsilon&amp;varepsilon\cr
+theta&amp;vartheta\cr
+pi&amp;varpi\cr
+rho&amp;varrho\cr
+sigma&amp;varsigma\cr
+phi&amp;varphi\cr}}$$
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+<P>
+Upper case Greek letters are obtained by making the first character
+of the name upper case.  Here are the control sequence for the
+uppercase letters:---
+
+</P>
+<BLOCKQUOTE>
+<IMG SRC="TB_UCGreek.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TB_UCGreek.gif"
+\def\displayandname#1{\rlap{$\displaystyle\csname #1\endcsname$}%
+                      \qquad \texttt{\char92 #1}}
+\def\mathlexicon#1{$$\vcenter{\halign{\displayandname{##}\hfil&&\qquad
+                   \displayandname{##}\hfil\cr #1}}$$}
+\mathlexicon{Gamma&Xi&Phi\cr
+Delta&Pi&Psi\cr
+Theta&Sigma&Omega\cr
+Lambda&Upsilon&\omit\hfil\cr}
+EndTeX -->
+</BLOCKQUOTE>
+
+</BODY>
+</HTML>

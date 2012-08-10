@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+<TITLE>Mathematics Mode</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Mathematics Mode</H3>
+
+<P>
+In order to obtain a mathematical formula using LaTeX, one must
+enter <EM>mathematics mode</EM> before the formula and leave it
+afterwards. Mathematical formulae can occur either embedded in text
+or else displayed between lines of text. When a formula occurs within
+the text of a paragraph one should place a <CODE>$</CODE> sign before and
+after the formula, in order to enter and leave mathematics mode.
+Thus to obtain a sentence like
+<BLOCKQUOTE>
+<IMG SRC="EX_tmath.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_tmath.gif"
+Let $f$ be the function defined by $f(x) = 3x + 7$, and
+let $a$ be a positive real number.
+EndTeX -->
+</BLOCKQUOTE>
+one should type
+<BLOCKQUOTE>
+<PRE>
+Let $f$ be the function defined by $f(x) = 3x + 7$, and
+let $a$ be a positive real number.
+</PRE>
+</BLOCKQUOTE>
+In particular, note that even mathematical expressions consisting
+of a single character, like <I>f</I> and <I>a</I> in the example above,
+are placed within <CODE>$</CODE> signs. This is to ensure that they are set
+in italic type, as is customary in mathematical typesetting.
+</P>
+
+<P>
+LaTeX also allows you to use <CODE>\(</CODE> and <CODE>\)</CODE> to mark
+the beginning and the end respectively of a mathematical formula
+embedded in text. Thus
+<BLOCKQUOTE>
+<IMG SRC="EX_escround.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_escround.gif"
+Let \( f \) be the function defined by \( f(x) = 3x + 7 \).
+EndTeX -->
+</BLOCKQUOTE>
+may be produced by typing
+<BLOCKQUOTE>
+<PRE>
+Let \( f \) be the function defined by \( f(x) = 3x + 7 \).
+</PRE>
+</BLOCKQUOTE>
+However this use of <CODE>\(</CODE> ... <CODE>\)</CODE> is only
+permitted in LaTeX: other dialects of TeX such as
+Plain TeX and AmSTeX use <CODE>$</CODE> ... <CODE>$</CODE>.
+</P>
+
+<P>
+In order to obtain an mathematical formula or equation which
+is displayed on a line by itself, one places <CODE>\[</CODE>
+before and
+<CODE>\]</CODE> after the formula. Thus to obtain
+<BLOCKQUOTE>
+<IMG SRC="EX_polyprod.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_polyprod.gif"
+If $f(x) = 3x + 7$ and $g(x) = x + 4$ then
+\[ f(x) + g(x) = 4x + 11 \] 
+and
+\[ f(x)g(x) = 3x^2 + 19x +28. \]
+EndTeX -->
+</BLOCKQUOTE>
+one would type
+<BLOCKQUOTE>
+<PRE>
+If $f(x) = 3x + 7$ and $g(x) = x + 4$ then
+\[ f(x) + g(x) = 4x + 11 \] 
+and
+\[ f(x)g(x) = 3x^2 + 19x +28. \]
+</PRE>
+</BLOCKQUOTE>
+(Here the character <CODE>^</CODE> is used to obtain a superscript.)
+</P>
+
+<P>
+LaTeX provides facilities for the automatic numbering of
+displayed equations. If you want an numbered equation then you
+use <CODE>\begin{equation}</CODE> and <CODE>\end{equation}</CODE> instead
+of using <CODE>\[</CODE> and <CODE>\]</CODE> . Thus
+<BLOCKQUOTE>
+<PRE>
+If $f(x) = 3x + 7$ and $g(x) = x + 4$ then
+\begin{equation}
+f(x) + g(x) = 4x + 11
+\end{equation}
+and
+\begin{equation}
+f(x)g(x) = 3x^2 + 19x +28.
+\end{equation}
+</PRE>
+</BLOCKQUOTE>
+produces
+<BLOCKQUOTE>
+<IMG SRC="EX_bequation.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_bequation.gif"
+If $f(x) = 3x + 7$ and $g(x) = x + 4$ then
+\begin{equation}
+f(x) + g(x) = 4x + 11
+\end{equation}
+and
+\begin{equation}
+f(x)g(x) = 3x^2 + 19x +28.
+\end{equation}
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>

@@ -1,0 +1,114 @@
+<HTML>
+<HEAD>
+<TITLE>Matrices and other arrays in LaTeX</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Matrices and other arrays in LaTeX</H3>
+
+<P>
+Matrices and other arrays are produced in LaTeX using the
+\textbf{array} environment. For example, suppose that we wish to
+typeset the following passage:
+<BLOCKQUOTE>
+<IMG SRC="EX_matrix.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_matrix.gif"
+The \emph{characteristic polynomial} $\chi(\lambda)$ of the
+$3 \times 3$~matrix
+\[ \left( \begin{array}{ccc}
+a &amp; b &amp; c \\
+d &amp; e &amp; f \\
+g &amp; h &amp; i \end{array} \right)\] 
+is given by the formula
+\[ \chi(\lambda) = \left| \begin{array}{ccc}
+\lambda - a &amp; -b &amp; -c \\
+-d &amp; \lambda - e &amp; -f \\
+-g &amp; -h &amp; \lambda - i \end{array} \right|.\] 
+EndTeX -->
+</BLOCKQUOTE>
+This passage is produced by the following input:
+<BLOCKQUOTE>
+<PRE>
+The \emph{characteristic polynomial} $\chi(\lambda)$ of the
+$3 \times 3$~matrix
+\[ \left( \begin{array}{ccc}
+a &amp; b &amp; c \\
+d &amp; e &amp; f \\
+g &amp; h &amp; i \end{array} \right)\] 
+is given by the formula
+\[ \chi(\lambda) = \left| \begin{array}{ccc}
+\lambda - a &amp; -b &amp; -c \\
+-d &amp; \lambda - e &amp; -f \\
+-g &amp; -h &amp; \lambda - i \end{array} \right|.\] 
+</PRE>
+</BLOCKQUOTE>
+First of all, note the use of <CODE>\left</CODE> and <CODE>\right</CODE>
+to produce the large delimiters around the arrays. As we have
+already seen, if we use
+<BLOCKQUOTE>
+<CODE>\left)</CODE> ... <CODE>\right)</CODE>
+</BLOCKQUOTE>
+then the size of the parentheses is chosen to match the subformula
+that they enclose. Next note the use of the alignment tab
+character <CODE>&amp;</CODE> to separate the entries of the matrix and
+the use of <CODE>\\</CODE> to separate the rows of the matrix, exactly
+as in the construction of multiline formulae described above.
+We begin the array with <CODE>\begin{array}</CODE> and end it with
+<CODE>\end{array}</CODE>. The only thing left to explain, therefore,
+is the mysterious <CODE>{ccc}</CODE> which occurs immediately after
+<CODE>\begin{array}</CODE>.
+Now each of the <CODE>c</CODE>'s in <CODE>{ccc}</CODE> represents a
+column of the matrix and indicates that the entries of the
+column should be centred. If the <CODE>c</CODE> were replaced by
+<CODE>l</CODE> then the corresponding column would be typeset with
+all the entries left-justified, and <CODE>r</CODE> would produce a
+column with all entries right-justified. Thus
+<BLOCKQUOTE>
+<PRE>
+\[ \begin{array}{lcr}
+\mbox{First number} &amp; x &amp; 8 \\
+\mbox{Second number} &amp; y &amp; 15 \\
+\mbox{Sum} &amp; x + y &amp; 23 \\
+\mbox{Difference} &amp; x - y &amp; -7 \\
+\mbox{Product} &amp; xy &amp; 120 \end{array}\] 
+</PRE>
+</BLOCKQUOTE>
+produces
+<BLOCKQUOTE>
+<IMG SRC="EX_arrtab.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="EX_arrtab.gif"
+\[ \begin{array}{lcr}
+\mbox{First number} &amp; x &amp; 8 \\
+\mbox{Second number} &amp; y &amp; 15 \\
+\mbox{Sum} &amp; x + y &amp; 23 \\
+\mbox{Difference} &amp; x - y &amp; -7 \\
+\mbox{Product} &amp; xy &amp; 120 \end{array}\] 
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+<P>
+We can use the array environment to produce formulae such as
+<BLOCKQUOTE>
+<IMG SRC="DM_cases.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_cases.gif"
+\[ |x| = \left\{ \begin{array}{ll}
+         x &amp; \mbox{if $x \geq 0$};\\
+        -x &amp; \mbox{if $x &lt; 0$}.\end{array} \right.  \]
+EndTeX -->
+</BLOCKQUOTE>
+Note that both columns of this array are set flush left. Thus we
+use <CODE>{ll}</CODE> immediately after <CODE>\begin{array}</CODE>. The
+large brace is produced using <CODE>\left\{</CODE>. However this
+requires a corresponding <CODE>\right</CODE> delimiter to match it.
+We therefore use the \emph{null delimiter} <CODE>\right.</CODE>
+discussed earlier. This delimiter is invisible. We can
+therefore obtain the above formula by typing
+<BLOCKQUOTE>
+<PRE>
+\[ |x| = \left\{ \begin{array}{ll}
+         x &amp; \mbox{if $x \geq 0$};\\
+        -x &amp; \mbox{if $x &lt; 0$}.\end{array} \right. \] 
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>

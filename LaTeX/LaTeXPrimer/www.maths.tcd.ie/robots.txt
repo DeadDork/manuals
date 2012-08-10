@@ -1,0 +1,11 @@
+# robots.txt for www.maths.tcd.ie
+
+User-Agent: *
+Disallow: /cgi-bin/
+Disallow: /common-cgi/
+Disallow: /pipermail/
+Disallow: /~foams/DVD/
+Disallow: /%7Efoams/DVD/
+Disallow: /~rgunning/
+User-agent: Googlebot-Image
+Disallow: /~mairead/gsuelections/images/olivia.jpg

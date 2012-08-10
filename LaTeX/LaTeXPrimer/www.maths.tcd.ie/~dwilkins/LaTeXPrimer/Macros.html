@@ -1,0 +1,104 @@
+<HTML>
+<HEAD>
+<TITLE>Defining your own Control Sequences in LaTeX</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Defining your own Control Sequences in LaTeX</H3>
+
+<P>
+Suppose that we are producing a paper that makes frequent
+use of some mathematical expression.  For example,
+suppose that integrals like
+<BLOCKQUOTE>
+<IMG SRC="DM_intinfty.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_intinfty.gif"
+\[ \int_{-\infty}^{+\infty} f(x)\,dx. \]
+EndTeX -->
+</BLOCKQUOTE>
+occur frequently throughout the text.  This formula is
+obtained by typing
+<BLOCKQUOTE>
+<PRE>
+\[ \int_{-\infty}^{+\infty} f(x)\,dx.\] 
+</PRE>
+</BLOCKQUOTE>
+It would be nice if we could type <CODE>\inftyint</CODE> (say)
+to obtain the integral sign at the beginning.  This can
+be done using <CODE>\newcommand</CODE>.  What we do is to place
+a line with the command
+<BLOCKQUOTE>
+<PRE>
+\newcommand{\inftyint}{\int_{-\infty}^{+\infty}}
+</PRE>
+</BLOCKQUOTE>
+near the beginning of the input file (e.g., after
+the <CODE>\documentclass</CODE> command but before the
+<CODE>\begin{document}</CODE> command).  Then we only have to
+type
+<BLOCKQUOTE>
+<PRE>
+\[ \inftyint f(x)\,dx.\] 
+</PRE>
+</BLOCKQUOTE>
+to obtain the above formula.
+</P>
+
+<P>
+We can modify this procedure slightly.  Suppose that we
+we defined a new control sequence <CODE>\intwrtx</CODE> by
+putting the line
+<BLOCKQUOTE>
+<PRE>
+\newcommand{\intwrtx}[1]{\int_{-\infty}^{+\infty} #1 \,dx}
+</PRE>
+</BLOCKQUOTE>
+at the beginning of the input file.  If we then type the line
+<BLOCKQUOTE>
+<PRE>
+\[ \intwrtx{f(x)}.\] 
+</PRE>
+</BLOCKQUOTE>
+then we obtain
+<BLOCKQUOTE>
+<IMG SRC="DM_intwrtx.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_intwrtx.gif"
+\newcommand{\intwrtx}[1]{\int_{-\infty}^{+\infty} #1 \,dx}
+\[ \intwrtx{f(x)}. \]
+EndTeX -->
+</BLOCKQUOTE>
+What has happened is that the expression in braces
+after <CODE>\intwrtx</CODE> has been substituted in the expression
+defining <CODE>\intwrtx</CODE>, replacing the <CODE>#1</CODE> in that
+expression.
+</P>
+
+<P>
+The number 1 inside square brackets in the
+<CODE>\newcommand</CODE> line defining <CODE>\intwrtx</CODE> indicates
+to LaTeX that it is to expect one expression (in braces)
+after <CODE>\intwrtx</CODE> to substitute for <CODE>#1</CODE>
+in the definition of <CODE>\intwrtx</CODE>.  If we defined a
+control sequence <CODE>\intwrt</CODE> by
+<BLOCKQUOTE>
+<PRE>
+\newcommand{\intwrt}[2]{\int_{-\infty}^{+\infty} #2 \,d #1}
+</PRE>
+</BLOCKQUOTE>
+then it would expect two expressions to substitute in for
+<CODE>#1</CODE> and <CODE>#2</CODE> in the  definition of <CODE>\intwrt</CODE>.
+Thus  if we then type
+<BLOCKQUOTE>
+<PRE>
+\[ \intwrt{y}{f(y)}.\] 
+</PRE>
+</BLOCKQUOTE>
+we obtain
+<BLOCKQUOTE>
+<IMG SRC="DM_intpwrt.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_intpwrt.gif"
+\newcommand{\intwrt}[2]{\int_{-\infty}^{+\infty} #2 \,d #1}
+\[ \intwrt{y}{f(y)}. \]
+EndTeX -->
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>

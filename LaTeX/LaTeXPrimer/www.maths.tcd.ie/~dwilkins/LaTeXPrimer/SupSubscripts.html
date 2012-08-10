@@ -1,0 +1,81 @@
+<HTML>
+<HEAD>
+<TITLE>Superscripts and Subscripts</TITLE>
+</HEAD>
+<BODY BGCOLOR="#FFFFFF" TEXT="#000000"
+LINK="#0000BB" VLINK="#440088" ALINK="#FF0000">
+<H3>Superscripts and Subscripts</H3>
+
+<P>
+Subscripts and superscripts are obtained using the special
+characters <CODE>_</CODE> and <CODE>^</CODE> respectively. Thus the
+identity 
+<BLOCKQUOTE>
+<IMG SRC="DM_Lorenz.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_Lorenz.gif"
+\[ ds^2 = dx_1^2 + dx_2^2 + dx_3^2 - c^2 dt^2 \]
+EndTeX --></BLOCKQUOTE>
+is obtained by typing
+<BLOCKQUOTE>
+<PRE>
+\[ ds^2 = dx_1^2 + dx_2^2 + dx_3^2 - c^2 dt^2 \]
+</PRE>
+</BLOCKQUOTE>
+It can also be obtained by typing
+<BLOCKQUOTE>
+<PRE>
+\[ ds^2 = dx^2_1 + dx^2_2 + dx^2_3 - c^2 dt^2 \]
+</PRE>
+</BLOCKQUOTE>
+since, when a superscript is to appear above a subscript, it is
+immaterial whether the superscript or subscript is the first to be
+specified.
+</P>
+
+<P>
+Where more than one character occurs in a superscript or subscript,
+the characters involved should be enclosed in braces.
+For example, the polynomial
+<IMG SRC="TM_Cyclot.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TM_Cyclot.gif"
+$x^{17} - 1$
+EndTeX -->
+is obtained by typing <CODE>$x^{17} - 1$</CODE>.
+</P>
+
+<P>
+One may not type expressions such as <CODE>$s^n^j$</CODE> since this is
+ambiguous and could be interpreted either as
+<IMG SRC="TM_repsup.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TM_repsup.gif"
+$s^{n j}$
+EndTeX -->
+or as 
+<IMG SRC="TM_doubsup.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="TM_doubsup.gif"
+$s^{n^j}$
+EndTeX -->.
+The first of these alternatives is
+obtained by typing <CODE>$s^{n j}$</CODE>, the second by typing
+<CODE>$s^{n^j}$</CODE>.  A similar remark applies to subscripts.
+Note that one can obtain in this way double superscripts (where a
+superscript is placed on a superscript) and double subscripts.
+</P>
+
+<P>
+It is sometimes necessary to obtain expressions in which the horizontal
+ordering of the subscripts is significant.  One can use an `empty group'
+<CODE>{}</CODE> to separate superscripts and subscripts that must follow
+one another.  For example, the identity
+<BLOCKQUOTE>
+<IMG SRC="DM_RTensor.gif" ALT="[GIF Image]" ><!-- BeginTeX GIF="DM_RTensor.gif"
+\[ R_i{}^j{}_{kl} = g^{jm} R_{imkl}
+   = - g^{jm} R_{mikl} = - R^j{}_{ikl} \]
+EndTeX --></BLOCKQUOTE>
+can be obtained by typing
+<BLOCKQUOTE>
+<PRE>
+\[ R_i{}^j{}_{kl} = g^{jm} R_{imkl}
+   = - g^{jm} R_{mikl} = - R^j{}_{ikl} \]
+</PRE>
+</BLOCKQUOTE>
+</P>
+
+</BODY>
+</HTML>
