@@ -1,0 +1,299 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+		>
+<channel>
+	<title>Comments on: Tutorial: Conditions in bash scripting (if statements)</title>
+	<atom:link href="http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements/feed" rel="self" type="application/rss+xml" />
+	<link>http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements</link>
+	<description>Quality Linux tutorials without clutter</description>
+	<lastBuildDate>Tue, 17 Apr 2012 01:02:53 +0000</lastBuildDate>
+	<sy:updatePeriod>hourly</sy:updatePeriod>
+	<sy:updateFrequency>1</sy:updateFrequency>
+	<generator>http://wordpress.org/?v=3.2.1</generator>
+<xhtml:meta xmlns:xhtml="http://www.w3.org/1999/xhtml" name="robots" content="noindex" />
+	<item>
+		<title>By: Shell: Multiprocessing Script Example &#124; SELECT lessons FROM the_job</title>
+		<link>http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements#comment-79370</link>
+		<dc:creator>Shell: Multiprocessing Script Example &#124; SELECT lessons FROM the_job</dc:creator>
+		<pubDate>Thu, 22 Mar 2012 18:58:20 +0000</pubDate>
+		<guid isPermaLink="false">http://www.linuxtutorialblog.com/?p=70#comment-79370</guid>
+		<description>[...] Tutorial: Conditions in bash scripting (if statements) [...]</description>
+		<content:encoded><![CDATA[<p>[...] Tutorial: Conditions in bash scripting (if statements) [...]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Telecom News</title>
+		<link>http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements#comment-70756</link>
+		<dc:creator>Telecom News</dc:creator>
+		<pubDate>Wed, 22 Feb 2012 11:45:08 +0000</pubDate>
+		<guid isPermaLink="false">http://www.linuxtutorialblog.com/?p=70#comment-70756</guid>
+		<description>great post for easily understand and useful for every developer</description>
+		<content:encoded><![CDATA[<p>great post for easily understand and useful for every developer</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Mohammed</title>
+		<link>http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements#comment-67818</link>
+		<dc:creator>Mohammed</dc:creator>
+		<pubDate>Fri, 10 Feb 2012 18:23:38 +0000</pubDate>
+		<guid isPermaLink="false">http://www.linuxtutorialblog.com/?p=70#comment-67818</guid>
+		<description>Hello author,
+
+Thanks for the great info, I have completely understood the if command loop .. I would like you to write more such posts ... please please please</description>
+		<content:encoded><![CDATA[<p>Hello author,</p>
+<p>Thanks for the great info, I have completely understood the if command loop .. I would like you to write more such posts ... please please please</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Howto for Bash</title>
+		<link>http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements#comment-41211</link>
+		<dc:creator>Howto for Bash</dc:creator>
+		<pubDate>Mon, 21 Nov 2011 21:55:40 +0000</pubDate>
+		<guid isPermaLink="false">http://www.linuxtutorialblog.com/?p=70#comment-41211</guid>
+		<description>[...] Simple Bash Script 12. HypeXR’s Getting Started With Bash 13. SiteGround – Advanced Bash Loops 14. Conditions in Bash Scripting 15. Lutus’ Bash Shell Programming in Linux 16. Advanced Bash Environment Variables 17. GNU [...]</description>
+		<content:encoded><![CDATA[<p>[...] Simple Bash Script 12. HypeXR’s Getting Started With Bash 13. SiteGround – Advanced Bash Loops 14. Conditions in Bash Scripting 15. Lutus’ Bash Shell Programming in Linux 16. Advanced Bash Environment Variables 17. GNU [...]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Web Hosting</title>
+		<link>http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements#comment-33837</link>
+		<dc:creator>Web Hosting</dc:creator>
+		<pubDate>Mon, 17 Oct 2011 09:55:27 +0000</pubDate>
+		<guid isPermaLink="false">http://www.linuxtutorialblog.com/?p=70#comment-33837</guid>
+		<description>Very extensive tutorial about bash scripting conditional statements, I would even say it&#039;s a reference. Well done!</description>
+		<content:encoded><![CDATA[<p>Very extensive tutorial about bash scripting conditional statements, I would even say it's a reference. Well done!</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Nisrine</title>
+		<link>http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements#comment-25970</link>
+		<dc:creator>Nisrine</dc:creator>
+		<pubDate>Fri, 19 Aug 2011 07:18:26 +0000</pubDate>
+		<guid isPermaLink="false">http://www.linuxtutorialblog.com/?p=70#comment-25970</guid>
+		<description>If i need to print the next value in the array if a certain condition is verified
+for example:
+for i in “${array[@]}”
+do
+if(….) then
+echo $(i+1)
+fi
+done
+
+$(i+1) is wrong what can i do?</description>
+		<content:encoded><![CDATA[<p>If i need to print the next value in the array if a certain condition is verified<br />
+for example:<br />
+for i in “${array[@]}”<br />
+do<br />
+if(….) then<br />
+echo $(i+1)<br />
+fi<br />
+done</p>
+<p>$(i+1) is wrong what can i do?</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: ndmaque</title>
+		<link>http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements#comment-20952</link>
+		<dc:creator>ndmaque</dc:creator>
+		<pubDate>Tue, 28 Jun 2011 14:05:51 +0000</pubDate>
+		<guid isPermaLink="false">http://www.linuxtutorialblog.com/?p=70#comment-20952</guid>
+		<description>rabindra
+
+you seem to be using a single = rather than double == 
+if yr if[ &quot;$x&quot; = &quot;$y&quot; ]
+should it be 
+if yr if[ &quot;$x&quot; == &quot;$y&quot; ]</description>
+		<content:encoded><![CDATA[<p>rabindra</p>
+<p>you seem to be using a single = rather than double ==<br />
+if yr if[ "$x" = "$y" ]<br />
+should it be<br />
+if yr if[ "$x" == "$y" ]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: Aniket</title>
+		<link>http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements#comment-19547</link>
+		<dc:creator>Aniket</dc:creator>
+		<pubDate>Sat, 11 Jun 2011 07:52:29 +0000</pubDate>
+		<guid isPermaLink="false">http://www.linuxtutorialblog.com/?p=70#comment-19547</guid>
+		<description>I need to write the script like. if output like contains two word then ok otherwise write error message.</description>
+		<content:encoded><![CDATA[<p>I need to write the script like. if output like contains two word then ok otherwise write error message.</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: UNIX &#8211; MAN Sayfaları ile Dosya Okuma-Arama Komutları ve Ortam Değişkenleri &#124; Taha Yavuz Bodur weblogging..</title>
+		<link>http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements#comment-17586</link>
+		<dc:creator>UNIX &#8211; MAN Sayfaları ile Dosya Okuma-Arama Komutları ve Ortam Değişkenleri &#124; Taha Yavuz Bodur weblogging..</dc:creator>
+		<pubDate>Tue, 17 May 2011 19:20:46 +0000</pubDate>
+		<guid isPermaLink="false">http://www.linuxtutorialblog.com/?p=70#comment-17586</guid>
+		<description>[...] Bash Conditionals #Sade [...]</description>
+		<content:encoded><![CDATA[<p>[...] Bash Conditionals #Sade [...]</p>
+]]></content:encoded>
+	</item>
+	<item>
+		<title>By: rabindra</title>
+		<link>http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements#comment-16576</link>
+		<dc:creator>rabindra</dc:creator>
+		<pubDate>Wed, 27 Apr 2011 09:23:21 +0000</pubDate>
+		<guid isPermaLink="false">http://www.linuxtutorialblog.com/?p=70#comment-16576</guid>
+		<description>what are the errors in this code? can anyone comment?
+
+
+Part B
+ 1 #!/bin/bash 
+  2 # Process each file and link it if it is okay. 
+  3
+processfile()
+    4 { 
+  5   lnopts=&quot;$1&quot; 
+  6   filename=&quot;$2&quot; 
+  7 
+  8   # file must be &quot;normal file&quot; 
+  9   if [ ! -f &quot;$filename&quot; ] 
+ 10   then 
+ 11     echo &quot;Not a normal file: $filename&quot; 
+ 12     retval=1 
+ 13   # must have &quot;read perms&quot; 
+ 14   elif [ ! -r &quot;$filename&quot; ] 
+ 15   then 
+ 16     echo &quot;No read permissions: $filename&quot; 
+ 17     retval=1 
+ 18   # user must either effective owner the file or effective group owner of the file 
+ 19   elif [ ! -O &quot;$filename&quot; -o ! -G &quot;$filename&quot; ] 
+ 20   then 
+ 21     echo &quot;No effective ownership or effective group ownership of file: $filename&quot; 
+ 22     retval=1 
+ 23   # Otherwise all is well, link the file to current directory using existing name 
+ 24   else 
+ 25     ln $lnopts $filename 
+ 26     retval=$? 
+ 27   fi 
+ 28   # Return the exit status code &gt; 0 if a problem occured 
+ 29   return $retval   
+ 30 } 
+ 31 # Initialise variables 
+ 32 cont=&#039;N&#039; 
+ 33 lnopts=&#039;&#039; 	&quot;
+ 34 
+ 35 # Process switches 
+ 36 while test &quot;$1&quot; = &#039;-c&#039; &#039;-o&#039; &quot;$1&quot; = &#039;-s&#039; 
+ 37 do 
+ 38   if [ &quot;$1&quot; = &#039;-c&#039; ] 
+ 39   then 
+ 40     cont=&#039;Y&#039; 
+ 41     shift 
+ 42   fi 
+ 43   if [ &quot;$1&quot; = &#039;-s&#039; ] 
+ 44   then 
+ 45     lnopts=&#039;-s&#039; 
+ 46     shift 
+ 47   fi 
+ 48 done 
+ 49 
+ 50 echo &quot;Commencing generation of files”  
+ 51 
+ 52 if [ $# -lt 1 ] 
+ 53   while read filename 
+ 54   do 
+ 55     processfile &quot;$lnopts&quot; &quot;$filename&quot; 
+ 56     result=$? 
+ 57     test $result -ne 0 -a &quot;$cont&quot; != &#039;Y&#039; -a &quot;$cont&quot; != &#039;y&#039; &#124;&#124; exit 1 	
+ 58   done 
+ 59 else 
+ 60   for filename in $* 
+ 61   do 
+ 62     processfile &quot;$lnopts&quot; &quot;$filename&quot;    
+ 63     result=$? 
+ 64     if [ $result -ne 0 -a &quot;$cont&quot; != &#039;Y&#039; ] 	       
+ 65     then 
+ 66       echo -n &quot;Error occurred.  Continue (y/n/a)? &quot; 
+ 67       read $cont 
+ 68       test &quot;$cont&quot; = &#039;n&#039; -o &quot;$cont&quot; = &#039;N&#039; &amp;&amp; exit 1 
+ 69       [ &quot;$cont&quot; = &#039;a&#039; &#124;&#124; &quot;$cont&quot; = &#039;A&#039; ] &amp;&amp; cont=&#039;Y&#039; 
+ 70     fi 
+ 71   done 
+ 72 fi 
+ 73 echo &quot;All files processed&quot;</description>
+		<content:encoded><![CDATA[<p>what are the errors in this code? can anyone comment?</p>
+<p>Part B<br />
+ 1 #!/bin/bash<br />
+  2 # Process each file and link it if it is okay.<br />
+  3<br />
+processfile()<br />
+    4 {<br />
+  5   lnopts="$1"<br />
+  6   filename="$2"<br />
+  7<br />
+  8   # file must be "normal file"<br />
+  9   if [ ! -f "$filename" ]<br />
+ 10   then<br />
+ 11     echo "Not a normal file: $filename"<br />
+ 12     retval=1<br />
+ 13   # must have "read perms"<br />
+ 14   elif [ ! -r "$filename" ]<br />
+ 15   then<br />
+ 16     echo "No read permissions: $filename"<br />
+ 17     retval=1<br />
+ 18   # user must either effective owner the file or effective group owner of the file<br />
+ 19   elif [ ! -O "$filename" -o ! -G "$filename" ]<br />
+ 20   then<br />
+ 21     echo "No effective ownership or effective group ownership of file: $filename"<br />
+ 22     retval=1<br />
+ 23   # Otherwise all is well, link the file to current directory using existing name<br />
+ 24   else<br />
+ 25     ln $lnopts $filename<br />
+ 26     retval=$?<br />
+ 27   fi<br />
+ 28   # Return the exit status code &gt; 0 if a problem occured<br />
+ 29   return $retval<br />
+ 30 }<br />
+ 31 # Initialise variables<br />
+ 32 cont='N'<br />
+ 33 lnopts='' 	"<br />
+ 34<br />
+ 35 # Process switches<br />
+ 36 while test "$1" = '-c' '-o' "$1" = '-s'<br />
+ 37 do<br />
+ 38   if [ "$1" = '-c' ]<br />
+ 39   then<br />
+ 40     cont='Y'<br />
+ 41     shift<br />
+ 42   fi<br />
+ 43   if [ "$1" = '-s' ]<br />
+ 44   then<br />
+ 45     lnopts='-s'<br />
+ 46     shift<br />
+ 47   fi<br />
+ 48 done<br />
+ 49<br />
+ 50 echo "Commencing generation of files”<br />
+ 51<br />
+ 52 if [ $# -lt 1 ]<br />
+ 53   while read filename<br />
+ 54   do<br />
+ 55     processfile "$lnopts" "$filename"<br />
+ 56     result=$?<br />
+ 57     test $result -ne 0 -a "$cont" != 'Y' -a "$cont" != 'y' || exit 1<br />
+ 58   done<br />
+ 59 else<br />
+ 60   for filename in $*<br />
+ 61   do<br />
+ 62     processfile "$lnopts" "$filename"<br />
+ 63     result=$?<br />
+ 64     if [ $result -ne 0 -a "$cont" != 'Y' ]<br />
+ 65     then<br />
+ 66       echo -n "Error occurred.  Continue (y/n/a)? "<br />
+ 67       read $cont<br />
+ 68       test "$cont" = 'n' -o "$cont" = 'N' &amp;&amp; exit 1<br />
+ 69       [ "$cont" = 'a' || "$cont" = 'A' ] &amp;&amp; cont='Y'<br />
+ 70     fi<br />
+ 71   done<br />
+ 72 fi<br />
+ 73 echo "All files processed"</p>
+]]></content:encoded>
+	</item>
+</channel>
+</rss>

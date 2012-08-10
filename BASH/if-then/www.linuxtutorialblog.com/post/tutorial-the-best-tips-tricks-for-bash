@@ -1,0 +1,980 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Tutorial: The best tips &amp; tricks for bash, explained &laquo;  Linux Tutorial Blog</title>
+
+	<link rel="stylesheet" href="../wp-content/themes/colorbold/style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../wp-content/themes/colorbold/css/blue.css" media="screen" />
+		<link rel="stylesheet" href="../wp-content/themes/colorbold/css/jquery.lightbox-0.5.css" media="screen" />
+	 <link rel="stylesheet" href="../wp-content/themes/colorbold/css/superfish.css" media="screen" />	 
+	 <!--[if gte IE 7]>
+    <link rel="stylesheet" media="screen" type="text/css" href="http://www.linuxtutorialblog.com/wp-content/themes/colorbold/ie7.css" />
+    <![endif]-->
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery-1.3.2.min.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery.form.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery.lightbox-0.5.min.js">
+	</script>
+    <script type="text/javascript" src="../wp-content/themes/colorbold/js/superfish.js"></script>
+	
+	<!-- lightbox initialize script -->
+	<script type="text/javascript">
+		$(function() {
+		   $('a.lightbox').lightBox();
+		});
+	 </script>
+	<!-- ajax contact form -->
+	 <script type="text/javascript">
+		 $(document).ready(function(){
+			  $('#contact').ajaxForm(function(data) {
+				 if (data==1){
+					 $('#success').fadeIn("slow");
+					 $('#bademail').fadeOut("slow");
+					 $('#badserver').fadeOut("slow");
+					 $('#contact').resetForm();
+					 }
+				 else if (data==2){
+						 $('#badserver').fadeIn("slow");
+					  }
+				 else if (data==3)
+					{
+					 $('#bademail').fadeIn("slow");
+					}
+					});
+				 });
+		</script>
+		<script type="text/javascript"> 
+			$(document).ready(function(){ 
+				$("ul.sf-menu").superfish({
+					autoArrows:  false,
+					delay:       200,                             // one second delay on mouseout 
+					animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+					speed:       'fast',                          // faster animation speed 
+					autoArrows:  true,                           // disable generation of arrow mark-up 
+					dropShadows: true                            // disable drop shadows 			
+					}); 
+			});
+		</script>
+
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="../feed" />
+	<link rel="alternate" type="text/xml" title="RSS .92" href="../feed/rss" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="../feed/atom" />
+	
+	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+
+	<link rel="pingback" href="../xmlrpc.php" />
+		<link rel='archives' title='March 2010' href='2010/03' />
+	<link rel='archives' title='August 2008' href='2008/08' />
+	<link rel='archives' title='November 2007' href='2007/11' />
+	<link rel='archives' title='September 2007' href='2007/09' />
+	<link rel='archives' title='July 2007' href='2007/07' />
+	<link rel='archives' title='May 2007' href='2007/05' />
+	<link rel='archives' title='April 2007' href='2007/04' />
+	<link rel='archives' title='March 2007' href='2007/03' />
+	<link rel='archives' title='February 2007' href='2007/02' />
+	<link rel='archives' title='January 2007' href='2007/01' />
+		<link rel="alternate" type="application/rss+xml" title="Linux Tutorial Blog &raquo; Tutorial: The best tips &amp; tricks for bash, explained Comments Feed" href="http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash/feed" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Linux Tutorial Blog' href='2007/01' />
+<link rel='start' title='SSH and SCP: Howto, tips &amp; tricks' href='ssh-and-scp-howto-tips-tricks' />
+<link rel='prev' title='Sorry for the delay!' href='http://www.linuxtutorialblog.com/post/sorry-for-the-delay' />
+<link rel='next' title='Solution: Resetting your screen resolution with xrandr' href='http://www.linuxtutorialblog.com/post/solution-resetting-your-screen-resolution-with-xrandr' />
+<meta name="generator" content="WordPress 3.2.1" />
+<link rel='canonical' href='tutorial-the-best-tips-tricks-for-bash' />
+<link rel='shortlink' href='http://www.linuxtutorialblog.com/?p=37' />
+
+</head>
+<body>
+
+<!-- begin mainWrapper -->
+<div id="mainWrapper">
+	<!-- begin wrapper -->
+	<div id="wrapper">
+	<!-- begin header -->
+	<div id="header">
+	<a href="../feed" title="RSS" class="rssTag">RSS Feeds</a>
+	<!-- logo -->
+		<div id="logo"><a href="2007/01"><img src="../wp-content/themes/colorbold/images/logo.png" alt="Linux Tutorial Blog" /></a></div>
+		<!-- begin topmenu -->
+		<!--<div id="topMenu">
+			<ul>
+				<li><a href="http://www.linuxtutorialblog.com/">Home</a></li>
+				<li class="page_item page-item-248"><a href="http://www.linuxtutorialblog.com/contact-me" title="Contact me">Contact me</a></li>
+			</ul>
+		</div>-->
+		<!-- end topmenu -->
+		<!-- begin mainMenu -->
+			<div id="mainMenu">
+				<ul class="sf-menu">
+					<li class="cat-item cat-item-3"><a rel="nofollow" href="../category/tutorials" title="The tutorials of Linux Tutorial Blog.">Tutorials</a>
+</li>
+	<li class="cat-item cat-item-4"><a rel="nofollow" href="../category/solutions" title="Short posts that aim to fix a specific problem.">Solutions</a>
+</li>
+	<li class="cat-item cat-item-6"><a rel="nofollow" href="../category/news" title="Posts containing news about Linux Tutorial Blog.">News</a>
+</li>
+	<li class="cat-item cat-item-5"><a rel="nofollow" href="../category/miscellaneous" title="Posts that don&#039;t fit in the other categories.">Miscellaneous</a>
+</li>
+	<li class="cat-item cat-item-7"><a rel="nofollow" href="../category/fun-stuff" title="Posts on less serious matters, like easter eggs.">Fun Stuff</a>
+</li>
+				</ul>
+			</div>
+		<!-- end mainMenu -->
+	</div>
+	<!-- end header -->
+	<!-- begin content -->
+	<div id="content" class="clearfix">
+<!-- begin col left -->
+	<div id="colLeft">		
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">Feb</div>
+				<div class="year">2007</div>
+				<div class="comments"><a href="tutorial-the-best-tips-tricks-for-bash#comments" rel="nofollow" title="Comment on Tutorial: The best tips &amp; tricks for bash, explained">25</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="tutorial-the-best-tips-tricks-for-bash">Tutorial: The best tips &#038; tricks for bash, explained</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="../category/tutorials" title="View all posts in Tutorials" rel="category tag">Tutorials</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="../tag/bash" rel="nofollow tag">bash</a>, <a href="http://www.linuxtutorialblog.com/tag/tips-tricks" rel="nofollow tag">tips &amp; tricks</a></div>
+				<p>The bash shell is just amazing. There are so many tasks that can be simplified using its handy features. This tutorial tells about some of those features, explains what exactly they do and learns you how to use them.</p>
+<p>Difficulty: <em><strong>Basic - Medium</strong></em><span id="more-37"></span></p>
+<h2><a title="running-a-command-from-your-history" name="running-a-command-from-your-history">Running a command from your history</a></h2>
+<p>Sometimes you know that you ran a command a while ago and you want to run it again. You know a bit of the command, but you don't exactly know all options, or when you executed the command. Of course, you could just keep pressing the <em>Up Arrow</em> until you encounter the command again, but there is a better way. You can search the bash history in an interactive mode by pressing <em>Ctrl + r</em>. This will put bash in history mode, allowing you to type a part of the command you're looking for. In the meanwhile, it will show the most recent occasion where the string you're typing was used. If it is showing you a too recent command, you can go further back in history by pressing <em>Ctrl + r</em> again and again. Once you found the command you were looking for, press enter to run it. If you can't find what you're looking for and you want to try it again or if you want to get out of history mode for an other reason, just press <em>Ctrl + c</em>. By the way, <em>Ctrl + c</em> can be used in many other cases to cancel the current operation and/or start with a fresh new line.</p>
+<h2><a title="repeating-an-argument" name="repeating-an-argument">Repeating an argument</a></h2>
+<p>You can repeat the last argument of the previous command in multiple ways. Have a look at this example:</p>
+<blockquote><p>[rechosen@localhost ~]$ mkdir /path/to/exampledir<br />
+[rechosen@localhost ~]$ cd !$</p></blockquote>
+<p>The second command might look a little strange, but it will just cd to /path/to/exampledir. The "!$" syntax repeats the last argument of the previous command. You can also insert the last argument of the previous command on the fly, which enables you to edit it before executing the command. The keyboard shortcut for this functionality is <em>Esc + .</em> (a period). You can also repeatedly press these keys to get the last argument of commands before the previous one.</p>
+<h2><a title="some-keyboard-shortcuts-for-editing" name="some-keyboard-shortcuts-for-editing">Some keyboard shortcuts for editing</a></h2>
+<p>There are some pretty useful keyboard shortcuts for editing in bash. They might appear familiar to Emacs users:</p>
+<ul>
+<li><em>Ctrl + a</em> =&gt; Return to the start of the command you're typing</li>
+<li><em>Ctrl + e</em> =&gt; Go to the end of the command you're typing</li>
+<li><em>Ctrl + u</em> =&gt; Cut everything before the cursor to a special clipboard</li>
+<li><em>Ctrl + k</em> =&gt; Cut everything after the cursor to a special clipboard</li>
+<li><em>Ctrl + y</em> =&gt; Paste from the special clipboard that <em>Ctrl + u</em> and <em>Ctrl + k</em> save their data to</li>
+<li><em>Ctrl + t</em> =&gt; Swap the two characters before the cursor (you can actually use this to transport a character from the left to the right, try it!)</li>
+<li><em>Ctrl + w</em> =&gt; Delete the word / argument left of the cursor</li>
+<li><em>Ctrl + l</em> =&gt; Clear the screen</li>
+</ul>
+<h2><a title="dealing-with-jobs" name="dealing-with-jobs">Dealing with jobs</a></h2>
+<p>If you've just started a huge process (like backupping a lot of files) using an ssh terminal and you suddenly remember that you need to do something else on the same server, you might want to get the huge process to the background. You can do this by pressing <em>Ctrl + z</em>, which will suspend the process, and then executing the bg command:</p>
+<blockquote><p>[rechosen@localhost ~]$ bg<br />
+[1]+ hugeprocess &amp;</p></blockquote>
+<p>This will make the huge process continue happily in the background, allowing you to do what you need to do. If you want to background another process with the huge one still running, just use the same steps. And if you want to get a process back to the foreground again, execute fg:</p>
+<blockquote><p>[rechosen@localhost ~]$ fg<br />
+hugeprocess</p></blockquote>
+<p>But what if you want to foreground an older process that's still running? In a case like that, use the jobs command to see which processes bash is managing:</p>
+<blockquote><p>[rechosen@localhost ~]$ jobs<br />
+[1]-  Running                 hugeprocess &amp;<br />
+[2]+  Running                 anotherprocess &amp;</p></blockquote>
+<p><em>Note: A "+" after the job id means that that job is the 'current job', the one that will be affected if bg or fg is executed without any arguments. A "-" after the job id means that that job is the 'previous job'. You can refer to the previous job with "%-".</em></p>
+<p>Use the job id (the number on the left), preceded by a "%", to specify which process to foreground / background, like this:</p>
+<blockquote><p>[rechosen@localhost ~]$ fg %3</p></blockquote>
+<p>And:</p>
+<blockquote><p>[rechosen@localhost ~]$ bg %7</p></blockquote>
+<p>The above snippets would foreground job [3] and background job [7].</p>
+<h2><a title="using-several-ways-of-substitution" name="using-several-ways-of-substitution">Using several ways of substitution</a></h2>
+<p>There are multiple ways to embed a command in an other one. You could use the following way (which is called command substitution):</p>
+<blockquote><p>[rechosen@localhost ~]$ du -h -a -c $(find . -name *.conf 2&gt;&amp;-)</p></blockquote>
+<p>The above command is quite a mouthful of options and syntax, so I'll explain it.</p>
+<ul>
+<li>The du command calculates the actual size of files. The -h option makes du print the sizes in human-readable format, the -a tells du to calculate the size of all files, and the -c option tells du to produce a grand total. So, "du -h -a -c" will show the sizes of all files passed to it in a human-readable form and it will produce a grand total.</li>
+<li>As you might have guessed, "$(find . -name *.conf 2&gt;&amp;-)" takes care of giving du some files to calculate the sizes of. This part is wrapped between "$(" and ")" to tell bash that it should run the command and return the command's output (in this case as an argument for du). The find command searches for files named &lt;can be anything&gt;.conf in the current directory and all accessible subdirectories. The "." indicates the current directory, the -name option allows to specify the filename of the file to search for, and "*.conf" is an expression that matches any string ending with the character sequence ".conf".</li>
+<li>The only thing left to explain is the "2&gt;&amp;-". This part of the syntax makes bash discard the errors that find produces, so du won't get any non-filename input. There is a huge amount of explanation about this syntax near the end of the tutorial (look for "2&gt;&amp;1" and further).</li>
+</ul>
+<p>And there's another way to substitute, called <span id="process-substitution"></span>process substitution:</p>
+<blockquote><p>[rechosen@localhost ~]$ diff &lt;(ps axo comm) &lt;(ssh user@host ps axo comm)</p></blockquote>
+<p>The command in the snippet above will compare the running processes on the local system and a remote system with an ssh server. Let's have a closer look at it:</p>
+<ul>
+<li>First of all, diff. The diff command can be used to compare two files. I won't tell much about it here, as there is an <a title="Learn more about diff and patch" href="http://www.linuxtutorialblog.com/post/introduction-using-diff-and-patch-tutorial">extensive tutorial about diff and patch</a> on this site.</li>
+<li>Next, the "&lt;(" and ")". These strings indicate that bash should substitute the command between them as a process. This will create a named pipe (usually in /dev/fd) that, in our case, will be given to diff as a file to compare.</li>
+<li>Now the "ps axo comm". The ps command is used to list processes currently running on the system. The "a" option tells ps to list all processes with a tty, the "x" tells ps to list processes without a tty, too, and "o comm" tells ps to list the commands only ("o" indicates the starting of a user-defined output declaration, and "comm" indicates that ps should print the COMMAND column).</li>
+<li>The "ssh user@host ps axo comm" will run "ps axo comm" on a remote system with an ssh server. For more detailed information about ssh, see this site's <a title="Learn more about ssh and scp" href="ssh-and-scp-howto-tips-tricks">tutorial about ssh and scp</a>.</li>
+</ul>
+<p>Let's have a look at the whole snippet now:</p>
+<ul>
+<li>After interpreting the line, bash will run "ps axo comm" and redirect the output to a named pipe,</li>
+<li>then it will execute "ssh user@host ps axo comm" and redirect the output to another named pipe,</li>
+<li>and then it will execute diff with the filenames of the named pipes as argument.</li>
+<li>The diff command will read the output from the pipes and compare them, and return the differences to the terminal so you can quickly see what differences there are in running processes (if you're familiar with diff's output, that is).</li>
+</ul>
+<p>This way, you have done in one line what would normally require at least two: comparing the outputs of two processes.</p>
+<p>And there even is another way, called xargs. This command can feed arguments, usually imported through a pipe, to a command. See the next chapter for more information about pipes. We'll now focus on xargs itself. Have a look at this example:</p>
+<blockquote><p>[rechosen@localhost ~]$ find . -name *.conf -print0 | xargs -0 grep -l -Z mem_limit | xargs -0 -i cp {} {}.bak</p></blockquote>
+<p><em>Note: the "-l" after grep is an L, not an i.</em></p>
+<p>The command in the snippet above will make a backup of all .conf files in the current directory and accessible subdirectories that contain the string "mem_limit".</p>
+<ul>
+<li>The find command is used to find all files in the current directory (the ".") and accessible subdirectories with a filename (the "-name" option) that ends with ".conf" ("*.conf" means "&lt;anything&gt;.conf"). It returns a list of them, with <em>null</em> characters as separators ("-print0" tells find to do so).</li>
+<li>The output of find is piped (the "|" operator, see the next chapter for more information) to xargs. The "-0" option tells xargs that the names are separated by <em>null</em> characters, and "grep -l -Z mem_limit" is the command that the list of files will be feeded to as arguments. The grep command will search the files it gets from xargs for the string "mem_limit", returning a list of files (the -l option tells grep not to return the contents of the files, but just the filenames), again separated by <em>null</em> characters (the "-Z" option causes grep to do this).</li>
+<li>The output of grep is also piped, to "xargs -0 -i cp {} {}.bak". We know what xargs does, except for the "-i" option. The "-i" option tells xargs to replace every occasion of the specified string with the argument it gets through the pipe. If no string is specified (as in our case), xargs will assume that it should replace the string "{}". Next, the "cp {} {}.bak". The "{}" will be replaced by xargs with the argument, so, if xargs got the file "sample.conf" through the pipe, cp will copy the file "sample.conf" to the file "sample.conf.bak", effectively making a backup of it.</li>
+</ul>
+<p>These substitutions can, once mastered, provide short and quick solutions for complicated problems.</p>
+<h2><a title="piping-data-through-commands" name="piping-data-through-commands">Piping data through commands</a></h2>
+<p>One of the most powerful features is the ability to pipe data through commands. You could see this as letting bash take the output of a command, then feed it to an other command, take the output of that, feed it to another and so on. This is a simple example of using a pipe:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux | grep init</p></blockquote>
+<p>If you don't know the commands yet: "ps aux" lists all processes executed by a valid user that are currently running on your system (the "a" means that processes of other users than the current user should also be listed, the "u" means that only processes executed by a valid user should be shown, and the "x" means that background processes (without a tty) should also be listed). The "grep init" searches the output of "ps aux" for the string "init". It does so because bash pipes the output of "ps aux" to "grep init", and bash does that because of the "|" operator.</p>
+<p>The "|" operator makes bash redirect all data that the command left of it returns to the stdout (more about that later) to the stdin of the command right of it. There are a lot of commands that support taking data from the stdin, and almost every program supports returning data using the stdout.</p>
+<p>The stdin and stdout are part of the standard streams; they were introduced with UNIX and are channels over which data can be transported. There are three standard streams (the third one is stderr, which should be used to report errors over). The stdin channel can be used by other programs to feed data to a running process, and the stdout channel can be used by a program to export data. Usually, stdout output (and stderr output, too) is received by the terminal environment in which the program is running, in our case bash. By default, bash will show you the output by echoing it onto the terminal screen, but now that we pipe it to an other command, we are not shown the data.</p>
+<p>Please note that, as in a pipe only the stdout of the command on the left is passed on to the next one, the stderr output will still go to the terminal. I will explain how to alter this further on in this tutorial.</p>
+<p>If you want to see the data that's passed on between programs in a pipe, you can insert the "tee" command between it. This program receives data from the stdin and then writes it to a file, while also passing it on again through the stdout. This way, if something is going wrong in a pipe sequence, you can see what data was passing through the pipes. The "tee" command is used like this:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux | tee filename | grep init</p></blockquote>
+<p>The "grep" command will still receive the output of "ps aux", as tee just passes the data on, but you will be able to read the output of "ps aux" in the file &lt;filename&gt; after the commands have been executed. Note that "tee" tries to replace the file &lt;filename&gt; if you specify the command like this. If you don't want "tee" to replace the file but to append the data to it instead, use the -a option, like this:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux | tee -a filename | grep init</p></blockquote>
+<p>As you have been able to see in the above command, you can place a lot of command with pipes after each other. This is not infinite, though. There is a maximum command-line length, which is usually determined by the kernel. However, this value usually is so big that you are very unlikely to hit the limit. If you do, you can always save the stdout output to a file somewhere inbetween and then use that file to continue operation. And that introduces the next subject: saving the stdout output to a file.</p>
+<h2><a title="saving-the-stdout-output-to-a-file" name="saving-the-stdout-output-to-a-file">Saving the stdout output to a file</a></h2>
+<p>You can save the stdout output of a command to a file like this:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux &gt; filename</p></blockquote>
+<p>The above syntax will make bash write the stdout output of "ps aux" to the file filename. If filename already exists, bash will try to overwrite it. If you don't want bash to do so, but to append the output of "ps aux" to filename, you could do that this way:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux &gt;&gt; filename</p></blockquote>
+<p>You can use this feature of bash to split a long line of pipes into multiple lines:</p>
+<blockquote><p>[rechosen@localhost ~]$ command1 | command2 | ... | command<em>N</em> &gt; tempfile1</p>
+<p>[rechosen@localhost ~]$ cat tempfile1 | command1 | command2 | ... | command<em>N</em> &gt; tempfile2</p></blockquote>
+<p>And so on. Note that the above use of cat is, in most cases, a useless one. In many cases, you can let command1 in the second snippet read the file, like this:</p>
+<blockquote><p>[rechosen@localhost ~]$ command1 tempfile1 | command2 | ... | command<em>N</em> &gt; tempfile2</p></blockquote>
+<p>And in other cases, you can use a redirect to feed a file to command1:</p>
+<blockquote><p>[rechosen@localhost ~]$ command1 &lt; tempfile1 | command2 | ... | command<em>N</em> &gt; tempfile2</p></blockquote>
+<p>To be honest, I mainly included this to avoid getting the <a title="Learn more about the Useless Use of Cat Award" href="http://partmaps.org/era/unix/award.html">Useless Use of Cat Award</a> =).</p>
+<p>Anyway, you can also use bash's ability to write streams to file for logging the output of script commands, for example. By the way, did you know that bash can also write the stderr output to a file, or both the stdout and the stderr streams?</p>
+<h2><a title="playing-with-standard-streams-redirecting-and-combining" name="playing-with-standard-streams-redirecting-and-combining">Playing with standard streams: redirecting and combining</a></h2>
+<p>The bash shell allows us to redirect streams to other streams or to files. This is quite a complicated feature, so I'll try to explain it as clearly as possible. Redirecting a stream is done like this:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux 2&gt;&amp;1 | grep init</p></blockquote>
+<p>In the snippet above, "grep init" will not only search the stdout output of "ps aux", but also the stderr output. The stderr and the stdout streams are combined. This is caused by that strange "2&gt;&amp;1" after "ps aux". Let's have a closer look at that.</p>
+<p>First, the "2". As said, there are three standard streams (stin, stdout and stderr).These standard streams also have default numbers:</p>
+<ul>
+<li>0: stdin</li>
+<li>1: stdout</li>
+<li>2: sterr</li>
+</ul>
+<p>As you can see, "2" is the stream number of stderr. And "&gt;", we already know that from making bash write to a file. The actual meaning of this symbol is "redirect the stream on the left to the stream on the right". If there is no stream on the left, bash will assume you're trying to redirect stdout. If there's a filename on the right, bash will redirect the stream on the left to that file, so that everything passing through the pipe is written to the file.</p>
+<p><em>Note: the "&gt;" symbol is used with and without a space behind it in this tutorial. This is only to keep it clear whether we're redirecting to a file or to a stream: in reality, when dealing with streams, it doesn't matter whether a space is behind it or not. When substituting processes, you shouldn't use any spaces. </em></p>
+<p>Back to our "2&gt;&amp;1". As explained, "2" is the stream number of stderr, "&gt;" redirects the stream somewhere, but what is "&amp;1"? You might have guessed, as the "grep init" command mentioned above searches both the stdout and stderr stream, that "&amp;1" is the stdout stream. The "&amp;" in front of it tells bash that you don't mean a file with filename "1". The streams are sent to the same destination, and to the command receiving them it will seem like they are combined.</p>
+<p>If you'd want to write to a file with the name "&amp;1", you'd have to escape the "&amp;", like this:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux &gt; \&amp;1</p></blockquote>
+<p>Or you could put "&amp;1" between single quotes, like this:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux &gt; '&amp;1'</p></blockquote>
+<p>Wrapping a filename containing problematic characters between single quotes generally is a good way to stop bash from messing with it (unless there are single quotes in the string, then you'd have have escape them by putting a \ in front of them).</p>
+<p>Back again to the "2&gt;&amp;1". Now that we know what it means, we can also apply it in other ways, like this:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux &gt; filename 2&gt;&amp;1</p></blockquote>
+<p>The stdout output of ps aux will be sent to the file filename, and the stderr output, too. Now, this might seem unlogical. If bash would interpret it from the left to the right (and it does), you might think that it should be like:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux 2&gt;&amp;1 &gt; filename</p></blockquote>
+<p>Well, it shouldn't. If you'd execute the above syntax, the stderr output would just be echoed to the terminal. Why? Because bash does not redirect to a stream, but to the current final destination of the stream. Let me explain it:</p>
+<ul>
+<li>First, we're telling bash to run the command "ps" with "aux" as an argument.</li>
+<li>Then, we're telling to redirect stderr to stdout. At the moment, stdout is still going to the terminal, so the stderr output of "ps aux" is sent to the terminal.</li>
+<li>After that, we're telling bash to redirect the stdout output to the file filename. The stdout output of "ps aux" is sent to this file indeed, but the stderr output isn't: it is not affected by stream 1.</li>
+</ul>
+<p>If we put the redirections the other way around ("&gt; filename" first), it does work. I'll explain that, too:</p>
+<ul>
+<li>First, we're telling bash to run the command "ps" with "aux" as an argument (again).</li>
+<li>Then, we're redirecting the stdout to the file filename.  This causes the stdout output of "ps aux" to be written to that file.</li>
+<li>After that, we're redirecting the stderr stream to the stdout stream. The stdout stream is still pointing to the file filename because of the former statement. Therefore, stderr output is also written to the file.</li>
+</ul>
+<p>Get it? The redirects cause a stream to go to the same final destination as the specified one. It does not actually merge the streams, however.</p>
+<p>Now that we know how to redirect, we can use it in many ways. For example, we could pipe the stderr output <em>instead of</em> the stdout output:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux 2&gt;&amp;1 &gt; /dev/null | grep init</p></blockquote>
+<p>The syntax in this snippet will send the stderr output of "ps aux" to "grep init", while the stdout output is sent to /dev/null and therefore discarded. Note that "grep init" will probably not find anything in this case as "ps aux" is unlikely to report any errors.</p>
+<p>When looking more closely to the snippet above, a problem arises. As bash reads the command statements from the left to the right, nothing should go through the pipe, you might say. At the moment that "2&gt;&amp;1" is specified, stdout should still point to the terminal, shouldn't it? Well, here's a thing you should remember: <em>bash reads command statements from the left to the right, but, before that, determines if there are multiple command statements and in which way they are separated</em>. Therefore, bash already read and applied the "|" pipe symbol and stdout is already pointing to the pipe. Note that this also means that stream redirections must be specified before the pipe operator. If you, for example, would move "2&gt;&amp;1" to the end of the command, after "grep init", it would not affect ps aux anymore.</p>
+<p>We can also swap the stdout and the stderr stream. This allows to let the stderr stream pass through a pipe while the stdout is printed to the terminal. This will require a 3rd stream. Let's have a look at this example:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux 3&gt;&amp;1 1&gt;&amp;2 2&gt;&amp;3 | grep init</p></blockquote>
+<p>That stuff seems to be quite complicated, right? Let's analyze what we're doing here:</p>
+<ul>
+<li>"3&gt;&amp;1" =&gt; We're redirecting stream 3 to the same final destination as stream 1 (stdout). Stream 3 is a non-standard stream, but it is pretty much always available in bash. This way, we're effectively making a backup of the destination of stdout, which is, in this case, the pipe.</li>
+<li>"1&gt;&amp;2" =&gt; We're redirecting stream 1 (stdout) to the same final destination as stream 2 (stderr). This destination is the terminal.</li>
+<li>"2&gt;&amp;3" =&gt; We're redirecting stream 2 (stderr) to the final destination of stream 3. In the first step of these three ones, we set stream 3 to the same final destination as stream 1 (stdout), which was the pipe at that moment, and after that, we redirected stream 1 (stdout) to the final destination of stream 2 at that moment, the terminal. If we wouldn't have made a backup of stream 1's final destination in the beginning, we would not be able to refer to it now.</li>
+</ul>
+<p>So, by using a backup stream, we can swap the stdout and stderr stream. This backup stream does not belong to the standard streams, but it is pretty much always available in bash. If you're using it in a script, make sure you aren't breaking an earlier command by playing with the 3rd stream. You can also use stream 4, 5, 6 7 and so on if you need more streams. The highest stream number usually is 1023 (there are 1024 streams, but the first stream is stream 0, stdin). This may be different on other linux systems. Your mileage may vary. If you try to use a non-existing stream, you will get an error like this:</p>
+<blockquote><p>bash: 1: Bad file descriptor</p></blockquote>
+<p>If you want to return a non-standard stream to it's default state, redirect it to "&amp;-", like this:</p>
+<blockquote><p>[rechosen@localhost ~]$ ps aux 3&gt;&amp;1 1&gt;&amp;2 2&gt;&amp;3 3&gt;&amp;- | grep init</p></blockquote>
+<p>Note that the stream redirections are always reset to their initial state if you're using them in a command. You'll only need to do this manually if you made a redirect using, for example, exec, as redirects made this way will last until changed manually.</p>
+<h2><a title="final-words" name="final-words">Final words</a></h2>
+<p>Well, I hope you learned a lot from this tutorial. If the things you read here were new for you, don't worry if you can't apply them immediately. It already is useful if you just know what a statement means if you stumble upon it sometime. If you liked this, please help spreading the word about this blog by posting a link to it here and there. Thank you for reading, and good luck working with bash!</p>
+ 
+		<!-- Social Sharing Icons -->
+		<div class="social clearfix">
+			 <span>If you enjoyed this article please consider <strong>sharing it!</strong></span>
+				<a href="http://twitter.com/home/?status=Tutorial: The best tips &#038; tricks for bash, explained : http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash" title="Tweet this!">
+				<img src="../wp-content/themes/colorbold/images/twitter.png" alt="Tweet this!" />
+				</a>
+				
+				<a href="http://www.stumbleupon.com/submit?url=http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash&amp;amp;title=Tutorial: The best tips &#038; tricks for bash, explained" title="StumbleUpon.">
+				<img src="../wp-content/themes/colorbold/images/stumbleupon.png" alt="StumbleUpon" />
+				</a>
+				
+				<a href="http://www.reddit.com/submit?url=http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash&amp;amp;title=Tutorial: The best tips &#038; tricks for bash, explained" title="Vote on Reddit.">
+				<img src="../wp-content/themes/colorbold/images/reddit.png" alt="Reddit" />
+				</a>
+				<a href="http://digg.com/submit?phase=2&amp;amp;url=http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash&amp;amp;title=Tutorial: The best tips &#038; tricks for bash, explained" title="Digg this!">
+				<img src="../wp-content/themes/colorbold/images/digg.png" alt="Digg This!" />
+				</a>
+				
+				<a href="http://del.icio.us/post?url=http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash&amp;amp;title=Tutorial: The best tips &#038; tricks for bash, explained" title="Bookmark on Delicious.">
+				<img src="../wp-content/themes/colorbold/images/delicious.png" alt="Bookmark on Delicious" />
+				</a>
+				
+				<a href="http://www.facebook.com/sharer.php?u=http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash&amp;amp;t=Tutorial: The best tips &#038; tricks for bash, explained" title="Share on Facebook.">
+				<img src="../wp-content/themes/colorbold/images/facebook.png" alt="Share on Facebook" id="sharethis-last" />
+				</a>
+				
+			</div>
+		
+		<!-- end Social Sharing Icons -->
+			</div>
+		</div>
+		<!-- end post -->
+		
+		
+		
+        
+<!-- You can start editing here. -->
+
+	<h2 class="comments">25 Comments to &#8220;Tutorial: The best tips &#038; tricks for bash, explained&#8221;</h2>
+
+	<ul class="commentlist clearfix">
+	   <li class="comment even thread-even depth-1" id="li-comment-176">
+  	
+
+     <div id="comment-176" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>stnzgr</strong> </span>March 31, 2007 at 12:56 				
+				  <div class="text"><p>Topic: 
+<p>1. To repeat an argument, Alt + . can be used as well.<br />
+2. Ctrl + X, then Ctrl + E opens the default editor set by EDITOR variable.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=176#respond' onclick='return addComment.moveForm("comment-176", "176", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-177">
+  	
+
+     <div id="comment-177" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Steve</strong> </span>August 11, 2007 at 10:06 				
+				  <div class="text"><p>Topic: Thanks!
+<p>This was the clearest explanation of output redirection I've seen (or else I was just finally ready to understand it now).  In any case, thank you - you've cleared up all the confusion and frustration.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=177#respond' onclick='return addComment.moveForm("comment-177", "177", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-178">
+  	
+
+     <div id="comment-178" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/d6a5e003af3a3b09ba7c6618404aa223?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Kevembuangga</strong> </span>September 17, 2007 at 12:18 				
+				  <div class="text"><p>Topic: A bit more...
+<p>Yeah! Thanks, very usefull to sort out the mess.<br />
+Every other suppozed "help" on bash redirections just keep rehashing the same basics for newbies.<br />
+However...<br />
+The 3,4..n fds don't seem to be available across non interactive scripts (even in 3.2.0(14)), this fails with a "bad fd" error message when trying to pass 3 or 4 from caller to callee.</p>
+<p>Having this slightly different problem I used this :</p>
+<p>export UTTY=`ls -l /dev/fd/0|cut -f 2 -d "&gt;" |tr -s ' '`</p>
+<p>To stash the current pty and reuse it within deeply nested scripts to provide for interactive dialogs:</p>
+<p>echo -n "Enter package name : " &gt;$UTTY<br />
+read PNAME</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=178#respond' onclick='return addComment.moveForm("comment-178", "178", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-180">
+  	
+
+     <div id="comment-180" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/2783e1290add0666c9d8805dc6c17d2b?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Ulrich Herrmann</strong> </span>September 21, 2007 at 08:02 				
+				  <div class="text"><p>Topic: Redirection finally explained
+<p>Finally it is clear to me why I have to do "2&gt;&amp;1 |" when using pipes and "&gt; file 2&gt;&amp;1" when redirecting.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=180#respond' onclick='return addComment.moveForm("comment-180", "180", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-179">
+  	
+
+     <div id="comment-179" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/4f7c169324e7dab25dcc156a7b2c874a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Ray</strong> </span>January 23, 2008 at 00:20 				
+				  <div class="text"><p>Topic: Great job!
+<p>I was rather amused with your choice of word usage at the beginning of the article (e.g. "backupping"????), but kudos to you - you explained redirection so that I finally understood it. Thank-you.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=179#respond' onclick='return addComment.moveForm("comment-179", "179", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-184">
+  	
+
+     <div id="comment-184" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/4c22aa5804ecadf71b8ce4b51506fa52?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>jitendra kumar</strong> </span>April 18, 2008 at 13:44 				
+				  <div class="text"><p>Topic: bash command
+<p>hi,<br />
+till now i dint get how can we save the file or data by bash .can anybody explain??<br />
+i wiil be thankful..</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=184#respond' onclick='return addComment.moveForm("comment-184", "184", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-182">
+  	
+
+     <div id="comment-182" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/e8e52bd7d5aec01bad207591e52acc01?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Breet</strong> </span>May 20, 2008 at 09:37 				
+				  <div class="text"><p>Topic: HELP
+<p>if [ -e /tmp/stage$CLIENT/busy ] ..</p>
+<p>i really need to know what the "-e" in the brackets mean and the meaning of other command like "-gl" "-l" "etc"</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=182#respond' onclick='return addComment.moveForm("comment-182", "182", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-183">
+  	
+
+     <div id="comment-183" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>noname</strong> </span>July 22, 2008 at 21:03 				
+				  <div class="text"><p>Topic: Nice
+<p>Pretty nice tutorial. Thanks!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=183#respond' onclick='return addComment.moveForm("comment-183", "183", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-181">
+  	
+
+     <div id="comment-181" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/432602d490d083bba32467414b46b718?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>drifter</strong> </span>September 6, 2008 at 09:41 				
+				  <div class="text"><p>Topic: re:help
+<p>help test</p>
+<p>Nice list of explained tips btw.</p>
+<p>(Some other useful tips here: <a href="http://codesnippets.joyent.com/tag/bash" rel="nofollow">http://codesnippets.joyent.com/tag/bash</a>)</p>
+<p>Thanks!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=181#respond' onclick='return addComment.moveForm("comment-181", "181", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-185">
+  	
+
+     <div id="comment-185" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/655bc6081734ab9972cf1490304b2c36?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.itwebz.info/category/linux-tutorials/' rel='external nofollow' class='url'>Linux</a></strong> </span>October 3, 2008 at 05:55 				
+				  <div class="text"><p>Topic: Learning Linux
+<p>Another good tutorial!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=185#respond' onclick='return addComment.moveForm("comment-185", "185", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-186">
+  	
+
+     <div id="comment-186" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://pitstop87.blogspot.com' rel='external nofollow' class='url'>Steve</a></strong> </span>July 25, 2009 at 19:26 				
+				  <div class="text"><p>Topic: Good set of tips
+<p>That's a good set of tips for someone already familiar with the basics of using the bash shell..Detailed explanation well appreciated..For more basic commands in bash shell refer to : </p>
+<p><a href="http://pitstop87.blogspot.com/2009/01/crash-course-on-linux.html" rel="nofollow">http://pitstop87.blogspot.com/2009/01/crash-course-on-linux.html</a></p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=186#respond' onclick='return addComment.moveForm("comment-186", "186", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-187">
+  	
+
+     <div id="comment-187" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>G</strong> </span>January 24, 2010 at 10:18 				
+				  <div class="text"><p>Topic: Great explanation of file descriptors
+<p>File descriptors explained really well. Thank you. If I were a girl I would have sent you a kiss ;)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=187#respond' onclick='return addComment.moveForm("comment-187", "187", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-188">
+  	
+
+     <div id="comment-188" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/bf3cb84be0fcf751f337c8e41be862d2?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>p</strong> </span>February 8, 2010 at 18:42 				
+				  <div class="text"><p>Topic: above
+<p>very deep and good one!!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=188#respond' onclick='return addComment.moveForm("comment-188", "188", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-650">
+  	
+
+     <div id="comment-650" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/c2bb7eed0d312347d3052cded765ecf3?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>brettlmaster</strong> </span>March 26, 2010 at 11:27 				
+				  <div class="text"><p>The best explanation of ordering redirections and piping I have found so far.<br />
+Excellent!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=650#respond' onclick='return addComment.moveForm("comment-650", "650", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-789">
+  	
+
+     <div id="comment-789" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/6ebdf84c271b76d5de83c7537dd2ff5b?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>JIS</strong> </span>April 16, 2010 at 14:07 				
+				  <div class="text"><p>Thank you and congratulations...the best I've read so far about bash streams!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=789#respond' onclick='return addComment.moveForm("comment-789", "789", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback odd alt thread-odd thread-alt depth-1" id="li-comment-1862">
+  	
+
+     <div id="comment-1862" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.edisonnotes.com/?p=7' rel='external nofollow' class='url'>Bash 使用技巧大补贴 | EdisonNotes</a></strong> </span>July 4, 2010 at 06:24 				
+				  <div class="text"><p>[...] The best tips &amp; tricks for bash, explained [Linux Tutorials Blog] [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=1862#respond' onclick='return addComment.moveForm("comment-1862", "1862", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-2100">
+  	
+
+     <div id="comment-2100" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/cdd3f73a9f80510782e7ae63d202de29?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Ruben</strong> </span>August 29, 2010 at 10:45 				
+				  <div class="text"><p>Finally I found (here) how to pipe the stderr without mixing with stdout.</p>
+<p>I needed that to add timestams<br />
+........ |  sed "s/^/\[`/bin/date +%F`\] /"  &gt;&gt; error.log</p>
+<p>Very instructive.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=2100#respond' onclick='return addComment.moveForm("comment-2100", "2100", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-4412">
+  	
+
+     <div id="comment-4412" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/25f55bfb2309c221dec4c240c10fda57?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>EC</strong> </span>November 11, 2010 at 00:13 				
+				  <div class="text"><p>Thanks for the tricks!  especially ctrl-z.  I always forget to create a screen session when running a long process.  By using ctrl-z, I don't need to kill the process, and restart it.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=4412#respond' onclick='return addComment.moveForm("comment-4412", "4412", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback even thread-even depth-1" id="li-comment-5237">
+  	
+
+     <div id="comment-5237" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.linuxhobby.com/archives/3050' rel='external nofollow' class='url'>Bash 使用技巧大补贴 &nbsp;|&nbsp;Linux爱好者</a></strong> </span>November 29, 2010 at 04:51 				
+				  <div class="text"><p>[...] The best tips &amp; tricks for bash, explained [Linux Tutorials Blog] [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=5237#respond' onclick='return addComment.moveForm("comment-5237", "5237", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5307">
+  	
+
+     <div id="comment-5307" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/eda7feb7f0d2cdddbf5a315f6c10bba7?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>macdental</strong> </span>November 30, 2010 at 12:23 				
+				  <div class="text"><p>as for other readers, I finally learned redirections from your post. 2&gt;&amp;1 etc makes no sense to me before. Great explanations. Thanks again. I have been learning a lot from your blog.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=5307#respond' onclick='return addComment.moveForm("comment-5307", "5307", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback even thread-even depth-1" id="li-comment-6860">
+  	
+
+     <div id="comment-6860" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://stephenmann.net/2010/12/21/bash-temp-pipe-trick/' rel='external nofollow' class='url'>Bash: temp pipe trick &laquo; thanthese</a></strong> </span>December 21, 2010 at 14:04 				
+				  <div class="text"><p>[...] described here, wrapping the ls commands in &lt;() causes them to be executed, and the results stuffed through a [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=6860#respond' onclick='return addComment.moveForm("comment-6860", "6860", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-33053">
+  	
+
+     <div id="comment-33053" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/75f759f80aac95cfaabd248c49ffaa98?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>yacc143</strong> </span>October 14, 2011 at 10:43 				
+				  <div class="text"><p>Just one note: &lt;() does not create a named pipe, named pipes are only needed for unrelated processes. (Basically related processes can create the pipe in the common parent process, and fork() carries the needed file descriptors to the child processes. Passing open files between unrelated processes is rather messy)</p>
+<p>/dev/fd is by the way a link to /proc/self/fd, so each process sees it&#039;s own /dev/fd.</p>
+<p>root@andidesk:~# cat &lt;(stat /dev/fd/1)  „pipe:[3457383]“<br />
+  Size: 64        	Blocks: 0          IO Block: 1024   symbolische Verknüpfung<br />
+Device: 3h/3d	Inode: 3457390     Links: 1<br />
+Access: (0300/l-wx------)  Uid: (    0/    root)   Gid: (    0/    root)<br />
+Access: 2011-10-14 12:39:22.366698488 +0200<br />
+Modify: 2011-10-14 12:39:22.366698488 +0200<br />
+Change: 2011-10-14 12:39:22.366698488 +0200<br />
+  File: „/dev/fd/1“ -&gt; „pipe:[3457385]“<br />
+  Size: 64        	Blocks: 0          IO Block: 1024   symbolische Verknüpfung<br />
+Device: 3h/3d	Inode: 3457401     Links: 1<br />
+Access: (0300/l-wx------)  Uid: (    0/    root)   Gid: (    0/    root)<br />
+Access: 2011-10-14 12:39:22.366698488 +0200<br />
+Modify: 2011-10-14 12:39:22.366698488 +0200<br />
+Change: 2011-10-14 12:39:22.366698488 +0200<br />
+root@andidesk:~# mkfifo /tmp/test<br />
+root@andidesk:~# stat /tmp/test<br />
+  File: „/tmp/test“<br />
+  Size: 0         	Blocks: 0          IO Block: 4096   FIFO<br />
+Device: fc00h/64512d	Inode: 5636232     Links: 1<br />
+Access: (0644/prw-r--r--)  Uid: (    0/    root)   Gid: (    0/    root)<br />
+Access: 2011-10-14 12:39:29.392959556 +0200<br />
+Modify: 2011-10-14 12:39:29.392959556 +0200<br />
+Change: 2011-10-14 12:39:29.392959556 +0200</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=33053#respond' onclick='return addComment.moveForm("comment-33053", "33053", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-51665">
+  	
+
+     <div id="comment-51665" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/e7e7ce614a9173bfe4e8e5d8a10a8357?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Brian</strong> </span>December 22, 2011 at 17:20 				
+				  <div class="text"><p>Great article! Thanks for putting this together.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=51665#respond' onclick='return addComment.moveForm("comment-51665", "51665", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-75222">
+  	
+
+     <div id="comment-75222" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/b5e265449ae3f63698074c6a4420e2b7?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Zuheyr Alsalihi</strong> </span>March 9, 2012 at 13:48 				
+				  <div class="text"><p>Absolutely brilliant. Me too, I understood the first time this 2&gt;&amp;1 stuff...<br />
+I hope for many happy "returns" ;-)</p>
+<p>*thanks* &gt; you 2&gt;&amp;1</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=75222#respond' onclick='return addComment.moveForm("comment-75222", "75222", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-77666">
+  	
+
+     <div id="comment-77666" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/34c8e5afbb1cefb2372f706589e4f5c5?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Cyb3rGeek</strong> </span>March 17, 2012 at 10:55 				
+				  <div class="text"><p>Thanks for this tuto about bash :)<br />
+echo "Bash rocks..."</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/tutorial-the-best-tips-tricks-for-bash?replytocom=77666#respond' onclick='return addComment.moveForm("comment-77666", "77666", "respond", "37")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+	</ul>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+ 
+
+
+<div id="respond">
+
+<h2>Post comment</h2>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="tutorial-the-best-tips-tricks-for-bash#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://www.linuxtutorialblog.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><label for="author">Name (required)</label>
+<input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required='true' />
+</p>
+
+<p><label for="email">Mail (will not be published) (required)</label>
+<input type="text" name="email" id="email" value="" size="22" tabindex="2" aria-required='true' />
+</p>
+
+<p><label for="url">Website</label>
+<input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+
+<p><label for="comment">Comment</label>
+<textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Send &raquo;" />
+<input type='hidden' name='comment_post_ID' value='37' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="3fdebdf537" /></p>
+</form>
+
+</div>
+
+					
+			</div>
+			<!-- end col left -->
+	
+<!-- begin col right -->
+		<div id="colRight" class="clearfix">
+			
+<!-- begin search box -->
+		<div id="searchBox" class="clearfix">
+			<form id="searchform" action="tutorial-the-best-tips-tricks-for-bash" method="get">
+				<input id="s" type="text" name="s" value=""/>
+				<input id="searchsubmit" type="submit" value="SEARCH"/>
+			</form>
+		</div>
+		<!-- end search box -->
+		<!-- begin adsBox -->
+				<!-- end adsBox -->
+		
+		<!-- begin twitter box -->
+				
+		<div id="twitter">
+			<a href="http://twitter.com/LinuxTutBlog" title="Follow us on Twitter!"><img src="../wp-content/themes/colorbold/images/ico_twitter.png" alt="Follow us on Twitter!" />
+			<span id="twitterfollow">Follow us on Twitter!</span><br /><span id="twittertxt">See and influence what's coming up!</span></a>
+		</div>
+				<!-- end twitter box -->
+		
+		<h2>Contact</h2>			<div class="textwidget">Got a question? You can e-mail the author using the <a href="../contact-me">contact form</a>.</div>
+				
+	
+		</div>
+		<!-- end col right -->
+
+
+
+	</div>
+	<!-- end content -->
+	</div>
+	<!-- end wrapper -->
+	<!-- begin footer -->
+	<div id="footer">
+	&copy; 2007-2012 <strong>Rechosen</strong>. All Right Reserved. 
+	<ul id="footerMenu">
+		<li><a href="2007/01">Home</a></li>
+				<li class="page_item page-item-248"><a href="../contact-me" title="Contact me">Contact me</a></li>
+	</ul>
+	<div id="site5bottom">Based on the Colorbold theme by <a href="http://www.site5.com/reseller"><img src="../wp-content/themes/colorbold/images/site5_tiny.png" alt="Site5" /></a>.<br />Kudos to them for such a great free theme!</div>
+	</div>
+	<!-- end footer -->
+</div>
+<!-- end mainWrapper -->
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1651184-1";
+urchinTracker();
+</script>
+</body>
+</html>
+

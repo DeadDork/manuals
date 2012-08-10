@@ -1,0 +1,344 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Linux Tutorial Blog is no longer frozen! &laquo;  Linux Tutorial Blog</title>
+
+	<link rel="stylesheet" href="../wp-content/themes/colorbold/style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../wp-content/themes/colorbold/css/blue.css" media="screen" />
+		<link rel="stylesheet" href="../wp-content/themes/colorbold/css/jquery.lightbox-0.5.css" media="screen" />
+	 <link rel="stylesheet" href="../wp-content/themes/colorbold/css/superfish.css" media="screen" />	 
+	 <!--[if gte IE 7]>
+    <link rel="stylesheet" media="screen" type="text/css" href="http://www.linuxtutorialblog.com/wp-content/themes/colorbold/ie7.css" />
+    <![endif]-->
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery-1.3.2.min.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery.form.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery.lightbox-0.5.min.js">
+	</script>
+    <script type="text/javascript" src="../wp-content/themes/colorbold/js/superfish.js"></script>
+	
+	<!-- lightbox initialize script -->
+	<script type="text/javascript">
+		$(function() {
+		   $('a.lightbox').lightBox();
+		});
+	 </script>
+	<!-- ajax contact form -->
+	 <script type="text/javascript">
+		 $(document).ready(function(){
+			  $('#contact').ajaxForm(function(data) {
+				 if (data==1){
+					 $('#success').fadeIn("slow");
+					 $('#bademail').fadeOut("slow");
+					 $('#badserver').fadeOut("slow");
+					 $('#contact').resetForm();
+					 }
+				 else if (data==2){
+						 $('#badserver').fadeIn("slow");
+					  }
+				 else if (data==3)
+					{
+					 $('#bademail').fadeIn("slow");
+					}
+					});
+				 });
+		</script>
+		<script type="text/javascript"> 
+			$(document).ready(function(){ 
+				$("ul.sf-menu").superfish({
+					autoArrows:  false,
+					delay:       200,                             // one second delay on mouseout 
+					animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+					speed:       'fast',                          // faster animation speed 
+					autoArrows:  true,                           // disable generation of arrow mark-up 
+					dropShadows: true                            // disable drop shadows 			
+					}); 
+			});
+		</script>
+
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="../feed" />
+	<link rel="alternate" type="text/xml" title="RSS .92" href="../feed/rss" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="../feed/atom" />
+	
+	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+
+	<link rel="pingback" href="../xmlrpc.php" />
+		<link rel='archives' title='March 2010' href='2010/03' />
+	<link rel='archives' title='August 2008' href='2008/08' />
+	<link rel='archives' title='November 2007' href='2007/11' />
+	<link rel='archives' title='September 2007' href='2007/09' />
+	<link rel='archives' title='July 2007' href='2007/07' />
+	<link rel='archives' title='May 2007' href='2007/05' />
+	<link rel='archives' title='April 2007' href='2007/04' />
+	<link rel='archives' title='March 2007' href='2007/03' />
+	<link rel='archives' title='February 2007' href='2007/02' />
+	<link rel='archives' title='January 2007' href='2007/01' />
+		<link rel="alternate" type="application/rss+xml" title="Linux Tutorial Blog &raquo; Linux Tutorial Blog is no longer frozen! Comments Feed" href="http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen/feed" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Linux Tutorial Blog' href='2007/01' />
+<link rel='start' title='SSH and SCP: Howto, tips &amp; tricks' href='ssh-and-scp-howto-tips-tricks' />
+<link rel='prev' title='Solution: Getting a Gravis GamePad Pro to work on Linux' href='http://www.linuxtutorialblog.com/post/solution-getting-a-gravis-gamepad-pro-to-work-on-linux' />
+<link rel='next' title='Tutorial: Conditions in bash scripting (if statements)' href='../index.html?p=70' />
+<meta name="generator" content="WordPress 3.2.1" />
+<link rel='canonical' href='linux-tutorial-blog-is-no-longer-frozen' />
+<link rel='shortlink' href='http://www.linuxtutorialblog.com/?p=104' />
+
+</head>
+<body>
+
+<!-- begin mainWrapper -->
+<div id="mainWrapper">
+	<!-- begin wrapper -->
+	<div id="wrapper">
+	<!-- begin header -->
+	<div id="header">
+	<a href="../feed" title="RSS" class="rssTag">RSS Feeds</a>
+	<!-- logo -->
+		<div id="logo"><a href="2007/01"><img src="../wp-content/themes/colorbold/images/logo.png" alt="Linux Tutorial Blog" /></a></div>
+		<!-- begin topmenu -->
+		<!--<div id="topMenu">
+			<ul>
+				<li><a href="http://www.linuxtutorialblog.com/">Home</a></li>
+				<li class="page_item page-item-248"><a href="http://www.linuxtutorialblog.com/contact-me" title="Contact me">Contact me</a></li>
+			</ul>
+		</div>-->
+		<!-- end topmenu -->
+		<!-- begin mainMenu -->
+			<div id="mainMenu">
+				<ul class="sf-menu">
+					<li class="cat-item cat-item-3"><a rel="nofollow" href="../category/tutorials" title="The tutorials of Linux Tutorial Blog.">Tutorials</a>
+</li>
+	<li class="cat-item cat-item-4"><a rel="nofollow" href="../category/solutions" title="Short posts that aim to fix a specific problem.">Solutions</a>
+</li>
+	<li class="cat-item cat-item-6"><a rel="nofollow" href="../category/news" title="Posts containing news about Linux Tutorial Blog.">News</a>
+</li>
+	<li class="cat-item cat-item-5"><a rel="nofollow" href="../category/miscellaneous" title="Posts that don&#039;t fit in the other categories.">Miscellaneous</a>
+</li>
+	<li class="cat-item cat-item-7"><a rel="nofollow" href="../category/fun-stuff" title="Posts on less serious matters, like easter eggs.">Fun Stuff</a>
+</li>
+				</ul>
+			</div>
+		<!-- end mainMenu -->
+	</div>
+	<!-- end header -->
+	<!-- begin content -->
+	<div id="content" class="clearfix">
+<!-- begin col left -->
+	<div id="colLeft">		
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">Aug</div>
+				<div class="year">2008</div>
+				<div class="comments"><a href="linux-tutorial-blog-is-no-longer-frozen#comments" rel="nofollow" title="Comment on Linux Tutorial Blog is no longer frozen!">2</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="linux-tutorial-blog-is-no-longer-frozen">Linux Tutorial Blog is no longer frozen!</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="../category/news" title="View all posts in News" rel="category tag">News</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="http://www.linuxtutorialblog.com/tag/frozen" rel="nofollow tag">frozen</a></div>
+				<p>Whether this was caused by global warming or by the many visitors that kept on coming during the time Linux Tutorial Blog was frozen we'll never know, but this blog is melting. Featuring a new tutorial and some upcoming changes, LTB is once more a place to keep watching, a "regular Linux tutorial source". I hope you will enjoy this new breeze of activity!<span id="more-104"></span></p>
+<p>The upcoming changes are as follows:</p>
+<ul>
+<li>Revenue of this site will now be invested into my study. It's an expensive thing to attend a university for quite some upcoming years!</li>
+<li>I will overlook the existing tutorials for language errors and places where they should be updated/expanded. You can especially expect a major overhaul of the flac to mp3 solution.</li>
+<li>The text links area on the left will get a new purpose.</li>
+<li>I may experiment with new advertising types. Whatever I do, I will try to keep it sufficiently non-obtrusive.</li>
+<li>You may have already seem them: the site now features "Related Posts" under each post.</li>
+</ul>
+<p>Well then, I'd love to hear something from you! Got suggestions for more changes? Are you happy the blog is active again? Anything else to say? Feel more than free to comment!</p>
+<p>Rechosen</p>
+ 
+		<!-- Social Sharing Icons -->
+		<div class="social clearfix">
+			 <span>If you enjoyed this article please consider <strong>sharing it!</strong></span>
+				<a href="http://twitter.com/home/?status=Linux Tutorial Blog is no longer frozen! : http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen" title="Tweet this!">
+				<img src="../wp-content/themes/colorbold/images/twitter.png" alt="Tweet this!" />
+				</a>
+				
+				<a href="http://www.stumbleupon.com/submit?url=http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen&amp;amp;title=Linux Tutorial Blog is no longer frozen!" title="StumbleUpon.">
+				<img src="../wp-content/themes/colorbold/images/stumbleupon.png" alt="StumbleUpon" />
+				</a>
+				
+				<a href="http://www.reddit.com/submit?url=http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen&amp;amp;title=Linux Tutorial Blog is no longer frozen!" title="Vote on Reddit.">
+				<img src="../wp-content/themes/colorbold/images/reddit.png" alt="Reddit" />
+				</a>
+				<a href="http://digg.com/submit?phase=2&amp;amp;url=http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen&amp;amp;title=Linux Tutorial Blog is no longer frozen!" title="Digg this!">
+				<img src="../wp-content/themes/colorbold/images/digg.png" alt="Digg This!" />
+				</a>
+				
+				<a href="http://del.icio.us/post?url=http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen&amp;amp;title=Linux Tutorial Blog is no longer frozen!" title="Bookmark on Delicious.">
+				<img src="../wp-content/themes/colorbold/images/delicious.png" alt="Bookmark on Delicious" />
+				</a>
+				
+				<a href="http://www.facebook.com/sharer.php?u=http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen&amp;amp;t=Linux Tutorial Blog is no longer frozen!" title="Share on Facebook.">
+				<img src="../wp-content/themes/colorbold/images/facebook.png" alt="Share on Facebook" id="sharethis-last" />
+				</a>
+				
+			</div>
+		
+		<!-- end Social Sharing Icons -->
+			</div>
+		</div>
+		<!-- end post -->
+		
+		
+		
+        
+<!-- You can start editing here. -->
+
+	<h2 class="comments">2 Comments to &#8220;Linux Tutorial Blog is no longer frozen!&#8221;</h2>
+
+	<ul class="commentlist clearfix">
+	   <li class="comment even thread-even depth-1" id="li-comment-393">
+  	
+
+     <div id="comment-393" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/655bc6081734ab9972cf1490304b2c36?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.itwebz.info/category/linux-tutorials/' rel='external nofollow' class='url'>ITwebz Linux</a></strong> </span>October 3, 2008 at 05:50 				
+				  <div class="text"><p>Topic: Nice Blog
+<p>Keep up the good work this is a nice blog!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen?replytocom=393#respond' onclick='return addComment.moveForm("comment-393", "393", "respond", "104")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-394">
+  	
+
+     <div id="comment-394" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/69e6a0556e823263567ef04aeb7e2fb0?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Downside</strong> </span>January 14, 2010 at 16:28 				
+				  <div class="text"><p>Topic: Freezing/Defrosting
+<p>This blog has the worlds-best-guide to the BASH IF test!  </p>
+<p>I can't thank you enough for this, it's opened a world of scripting to me that I should have probably done in a higher level language :-)</p>
+<p>Seriously - excellent work.  Good luck with those studies</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen?replytocom=394#respond' onclick='return addComment.moveForm("comment-394", "394", "respond", "104")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+	</ul>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+ 
+
+
+<div id="respond">
+
+<h2>Post comment</h2>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="linux-tutorial-blog-is-no-longer-frozen#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://www.linuxtutorialblog.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><label for="author">Name (required)</label>
+<input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required='true' />
+</p>
+
+<p><label for="email">Mail (will not be published) (required)</label>
+<input type="text" name="email" id="email" value="" size="22" tabindex="2" aria-required='true' />
+</p>
+
+<p><label for="url">Website</label>
+<input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+
+<p><label for="comment">Comment</label>
+<textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Send &raquo;" />
+<input type='hidden' name='comment_post_ID' value='104' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="c86850c9da" /></p>
+</form>
+
+</div>
+
+					
+			</div>
+			<!-- end col left -->
+	
+<!-- begin col right -->
+		<div id="colRight" class="clearfix">
+			
+<!-- begin search box -->
+		<div id="searchBox" class="clearfix">
+			<form id="searchform" action="linux-tutorial-blog-is-no-longer-frozen" method="get">
+				<input id="s" type="text" name="s" value=""/>
+				<input id="searchsubmit" type="submit" value="SEARCH"/>
+			</form>
+		</div>
+		<!-- end search box -->
+		<!-- begin adsBox -->
+				<!-- end adsBox -->
+		
+		<!-- begin twitter box -->
+				
+		<div id="twitter">
+			<a href="http://twitter.com/LinuxTutBlog" title="Follow us on Twitter!"><img src="../wp-content/themes/colorbold/images/ico_twitter.png" alt="Follow us on Twitter!" />
+			<span id="twitterfollow">Follow us on Twitter!</span><br /><span id="twittertxt">See and influence what's coming up!</span></a>
+		</div>
+				<!-- end twitter box -->
+		
+		<h2>Contact</h2>			<div class="textwidget">Got a question? You can e-mail the author using the <a href="../contact-me">contact form</a>.</div>
+				
+	
+		</div>
+		<!-- end col right -->
+
+
+
+	</div>
+	<!-- end content -->
+	</div>
+	<!-- end wrapper -->
+	<!-- begin footer -->
+	<div id="footer">
+	&copy; 2007-2012 <strong>Rechosen</strong>. All Right Reserved. 
+	<ul id="footerMenu">
+		<li><a href="2007/01">Home</a></li>
+				<li class="page_item page-item-248"><a href="../contact-me" title="Contact me">Contact me</a></li>
+	</ul>
+	<div id="site5bottom">Based on the Colorbold theme by <a href="http://www.site5.com/reseller"><img src="../wp-content/themes/colorbold/images/site5_tiny.png" alt="Site5" /></a>.<br />Kudos to them for such a great free theme!</div>
+	</div>
+	<!-- end footer -->
+</div>
+<!-- end mainWrapper -->
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1651184-1";
+urchinTracker();
+</script>
+</body>
+</html>
+

@@ -1,0 +1,2671 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>SSH and SCP: Howto, tips &amp; tricks &laquo;  Linux Tutorial Blog</title>
+
+	<link rel="stylesheet" href="../wp-content/themes/colorbold/style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../wp-content/themes/colorbold/css/blue.css" media="screen" />
+		<link rel="stylesheet" href="../wp-content/themes/colorbold/css/jquery.lightbox-0.5.css" media="screen" />
+	 <link rel="stylesheet" href="../wp-content/themes/colorbold/css/superfish.css" media="screen" />	 
+	 <!--[if gte IE 7]>
+    <link rel="stylesheet" media="screen" type="text/css" href="http://www.linuxtutorialblog.com/wp-content/themes/colorbold/ie7.css" />
+    <![endif]-->
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery-1.3.2.min.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery.form.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery.lightbox-0.5.min.js">
+	</script>
+    <script type="text/javascript" src="../wp-content/themes/colorbold/js/superfish.js"></script>
+	
+	<!-- lightbox initialize script -->
+	<script type="text/javascript">
+		$(function() {
+		   $('a.lightbox').lightBox();
+		});
+	 </script>
+	<!-- ajax contact form -->
+	 <script type="text/javascript">
+		 $(document).ready(function(){
+			  $('#contact').ajaxForm(function(data) {
+				 if (data==1){
+					 $('#success').fadeIn("slow");
+					 $('#bademail').fadeOut("slow");
+					 $('#badserver').fadeOut("slow");
+					 $('#contact').resetForm();
+					 }
+				 else if (data==2){
+						 $('#badserver').fadeIn("slow");
+					  }
+				 else if (data==3)
+					{
+					 $('#bademail').fadeIn("slow");
+					}
+					});
+				 });
+		</script>
+		<script type="text/javascript"> 
+			$(document).ready(function(){ 
+				$("ul.sf-menu").superfish({
+					autoArrows:  false,
+					delay:       200,                             // one second delay on mouseout 
+					animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+					speed:       'fast',                          // faster animation speed 
+					autoArrows:  true,                           // disable generation of arrow mark-up 
+					dropShadows: true                            // disable drop shadows 			
+					}); 
+			});
+		</script>
+
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="../feed" />
+	<link rel="alternate" type="text/xml" title="RSS .92" href="../feed/rss" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="../feed/atom" />
+	
+	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+
+	<link rel="pingback" href="../xmlrpc.php" />
+		<link rel='archives' title='March 2010' href='2010/03' />
+	<link rel='archives' title='August 2008' href='2008/08' />
+	<link rel='archives' title='November 2007' href='2007/11' />
+	<link rel='archives' title='September 2007' href='2007/09' />
+	<link rel='archives' title='July 2007' href='2007/07' />
+	<link rel='archives' title='May 2007' href='2007/05' />
+	<link rel='archives' title='April 2007' href='2007/04' />
+	<link rel='archives' title='March 2007' href='2007/03' />
+	<link rel='archives' title='February 2007' href='2007/02' />
+	<link rel='archives' title='January 2007' href='2007/01' />
+		<link rel="alternate" type="application/rss+xml" title="Linux Tutorial Blog &raquo; SSH and SCP: Howto, tips &amp; tricks Comments Feed" href="http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks/feed" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Linux Tutorial Blog' href='2007/01' />
+<link rel='start' title='SSH and SCP: Howto, tips &amp; tricks' href='ssh-and-scp-howto-tips-tricks' />
+<link rel='next' title='We&#8217;re up!' href='http://www.linuxtutorialblog.com/post/were-up' />
+<meta name="generator" content="WordPress 3.2.1" />
+<link rel='canonical' href='ssh-and-scp-howto-tips-tricks' />
+<link rel='shortlink' href='http://www.linuxtutorialblog.com/?p=1' />
+
+</head>
+<body>
+
+<!-- begin mainWrapper -->
+<div id="mainWrapper">
+	<!-- begin wrapper -->
+	<div id="wrapper">
+	<!-- begin header -->
+	<div id="header">
+	<a href="../feed" title="RSS" class="rssTag">RSS Feeds</a>
+	<!-- logo -->
+		<div id="logo"><a href="2007/01"><img src="../wp-content/themes/colorbold/images/logo.png" alt="Linux Tutorial Blog" /></a></div>
+		<!-- begin topmenu -->
+		<!--<div id="topMenu">
+			<ul>
+				<li><a href="http://www.linuxtutorialblog.com/">Home</a></li>
+				<li class="page_item page-item-248"><a href="http://www.linuxtutorialblog.com/contact-me" title="Contact me">Contact me</a></li>
+			</ul>
+		</div>-->
+		<!-- end topmenu -->
+		<!-- begin mainMenu -->
+			<div id="mainMenu">
+				<ul class="sf-menu">
+					<li class="cat-item cat-item-3"><a rel="nofollow" href="../category/tutorials" title="The tutorials of Linux Tutorial Blog.">Tutorials</a>
+</li>
+	<li class="cat-item cat-item-4"><a rel="nofollow" href="../category/solutions" title="Short posts that aim to fix a specific problem.">Solutions</a>
+</li>
+	<li class="cat-item cat-item-6"><a rel="nofollow" href="../category/news" title="Posts containing news about Linux Tutorial Blog.">News</a>
+</li>
+	<li class="cat-item cat-item-5"><a rel="nofollow" href="../category/miscellaneous" title="Posts that don&#039;t fit in the other categories.">Miscellaneous</a>
+</li>
+	<li class="cat-item cat-item-7"><a rel="nofollow" href="../category/fun-stuff" title="Posts on less serious matters, like easter eggs.">Fun Stuff</a>
+</li>
+				</ul>
+			</div>
+		<!-- end mainMenu -->
+	</div>
+	<!-- end header -->
+	<!-- begin content -->
+	<div id="content" class="clearfix">
+<!-- begin col left -->
+	<div id="colLeft">		
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">Jan</div>
+				<div class="year">2007</div>
+				<div class="comments"><a href="ssh-and-scp-howto-tips-tricks#comments" rel="nofollow" title="Comment on SSH and SCP: Howto, tips &amp; tricks">112</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="ssh-and-scp-howto-tips-tricks">SSH and SCP: Howto, tips &amp; tricks</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="../category/tutorials" title="View all posts in Tutorials" rel="category tag">Tutorials</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="http://www.linuxtutorialblog.com/tag/howto" rel="nofollow tag">howto</a>, <a href="http://www.linuxtutorialblog.com/tag/scp" rel="nofollow tag">scp</a>, <a href="http://www.linuxtutorialblog.com/tag/ssh" rel="nofollow tag">ssh</a>, <a href="http://www.linuxtutorialblog.com/tag/tips-tricks" rel="nofollow tag">tips &amp; tricks</a></div>
+				<p>This tutorial is about SSH and SCP. You will learn how to connect to a remote host and how to copy between hosts. This tutorial also documents a few important differences between the commands.</p>
+<p>Difficulty: <strong><em>Basic</em></strong><span id="more-1"></span></p>
+<p><em>Before we start: in this tutorial, you will come across both SSH and ssh. The difference is this: SSH is the general protocol, and ssh is the linux SSH client command.</em></p>
+<h2><a name="ssh">SSH</a></h2>
+<p>SSH is some kind of an abbreviation of Secure SHell. It is a protocol that allows secure connections between computers. In this tutorial, we'll be dealing with the ssh command on Linux, the OpenSSH version. Most Linux distributions feature the OpenSSH client today, but if you want to be sure, have a look at the SSH manpage on your system. You can do this by typing:</p>
+<blockquote><p>[rechosen@localhost ~]$ man ssh</p></blockquote>
+<p><em>Note: this should be done in a terminal. This tutorial assumes that you have some basic terminal knowledge, like knowing how to start a terminal session on your system and being familiar with the basic commands and syntaxes.</em></p>
+<p>If it displays something like this</p>
+<blockquote><p>NAME<br />
+ssh - OpenSSH SSH client (remote login program)</p></blockquote>
+<p>then you can be quite sure you're running the OpenSSH version. For more background information about SSH, see <a title="Wikipedia's page about SSH" href="http://en.wikipedia.org/wiki/SSH">http://en.wikipedia.org/wiki/SSH</a>.</p>
+<h2><a name="the-most-simple-case">The most simple case</a></h2>
+<p>In the most simple case, you can connect to a server that supports ssh with a syntax as short as this:</p>
+<blockquote><p>[rechosen@localhost ~]$ ssh yourserver</p></blockquote>
+<p><em>Note: If you do not have any ssh server nearby that you can access, you can also try this command with your own computer as a server. To do this, replace "yourserver" with "localhost". </em></p>
+<p>Of course, yourserver should be replaced by a hostname or an ip address of the server you want to connect to. As you can see in the terminal snippet, I am logged in as rechosen. If you do not specify a username (I'll explain how to do that later in this tutorial), SSH will assume that you want to login with the username you're currently logged in with. So, in this case, SSH will try the username rechosen.</p>
+<p>Of course, you need to be sure that the server supports ssh connections. The ssh client tries to connect to port 22 defaultly. This means that, if you want to connect to a remote host with the default settings, you should make sure that, if applicable, port 22 is forwarded to the server you're trying to connect to. You will find more regarding the SSH port further in this tutorial.</p>
+<p>Now, back to the command we ran. If the server supports SSH connections and you can reach it by port 22, you should be prompted for a password (if this is the first time you try to connect to the server, ssh will first ask the question if you want to continue connecting, which can generally just be answered with a 'yes'). If you type a password here, you won't see asterisks appearing. Don't panic, this is ssh's normal behaviour. It makes connecting using ssh even more safe, because any accidental spectators won't be able to see the length of the password. After entering the password, if the username and the password were correct, you should be running a shell on the server. If not, make sure you are connecting to a server of which you know that you should be able to login with your username and the specified password. You could try connecting to your own computer (see the note beneath the terminal quote) or read on to learn how to specify an other username.</p>
+<p>Once you're done trying the ssh shell, you can exit it by pressing Ctrl + D.</p>
+<h2><a name="specifying-a-username">Specifying a username</a></h2>
+<p>It's actually quite simple to specify a different username. You might even already be familiar with it. See the following example:</p>
+<blockquote><p>[rechosen@localhost ~]$ ssh yourusername@yourserver</p></blockquote>
+<p>The above will make ssh try to connect with the username "yourusername" instead of (in my case) rechosen. This syntax is also used by a lot of other protocols, so it'll always come in handy to know it. By the way, you will still be asked for a password. For security reasons, it is not even possible to directly specify the password in the syntax. You will always be asked interactively, unless you start configuring the server in an advanced way (which is exactly why that topic is out of this tutorials scope: this tutorial documents how to use the clients, not how to configure the server).</p>
+<h2><a name="specifying-a-port">Specifying a port</a></h2>
+<p>There are many reasons to move the ssh service to an other port. One of them is avoiding brute-force login attempts. Certain hackers try to get access to ssh servers by trying a lot of common usernames with common passwords (think of a user "john" with password "doe"). Although it is very unlikely that these hackers will ever get access to the system, there is an other aspect of the brute-force attacks that you'll generally want to avoid: the system and connection load. The brute-force attacks usually are done with dozens or even thousands of tries a second, and this unnecessarily slows down the server and takes some bandwidth which could've been used a lot better. By changing the port to a non-default one, the scripts of the hackers will just be refused and most of the bandwidth will be saved.</p>
+<p>As the ssh command can't just guess the port, we will have to specify it if it's not the default 22 one. You can do that this way:</p>
+<blockquote><p>[rechosen@localhost ~]$ ssh -p yourport yourusername@yourserver</p></blockquote>
+<p>Of course, you will have to replace "yourport" with the port number. These is an important difference between ssh and scp on this point. I'll explain it further on.</p>
+<h2><a name="running-a-command-on-the-remote-server">Running a command on the remote server</a></h2>
+<p>Sometimes, especially in scripts, you'll want to connect to the remote server, run a single command and then exit again. The ssh command has a nice feature for this. You can just specify the command after the options, username and hostname. Have a look at this:</p>
+<blockquote><p>[rechosen@localhost ~]$ ssh yourusername@yourserver updatedb</p></blockquote>
+<p>This will make the server update its searching database. Of course, this is a very simple command without arguments. What if you'd want to tell someone about the latest news you read on the web? You might think that the following will give him/her that message:</p>
+<blockquote><p>[rechosen@localhost ~]$ ssh yourusername@yourserver wall "Hey, I just found out something great! Have a look at www.examplenewslink.com!"</p></blockquote>
+<p>However, bash will give an error if you run this command:</p>
+<blockquote><p>bash: !": event not found</p></blockquote>
+<p>What happened? Bash (the program behind your shell) tried to interpret the command you wanted to give ssh. This fails because there are exclamation marks in the command, which bash will interpret as special characters that should initiate a bash function. But we don't want this, we just want bash to give the command to ssh! Well, there's a very simple way to tell bash not to worry about the contents of the command but just pass it on to ssh already: wrapping it in single quotes. Have a look at this:</p>
+<blockquote><p>[rechosen@localhost ~]$ ssh yourusername@yourserver 'wall "Hey, I just found out something great! Have a look at www.examplenewslink.com!"'</p></blockquote>
+<p>The single quotes prevent bash from trying to interpret the command, so ssh receives it unmodified and can send it to the server as it should. Don't forget that the single quotes should be around the whole command, not anywhere else.</p>
+<h2><a name="scp">SCP</a></h2>
+<p>The scp command allows you to copy files over ssh connections. This is pretty useful if you want to transport files between computers, for example to backup something. The scp command uses the ssh command and they are very much alike. However, there are some important differences.</p>
+<p>The scp command can be used in three* ways: to copy from a (remote) server to your computer, to copy from your computer to a (remote) server, and to copy from a (remote) server to another (remote) server. In the third case, the data is transferred directly between the servers; your own computer will only tell the servers what to do. These options are very useful for a lot of things that require files to be transferred, so let's have a look at the syntax of this command:</p>
+<blockquote><p>[rechosen@localhost ~]$ scp examplefile yourusername@yourserver:/home/yourusername/</p></blockquote>
+<p>Looks quite familiar, right? But there are differences. The command above will transfer the file "examplefile" to the directory "/home/yourusername/" at the server "yourserver", trying to get ssh acces with the username "yourusername". That's quite a lot information, but scp really needs it all. Well, almost all of it. You could leave out the "yourusername@" in front of "yourserver", but only if you want to login on the server with your current username on your own computer. Let's have a closer look at the end of the command. There's a colon over there, with a directory after it. Just like Linux's normal cp command, scp will need to know both the source file(s) and the target directory (or file). For remote hosts, the file(s)/directory are given to the scp command is this way.</p>
+<p>You can also copy a file (or multiple files) from the (remote) server to your own computer. Let's have a look at an example of that:</p>
+<blockquote><p>[rechosen@localhost ~]$ scp yourusername@yourserver:/home/yourusername/examplefile .</p></blockquote>
+<p><em>Note: The dot at the end means the current local directory. This is a handy trick that can be used about everywhere in Linux. Besides a single dot, you can also type a double dot ( .. ), which is the parent directory of the current directory.</em></p>
+<p>This will copy the file "/home/yourusername/examplefile" to the current directory on your own computer, provided that the username and password are correct and that the file actually exists.</p>
+<p>You probably already guessed that the following command copies a file from a (remote) server to another (remote) server:</p>
+<blockquote><p>[rechosen@localhost ~]$ scp yourusername@yourserver:/home/yourusername/examplefile yourusername2@yourserver2:/home/yourusername2/</p></blockquote>
+<p>Please note that, to make the above command work, the servers <em>must</em> be able to reach each other, as the data will be transferred directly between them. If the servers somehow can't reach each other (for example, if port 22 is not open on one of the sides) you won't be able to copy anything. In that case, copy the files to your own computer first, then to the other host. Or make the servers able to reach each other (for example by opening the port).</p>
+<p>Well, those are the main uses of scp. We'll now go a bit more in-depth about the differences between ssh and scp.</p>
+<p>*: <em>Actually you can also use it just like the normal cp command, withhout any ssh connections in it, but that's quite useless. It requires you to type an extra 's' =).</em></p>
+<h2><a name="specifying-a-port-with-scp">Specifying a port with scp</a></h2>
+<p>The scp command acts a little different when it comes to ports. You'd expect that specifying a port should be done this way:</p>
+<blockquote><p>[rechosen@localhost ~]$ scp -p yourport yourusername@yourserver:/home/yourusername/examplefile .</p></blockquote>
+<p>However, that will not work. You will get an error message like this one:</p>
+<blockquote><p>cp: cannot stat `yourport': No such file or directory</p></blockquote>
+<p>This is caused by the different architecture of scp. It aims to resemble cp, and cp also features the -p option. However, in cp terms it means 'preserve', and it causes the cp command to preserve things like ownership, permissions and creation dates. The scp command can also preserve things like that, and the -p option enables this feature. The port specification should be done with the -P option. Therefore, the following command will work:</p>
+<blockquote><p>[rechosen@localhost ~]$ scp -P yourport yourusername@yourserver:/home/yourusername/examplefile .</p></blockquote>
+<p>Also note that the -P option <em>must</em> be in front of the (remote) server. The ssh command will still work if you put -p yourport behind the host syntax, but scp won't. Why? Because scp also supports copying between two servers and therefore needs to know <em>which</em> server the -P option applies to.</p>
+<h2><a name="another-difference-between-scp-and-ssh">Another difference between scp and ssh</a></h2>
+<p>Unlike ssh, scp cannot be used to run a command on a (remote) server, as it already uses that feature of ssh to start the scp server on the host. The scp command does have an option that accepts a program (the -S option), but this program will then be used instead of ssh to establish the encrypted connection, and it will not be executed on the remote host.</p>
+<h2><a name="tips-tricks-with-ssh-and-scp">Tips &amp; Tricks with ssh and scp</a></h2>
+<p>Quite a handy thing about scp is that it supports asterisks. You can copy all files in a remote directory in a way like this:</p>
+<blockquote><p>[rechosen@localhost ~]$ scp yourusername@yourserver:/home/yourusername/* .</p></blockquote>
+<p>And you can also just copy a whole directory by specifying the -r (recursive) option:</p>
+<blockquote><p>[rechosen@localhost ~]$ scp -r yourusername@yourserver:/home/yourusername/ .</p></blockquote>
+<p>Both of these also work when copying to a (remote) server or copying between a (remote) server and another (remote) server.</p>
+<p>The ssh command can come in handy if you don't know the exact location of the file you want to copy with scp. First, ssh to the (remote) server:</p>
+<blockquote><p>[rechosen@localhost ~]$ ssh yourusername@yourserver</p></blockquote>
+<p>Then browse to the right directory with cd. This is essential Linux terminal knowledge, so I won't explain it here. When you're in the right directory, you can get the full path with this command:</p>
+<blockquote><p>[rechosen@localhost ~]$ pwd</p></blockquote>
+<p><em>Note: pwd is an abbreviation of Print Working Directory, which is a useful way to remember the command.</em></p>
+<p>You can then copy this output, leave the ssh shell by pressing Ctrl + D, and then paste the full directory path in your scp command. This saves a lot of remembering and typing!</p>
+<p>You can also limit the bandwidth scp may use when copying. This is very useful if you're wanting to copy a huge amount of data without suffering from slow internet for a long time. Limiting bandwidth is done this way:</p>
+<blockquote><p>scp -l bandwidthlimit yourusername@yourserver:/home/yourusername/* .</p></blockquote>
+<p>The bandwidth is specified in Kbit/sec. What does this mean? Eight bits is one byte. If you want to copy no faster than 10 Kbyte/sec, set the limit to 80. If you want to copy no faster than 80 Kbyte/sec, set the limit to 640. Get it? You should set the limit to eight times the maximum Kbyte/sec you want it to be. I'd recommend to set the -l option with all scp'ing you do on a connection that other people need to use, too. A big amount of copying can virtually block a whole 10 Mbit network if you're using hubs.</p>
+<h2><a name="final-words">Final Words</a></h2>
+<p>Well, that was it! I hope you learned a lot. Of course, you can always have a quick look at this tutorial again if you forgot something. Please tell other people who might be interested about this tutorial, you'll help this blog to grow if you do =). Thank you for reading and have a lot of fun with your new knowledge!</p>
+ 
+		<!-- Social Sharing Icons -->
+		<div class="social clearfix">
+			 <span>If you enjoyed this article please consider <strong>sharing it!</strong></span>
+				<a href="http://twitter.com/home/?status=SSH and SCP: Howto, tips &amp; tricks : http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks" title="Tweet this!">
+				<img src="../wp-content/themes/colorbold/images/twitter.png" alt="Tweet this!" />
+				</a>
+				
+				<a href="http://www.stumbleupon.com/submit?url=http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks&amp;amp;title=SSH and SCP: Howto, tips &amp; tricks" title="StumbleUpon.">
+				<img src="../wp-content/themes/colorbold/images/stumbleupon.png" alt="StumbleUpon" />
+				</a>
+				
+				<a href="http://www.reddit.com/submit?url=http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks&amp;amp;title=SSH and SCP: Howto, tips &amp; tricks" title="Vote on Reddit.">
+				<img src="../wp-content/themes/colorbold/images/reddit.png" alt="Reddit" />
+				</a>
+				<a href="http://digg.com/submit?phase=2&amp;amp;url=http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks&amp;amp;title=SSH and SCP: Howto, tips &amp; tricks" title="Digg this!">
+				<img src="../wp-content/themes/colorbold/images/digg.png" alt="Digg This!" />
+				</a>
+				
+				<a href="http://del.icio.us/post?url=http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks&amp;amp;title=SSH and SCP: Howto, tips &amp; tricks" title="Bookmark on Delicious.">
+				<img src="../wp-content/themes/colorbold/images/delicious.png" alt="Bookmark on Delicious" />
+				</a>
+				
+				<a href="http://www.facebook.com/sharer.php?u=http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks&amp;amp;t=SSH and SCP: Howto, tips &amp; tricks" title="Share on Facebook.">
+				<img src="../wp-content/themes/colorbold/images/facebook.png" alt="Share on Facebook" id="sharethis-last" />
+				</a>
+				
+			</div>
+		
+		<!-- end Social Sharing Icons -->
+			</div>
+		</div>
+		<!-- end post -->
+		
+		
+		
+        
+<!-- You can start editing here. -->
+
+	<h2 class="comments">112 Comments to &#8220;SSH and SCP: Howto, tips &amp; tricks&#8221;</h2>
+
+	<ul class="commentlist clearfix">
+	   <li class="comment even thread-even depth-1" id="li-comment-484">
+  	
+
+     <div id="comment-484" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>vilfred</strong> </span>February 23, 2007 at 21:00 				
+				  <div class="text"><p>Topic: thanks!
+<p>thanks for howto =)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=484#respond' onclick='return addComment.moveForm("comment-484", "484", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-485">
+  	
+
+     <div id="comment-485" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/3e6f142d9a0bff281bad4ccf8ae21d80?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.proshikanet.cm' rel='external nofollow' class='url'>Hasan Mahmud Riyadf</a></strong> </span>March 16, 2007 at 08:33 				
+				  <div class="text"><p>Topic: Linux Scp Command
+<p>Hello,<br />
+yeh it is a well appriciated work. Thanks to share knowledgr with us. Long live GNU long live linux association</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=485#respond' onclick='return addComment.moveForm("comment-485", "485", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-486">
+  	
+
+     <div id="comment-486" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://del.icio.us/n2j3' rel='external nofollow' class='url'>n2j3</a></strong> </span>March 28, 2007 at 23:56 				
+				  <div class="text"><p>Topic: scp
+<p>very helpful. didn't know you could do that . thanks :D</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=486#respond' onclick='return addComment.moveForm("comment-486", "486", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-487">
+  	
+
+     <div id="comment-487" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/9995e3a972c8fd754b131c3d9082272b?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.storix.com/' rel='external nofollow' class='url'>Linux Disaster Recovery Software</a></strong> </span>June 26, 2007 at 08:41 				
+				  <div class="text"><p>Topic: helpful information.
+<p>Thanks for the helpful information provided.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=487#respond' onclick='return addComment.moveForm("comment-487", "487", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-490">
+  	
+
+     <div id="comment-490" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>dimitri</strong> </span>November 6, 2007 at 15:59 				
+				  <div class="text"><p>Topic: exclude
+<p>Do you know how to exclude directories using SCP?<br />
+eg. SCP -r [?EXCLUDE /home/me/not/] <a href="mailto:root@www.example.com">root@www.example.com</a>:/home/me<br />
+or how to scp a symbolic link without copying all the links?<br />
+thanks</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=490#respond' onclick='return addComment.moveForm("comment-490", "490", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-489">
+  	
+
+     <div id="comment-489" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/d9e79198c698abceb654ce1a58d0e795?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>Rechosen</a></strong> </span>November 15, 2007 at 19:22 				
+				  <div class="text"><p>Topic: Re: exclude
+<p>Hmmm... I guess that would require some kind of wrapper script. As far as I know, scp doesn't feature exclude support. The program <a href="http://rsync.samba.org/">rsync</a> does, though, so maybe it is worth the time to look into it.</p>
+<p>I don't know what you mean with "how to scp a symbolic link without copying all the links?", but maybe the -p option (preserve) might help.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=489#respond' onclick='return addComment.moveForm("comment-489", "489", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-491">
+  	
+
+     <div id="comment-491" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/262b610c774034335e40a04b76444aa1?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.superlanello.net' rel='external nofollow' class='url'>lanello</a></strong> </span>December 13, 2007 at 18:45 				
+				  <div class="text"><p>Topic: password
+<p>how i can include my password in the commandline in a crontab script?</p>
+<p>(sorry 4 my english, but i'm italian :p )</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=491#respond' onclick='return addComment.moveForm("comment-491", "491", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-488">
+  	
+
+     <div id="comment-488" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>singh</strong> </span>January 22, 2008 at 09:51 				
+				  <div class="text"><p>Topic: 
+<p>good job, thanks</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=488#respond' onclick='return addComment.moveForm("comment-488", "488", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-494">
+  	
+
+     <div id="comment-494" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/b56a740041997df881354ef8c97496d7?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://airforce-gov.co.uk' rel='external nofollow' class='url'>Alan Haggai Alavi</a></strong> </span>March 4, 2008 at 12:51 				
+				  <div class="text"><p>Topic: Thank you
+<p>Excellent information :-)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=494#respond' onclick='return addComment.moveForm("comment-494", "494", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-492">
+  	
+
+     <div id="comment-492" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>chmodarx</strong> </span>April 4, 2008 at 04:00 				
+				  <div class="text"><p>Topic: tq
+<p>well done..<br />
+linux is  the best..</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=492#respond' onclick='return addComment.moveForm("comment-492", "492", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-493">
+  	
+
+     <div id="comment-493" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/99f39d1bff4b505207419fc251e6bb00?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Ted</strong> </span>April 4, 2008 at 16:54 				
+				  <div class="text"><p>Topic: Excellent tutorial!
+<p>Thanks!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=493#respond' onclick='return addComment.moveForm("comment-493", "493", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-500">
+  	
+
+     <div id="comment-500" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/4cd554e1e4d67784c3087f501206634f?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Ryan</strong> </span>April 17, 2008 at 00:45 				
+				  <div class="text"><p>Topic: scp file transfer
+<p>Ok, Here is my problem. I am in a remote locale and I can get to my main computer, run progs, etc. However, I cannot transfer (scp) to where I am and somehow the file I want to move to me just overwrites itself.  I have the "port 22" problem you mention above and have no access to the router.  How do I transfer a file now?</p>
+<p>I am a bigtime new user. Windows XP Pro laptop to an XP desktop</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=500#respond' onclick='return addComment.moveForm("comment-500", "500", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-497">
+  	
+
+     <div id="comment-497" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Nitin Kumar</strong> </span>April 25, 2008 at 12:39 				
+				  <div class="text"><p>Topic: Can multiple files be copied using SCP and SFTP like mget in ftp
+<p>Hi, can we download multiple files using SCP and SFTP like mget in ftp?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=497#respond' onclick='return addComment.moveForm("comment-497", "497", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment odd alt depth-2" id="li-comment-5823">
+  	
+
+     <div id="comment-5823" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/9ac6d62ef5939203b850b297599b546d?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Keith</strong> </span>December 8, 2010 at 15:34 				
+				  <div class="text"><p>scp -r username.server:/directory ./ will copy the directory you want to the directory you are in.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=5823#respond' onclick='return addComment.moveForm("comment-5823", "5823", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-496">
+  	
+
+     <div id="comment-496" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/24524014860d41f3807f215edafcd85c?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Linda Theis</strong> </span>May 29, 2008 at 18:11 				
+				  <div class="text"><p>Topic: sftp question
+<p>I was wondering if you can specify a lrecl, fb and blksize for an sftp job</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=496#respond' onclick='return addComment.moveForm("comment-496", "496", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-505">
+  	
+
+     <div id="comment-505" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/51c32b5b54657135a4f2061dc60f2be0?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>vishwamohan</strong> </span>June 9, 2008 at 14:30 				
+				  <div class="text"><p>Topic: scp &#038; ssh
+<p>a complete tutorial for ssh command with practical implementation.It  lists even the the default cases.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=505#respond' onclick='return addComment.moveForm("comment-505", "505", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-499">
+  	
+
+     <div id="comment-499" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/0b2be260c01be29d4cc396eeea86b632?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>sam</strong> </span>July 9, 2008 at 08:44 				
+				  <div class="text"><p>Topic: ssh
+<p>what is the command to take the data in ssh</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=499#respond' onclick='return addComment.moveForm("comment-499", "499", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-498">
+  	
+
+     <div id="comment-498" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/0b2be260c01be29d4cc396eeea86b632?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>sam</strong> </span>July 9, 2008 at 08:46 				
+				  <div class="text"><p>Topic: group
+<p>what is the command to add the group into the group</p>
+<p>for eg we have group1, group2, group3<br />
+ we want to add the group1 and group2 to group3.</p>
+<p>what is the command. please help me.<br />
+             thank u</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=498#respond' onclick='return addComment.moveForm("comment-498", "498", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-501">
+  	
+
+     <div id="comment-501" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/36cefabb6ba1fa5f6ac78a080e4db375?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Jonah</strong> </span>August 5, 2008 at 15:14 				
+				  <div class="text"><p>Topic: Scp ssh
+<p>Nyc</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=501#respond' onclick='return addComment.moveForm("comment-501", "501", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-495">
+  	
+
+     <div id="comment-495" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/47531b720e01d71f1d1b68d17f73a196?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://candraadiputra.blogspot.com' rel='external nofollow' class='url'>candra</a></strong> </span>September 5, 2008 at 06:50 				
+				  <div class="text"><p>Topic: scp
+<p>thanks for the tutorial, this is very usefull for me</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=495#respond' onclick='return addComment.moveForm("comment-495", "495", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-502">
+  	
+
+     <div id="comment-502" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/68581e02fbbf5a7299011746a65e7b52?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.quicktutes.com/' rel='external nofollow' class='url'>quickTutes</a></strong> </span>September 24, 2008 at 17:22 				
+				  <div class="text"><p>Topic: Re: Linux
+<p>A detailed guide is to work with Linux. Your blog looks more informative. It will be more effective if you provide some screen shots how they are working.  </p>
+<p><a href="http://www.quicktutes.com/">quickTutes - video tutorials, computer tutorials, internet tutorials, tutorials</a></p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=502#respond' onclick='return addComment.moveForm("comment-502", "502", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-503">
+  	
+
+     <div id="comment-503" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/a92d231534944326d93318a7abeb6699?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>DaveA</strong> </span>October 14, 2008 at 11:29 				
+				  <div class="text"><p>Topic: ssh and scp
+<p>Hi, I would like to know if I can disable ssh for just one account (oracle), users will login with their personal accounts, then su to oracle, so this can be audited. However, I would also like to allow oracle to accept scp requests, but if I disable oracle, in sshd_config with </p>
+<p>DenyUsers oracle</p>
+<p>I can't use ssh or scp for oracle.</p>
+<p>Any suggestions?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=503#respond' onclick='return addComment.moveForm("comment-503", "503", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-504">
+  	
+
+     <div id="comment-504" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/7c4fe57b6538b90ed8c5607b525fe161?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>Rechosen</a></strong> </span>October 17, 2008 at 16:38 				
+				  <div class="text"><p>Topic: Re: ssh and scp
+<p>Hmmm... You might try using<br />
+<a href="http://www.sublimation.org/scponly/wiki/index.php/Main_Page" title="Scponly's homepage">scponly</a>, though I'm not sure if it'll allow using su. It should allow su -c , though.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=504#respond' onclick='return addComment.moveForm("comment-504", "504", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-515">
+  	
+
+     <div id="comment-515" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/83b265e11726ab53f5e8febceeb88fc1?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>fidelinux</strong> </span>February 6, 2009 at 16:42 				
+				  <div class="text"><p>Topic: Great!
+<p>Excellent! Thanks a lot!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=515#respond' onclick='return addComment.moveForm("comment-515", "515", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-514">
+  	
+
+     <div id="comment-514" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Richard</strong> </span>June 7, 2009 at 14:26 				
+				  <div class="text"><p>Topic: Good job
+<p>Thanks for this, really helped me!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=514#respond' onclick='return addComment.moveForm("comment-514", "514", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-513">
+  	
+
+     <div id="comment-513" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/47531b720e01d71f1d1b68d17f73a196?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.candra.web.id' rel='external nofollow' class='url'>candra</a></strong> </span>June 14, 2009 at 10:26 				
+				  <div class="text"><p>Topic: i love it
+<p>this tutorial is simple and usefull, I really like it.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=513#respond' onclick='return addComment.moveForm("comment-513", "513", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-510">
+  	
+
+     <div id="comment-510" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Chris</strong> </span>June 15, 2009 at 20:12 				
+				  <div class="text"><p>Topic: scp
+<p>Had just the info I was look for and excellent examples, thanks!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=510#respond' onclick='return addComment.moveForm("comment-510", "510", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-511">
+  	
+
+     <div id="comment-511" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/5f420a6fe39f487c06a21f68129705e5?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>francisco</strong> </span>June 17, 2009 at 06:12 				
+				  <div class="text"><p>Topic: what if I want to
+<p>......<br />
+copy the files from a server...to another computer ..(aleady have an account on the computer).......where do I put the ip address?..</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=511#respond' onclick='return addComment.moveForm("comment-511", "511", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-512">
+  	
+
+     <div id="comment-512" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Leonardi</strong> </span>June 17, 2009 at 17:19 				
+				  <div class="text"><p>Topic: scp howto
+<p>thanks for the howto, is very usefull for me, good look</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=512#respond' onclick='return addComment.moveForm("comment-512", "512", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-509">
+  	
+
+     <div id="comment-509" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/5e686c10ed467260afe554e00fba37da?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.noussh.com' rel='external nofollow' class='url'>Noushad Moidunny</a></strong> </span>July 7, 2009 at 11:48 				
+				  <div class="text"><p>Topic: Great Tutorial
+<p>Well done, this is great info. There is huge difference between reading 'man' pages and reading a well explained article like this.</p>
+<p>noussh</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=509#respond' onclick='return addComment.moveForm("comment-509", "509", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-507">
+  	
+
+     <div id="comment-507" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/b4ec4149007ee6436978562751828412?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Ram</strong> </span>August 11, 2009 at 15:34 				
+				  <div class="text"><p>Topic: C program for scp
+<p>Thanks for the tutorial. How to write a C code for scp command in Linux? I couldn't find it anywhere. Please help me in finding it.</p>
+<p>         Thanks in advance.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=507#respond' onclick='return addComment.moveForm("comment-507", "507", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-508">
+  	
+
+     <div id="comment-508" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/7ba1716fb67e527a2dc5420734b76c4c?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.fansites.biz' rel='external nofollow' class='url'>Celebrity fansite Script</a></strong> </span>August 19, 2009 at 08:09 				
+				  <div class="text"><p>Topic: thanx
+<p>thanks for the ssh tuts</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=508#respond' onclick='return addComment.moveForm("comment-508", "508", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-506">
+  	
+
+     <div id="comment-506" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/71d51c3fd28d076064f881bf34602122?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://software-configuration.blogspot.com/' rel='external nofollow' class='url'>kumar</a></strong> </span>September 14, 2009 at 16:39 				
+				  <div class="text"><p>Topic: i tried this way from one server to another
+<p>I changed the directory where the file is resided and run this command to deploy in remote server.</p>
+<p>scp  -P  username@remoteserver:/remote/location/path</p>
+<p>let me know if this is wrong?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=506#respond' onclick='return addComment.moveForm("comment-506", "506", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-516">
+  	
+
+     <div id="comment-516" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>walvim</strong> </span>December 5, 2009 at 02:29 				
+				  <div class="text"><p>Topic: yet another ssh tip
+<p>You can use <a href="http://electrica-ms.mures.rdsnet.ro/" title="electrica"> to use ssh in a browser, I always use it when i'm using a system without ssh client. There is a small minpoint: it's a bit slower then a regular ssh client</a></p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=516#respond' onclick='return addComment.moveForm("comment-516", "516", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-517">
+  	
+
+     <div id="comment-517" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/5f5bdbf443bd525c812677d56dc7be04?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Vamsi Krishna.Kunasani,Miracle Software Systems</strong> </span>December 17, 2009 at 11:25 				
+				  <div class="text"><p>Topic: ssh command with username and password
+<p>Hell All,</p>
+<p>could you please help me in providing the syntax or example in writing ssh command which includes giving password init , rather that interactive systems.</p>
+<p>Appreciate your help in advance.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=517#respond' onclick='return addComment.moveForm("comment-517", "517", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-518">
+  	
+
+     <div id="comment-518" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>bm</strong> </span>February 6, 2010 at 09:39 				
+				  <div class="text"><p>Topic: thanks
+<p>another thanks. quick and to the point. very helpful to me</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=518#respond' onclick='return addComment.moveForm("comment-518", "518", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-519">
+  	
+
+     <div id="comment-519" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/81f111d1156eb7016fabba938ddc8913?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Castor</strong> </span>March 3, 2010 at 23:48 				
+				  <div class="text"><p>Topic: Copying multiple files in multiple folders
+<p>I would like to use a manifest file that contains files' directories and filenames, and have my script read through them and copy each one from server A to server B. I've tried this with scp, but each execution of the command prompts me for the passphrase.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=519#respond' onclick='return addComment.moveForm("comment-519", "519", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment odd alt depth-2" id="li-comment-1089">
+  	
+
+     <div id="comment-1089" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/837eef229fcfeb4da28d4b3aa4659663?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Anton</strong> </span>May 4, 2010 at 04:44 				
+				  <div class="text"><p>You can bypass using your passphrase by sharing public/private keys between your local and remote sources... </p>
+<p>Have a look here to find out how:<br />
+<a href="http://magicmonster.com/kb/net/ssh/auto_login.html" rel="nofollow">http://magicmonster.com/kb/net/ssh/auto_login.html</a></p>
+<p>BE WARNED that this produces a hole through your remote server login security and you should fully understand how it works before using it.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=1089#respond' onclick='return addComment.moveForm("comment-1089", "1089", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-574">
+  	
+
+     <div id="comment-574" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/21ef50638dd4196abc98256aeb13bca7?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://headspace.posterous.com' rel='external nofollow' class='url'>Derek</a></strong> </span>March 16, 2010 at 11:28 				
+				  <div class="text"><p>Great stuff - if all tutorials were this readable and this thorough, we'd all be Linux gurus!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=574#respond' onclick='return addComment.moveForm("comment-574", "574", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-712">
+  	
+
+     <div id="comment-712" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/ff6a94ea993c7d2c5191fae805fbfb8c?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://na' rel='external nofollow' class='url'>Max</a></strong> </span>April 7, 2010 at 13:34 				
+				  <div class="text"><p>Excellent article. Informative and comprehensive. How can one cancel an ongoing scp?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=712#respond' onclick='return addComment.moveForm("comment-712", "712", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-719">
+  	
+
+     <div id="comment-719" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>April 8, 2010 at 12:38 				
+				  <div class="text"><p>That would usually be done by pressing Ctrl + c in the terminal where the ongoing scp is running. An alternative way is to find out the process id of it and use kill -QUIT on that.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=719#respond' onclick='return addComment.moveForm("comment-719", "719", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-1317">
+  	
+
+     <div id="comment-1317" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/d94176c0294027e113900e51f276bbff?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Jon</strong> </span>May 21, 2010 at 04:07 				
+				  <div class="text"><p>Copy to a remote server an entire directory without following symbolic links:</p>
+<p>rsync -azuv -e ssh /home/* user@remotehost:/mnt/backup/</p>
+<p>The other way?</p>
+<p>rsync -azuv -e ssh  user@remotehost:/home/* /mnt/backup/</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=1317#respond' onclick='return addComment.moveForm("comment-1317", "1317", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-1319">
+  	
+
+     <div id="comment-1319" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>May 21, 2010 at 06:30 				
+				  <div class="text"><p>Rsync is a nice tool, too. Didn't know it could work with just ssh on the remote host; good spot! Do know, however, that rsync does not work between two remote servers, like scp does.</p>
+<p>P.S. I fixed the slashes for you, Jon :).</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=1319#respond' onclick='return addComment.moveForm("comment-1319", "1319", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-1365">
+  	
+
+     <div id="comment-1365" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/4ba8cc61e07d105ff3a99938d68f2320?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>UrbTer</strong> </span>May 23, 2010 at 15:35 				
+				  <div class="text"><p>Another tip: on computers without ssh clients you can use a <a href="http://webssh.cz.cc/" rel="nofollow">ssh client on a website</a>.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=1365#respond' onclick='return addComment.moveForm("comment-1365", "1365", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-1552">
+  	
+
+     <div id="comment-1552" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/783795cad77d2afb2ac642edd609d55b?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>hrx</strong> </span>June 8, 2010 at 07:59 				
+				  <div class="text"><p>Thanks a lot!  You helped me.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=1552#respond' onclick='return addComment.moveForm("comment-1552", "1552", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-1562">
+  	
+
+     <div id="comment-1562" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>June 8, 2010 at 17:13 				
+				  <div class="text"><p>You're welcome!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=1562#respond' onclick='return addComment.moveForm("comment-1562", "1562", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-1597">
+  	
+
+     <div id="comment-1597" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/2b740f386a32360af82c0014d83eb6b9?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>copy files without requesting for passwords-</strong> </span>June 11, 2010 at 08:39 				
+				  <div class="text"><p>It s great help this stuff..<br />
+but I got some problems..</p>
+<p>It always ask for server's username, password and client's username, password when copying files using "scp". Is there any way that can be used to copye file without asking for passwords.<br />
+When using scp, it takes 2, 3 steps to copy, because it ask for passwords and usenames.</p>
+<p>I need a way to copy files from a remote server in a single command, is there a way?<br />
+thank you</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=1597#respond' onclick='return addComment.moveForm("comment-1597", "1597", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-1612">
+  	
+
+     <div id="comment-1612" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>June 12, 2010 at 10:21 				
+				  <div class="text"><p>You can specify the username using the username@hostname syntax, and using scp without entering a password is very well possible. Just get ssh to work without a password and scp should do so, too. Search the net for "passwordless ssh" to find howto's on it. Be careful, though; passwordless ssh has some security concerns.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=1612#respond' onclick='return addComment.moveForm("comment-1612", "1612", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-1911">
+  	
+
+     <div id="comment-1911" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/66c505d925008f33fd17ae21ad7ec1a4?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.naturalbirthandbabycare.com' rel='external nofollow' class='url'>Kristen</a></strong> </span>July 8, 2010 at 15:27 				
+				  <div class="text"><p>thank you, excellent tutorial!  This was very helpful for me in uploading securely to a remote server :)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=1911#respond' onclick='return addComment.moveForm("comment-1911", "1911", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-3351">
+  	
+
+     <div id="comment-3351" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/be5cdf46e21ae53ab07d17873f46dd24?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Jack</strong> </span>October 18, 2010 at 12:36 				
+				  <div class="text"><p>what is the command line to use... I am trying to transfer a file... /deskstop/images/pic3 from my remote server to another server in another college  .../home/photos/oct10/.....   I have the username and ps to access the server in the other college.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=3351#respond' onclick='return addComment.moveForm("comment-3351", "3351", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-3359">
+  	
+
+     <div id="comment-3359" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>October 18, 2010 at 14:53 				
+				  <div class="text"><p>Hello Jack,</p>
+<p>The command would be scp username1@myremoteserver:/deskstop/images/pic3 username2@othercollegeserver:/home/photos/oct10/ or, when executed from said remote server, scp /deskstop/images/pic3 username@othercollegeserver:/home/photos/oct10/.</p>
+<p>Rechosen</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=3359#respond' onclick='return addComment.moveForm("comment-3359", "3359", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment odd alt depth-3" id="li-comment-3396">
+  	
+
+     <div id="comment-3396" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/be5cdf46e21ae53ab07d17873f46dd24?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Jack</strong> </span>October 19, 2010 at 12:27 				
+				  <div class="text"><p>Thanks... it worked</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=3396#respond' onclick='return addComment.moveForm("comment-3396", "3396", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-3826">
+  	
+
+     <div id="comment-3826" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/be5cdf46e21ae53ab07d17873f46dd24?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Jack</strong> </span>October 28, 2010 at 18:47 				
+				  <div class="text"><p>I want to scp a file but  the filename has space eg (test scan.tar.gz). How do i work with a file name?... or rename it to test_scan.tar.gz?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=3826#respond' onclick='return addComment.moveForm("comment-3826", "3826", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-3828">
+  	
+
+     <div id="comment-3828" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>October 28, 2010 at 20:26 				
+				  <div class="text"><p>Hello again :),<br />
+You could try this: scp username1@server1:"/test\ scan.tar.gz" username2@server2:/targetdir/ (the quotes make sure the slash makes it to the remote host so the interpretation will go alright).<br />
+Rechosen</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=3828#respond' onclick='return addComment.moveForm("comment-3828", "3828", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-4287">
+  	
+
+     <div id="comment-4287" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/8de840a2a2783dd08b37cc7c1c1cfa4d?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://ducquoc.wordpress.com' rel='external nofollow' class='url'>DucQuoc.wordpress.com</a></strong> </span>November 8, 2010 at 12:46 				
+				  <div class="text"><p>thanks ! all are useful commands :-) </p>
+<p>Is there some simple method to copy file through some kind of "ssh chain" ?<br />
+Assuming that I'm at "homepc" , can connect via SSH to "remote1" , and from "remote1" I can connect SSH to "remote2" .<br />
+Which is the "one-liner" to copy a file from "remote2" to "homepc" ?<br />
+Let's say it's "remote2:/repository/somefile.war"  (I googled around but not found easy method)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=4287#respond' onclick='return addComment.moveForm("comment-4287", "4287", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-4302">
+  	
+
+     <div id="comment-4302" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>November 8, 2010 at 19:43 				
+				  <div class="text"><p>There is a method, but whether you'd call it simple is up to you :). You can use a so-called ProxyCommand to make remote1 forward the ssh connection to remote2. Here's an example:</p>
+<p>scp -o 'ProxyCommand ssh user1@remote1 nc remote2 22' filetocopy user2@remote2:/repository/somefile.war</p>
+<p>And a little bit of explanation: this will only work when using OpenSSH and when remote1 has netcat installed. The command first connects to remote1 and executes the nc command there, which opens a connection to port 22 (the default SSH port) of remote2. Then your homepc uses the remote nc connection to connect to remote2 and copy the file there. Hope this helps.</p>
+<p>Rechosen</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=4302#respond' onclick='return addComment.moveForm("comment-4302", "4302", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-4351">
+  	
+
+     <div id="comment-4351" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/421198ced583068175c586508725dc2f?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>lucky</strong> </span>November 9, 2010 at 17:45 				
+				  <div class="text"><p>To copy files from/to the computer/host, one can use FileZilla software. It is similar to SSH file transfer window. You can download filezilla at <a href="http://filezilla-project.org/" rel="nofollow">http://filezilla-project.org/</a></p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=4351#respond' onclick='return addComment.moveForm("comment-4351", "4351", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-4984">
+  	
+
+     <div id="comment-4984" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/ba50621a7a9aac92e4a1d6d7e26e0f34?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.amitpatil.me' rel='external nofollow' class='url'>AMit</a></strong> </span>November 23, 2010 at 12:17 				
+				  <div class="text"><p>good work...</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=4984#respond' onclick='return addComment.moveForm("comment-4984", "4984", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-5068">
+  	
+
+     <div id="comment-5068" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/0372bf74c6f2341aedfb75711e00552c?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://thiyagi.wordpress.com' rel='external nofollow' class='url'>thiyagi</a></strong> </span>November 25, 2010 at 14:36 				
+				  <div class="text"><p>thanks, that was really helpful...</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=5068#respond' onclick='return addComment.moveForm("comment-5068", "5068", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-5311">
+  	
+
+     <div id="comment-5311" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/eda7feb7f0d2cdddbf5a315f6c10bba7?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>macdental</strong> </span>November 30, 2010 at 14:44 				
+				  <div class="text"><p>A clean introduction, though I just take them as two distinct commands, one for connection, one for copying. Thanks.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=5311#respond' onclick='return addComment.moveForm("comment-5311", "5311", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback even thread-even depth-1" id="li-comment-5364">
+  	
+
+     <div id="comment-5364" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.linuxquestions.org/questions/linux-networking-3/guide-to-ssh-847699/#post4177484' rel='external nofollow' class='url'>guide to ssh</a></strong> </span>December 1, 2010 at 21:57 				
+				  <div class="text"><p>[...] next two might be what you are looking for:  <a href="http://support.suso.com/supki/SSH_Tutorial_for_Linux" rel="nofollow">http://support.suso.com/supki/SSH_Tutorial_for_Linux</a> <a href="http://www.linuxtutorialblog.com/pos...to-tips-tricks" rel="nofollow">http://www.linuxtutorialblog.com/pos...to-tips-tricks</a>   [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=5364#respond' onclick='return addComment.moveForm("comment-5364", "5364", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback odd alt thread-odd thread-alt depth-1" id="li-comment-9838">
+  	
+
+     <div id="comment-9838" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.tech-faq.com/linux-tutorials.html' rel='external nofollow' class='url'>Linux Tutorials</a></strong> </span>January 29, 2011 at 06:12 				
+				  <div class="text"><p>[...] Log In Remotely Using SSH Tutorial [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=9838#respond' onclick='return addComment.moveForm("comment-9838", "9838", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-10171">
+  	
+
+     <div id="comment-10171" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/11dfb70c1a19e1937498e11dfd22a1ed?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://thoughtslinux.blogspot.com/' rel='external nofollow' class='url'>phil</a></strong> </span>February 2, 2011 at 20:55 				
+				  <div class="text"><p>Thanks :)<br />
+I had never heard of scp before. I always used samba, which takes a lot more time.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=10171#respond' onclick='return addComment.moveForm("comment-10171", "10171", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback odd alt thread-odd thread-alt depth-1" id="li-comment-10924">
+  	
+
+     <div id="comment-10924" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.linuxquestions.org/questions/linux-newbie-8/upload-with-terminal-862460/#post4257207' rel='external nofollow' class='url'>upload with terminal?</a></strong> </span>February 13, 2011 at 21:41 				
+				  <div class="text"><p>[...] Here you go: <a href="http://www.linuxtutorialblog.com/pos...to-tips-tricks" rel="nofollow">http://www.linuxtutorialblog.com/pos...to-tips-tricks</a> [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=10924#respond' onclick='return addComment.moveForm("comment-10924", "10924", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-11294">
+  	
+
+     <div id="comment-11294" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/a0512fab1202478d890d889d1c24839d?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Jay</strong> </span>February 18, 2011 at 15:44 				
+				  <div class="text"><p>Good knowledge base. Had a question with recursive copy, -r option. It appears that you need to create the directory structure at your destination node before issuing an scp with -r option. I tried to copy without creating the nested directory structure (it is quite complex) in my destination node and it came up with an error, 'Is a Directory'. Can you clarify if this is an scp limitation or I am missing something. Thanks</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=11294#respond' onclick='return addComment.moveForm("comment-11294", "11294", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-11384">
+  	
+
+     <div id="comment-11384" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>February 19, 2011 at 10:49 				
+				  <div class="text"><p>Hello Jay,</p>
+<p>The directory you are copying to has to exist, only subdirectories are automatically created. The "Is a Directory" error is misleading and has been reported as a bug on several occasions already (just search Google for the error). So scp -r somedir user@remotehost:/path/to/nonexistent/dir/ says that the nonexistent dir "Is a Directory". Hope this helps.</p>
+<p>With regards,</p>
+<p>Rechosen</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=11384#respond' onclick='return addComment.moveForm("comment-11384", "11384", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment even depth-3" id="li-comment-21292">
+  	
+
+     <div id="comment-21292" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/b3afc87780d447c24f10e9e5b48d9b0c?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Konstantin</strong> </span>July 1, 2011 at 18:27 				
+				  <div class="text"><p>Hello,<br />
+I obtain error "is a directory" while copy with flag -r : </p>
+<p>tester-tilgin@melkor:~$ scp -rBp   .../linux ulmo:/tmp/<br />
+/home/tester-tilgin/platform/platform-ts/te-ts-1/agents/linux: Is a directory</p>
+<p>Whereas directory /tmp/ certainly exists on the target host.<br />
+What is could be?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=21292#respond' onclick='return addComment.moveForm("comment-21292", "21292", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-11427">
+  	
+
+     <div id="comment-11427" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/79aff804c9b19a2a6a43745b87d4b14c?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.linux-at-all.blogspot.com' rel='external nofollow' class='url'>mushtaque</a></strong> </span>February 19, 2011 at 18:08 				
+				  <div class="text"><p>user friendly discription,very easy understood<br />
+thchnical approach,found very helpful<br />
+thanks a lot</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=11427#respond' onclick='return addComment.moveForm("comment-11427", "11427", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-12145">
+  	
+
+     <div id="comment-12145" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/44f6e0b1ed1cc2282575bd606bcf8e9e?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.howzine.info' rel='external nofollow' class='url'>Bruce</a></strong> </span>February 26, 2011 at 06:05 				
+				  <div class="text"><p>Awesome article.  I've used ssh of an on playing around with linux and windows.  This certainly broadens my knowledge of how to better use ssh.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=12145#respond' onclick='return addComment.moveForm("comment-12145", "12145", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback odd alt thread-odd thread-alt depth-1" id="li-comment-13436">
+  	
+
+     <div id="comment-13436" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://serversupportforum.de/forum/backup-storage/44185-ftp-tool-zum-direkt-kopieren-nicht-nur-www.html#post275310' rel='external nofollow' class='url'>FTP Tool zum direkt kopieren (nicht nur www) - Server Support Forum</a></strong> </span>March 12, 2011 at 13:14 				
+				  <div class="text"><p>[...] permalink      0,001 sec. Google benutzt und schon was gefunden [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=13436#respond' onclick='return addComment.moveForm("comment-13436", "13436", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-14024">
+  	
+
+     <div id="comment-14024" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/89a05e764be68f091699b2c74fa035ae?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Siva</strong> </span>March 21, 2011 at 06:38 				
+				  <div class="text"><p>Hi, Thank you for the information.<br />
+My doubt is, can I transfer concurrently 2 files in 2 different locations on my local server onto 2 different locations on a remote machine using scp ? Is that possible, if so please let me know. </p>
+<p>I want to transfer files file1, file2 on server1 to different paths on server2. </p>
+<p>ex:-  from server 1 --&gt; /home/abc/file1, /home/xyz/file2<br />
+        to       server 2 --&gt; /home/ABC , /home/XYZ</p>
+<p>Thank you for your time.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=14024#respond' onclick='return addComment.moveForm("comment-14024", "14024", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-14759">
+  	
+
+     <div id="comment-14759" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>March 31, 2011 at 09:17 				
+				  <div class="text"><p>Hello Siva,</p>
+<p>As far as I know, scp doesn't support that (just like the normal cp command can only copy to one place). You can, however, run two scp's at the same time. You might even use the ampersand to run them at the same time from the same shell. Maybe something like scp server1:/home/abc/file1 server2:/home/ABC &gt;logfile 2&gt;&amp;1 &amp; scp server1:/home/xyz/file2 server2:/home/XYZ (the logfile is used to prevent double output on the shell). Hope this answers your question (and sorry for the delay).</p>
+<p>Rechosen</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=14759#respond' onclick='return addComment.moveForm("comment-14759", "14759", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-14467">
+  	
+
+     <div id="comment-14467" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/89d82d52c919a2c2efe344f7cc1ef4d0?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Venkat</strong> </span>March 27, 2011 at 07:23 				
+				  <div class="text"><p>Excellent topic. Thanks for sharing.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=14467#respond' onclick='return addComment.moveForm("comment-14467", "14467", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-16791">
+  	
+
+     <div id="comment-16791" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/a21006a51951043d4eaa9e51d4a2a638?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.gianramos.wordpress.com' rel='external nofollow' class='url'>Gian Ramos</a></strong> </span>May 3, 2011 at 12:51 				
+				  <div class="text"><p>Just what I need :) Great post! Thank you for sharing! Will come back for more :)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=16791#respond' onclick='return addComment.moveForm("comment-16791", "16791", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment even depth-2" id="li-comment-44413">
+  	
+
+     <div id="comment-44413" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/a87dbdd6eb41ec843d45cba6d26fb3be?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.engbd.org' rel='external nofollow' class='url'>Raihan</a></strong> </span>December 2, 2011 at 20:14 				
+				  <div class="text"><p>good quality</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=44413#respond' onclick='return addComment.moveForm("comment-44413", "44413", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="pingback odd alt thread-odd thread-alt depth-1" id="li-comment-17916">
+  	
+
+     <div id="comment-17916" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://lonnie.wormley.org/2011/05/23/ssh-and-scp-howto-tips-tricks-%c2%ab-linux-tutorial-blog/' rel='external nofollow' class='url'>SSH and SCP: Howto, tips &amp; tricks « Linux Tutorial Blog | Screws in my coffee</a></strong> </span>May 23, 2011 at 15:18 				
+				  <div class="text"><p>[...] via SSH and SCP: Howto, tips &amp; tricks « Linux Tutorial Blog. [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=17916#respond' onclick='return addComment.moveForm("comment-17916", "17916", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-18437">
+  	
+
+     <div id="comment-18437" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/5ec4a22fd4a7cc5b5eaaecfc6826b445?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>StarNoStar</strong> </span>June 2, 2011 at 04:43 				
+				  <div class="text"><p>Learn something new every day....using arch has forced me to learn more than I ever thought possible with the cli (its more of a pain to mount something with sshfs and drag and drop than to do this or rsync over ssh)...I have begun to prefer the cli for more and more and now most of my stuff runs in countless terminator windows :)</p>
+<p>Bout the only thing is use in a gui is a web browser libreoffice and easytag.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=18437#respond' onclick='return addComment.moveForm("comment-18437", "18437", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-18700">
+  	
+
+     <div id="comment-18700" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/65ed582977a4a37d4fbb293c11055059?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Abe</strong> </span>June 4, 2011 at 21:35 				
+				  <div class="text"><p>scp need a capital P for specifying port on my system.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=18700#respond' onclick='return addComment.moveForm("comment-18700", "18700", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-19693">
+  	
+
+     <div id="comment-19693" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/2299bac5cd074303baa0f9d757a13a01?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>sedq</strong> </span>June 12, 2011 at 23:23 				
+				  <div class="text"><p>Thanks for your great tutorial.<br />
+anyway, I am not able to transfer my website from a Cpanel installed VPS to a Kloxo installed VPS.<br />
+I am doing this through putty (I have winSCP also installed):<br />
+scp -P 65321 -r <a href="mailto:root@65.31.63.51">root@65.31.63.51</a>:/home/blog/public_html/ <a href="mailto:root@78.45.33.133">root@78.45.33.133</a>:/home/mycms/blog/</p>
+<p>Could you guid me what is wrong here please. Still its using port 22, and saying cant connect..</p>
+<p>Regards</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=19693#respond' onclick='return addComment.moveForm("comment-19693", "19693", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback odd alt thread-odd thread-alt depth-1" id="li-comment-20032">
+  	
+
+     <div id="comment-20032" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://cl4ssic4l.wordpress.com/2011/05/24/ssh-and-scp-howto-tips-tricks/' rel='external nofollow' class='url'>SSH and SCP: Howto, tips &amp; tricks &laquo; classical&#039;s blog</a></strong> </span>June 16, 2011 at 19:17 				
+				  <div class="text"><p>[...] link [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=20032#respond' onclick='return addComment.moveForm("comment-20032", "20032", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-21489">
+  	
+
+     <div id="comment-21489" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/593d123b8830ea903f015109d8b9d3bb?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Omar yousef</strong> </span>July 3, 2011 at 23:37 				
+				  <div class="text"><p>i think it is the best tutorial i saw</p>
+<p>thank you very much</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=21489#respond' onclick='return addComment.moveForm("comment-21489", "21489", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-22793">
+  	
+
+     <div id="comment-22793" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/3efaec59f4f252be3266ce7dec2a776d?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Samay</strong> </span>July 16, 2011 at 03:44 				
+				  <div class="text"><p>Above is a good article and I learnt from it and below is a specific scenario that was missing from the article.<br />
+Please find the below syntax.<br />
+if you want to transfer file from your local to remote machine where your local is windows OS and your remote is UNIX ...and the port is not default 22 then user the below command<br />
+scp -P     @:/home//</p>
+<p>scp -P 9378 myfile <a href="mailto:samay@172.19.235.40">samay@172.19.235.40</a>:/home/samay/myfile</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=22793#respond' onclick='return addComment.moveForm("comment-22793", "22793", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-22970">
+  	
+
+     <div id="comment-22970" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/292e70f74b2f15c111c0895adb6cda7f?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>robb (technotarded)</strong> </span>July 18, 2011 at 07:24 				
+				  <div class="text"><p>Great tutorial, it is just what I needed for my linux II class.<br />
+Thjanx so much,<br />
+I'll be back,</p>
+<p>technotarded</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=22970#respond' onclick='return addComment.moveForm("comment-22970", "22970", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-24445">
+  	
+
+     <div id="comment-24445" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/dd0e4228c97ebc558791387a89ca2ad1?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Karthick</strong> </span>August 4, 2011 at 04:40 				
+				  <div class="text"><p>well off course its really useful to me thank u so much</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=24445#respond' onclick='return addComment.moveForm("comment-24445", "24445", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-26789">
+  	
+
+     <div id="comment-26789" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/fb49de24b018e7c89c3a2c86dcb580e1?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>ferdy</strong> </span>August 30, 2011 at 10:22 				
+				  <div class="text"><p>thanks for the tutorial , we'll come back for more.............</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=26789#respond' onclick='return addComment.moveForm("comment-26789", "26789", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-28367">
+  	
+
+     <div id="comment-28367" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/d441a7a0c75f708a86532c18359534da?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Raghvendra</strong> </span>September 15, 2011 at 07:12 				
+				  <div class="text"><p>Hi<br />
+Great post. I have a question on ssh or may be linux. I use ssh software (free one) from <a href="http://www.ssh.com" rel="nofollow">http://www.ssh.com</a> (earlier, now tecnica). While I can use ssh successfully to logon to the linux machine from my windows machine, I can copy files to and from; however when I type any command it returns "-bash: ls: No such file or directory".<br />
+I suspect this might be related to the problems that I had with some files on my linux machine because of improper shutdown. I use redhat linux. I generally run fsck to correct file system when i restart the computer after a improper shutdown, say because of power/ups failure, but dont know how to run while the system is running.<br />
+Any help on any of this will be greatly appreciated.<br />
+Thanks</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=28367#respond' onclick='return addComment.moveForm("comment-28367", "28367", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-30625">
+  	
+
+     <div id="comment-30625" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/d85ea3a3caa8ed6e541e6ab39f6eb6ce?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.arrobacasa.com.br' rel='external nofollow' class='url'>vitor</a></strong> </span>October 2, 2011 at 19:38 				
+				  <div class="text"><p>many thanks for the article shed some light into the scp</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=30625#respond' onclick='return addComment.moveForm("comment-30625", "30625", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback odd alt thread-odd thread-alt depth-1" id="li-comment-30813">
+  	
+
+     <div id="comment-30813" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://installubuntu.net/2011/how-to-lock-down-linux/' rel='external nofollow' class='url'>How to lock down Linux | Install Ubuntu</a></strong> </span>October 4, 2011 at 07:28 				
+				  <div class="text"><p>[...] rid of it and install a fresh version. To do this, stop the program from running with, using the Secure Shell (ssh) daemon, with the following [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=30813#respond' onclick='return addComment.moveForm("comment-30813", "30813", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback even thread-even depth-1" id="li-comment-31091">
+  	
+
+     <div id="comment-31091" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://connectdafrica.wordpress.com/2011/10/06/1003/' rel='external nofollow' class='url'>connected.Africa</a></strong> </span>October 6, 2011 at 12:12 				
+				  <div class="text"><p>[...] rid of it and install a fresh version. To do this, stop the program from running with, using the Secure Shell (ssh) daemon, with the following [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=31091#respond' onclick='return addComment.moveForm("comment-31091", "31091", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-31433">
+  	
+
+     <div id="comment-31433" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/963b813269e202208a17e3dd37a6b6a3?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Pumba</strong> </span>October 8, 2011 at 00:35 				
+				  <div class="text"><p>Can I copy publicly available files from a remote server with scp command to my own server<br />
+For example I want to copy files from <a href="http://xyz.remoteserver.com/pictures/" rel="nofollow">http://xyz.remoteserver.com/pictures/</a> to /var/www/newserver/<br />
+Without having to provide the user@remoteserver information ?<br />
+Do I still need to provide username and password if it's available in www/ directory ?</p>
+<p>How else can this be done ?<br />
+Thanks in advance.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=31433#respond' onclick='return addComment.moveForm("comment-31433", "31433", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-33620">
+  	
+
+     <div id="comment-33620" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/22259716faae930605863b4773499d91?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://diogomelo.net' rel='external nofollow' class='url'>Diogo Melo</a></strong> </span>October 16, 2011 at 19:24 				
+				  <div class="text"><p>Hi,</p>
+<p>great post.</p>
+<p>I wrote some SSH tricks myself <a href="http://diogomelo.net/blog/10/ssh-tricks" rel="nofollow">http://diogomelo.net/blog/10/ssh-tricks</a> :D</p>
+<p>Again, congrats for the post :)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=33620#respond' onclick='return addComment.moveForm("comment-33620", "33620", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-37285">
+  	
+
+     <div id="comment-37285" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/3e3ceff6aecdd800f6f5127a4d4d1c93?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>mohan</strong> </span>November 4, 2011 at 10:05 				
+				  <div class="text"><p>it was informative</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=37285#respond' onclick='return addComment.moveForm("comment-37285", "37285", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-37882">
+  	
+
+     <div id="comment-37882" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/84ee1041c2a86a626c92744ad4551704?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.impressionblog.com' rel='external nofollow' class='url'>Thomas Lee</a></strong> </span>November 7, 2011 at 09:05 				
+				  <div class="text"><p>Great article, Will try it next time<br />
+Thank you for sharing</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=37882#respond' onclick='return addComment.moveForm("comment-37882", "37882", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-39217">
+  	
+
+     <div id="comment-39217" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/32c4dfedfe116ffbcfee6e8b9fd2d85a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Gabriele I.</strong> </span>November 14, 2011 at 07:52 				
+				  <div class="text"><p>Thank your very much, that helped me out well.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=39217#respond' onclick='return addComment.moveForm("comment-39217", "39217", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-39996">
+  	
+
+     <div id="comment-39996" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/e084c4b210bb6c1a969bbaff28a0226f?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://subtxt.us' rel='external nofollow' class='url'>Christopher</a></strong> </span>November 17, 2011 at 03:10 				
+				  <div class="text"><p>Excellent post. I just downloaded a bunch of files. It worked! But, er...where did they go? ;P Help is appreciated. Thanks.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=39996#respond' onclick='return addComment.moveForm("comment-39996", "39996", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-43294">
+  	
+
+     <div id="comment-43294" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/ff266e11b6970711d8827d1752a134c8?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>ehsan</strong> </span>November 29, 2011 at 22:31 				
+				  <div class="text"><p>I really appreciate your article,Great job. God bless you.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=43294#respond' onclick='return addComment.moveForm("comment-43294", "43294", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-44412">
+  	
+
+     <div id="comment-44412" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/a87dbdd6eb41ec843d45cba6d26fb3be?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.engbd.org' rel='external nofollow' class='url'>Raihan</a></strong> </span>December 2, 2011 at 20:13 				
+				  <div class="text"><p>Nice</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=44412#respond' onclick='return addComment.moveForm("comment-44412", "44412", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-52958">
+  	
+
+     <div id="comment-52958" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/81da284aad36d783011112fcc8157d0c?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://w3t.in/' rel='external nofollow' class='url'>w3t</a></strong> </span>December 25, 2011 at 22:30 				
+				  <div class="text"><p>Its a complete tutorial for ssh command with practical implementation.It lists even the the default cases.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=52958#respond' onclick='return addComment.moveForm("comment-52958", "52958", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-53591">
+  	
+
+     <div id="comment-53591" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/17e5b1cf6e93df4eb23bc88883c00258?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.tom.com' rel='external nofollow' class='url'>Aiming</a></strong> </span>December 27, 2011 at 08:54 				
+				  <div class="text"><p>how to make  a ssh connection without specifying a username. i didn't find any clue while you said that you will show how to do it in this torturial.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=53591#respond' onclick='return addComment.moveForm("comment-53591", "53591", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-84908">
+  	
+
+     <div id="comment-84908" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>April 12, 2012 at 14:52 				
+				  <div class="text"><p>I actually meant that I'd show later how to connect <em>with</em> specifying a username, but it's easily misread :). That said, you can connect without specifying a username if you either (1) connect to a host that takes the username you're logged in as right now, or (2) by configuring a username in your ssh config (see man ssh_config).</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=84908#respond' onclick='return addComment.moveForm("comment-84908", "84908", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-54935">
+  	
+
+     <div id="comment-54935" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/f989c6406f51045a6eba8486996c477c?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>pomoc prawna</strong> </span>December 30, 2011 at 05:37 				
+				  <div class="text"><p>Ich möchte Ihnen für diese Hinweise danken. Sie sind sehr nützlich.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=54935#respond' onclick='return addComment.moveForm("comment-54935", "54935", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback odd alt thread-even depth-1" id="li-comment-58306">
+  	
+
+     <div id="comment-58306" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.linuxquestions.org/questions/linux-networking-3/configuring-ssh-922610/#post4568912' rel='external nofollow' class='url'>configuring SSH</a></strong> </span>January 7, 2012 at 18:49 				
+				  <div class="text"><p>[...] msrpower: In college we used PuTTy for command-line work but used WinSCP for file transfers.   It would be the same as if I was to transfer files from two Linux boxes. SSH for command line work and SCP for file transfers. SSH/SCP Tutorial. [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=58306#respond' onclick='return addComment.moveForm("comment-58306", "58306", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-63936">
+  	
+
+     <div id="comment-63936" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/c68f4391586d85d2cc4a00f1cd548427?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Citius</strong> </span>January 26, 2012 at 18:30 				
+				  <div class="text"><p>I've noticed the scp command does not convert carriage returns/line feeds correctly when transferring data between different platforms, for example, a Windows server to an IBM mainframe running OMVS (Unix on the mainframe).<br />
+I have had to run an sed command to correct the file on the receiving end.<br />
+Are you aware of an option or setting that tells scp to perform the correct conversion during the transmission?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=63936#respond' onclick='return addComment.moveForm("comment-63936", "63936", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-67716">
+  	
+
+     <div id="comment-67716" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/56c7c60eec8313045b93af781b6bd735?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Aharon Samuel</strong> </span>February 10, 2012 at 09:37 				
+				  <div class="text"><p>HI,</p>
+<p>I made ssh connection from server to client. But  this connection is not terminating once the system gets crashed. I want to disconnect the connection once the system is down.</p>
+<p>Can you please help me to do it?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=67716#respond' onclick='return addComment.moveForm("comment-67716", "67716", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-71197">
+  	
+
+     <div id="comment-71197" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/d199464374f990033b7a3779bca10513?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.jobzonline.co.za' rel='external nofollow' class='url'>cephas</a></strong> </span>February 24, 2012 at 07:48 				
+				  <div class="text"><p>pwd can show the current working directory.<br />
+My Question is, which cmd can i use to see what and which directory is my other users logged<br />
+are working on</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=71197#respond' onclick='return addComment.moveForm("comment-71197", "71197", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-75002">
+  	
+
+     <div id="comment-75002" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/8b70848d8f9e2b41a6d91df2d21b8710?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>DEC.I</strong> </span>March 8, 2012 at 15:45 				
+				  <div class="text"><p>hy, when  running scp remote to remote, i get password alerts and confirmation questions, can i skip this ones, i also have access to those, so i am told i could use public keys, do you think this is a viable solution?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=75002#respond' onclick='return addComment.moveForm("comment-75002", "75002", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-84910">
+  	
+
+     <div id="comment-84910" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>April 12, 2012 at 14:56 				
+				  <div class="text"><p>Public/private key pairs are the way to go for passwordless ssh/scp, yes :).</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=84910#respond' onclick='return addComment.moveForm("comment-84910", "84910", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-78076">
+  	
+
+     <div id="comment-78076" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/53073565a6c51ae4d8842d39f8be8507?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://railsdeveloper.in' rel='external nofollow' class='url'>sachin</a></strong> </span>March 18, 2012 at 15:38 				
+				  <div class="text"><p>please can any body help me with this?</p>
+<p>ssh <a href="mailto:user@example.com">user@example.com</a>:2000 </p>
+<p>this not working?</p>
+<p>what's wrong?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=78076#respond' onclick='return addComment.moveForm("comment-78076", "78076", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-84911">
+  	
+
+     <div id="comment-84911" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>April 12, 2012 at 14:58 				
+				  <div class="text"><p>To specify a port, use the -p option in ssh or the -P option in scp. The :<something> syntax is reserved for specifying the file/dir to copy using scp.</something></p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=84911#respond' onclick='return addComment.moveForm("comment-84911", "84911", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="pingback odd alt thread-even depth-1" id="li-comment-79994">
+  	
+
+     <div id="comment-79994" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://blog.binarymist.net/2012/03/25/copying-with-scp/' rel='external nofollow' class='url'>copying with scp &laquo; Binarymist</a></strong> </span>March 25, 2012 at 05:16 				
+				  <div class="text"><p>[...] <a href="ssh-and-scp-howto-tips-tricks" rel="nofollow">http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks</a> [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=79994#respond' onclick='return addComment.moveForm("comment-79994", "79994", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-80948">
+  	
+
+     <div id="comment-80948" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/bec87e426c11d68687630e70d7fc2492?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Nas</strong> </span>March 29, 2012 at 05:52 				
+				  <div class="text"><p>Hi Experts.</p>
+<p>I am new in linux shell scripting so Can anybody explain please whats -B do in aboe script. Will appricitate if can explain full script,.</p>
+<p>                scp -p -B ${source_server}:${source_directory}/${copy_file} ${target_server}:${target_directory}/${copy_file}<br />
+                return_code=$?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=80948#respond' onclick='return addComment.moveForm("comment-80948", "80948", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-86123">
+  	
+
+     <div id="comment-86123" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/5111f93b0bed88bd4020e4a9e7a72126?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>T</strong> </span>April 16, 2012 at 12:14 				
+				  <div class="text"><p>This was very useful thank you!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/ssh-and-scp-howto-tips-tricks?replytocom=86123#respond' onclick='return addComment.moveForm("comment-86123", "86123", "respond", "1")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+	</ul>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+ 
+
+
+<div id="respond">
+
+<h2>Post comment</h2>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="ssh-and-scp-howto-tips-tricks#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://www.linuxtutorialblog.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><label for="author">Name (required)</label>
+<input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required='true' />
+</p>
+
+<p><label for="email">Mail (will not be published) (required)</label>
+<input type="text" name="email" id="email" value="" size="22" tabindex="2" aria-required='true' />
+</p>
+
+<p><label for="url">Website</label>
+<input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+
+<p><label for="comment">Comment</label>
+<textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Send &raquo;" />
+<input type='hidden' name='comment_post_ID' value='1' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="feb0b9dd08" /></p>
+</form>
+
+</div>
+
+					
+			</div>
+			<!-- end col left -->
+	
+<!-- begin col right -->
+		<div id="colRight" class="clearfix">
+			
+<!-- begin search box -->
+		<div id="searchBox" class="clearfix">
+			<form id="searchform" action="ssh-and-scp-howto-tips-tricks" method="get">
+				<input id="s" type="text" name="s" value=""/>
+				<input id="searchsubmit" type="submit" value="SEARCH"/>
+			</form>
+		</div>
+		<!-- end search box -->
+		<!-- begin adsBox -->
+				<!-- end adsBox -->
+		
+		<!-- begin twitter box -->
+				
+		<div id="twitter">
+			<a href="http://twitter.com/LinuxTutBlog" title="Follow us on Twitter!"><img src="../wp-content/themes/colorbold/images/ico_twitter.png" alt="Follow us on Twitter!" />
+			<span id="twitterfollow">Follow us on Twitter!</span><br /><span id="twittertxt">See and influence what's coming up!</span></a>
+		</div>
+				<!-- end twitter box -->
+		
+		<h2>Contact</h2>			<div class="textwidget">Got a question? You can e-mail the author using the <a href="../contact-me">contact form</a>.</div>
+				
+	
+		</div>
+		<!-- end col right -->
+
+
+
+	</div>
+	<!-- end content -->
+	</div>
+	<!-- end wrapper -->
+	<!-- begin footer -->
+	<div id="footer">
+	&copy; 2007-2012 <strong>Rechosen</strong>. All Right Reserved. 
+	<ul id="footerMenu">
+		<li><a href="2007/01">Home</a></li>
+				<li class="page_item page-item-248"><a href="../contact-me" title="Contact me">Contact me</a></li>
+	</ul>
+	<div id="site5bottom">Based on the Colorbold theme by <a href="http://www.site5.com/reseller"><img src="../wp-content/themes/colorbold/images/site5_tiny.png" alt="Site5" /></a>.<br />Kudos to them for such a great free theme!</div>
+	</div>
+	<!-- end footer -->
+</div>
+<!-- end mainWrapper -->
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1651184-1";
+urchinTracker();
+</script>
+</body>
+</html>
+

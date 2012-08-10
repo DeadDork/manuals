@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8"?><feed
+  xmlns="http://www.w3.org/2005/Atom"
+  xmlns:thr="http://purl.org/syndication/thread/1.0"
+  xml:lang="en"
+  xml:base="http://www.linuxtutorialblog.com/wp-atom.php"
+   >
+	<title type="text">Linux Tutorial Blog</title>
+	<subtitle type="text">Quality Linux tutorials without clutter</subtitle>
+
+	<updated>2010-11-09T09:13:36Z</updated>
+
+	<link rel="alternate" type="text/html" href="http://www.linuxtutorialblog.com" />
+	<id>http://www.linuxtutorialblog.com/feed/atom</id>
+	<link rel="self" type="application/atom+xml" href="http://www.linuxtutorialblog.com/feed/atom" />
+
+	<generator uri="http://wordpress.org/" version="3.2.1">WordPress</generator>
+		<entry>
+		<author>
+			<name>rechosen</name>
+						<uri>http://www.linuxtutorialblog.com/</uri>
+					</author>
+		<title type="html"><![CDATA[A fresh look!]]></title>
+		<link rel="alternate" type="text/html" href="http://www.linuxtutorialblog.com/post/a-fresh-look" />
+		<id>http://www.linuxtutorialblog.com/?p=243</id>
+		<updated>2010-03-13T10:21:31Z</updated>
+		<published>2010-03-13T10:21:31Z</published>
+		<category scheme="http://www.linuxtutorialblog.com" term="News" /><category scheme="http://www.linuxtutorialblog.com" term="Lifetype" /><category scheme="http://www.linuxtutorialblog.com" term="looks" /><category scheme="http://www.linuxtutorialblog.com" term="Twitter" /><category scheme="http://www.linuxtutorialblog.com" term="Wordpress" /><category scheme="http://www.linuxtutorialblog.com" term="writing" />		<summary type="html"><![CDATA[This blog moved from Lifetype to Wordpress today.]]></summary>
+		<link rel="replies" type="text/html" href="http://www.linuxtutorialblog.com/post/a-fresh-look#comments" thr:count="9"/>
+		<link rel="replies" type="application/atom+xml" href="http://www.linuxtutorialblog.com/post/a-fresh-look/feed/atom" thr:count="9"/>
+		<thr:total>9</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>rechosen</name>
+						<uri>http://www.linuxtutorialblog.com/</uri>
+					</author>
+		<title type="html"><![CDATA[Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)]]></title>
+		<link rel="alternate" type="text/html" href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop" />
+		<id>http://www.linuxtutorialblog.com/?p=77</id>
+		<updated>2010-03-12T19:28:06Z</updated>
+		<published>2008-08-25T21:30:16Z</published>
+		<category scheme="http://www.linuxtutorialblog.com" term="Solutions" /><category scheme="http://www.linuxtutorialblog.com" term="bash" /><category scheme="http://www.linuxtutorialblog.com" term="conversion" /><category scheme="http://www.linuxtutorialblog.com" term="drag &#039;n drop" /><category scheme="http://www.linuxtutorialblog.com" term="flac" /><category scheme="http://www.linuxtutorialblog.com" term="mp3" /><category scheme="http://www.linuxtutorialblog.com" term="scripting" />		<summary type="html"><![CDATA[This post contains a script and installation instructions to allow you to convert both individual files and directories, keep the tags of the files fully intact and enjoy an easy-to-use drag 'n drop interface.]]></summary>
+		<link rel="replies" type="text/html" href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop#comments" thr:count="46"/>
+		<link rel="replies" type="application/atom+xml" href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop/feed/atom" thr:count="46"/>
+		<thr:total>46</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>rechosen</name>
+						<uri>http://www.linuxtutorialblog.com/</uri>
+					</author>
+		<title type="html"><![CDATA[Tutorial: Conditions in bash scripting (if statements)]]></title>
+		<link rel="alternate" type="text/html" href="http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements" />
+		<id>http://www.linuxtutorialblog.com/?p=70</id>
+		<updated>2010-03-12T19:27:33Z</updated>
+		<published>2008-08-16T10:45:35Z</published>
+		<category scheme="http://www.linuxtutorialblog.com" term="Tutorials" /><category scheme="http://www.linuxtutorialblog.com" term="bash" /><category scheme="http://www.linuxtutorialblog.com" term="conditions" /><category scheme="http://www.linuxtutorialblog.com" term="scripting" />		<summary type="html"><![CDATA[This tutorial aims to help the reader to understand conditions in bash, and provides a comprehensive list of the possibilities.]]></summary>
+		<link rel="replies" type="text/html" href="http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements#comments" thr:count="43"/>
+		<link rel="replies" type="application/atom+xml" href="http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements/feed/atom" thr:count="43"/>
+		<thr:total>43</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>rechosen</name>
+						<uri>http://www.linuxtutorialblog.com/</uri>
+					</author>
+		<title type="html"><![CDATA[Linux Tutorial Blog is no longer frozen!]]></title>
+		<link rel="alternate" type="text/html" href="http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen" />
+		<id>http://www.linuxtutorialblog.com/?p=104</id>
+		<updated>2010-03-12T19:26:55Z</updated>
+		<published>2008-08-16T10:44:22Z</published>
+		<category scheme="http://www.linuxtutorialblog.com" term="News" /><category scheme="http://www.linuxtutorialblog.com" term="frozen" />		<summary type="html"><![CDATA[Linux Tutorial Blog is once more a place to keep watching, a regular Linux tutorial source.]]></summary>
+		<link rel="replies" type="text/html" href="http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen#comments" thr:count="2"/>
+		<link rel="replies" type="application/atom+xml" href="http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen/feed/atom" thr:count="2"/>
+		<thr:total>2</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>rechosen</name>
+						<uri>http://www.linuxtutorialblog.com/</uri>
+					</author>
+		<title type="html"><![CDATA[Solution: Getting a Gravis GamePad Pro to work on Linux]]></title>
+		<link rel="alternate" type="text/html" href="http://www.linuxtutorialblog.com/post/solution-getting-a-gravis-gamepad-pro-to-work-on-linux" />
+		<id>http://www.linuxtutorialblog.com/?p=66</id>
+		<updated>2010-03-12T19:26:47Z</updated>
+		<published>2007-11-18T20:56:30Z</published>
+		<category scheme="http://www.linuxtutorialblog.com" term="Solutions" /><category scheme="http://www.linuxtutorialblog.com" term="gameport" /><category scheme="http://www.linuxtutorialblog.com" term="Gravis Gamepad Pro" />		<summary type="html"><![CDATA[How to get a Gravis GamePad Pro (gameport edition) to work on Linux.]]></summary>
+		<link rel="replies" type="text/html" href="http://www.linuxtutorialblog.com/post/solution-getting-a-gravis-gamepad-pro-to-work-on-linux#comments" thr:count="3"/>
+		<link rel="replies" type="application/atom+xml" href="http://www.linuxtutorialblog.com/post/solution-getting-a-gravis-gamepad-pro-to-work-on-linux/feed/atom" thr:count="3"/>
+		<thr:total>3</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>rechosen</name>
+						<uri>http://www.linuxtutorialblog.com/</uri>
+					</author>
+		<title type="html"><![CDATA[Linuxtutorialblog.com is now officially frozen!]]></title>
+		<link rel="alternate" type="text/html" href="http://www.linuxtutorialblog.com/post/linuxtutorialblog-com-is-now-officially-frozen" />
+		<id>http://www.linuxtutorialblog.com/?p=142</id>
+		<updated>2010-03-12T19:26:11Z</updated>
+		<published>2007-09-08T16:58:15Z</published>
+		<category scheme="http://www.linuxtutorialblog.com" term="News" /><category scheme="http://www.linuxtutorialblog.com" term="frozen" />		<summary type="html"><![CDATA[Because of a lack of time, I will stop writing tutorials. However, the site will stay online so the knowledge that's already on it will not be lost, and all revenue will still be donated to the good cause.]]></summary>
+		<link rel="replies" type="text/html" href="http://www.linuxtutorialblog.com/post/linuxtutorialblog-com-is-now-officially-frozen#comments" thr:count="1"/>
+		<link rel="replies" type="application/atom+xml" href="http://www.linuxtutorialblog.com/post/linuxtutorialblog-com-is-now-officially-frozen/feed/atom" thr:count="1"/>
+		<thr:total>1</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>rechosen</name>
+						<uri>http://www.linuxtutorialblog.com/</uri>
+					</author>
+		<title type="html"><![CDATA[Solution: Preventing damage after a system lockup]]></title>
+		<link rel="alternate" type="text/html" href="http://www.linuxtutorialblog.com/post/solution-preventing-damage-after-a-system-lockup" />
+		<id>http://www.linuxtutorialblog.com/?p=63</id>
+		<updated>2010-03-12T19:25:43Z</updated>
+		<published>2007-07-02T21:42:31Z</published>
+		<category scheme="http://www.linuxtutorialblog.com" term="Solutions" /><category scheme="http://www.linuxtutorialblog.com" term="kernel" /><category scheme="http://www.linuxtutorialblog.com" term="preventing damage" /><category scheme="http://www.linuxtutorialblog.com" term="rebooting" />		<summary type="html"><![CDATA[No matter how stable the Linux kernel is, things like hardware failures can still lock up your system quite effectively. This solution describes a way to reboot your system after a lock-up that prevents damage as much as possible.]]></summary>
+		<link rel="replies" type="text/html" href="http://www.linuxtutorialblog.com/post/solution-preventing-damage-after-a-system-lockup#comments" thr:count="1"/>
+		<link rel="replies" type="application/atom+xml" href="http://www.linuxtutorialblog.com/post/solution-preventing-damage-after-a-system-lockup/feed/atom" thr:count="1"/>
+		<thr:total>1</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>rechosen</name>
+						<uri>http://www.linuxtutorialblog.com/</uri>
+					</author>
+		<title type="html"><![CDATA[Solution: Creating an mpeg with mencoder that plays on Windows Media Player]]></title>
+		<link rel="alternate" type="text/html" href="http://www.linuxtutorialblog.com/post/solution-creating-an-mpeg-with-mencoder-that-plays-on-windows-media-player" />
+		<id>http://www.linuxtutorialblog.com/?p=59</id>
+		<updated>2010-03-12T19:24:54Z</updated>
+		<published>2007-05-24T15:27:22Z</published>
+		<category scheme="http://www.linuxtutorialblog.com" term="Solutions" /><category scheme="http://www.linuxtutorialblog.com" term="mencoder" /><category scheme="http://www.linuxtutorialblog.com" term="mpeg" /><category scheme="http://www.linuxtutorialblog.com" term="Windows Media Player" />		<summary type="html"><![CDATA[This solution contains some options for the mencoder command that will result in an mpeg video file that will play on pretty much all players, even Windows Media Player.]]></summary>
+		<link rel="replies" type="text/html" href="http://www.linuxtutorialblog.com/post/solution-creating-an-mpeg-with-mencoder-that-plays-on-windows-media-player#comments" thr:count="5"/>
+		<link rel="replies" type="application/atom+xml" href="http://www.linuxtutorialblog.com/post/solution-creating-an-mpeg-with-mencoder-that-plays-on-windows-media-player/feed/atom" thr:count="5"/>
+		<thr:total>5</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>rechosen</name>
+						<uri>http://www.linuxtutorialblog.com/</uri>
+					</author>
+		<title type="html"><![CDATA[Cropping multiple images the same way (short tutorial)]]></title>
+		<link rel="alternate" type="text/html" href="http://www.linuxtutorialblog.com/post/cropping-multiple-images-the-same-way-short-tutorial" />
+		<id>http://www.linuxtutorialblog.com/?p=55</id>
+		<updated>2010-03-12T19:24:19Z</updated>
+		<published>2007-05-11T18:54:04Z</published>
+		<category scheme="http://www.linuxtutorialblog.com" term="Tutorials" /><category scheme="http://www.linuxtutorialblog.com" term="convert" /><category scheme="http://www.linuxtutorialblog.com" term="cropping images" /><category scheme="http://www.linuxtutorialblog.com" term="gimp" />		<summary type="html"><![CDATA[Sometimes you'll want to crop the same area from multiple images. This post describes an efficient way to do this for a theoretically infinite amount of them.]]></summary>
+		<link rel="replies" type="text/html" href="http://www.linuxtutorialblog.com/post/cropping-multiple-images-the-same-way-short-tutorial#comments" thr:count="15"/>
+		<link rel="replies" type="application/atom+xml" href="http://www.linuxtutorialblog.com/post/cropping-multiple-images-the-same-way-short-tutorial/feed/atom" thr:count="15"/>
+		<thr:total>15</thr:total>
+	</entry>
+		<entry>
+		<author>
+			<name>rechosen</name>
+						<uri>http://www.linuxtutorialblog.com/</uri>
+					</author>
+		<title type="html"><![CDATA[Solution: Converting flac to mp3]]></title>
+		<link rel="alternate" type="text/html" href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3" />
+		<id>http://www.linuxtutorialblog.com/?p=52</id>
+		<updated>2010-11-09T09:13:36Z</updated>
+		<published>2007-04-10T14:40:45Z</published>
+		<category scheme="http://www.linuxtutorialblog.com" term="Solutions" /><category scheme="http://www.linuxtutorialblog.com" term="bash" /><category scheme="http://www.linuxtutorialblog.com" term="conversion" /><category scheme="http://www.linuxtutorialblog.com" term="flac" /><category scheme="http://www.linuxtutorialblog.com" term="mp3" />		<summary type="html"><![CDATA[Sometimes you need to convert a load of flac files to mp3's, for example when wanting to listen them on your mp3 player. This solution contains a single line of bash that'll convert all flac files in the current directory to mp3's, keeping the flac files.]]></summary>
+		<link rel="replies" type="text/html" href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3#comments" thr:count="50"/>
+		<link rel="replies" type="application/atom+xml" href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3/feed/atom" thr:count="50"/>
+		<thr:total>50</thr:total>
+	</entry>
+	</feed>

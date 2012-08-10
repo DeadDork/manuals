@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="0.92">
+<channel>
+	<title>Linux Tutorial Blog</title>
+	<link>http://www.linuxtutorialblog.com</link>
+	<description>Quality Linux tutorials without clutter</description>
+	<lastBuildDate>Tue, 09 Nov 2010 09:13:36 +0000</lastBuildDate>
+	<docs>http://backend.userland.com/rss092</docs>
+	<language>en</language>
+	<!-- generator="WordPress/3.2.1" -->
+
+	<item>
+		<title>A fresh look!</title>
+		<description><![CDATA[This blog moved from Lifetype to Wordpress today.]]></description>
+		<link>http://www.linuxtutorialblog.com/post/a-fresh-look</link>
+			</item>
+	<item>
+		<title>Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)</title>
+		<description><![CDATA[This post contains a script and installation instructions to allow you to convert both individual files and directories, keep the tags of the files fully intact and enjoy an easy-to-use drag 'n drop interface.]]></description>
+		<link>http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop</link>
+			</item>
+	<item>
+		<title>Tutorial: Conditions in bash scripting (if statements)</title>
+		<description><![CDATA[This tutorial aims to help the reader to understand conditions in bash, and provides a comprehensive list of the possibilities.]]></description>
+		<link>http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements</link>
+			</item>
+	<item>
+		<title>Linux Tutorial Blog is no longer frozen!</title>
+		<description><![CDATA[Linux Tutorial Blog is once more a place to keep watching, a regular Linux tutorial source.]]></description>
+		<link>http://www.linuxtutorialblog.com/post/linux-tutorial-blog-is-no-longer-frozen</link>
+			</item>
+	<item>
+		<title>Solution: Getting a Gravis GamePad Pro to work on Linux</title>
+		<description><![CDATA[How to get a Gravis GamePad Pro (gameport edition) to work on Linux.]]></description>
+		<link>http://www.linuxtutorialblog.com/post/solution-getting-a-gravis-gamepad-pro-to-work-on-linux</link>
+			</item>
+	<item>
+		<title>Linuxtutorialblog.com is now officially frozen!</title>
+		<description><![CDATA[Because of a lack of time, I will stop writing tutorials. However, the site will stay online so the knowledge that's already on it will not be lost, and all revenue will still be donated to the good cause.]]></description>
+		<link>http://www.linuxtutorialblog.com/post/linuxtutorialblog-com-is-now-officially-frozen</link>
+			</item>
+	<item>
+		<title>Solution: Preventing damage after a system lockup</title>
+		<description><![CDATA[No matter how stable the Linux kernel is, things like hardware failures can still lock up your system quite effectively. This solution describes a way to reboot your system after a lock-up that prevents damage as much as possible.]]></description>
+		<link>http://www.linuxtutorialblog.com/post/solution-preventing-damage-after-a-system-lockup</link>
+			</item>
+	<item>
+		<title>Solution: Creating an mpeg with mencoder that plays on Windows Media Player</title>
+		<description><![CDATA[This solution contains some options for the mencoder command that will result in an mpeg video file that will play on pretty much all players, even Windows Media Player.]]></description>
+		<link>http://www.linuxtutorialblog.com/post/solution-creating-an-mpeg-with-mencoder-that-plays-on-windows-media-player</link>
+			</item>
+	<item>
+		<title>Cropping multiple images the same way (short tutorial)</title>
+		<description><![CDATA[Sometimes you'll want to crop the same area from multiple images. This post describes an efficient way to do this for a theoretically infinite amount of them.]]></description>
+		<link>http://www.linuxtutorialblog.com/post/cropping-multiple-images-the-same-way-short-tutorial</link>
+			</item>
+	<item>
+		<title>Solution: Converting flac to mp3</title>
+		<description><![CDATA[Sometimes you need to convert a load of flac files to mp3's, for example when wanting to listen them on your mp3 player. This solution contains a single line of bash that'll convert all flac files in the current directory to mp3's, keeping the flac files.]]></description>
+		<link>http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3</link>
+			</item>
+</channel>
+</rss>

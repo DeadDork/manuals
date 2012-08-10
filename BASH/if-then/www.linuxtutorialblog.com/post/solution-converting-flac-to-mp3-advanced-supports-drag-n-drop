@@ -1,0 +1,1422 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop) &laquo;  Linux Tutorial Blog</title>
+
+	<link rel="stylesheet" href="../wp-content/themes/colorbold/style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../wp-content/themes/colorbold/css/blue.css" media="screen" />
+		<link rel="stylesheet" href="../wp-content/themes/colorbold/css/jquery.lightbox-0.5.css" media="screen" />
+	 <link rel="stylesheet" href="../wp-content/themes/colorbold/css/superfish.css" media="screen" />	 
+	 <!--[if gte IE 7]>
+    <link rel="stylesheet" media="screen" type="text/css" href="http://www.linuxtutorialblog.com/wp-content/themes/colorbold/ie7.css" />
+    <![endif]-->
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery-1.3.2.min.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery.form.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery.lightbox-0.5.min.js">
+	</script>
+    <script type="text/javascript" src="../wp-content/themes/colorbold/js/superfish.js"></script>
+	
+	<!-- lightbox initialize script -->
+	<script type="text/javascript">
+		$(function() {
+		   $('a.lightbox').lightBox();
+		});
+	 </script>
+	<!-- ajax contact form -->
+	 <script type="text/javascript">
+		 $(document).ready(function(){
+			  $('#contact').ajaxForm(function(data) {
+				 if (data==1){
+					 $('#success').fadeIn("slow");
+					 $('#bademail').fadeOut("slow");
+					 $('#badserver').fadeOut("slow");
+					 $('#contact').resetForm();
+					 }
+				 else if (data==2){
+						 $('#badserver').fadeIn("slow");
+					  }
+				 else if (data==3)
+					{
+					 $('#bademail').fadeIn("slow");
+					}
+					});
+				 });
+		</script>
+		<script type="text/javascript"> 
+			$(document).ready(function(){ 
+				$("ul.sf-menu").superfish({
+					autoArrows:  false,
+					delay:       200,                             // one second delay on mouseout 
+					animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+					speed:       'fast',                          // faster animation speed 
+					autoArrows:  true,                           // disable generation of arrow mark-up 
+					dropShadows: true                            // disable drop shadows 			
+					}); 
+			});
+		</script>
+
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="../feed" />
+	<link rel="alternate" type="text/xml" title="RSS .92" href="../feed/rss" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="../feed/atom" />
+	
+	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+
+	<link rel="pingback" href="../xmlrpc.php" />
+		<link rel='archives' title='March 2010' href='2010/03' />
+	<link rel='archives' title='August 2008' href='2008/08' />
+	<link rel='archives' title='November 2007' href='2007/11' />
+	<link rel='archives' title='September 2007' href='2007/09' />
+	<link rel='archives' title='July 2007' href='2007/07' />
+	<link rel='archives' title='May 2007' href='2007/05' />
+	<link rel='archives' title='April 2007' href='2007/04' />
+	<link rel='archives' title='March 2007' href='2007/03' />
+	<link rel='archives' title='February 2007' href='2007/02' />
+	<link rel='archives' title='January 2007' href='2007/01' />
+		<link rel="alternate" type="application/rss+xml" title="Linux Tutorial Blog &raquo; Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop) Comments Feed" href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop/feed" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Linux Tutorial Blog' href='2007/01' />
+<link rel='start' title='SSH and SCP: Howto, tips &amp; tricks' href='ssh-and-scp-howto-tips-tricks' />
+<link rel='prev' title='Tutorial: Conditions in bash scripting (if statements)' href='../index.html?p=70' />
+<link rel='next' title='A fresh look!' href='http://www.linuxtutorialblog.com/post/a-fresh-look' />
+<meta name="generator" content="WordPress 3.2.1" />
+<link rel='canonical' href='solution-converting-flac-to-mp3-advanced-supports-drag-n-drop' />
+<link rel='shortlink' href='http://www.linuxtutorialblog.com/?p=77' />
+
+</head>
+<body>
+
+<!-- begin mainWrapper -->
+<div id="mainWrapper">
+	<!-- begin wrapper -->
+	<div id="wrapper">
+	<!-- begin header -->
+	<div id="header">
+	<a href="../feed" title="RSS" class="rssTag">RSS Feeds</a>
+	<!-- logo -->
+		<div id="logo"><a href="2007/01"><img src="../wp-content/themes/colorbold/images/logo.png" alt="Linux Tutorial Blog" /></a></div>
+		<!-- begin topmenu -->
+		<!--<div id="topMenu">
+			<ul>
+				<li><a href="http://www.linuxtutorialblog.com/">Home</a></li>
+				<li class="page_item page-item-248"><a href="http://www.linuxtutorialblog.com/contact-me" title="Contact me">Contact me</a></li>
+			</ul>
+		</div>-->
+		<!-- end topmenu -->
+		<!-- begin mainMenu -->
+			<div id="mainMenu">
+				<ul class="sf-menu">
+					<li class="cat-item cat-item-3"><a rel="nofollow" href="../category/tutorials" title="The tutorials of Linux Tutorial Blog.">Tutorials</a>
+</li>
+	<li class="cat-item cat-item-4"><a rel="nofollow" href="../category/solutions" title="Short posts that aim to fix a specific problem.">Solutions</a>
+</li>
+	<li class="cat-item cat-item-6"><a rel="nofollow" href="../category/news" title="Posts containing news about Linux Tutorial Blog.">News</a>
+</li>
+	<li class="cat-item cat-item-5"><a rel="nofollow" href="../category/miscellaneous" title="Posts that don&#039;t fit in the other categories.">Miscellaneous</a>
+</li>
+	<li class="cat-item cat-item-7"><a rel="nofollow" href="../category/fun-stuff" title="Posts on less serious matters, like easter eggs.">Fun Stuff</a>
+</li>
+				</ul>
+			</div>
+		<!-- end mainMenu -->
+	</div>
+	<!-- end header -->
+	<!-- begin content -->
+	<div id="content" class="clearfix">
+<!-- begin col left -->
+	<div id="colLeft">		
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">Aug</div>
+				<div class="year">2008</div>
+				<div class="comments"><a href="solution-converting-flac-to-mp3-advanced-supports-drag-n-drop#comments" rel="nofollow" title="Comment on Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)">46</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="solution-converting-flac-to-mp3-advanced-supports-drag-n-drop">Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="../category/solutions" title="View all posts in Solutions" rel="category tag">Solutions</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="../tag/bash" rel="nofollow tag">bash</a>, <a href="http://www.linuxtutorialblog.com/tag/conversion" rel="nofollow tag">conversion</a>, <a href="http://www.linuxtutorialblog.com/tag/drag-n-drop" rel="nofollow tag">drag 'n drop</a>, <a href="http://www.linuxtutorialblog.com/tag/flac" rel="nofollow tag">flac</a>, <a href="http://www.linuxtutorialblog.com/tag/mp3" rel="nofollow tag">mp3</a>, <a href="../tag/scripting" rel="nofollow tag">scripting</a></div>
+				<p><a title="Go to the post containing the simple version" href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3">My short solution to convert flac to mp3</a> caught a lot of attention, and uncovered a demand for a more sophisticated solution. Therefore, after all the scripts posted in the comments, I decided to go on and write an extensive script that should be able to offer all the requested functionality (and more). This post contains a script and installation instructions to allow you to convert both individual files and directories, keep the tags of the files fully intact and enjoy an easy-to-use drag 'n drop interface.<span id="more-77"></span></p>
+<h2><a title="the-script" name="the-script">The script</a></h2>
+<p>First of all, you can get the script here: <a title="Go to the resource page where you can download the script" href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop/flac2mp3">flac2mp3</a>. Its features are:</p>
+<ul>
+<li>Converts both individual files and directories</li>
+<li>Keeps the tags</li>
+<li>Full support for weird characters in filenames (they just need to end in .flac, case insensitive)</li>
+<li>Drag 'n drop support (tested in Gnome and KDE)</li>
+<li>Progress and estimated time left indication</li>
+</ul>
+<p>The script requires a recent version of bash and the flac, metaflac and lame commands.</p>
+<h2><a title="installation" name="installation">Installation</a></h2>
+<p>The installation is pretty straightforward. After downloading the script (see the link in the previous section), make sure it's in a standard logical folder (I recommend <tt>~/bin</tt>, though others may like to put the script in <tt>/usr/bin</tt> or <tt>/usr/local/bin</tt> to make it available to all users) and that you have the execute permission to it. If not, you can use your favourite file manager to give yourself that permission or use a command, like:</p>
+<blockquote><p>[rechosen@localhost ~]$ chmod u+x ~/bin/flac2mp3</p></blockquote>
+<p><strong><em>Note:</em></strong> if you placed the script in <tt>/usr/bin</tt> or <tt>/usr/local/bin</tt>, you should make it executable for everyone, like:</p>
+<blockquote><p>[rechosen@localhost ~]$ sudo ch<tt></tt>mod +x /usr/bin/flac2mp3</p></blockquote>
+<h2><a title="using-drag-n-drop" name="using-drag-n-drop">Using drag 'n drop</a></h2>
+<p>I prepared .desktop files for both KDE and Gnome. You can download <a title="Download the .desktop file for KDE to use the flac2mp3 script in a drag 'n drop way." href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop/flac2mp3kde.desktop">flac2mp3kde.desktop</a> and <a title="Download the .desktop file for Gnome to use the flac2mp3 script in a drag 'n drop way." href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop/flac2mp3gnome.desktop">flac2mp3gnome.desktop</a>, respectively. After saving it to your desktop (usually in the folder <tt>~/Desktop</tt>), you may want/need to alter a few things of the shortcut (right click on it and edit its properties):</p>
+<ul>
+<li>When using Gnome, you'll have to change the username in "<tt>/home/USERNAME/bin/flac2mp3</tt>" to your own username (provided that you've placed the script there, otherwise you should either specify the full path or omit the path entirely and just use the script's name).</li>
+<li>You can choose the bitrate of the converted mp3 files by changing the value after the -b option. If you want to use <acronym title="Variable BitRate">VBR</acronym>, you can specify custom options for lame using the -l option (see <a title="Go to the Usage section" href="solution-converting-flac-to-mp3-advanced-supports-drag-n-drop#usage">Usage</a> for instructions).</li>
+<li>You can choose the amount of source directories to retain by altering the value after the -d option. This sets the amount of directories of the source path used for placing the target mp3. It works from the right to the left. Example:<br />
+<tt>/home/rechosen/music/After Edmund/Hello/01_Thank_God.flac</tt><br />
+will be converted to the following directory is -d is set to 2:<br />
+<tt>&lt;outputdir&gt;/After Edmund/Hello/01_Thank_God.mp3</tt><br />
+And if -d is set to 1:<br />
+<tt>&lt;outputdir&gt;/Hello/01_Thank_God.mp3</tt></li>
+<li>You can choose the output directory by replacing the path after the -o option. If you omit the option entirely, convert files will be placed in the same directory as the source files (e.g. <tt>/home/rechosen/music/After Edmund/Hello/01_Thank_God.flac</tt> is converted to <tt>/home/rechosen/music/After Edmund/Hello/01_Thank_God.mp3</tt>). If you do specify a path, don't forget specifying the amount of source directories to retain using the -d option (see the previous bullet).</li>
+</ul>
+<p>You should leave the -r option as it is, so both files and directories will be supported. If you placed the script in an other place than <tt>~/bin</tt>, you should (of course) change the script location at the start of the command. After you've modified the desktop shortcut to your likings, you may drag and drop files and/or directories into it. Just sel<tt></tt>ect some files or directories in your file manager, click and drag them to your desktop and onto the shortcut. The script will try to convert any file ending in .flac (case insensitive) to an mp3. Be aware that you can safely move the shortcut to your panel, so it'll always be easily reachable.</p>
+<h2><a title="usage" name="usage">Usage</a></h2>
+<p>When running the script with the option --help, you will see the following:</p>
+<blockquote><p>Usage: flac2mp3 [-b bitrate] [-d dirstoretain] [-l lameopts]<br />
+[-o outputdirectory] [-r] FILES<br />
+This script uses the tools flac, metaflac and lame to convert flac files to<br />
+mp3s. Accepts both individual files and directories (the latter when using the<br />
+-r option).</p>
+<p>Explanation of the options:<br />
+-b bitrate          Specifies the bitrate of the converted mp3. Defaults to<br />
+128. Specify a bitrate of "none" to stop the -b option<br />
+fro<tt></tt>m being passed to lame.<br />
+-d dirstoretain     Specifies how many directory names to retain when using<br />
+both -r and -o. Works fro<tt></tt>m right to left. See the -r<br />
+option for an example.<br />
+-l lameopts         Allows to give custom options to lame. Make sure to<br />
+surround them with quotes (e.g. -l "-V 6")!<br />
+-o outputdirectory  Specifies the directory to write the mp3s to. If not<br />
+specified, the mp3s will be written to the directory<br />
+where the flac files are located.<br />
+-r                  Makes the script look for flac files recursively. If<br />
+this option is specified together with an alternative<br />
+output directory, the mp3s will be written to the<br />
+specified output directory plus the current relative<br />
+path of the flac file. Example:<br />
+"After Edmund/Hello/01_Thank_God.flac"<br />
+will be converted to<br />
+"&lt;outputdirectory&gt;/After Edmund/Hello/01_Thank_God.mp3."</p>
+<p>ATTENTION: When using full paths (like<br />
+/home/user/music/After Edmund/Hello/01_Thank_God.flac),<br />
+you can determine how many directories the script will<br />
+retain using the -d option. With -d 2, the full path<br />
+file just above will be converted to:<br />
+"&lt;outputdirectory&gt;/After Edmund/Hello/01_Thank_God.mp3."</p>
+<p>-s                  Do not use this option unless you know what you are<br />
+doing! It is used internally to self-execute the<br />
+script for conversion.<br />
+-v                  Be verbose; makes the script tell what it is doing.</p>
+<p>For more information see http://www.linuxtutorialblog.com/.<br />
+No warranty included with this script ;-)                              Rechosen</p></blockquote>
+<p>That should explain most of it already, though there are some other things useful to know:</p>
+<ul>
+<li>To convert to a <acronym title="Variable BitRate">VBR</acronym> mp3, use (for example) <tt>-b none -l "-V 6"</tt>.</li>
+<li>To be able to run the script directly (without explicit path) if you placed it in <tt>~/bin</tt>, add the following line to your <tt>~/.bashrc</tt>:<br />
+<blockquote><p>export PATH="$PATH:~/bin"</p></blockquote>
+</li>
+<li>The script nullifies any genre tags lame does not provide to prevent errors. It is currently not possible to specify an alternate genre in this case, though I may add that by request. For now, please make sure the flacs' genres are valid lame genres.</li>
+<li>Related to the former statement, the script truncates the comment tag to 30 characters to prevent lame fro<tt></tt>m throwing an error on comment length. Request if you'd wish to see an option.</li>
+</ul>
+<p>Have fun using the script and feel free to comment if you spot anything that could use an up<tt></tt>date (or if you don't understand something)!</p>
+ 
+		<!-- Social Sharing Icons -->
+		<div class="social clearfix">
+			 <span>If you enjoyed this article please consider <strong>sharing it!</strong></span>
+				<a href="http://twitter.com/home/?status=Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop) : http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop" title="Tweet this!">
+				<img src="../wp-content/themes/colorbold/images/twitter.png" alt="Tweet this!" />
+				</a>
+				
+				<a href="http://www.stumbleupon.com/submit?url=http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop&amp;amp;title=Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)" title="StumbleUpon.">
+				<img src="../wp-content/themes/colorbold/images/stumbleupon.png" alt="StumbleUpon" />
+				</a>
+				
+				<a href="http://www.reddit.com/submit?url=http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop&amp;amp;title=Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)" title="Vote on Reddit.">
+				<img src="../wp-content/themes/colorbold/images/reddit.png" alt="Reddit" />
+				</a>
+				<a href="http://digg.com/submit?phase=2&amp;amp;url=http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop&amp;amp;title=Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)" title="Digg this!">
+				<img src="../wp-content/themes/colorbold/images/digg.png" alt="Digg This!" />
+				</a>
+				
+				<a href="http://del.icio.us/post?url=http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop&amp;amp;title=Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)" title="Bookmark on Delicious.">
+				<img src="../wp-content/themes/colorbold/images/delicious.png" alt="Bookmark on Delicious" />
+				</a>
+				
+				<a href="http://www.facebook.com/sharer.php?u=http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop&amp;amp;t=Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)" title="Share on Facebook.">
+				<img src="../wp-content/themes/colorbold/images/facebook.png" alt="Share on Facebook" id="sharethis-last" />
+				</a>
+				
+			</div>
+		
+		<!-- end Social Sharing Icons -->
+			</div>
+		</div>
+		<!-- end post -->
+		
+		
+		
+        
+<!-- You can start editing here. -->
+
+	<h2 class="comments">46 Comments to &#8220;Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)&#8221;</h2>
+
+	<ul class="commentlist clearfix">
+	   <li class="comment even thread-even depth-1" id="li-comment-522">
+  	
+
+     <div id="comment-522" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/c8a360fd3f38a62bd874ce5ca8d00a3e?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Michael</strong> </span>September 7, 2008 at 13:26 				
+				  <div class="text"><p>Topic: ?
+<p>Hi,</p>
+<p>I run sh flac2mp3 --help and get back:</p>
+<p>flac2mp3: 55: [[:not found<br />
+flac2mp3: 64: Syntax error: "{" unexpected</p>
+<p>Using bash v. 3.2.25, ubuntu 7.10</p>
+<p>Probably something I'm doing wrong but not sure what!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=522#respond' onclick='return addComment.moveForm("comment-522", "522", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-523">
+  	
+
+     <div id="comment-523" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/3d14dfdf00daa2c6812ee395031466aa?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.puresimplicity.net/~twinreverb' rel='external nofollow' class='url'>Robert Delahunt</a></strong> </span>September 15, 2008 at 18:26 				
+				  <div class="text"><p>Topic: flac2ogg?
+<p>I appreciate your work with flac2mp3.  I use it in XFCE's Thunar as a right-click custom command to convert FLAC files to MP3, and it works very well.</p>
+<p>I was wondering, can you also produce a flac2ogg.sh?  I hate to ask, but I didn't want to start hacking away at your flac2mp3.sh, due to its scripting being a bit over my head.</p>
+<p>Still, I will test it for you! :)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=523#respond' onclick='return addComment.moveForm("comment-523", "523", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-524">
+  	
+
+     <div id="comment-524" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Michael</strong> </span>September 17, 2008 at 20:48 				
+				  <div class="text"><p>Topic: aha!
+<p>I made the classic blunder (no, not "never get involved in a land war in Asia").  I made the mistake of equating bash with sh.</p>
+<p>ubuntuforums.org/showthread.php?t=499045</p>
+<p>Someone had this problem before me, it seems.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=524#respond' onclick='return addComment.moveForm("comment-524", "524", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-525">
+  	
+
+     <div id="comment-525" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/7c4fe57b6538b90ed8c5607b525fe161?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>Rechosen</a></strong> </span>September 19, 2008 at 13:42 				
+				  <div class="text"><p>Topic: Re: flac2ogg?
+<p>Hmmm... Making a derivative flac2ogg script shouldn't be hard, but it'd have to be done well. If there is more interest in it (say, two more people comment that they support the idea), I will look into it.</p>
+<p>@Michael: you're not the only one, I made it myself a while ago, too!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=525#respond' onclick='return addComment.moveForm("comment-525", "525", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-526">
+  	
+
+     <div id="comment-526" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/c8a360fd3f38a62bd874ce5ca8d00a3e?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Michael</strong> </span>October 9, 2008 at 21:24 				
+				  <div class="text"><p>Topic: ignore / overwrite existing?
+<p>Huge thanks for flac2mp3.  Any plans to ignore existing files (in the target dir) and add the option to overwrite (or vice versa)?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=526#respond' onclick='return addComment.moveForm("comment-526", "526", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-527">
+  	
+
+     <div id="comment-527" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/f825af9f7a7380c11998187ed0dca2c8?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>gagrilli</strong> </span>October 16, 2008 at 11:08 				
+				  <div class="text"><p>Topic: flac2ogg?
+<p>Very useful script. Been using it for about a week as a command line tool and as servicemenu in KDE. I would also welcome an alternative version to .ogg files. Thanks anyway. (very informative comments, those of us not familiar with scripting "beg" for these to understand what the bash code can do)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=527#respond' onclick='return addComment.moveForm("comment-527", "527", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-535">
+  	
+
+     <div id="comment-535" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/4120eacaf35170e614df3500c0432580?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Creap</strong> </span>October 28, 2008 at 22:30 				
+				  <div class="text"><p>Topic: Filenames with spaces
+<p>Drag 'n drop doesn't work for me. I have "flac2mp3 -l "-V 2" -d 1 -o /media/warez/flac2mp3 -r %U" in my shortcut command, but when I drag a flac file or folder to it, a terminal windows (I guess) just pops up for 1 second and then closes. Running the exakt same command in a terminal but specifying the target folder works fine. </p>
+<p>However, as long as neither the directory nor the file has any spaces in their name, it works. How can I solve this?</p>
+<p>Thanks.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=535#respond' onclick='return addComment.moveForm("comment-535", "535", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-536">
+  	
+
+     <div id="comment-536" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>jt</strong> </span>November 2, 2008 at 03:40 				
+				  <div class="text"><p>Topic: eyeD3
+<p>What a sophisticated script!<br />
+Since I have all of my music library in flac, this is what I was wanted for my mp3 player for a long time. I'm very grateful to you for your great script.</p>
+<p>Few of you here are interested in, but let me mention one thing as a Japanese.<br />
+This script uses lame's options (--tt, --ta etc.) to put tags to the generating mp3s, but unfortunately this garbles Japanese characters in mess. (I don't know for other non-latin languages.)<br />
+It went everything fine when I changed the script to use eyeD3, putting the following at the end of the script.<br />
+I hope this might be of use for some people.</p>
+<p># Add the tags to outputfile in id3v2.3/UTF-16LE<br />
+        [ "$verbose" ] &amp;&amp; echo "Adding tags to \$outputfile..."<br />
+        i=0<br />
+        for option in {"t","a","A","n","Y","G","c"}; do<br />
+                if [ "${info[$((i/2))]}" ]; then<br />
+                        command[$i]=-$option<br />
+                        command[$((i+1))]="${info[$((i/2))]}"<br />
+                fi<br />
+                i=$(($i+2))<br />
+        done<br />
+        eyeD3 -2 --to-v2.3 --set-encoding=utf16-LE "${command[@]}" "$outputfile"</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=536#respond' onclick='return addComment.moveForm("comment-536", "536", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-537">
+  	
+
+     <div id="comment-537" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://yafsug.itiopi.net' rel='external nofollow' class='url'>scribe63</a></strong> </span>November 3, 2008 at 20:47 				
+				  <div class="text"><p>Topic: It works (..) - flac2ogg Please
+<p>Finally got the drag n drop to work in kde on etch.<br />
+It wasn't working from $HOME/bin/flac2mp3/flac2mp3 or ~/bin/flas3mp3/flac2mp3</p>
+<p>Konsole would just pop up and disappear or i kept getting the below error when run the script from a script calling it the command line</p>
+<p>/home/USERNAME/bin/flac2mp3/flac2mp3: /bin/bash: bad interpreter: Permission denied</p>
+<p>So i copied the flac2mp3 script to /usr/local/bin and it works with the following in the .desktop properties</p>
+<p>flac2mp3 -b 128 -d 2 -l --cbr -o /home/USERNAME/MultiMedia/Mp3s/lastfm -r %U</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=537#respond' onclick='return addComment.moveForm("comment-537", "537", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-538">
+  	
+
+     <div id="comment-538" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://yafsug.itiopi.com' rel='external nofollow' class='url'>scribe63</a></strong> </span>November 3, 2008 at 20:53 				
+				  <div class="text"><p>Topic: Thanks 4 the script, It works (..) - flac2ogg Please
+<p>Finally got the drag n drop to work in kde on etch.<br />
+It wasn't working from $HOME/bin/flac2mp3/flac2mp3 or ~/bin/flas3mp3/flac2mp3</p>
+<p>Konsole would just pop up and disappear or i kept getting the below error when run the script from a script calling it the command line</p>
+<p>/home/USERNAME/bin/flac2mp3/flac2mp3: /bin/bash: bad interpreter: Permission denied</p>
+<p>So i copied the flac2mp3 script to /usr/local/bin and it works with the following in the .desktop properties</p>
+<p>flac2mp3 -b 128 -d 2 -l --cbr -o /home/USERNAME/MultiMedia/Mp3s/lastfm -r %U</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=538#respond' onclick='return addComment.moveForm("comment-538", "538", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-539">
+  	
+
+     <div id="comment-539" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>jt</strong> </span>November 4, 2008 at 21:45 				
+				  <div class="text"><p>Topic: grep -a
+<p>I thought all was fine last time, but I found a problem when transcoding the files located in the directories named in Japanese (UTF-8).<br />
+flac2mp3 stops at the 'grep' part and says:<br />
+"stat: cannot stat `Binary file (standard input) matches\n': No such file or directory"<br />
+By trial and error, adding '-a' (or '--binary-files=text') to the grep options solved the problem.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=539#respond' onclick='return addComment.moveForm("comment-539", "539", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-540">
+  	
+
+     <div id="comment-540" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Mavo</strong> </span>November 13, 2008 at 23:05 				
+				  <div class="text"><p>Topic: added a switch -n to only translate convert newer/non-existing files
+<p>It's a very very nice script. Thanks a lot.<br />
+I used the recursive behavior. But I subsequently will add new flac files to<br />
+my collections and so I thought of adding a -n option to the script that skips<br />
+converting to the corresponding mp3 file ($file to $outputfile)<br />
+if the the mp3 is newer than the flac file or the mp3 file does not exist yet.</p>
+<p>I just don't know where/how to submit the patch ..</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=540#respond' onclick='return addComment.moveForm("comment-540", "540", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-534">
+  	
+
+     <div id="comment-534" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>JustMe</strong> </span>January 31, 2009 at 00:10 				
+				  <div class="text"><p>Topic: Quoting the tags
+<p>Thank you!</p>
+<p>I had to insert 'quotes' around the tags pulled from the FLAC files else the LAME command-line broke if they had space</p>
+<p>Example: command[$((i+1))]="'${info[$((i/2))]}'"</p>
+<p>Also the &gt;/dev/null doesn't seem to work when matching the genre-tags on CentOS for some reason (weird huh?) so the screen-output was huge.  Simple fix was skip the genres ;)</p>
+<p>Thanks again - Saved me hours of work!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=534#respond' onclick='return addComment.moveForm("comment-534", "534", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-532">
+  	
+
+     <div id="comment-532" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Gubbe</strong> </span>April 9, 2009 at 18:31 				
+				  <div class="text"><p>Topic: Great Job!!
+<p>Wonderful little script. Saved me a lot of time. Thank you.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=532#respond' onclick='return addComment.moveForm("comment-532", "532", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-533">
+  	
+
+     <div id="comment-533" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/56f481be3a3618175640bd6efe0b37d8?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Jon Gunnar Rue</strong> </span>May 6, 2009 at 06:39 				
+				  <div class="text"><p>Topic: A big thank's
+<p>Great job in putting together this very useful script.</p>
+<p>One more very grateful user.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=533#respond' onclick='return addComment.moveForm("comment-533", "533", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-531">
+  	
+
+     <div id="comment-531" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://korrekt.org' rel='external nofollow' class='url'>markus</a></strong> </span>May 15, 2009 at 15:01 				
+				  <div class="text"><p>Topic: Fix: genres are displayed, no genre in file
+<p>As JustMe noted, lengthy genre lists will be shown when using the script on some systems (or with some versions of lame). The reason is that "lame --genre-list" in this case reports to stderr, not to stdout. This is not just a matter of convenience: the script will fail to capture those genres, and converted files will never have genres.</p>
+<p>As a fix, change the text "! lame --genre-list | grep" (this is part of a longer line) to "! lame --genre-list 2&gt;&amp;1 | grep".</p>
+<p>Mavo, you could post your patch as a comment if it is short enough, or at least give some basic instructions. Incremental operation would be very useful for me, too.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=531#respond' onclick='return addComment.moveForm("comment-531", "531", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-530">
+  	
+
+     <div id="comment-530" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/1ecbf0d1966d3b0cc23529c9c5e9ef29?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.powerlearning21.com' rel='external nofollow' class='url'>Power Learning 21</a></strong> </span>July 28, 2009 at 23:52 				
+				  <div class="text"><p>Topic: Great Info
+<p>You make the life of linux users much easier.<br />
+Thanks for this detailed instruction on conversion.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=530#respond' onclick='return addComment.moveForm("comment-530", "530", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-529">
+  	
+
+     <div id="comment-529" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/22bebade0d73e395641117fdad58eff4?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Jacob Laursen</strong> </span>September 20, 2009 at 17:38 				
+				  <div class="text"><p>Topic: Small fixes
+<p>First of all, thanks for the nicely written script.</p>
+<p>I actually made almost the exact same genre-list fix for lame, although I added an extra "$" at the end of the grep expression:</p>
+<p>if ! lame --genre-list 2&gt;&amp;1 | grep "${command[$((i+1))]}$" &gt;/dev/null; then</p>
+<p>This way e.g. "Sound" will not be recognized as a valid genre, although "Sound clip" and "Soundtrack" exists.</p>
+<p>After this I found the script to work perfectly 99% of the time and have just found out why it failed now and then with this error:</p>
+<p>-: ERROR while decoding data<br />
+   state = FLAC__STREAM_DECODER_END_OF_STREAM</p>
+<p>It happens if the filesize of the FLAC file is divisible by 100 bytes. The $donesofar counter is incremented with the blocksize for each loop iteration, but the bytes actually read is maximum 512 * $ddcount bytes. So I have corrected these lines (from line 230 in the original script):</p>
+<p>        ddcount=$(( $blocksize / 512 ))<br />
+        if [ $ddcount -le 0 ]; then<br />
+                ddcount=1<br />
+        fi<br />
+        blocksize=$((ddcount * 512 ))</p>
+<p>Finally, I added this after line 66:</p>
+<p>LANG=en_DK.iso88591</p>
+<p>- reason being that metaflac will convert from UTF-8 to local charset. If local charset is not ISO-8859-1 (as used in ID3 tags), the resulting charset will be wrong.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=529#respond' onclick='return addComment.moveForm("comment-529", "529", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-528">
+  	
+
+     <div id="comment-528" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/6552965b7cb4d79169c2100f8a43d441?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>sam</strong> </span>October 2, 2009 at 10:47 				
+				  <div class="text"><p>Topic: Spaces in source filename
+<p>fantastic idea, looks solid as a rock and just what i'm after. my problem is that the desktop shortcut doesn't like it when i drop a file/folder onto the .desktop file that has a space in it's path... through the command line i can place " " marks around it, how can i do this on the desktop launcher?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=528#respond' onclick='return addComment.moveForm("comment-528", "528", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-541">
+  	
+
+     <div id="comment-541" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/9d28c516d4107b076a8fbf5a0ccda7b2?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.seohf.com' rel='external nofollow' class='url'>seo</a></strong> </span>October 31, 2009 at 09:57 				
+				  <div class="text"><p>Topic: seo
+<p>thanks for share.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=541#respond' onclick='return addComment.moveForm("comment-541", "541", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-542">
+  	
+
+     <div id="comment-542" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>John</strong> </span>November 18, 2009 at 05:02 				
+				  <div class="text"><p>Topic: Thanks
+<p>Nice script.  Thanks.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=542#respond' onclick='return addComment.moveForm("comment-542", "542", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-543">
+  	
+
+     <div id="comment-543" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Andrew_C</strong> </span>November 21, 2009 at 20:45 				
+				  <div class="text"><p>Topic: Re: Flac to Ogg
+<p>Someone asked if you could do the same for converting to oggs above. This is the on liner command I use for that:</p>
+<p>find . -name "*flac" -exec oggenc -q 4 {} \;</p>
+<p>Thanks to tread over at LQ</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=543#respond' onclick='return addComment.moveForm("comment-543", "543", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-545">
+  	
+
+     <div id="comment-545" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>herman</strong> </span>January 27, 2010 at 18:21 				
+				  <div class="text"><p>Topic: nice
+<p>thank you very much.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=545#respond' onclick='return addComment.moveForm("comment-545", "545", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-546">
+  	
+
+     <div id="comment-546" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>rez</strong> </span>February 11, 2010 at 14:49 				
+				  <div class="text"><p>Topic: 
+<p>Hey.... thanks for this!!!</p>
+<p>I was using Sound Forge to save my recorded vinyl as FLAC.... however for some reason the FLAC files it produces don't decode properly in winamp or (more importantly) Traktor Pro which I use for dj'ing...</p>
+<p>Using your script as a template I was able to write another which decoded them and re-encoded them using the proper FLAC encoder.  All now play fine and thanks to your example all my tags were maintained!!</p>
+<p>Thank you :)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=546#respond' onclick='return addComment.moveForm("comment-546", "546", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-544">
+  	
+
+     <div id="comment-544" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Brian Smith</strong> </span>March 8, 2010 at 00:30 				
+				  <div class="text"><p>Topic: Not reprocessing files already done
+<p>Nice work. Thanks for sharing. Needed the genre-list fix posted above on my CentOS 5.4 system.</p>
+<p>I'm using the script to process my FLACs to MP3 for my Archos 3V (would use OGG, but it can't read OGG tags). I want to only process files that haven't already been converted so I added the test and exit condition below between lines 205 &amp; 6 in the downloaded version. Would be nice to control this behaviour with a command line option.<br />
+		outputfile="$outputdir""${basefile/.[fF][lL][aA][cC]/.mp3}"<br />
+	fi<br />
+	# If the output file already exists, don't regenerate it<br />
+	if [ -e "$outputfile" ]; then<br />
+		[ "$verbose" ] &amp;&amp; echo "\$outputfile ""$outputfile"" already exists: skipping."<br />
+		exit<br />
+	fi<br />
+	[ "$verbose" ] &amp;&amp; echo "\$outputfile is ""$outputfile"". Creating directories if needed..."</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=544#respond' onclick='return addComment.moveForm("comment-544", "544", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-623">
+  	
+
+     <div id="comment-623" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/a5fab6bbc89d98beb353e3b94788118a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.busilinks.com' rel='external nofollow' class='url'>John</a></strong> </span>March 22, 2010 at 00:47 				
+				  <div class="text"><p>Thanks for all your work on this.  Unfortunately I recieved this error when I try executing the script.  Any idea what may be causing?</p>
+<p>jogrady@srv01:/home/transmission/Downloads$ sudo flac2mp3 -b 320 -d 1 -r /home/transmission/Downloads/Rush/<br />
+/usr/bin/flac2mp3: line 53: syntax error near unexpected token `do'<br />
+/usr/bin/flac2mp3: line 53: `i=0 while getopts ":b:d:l:o:rsv" options; do'</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=623#respond' onclick='return addComment.moveForm("comment-623", "623", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-625">
+  	
+
+     <div id="comment-625" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>March 22, 2010 at 07:36 				
+				  <div class="text"><p>Hmmm... Are you sure you got the script file in one piece? Does `md5sum /usr/bin/flac2mp3` give d7cced371c1c5a45c08dd92cc30c2c89? I ask this because line 53 should read 'dirstoretain=""', and 'i=0' and 'while getopts' should be on separate lines.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=625#respond' onclick='return addComment.moveForm("comment-625", "625", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-1370">
+  	
+
+     <div id="comment-1370" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/24a3e525fd3c1a45fddbb496ba98ae3c?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>shonangreg</strong> </span>May 23, 2010 at 23:36 				
+				  <div class="text"><p>Thanks for this write-up, but a couple of things are missing:<br />
+1) How can I check whether I have lame and flac installed? I installed many codecs, but I don't know if I have the ones needed here. I am running ubuntu (amd64)<br />
+2) I had to drop several flac files to keep the window open long enough to read, but the error I get is:<br />
+     metaflac: command not found<br />
+G-)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=1370#respond' onclick='return addComment.moveForm("comment-1370", "1370", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-1441">
+  	
+
+     <div id="comment-1441" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>May 29, 2010 at 12:30 				
+				  <div class="text"><p>Sorry for the delay, was a little busy. To answer your questions:<br />
+1) The problem with this point is that it is pretty distro-specific. In your case, you could just type 'flac' and 'lame' in the terminal (without the quotes, pressing enter after each), and if the corresponding packages are not installed it will show a command that will install each.<br />
+2) The metaflac command is usually part of the package in which the flac command is included.<br />
+I hope this answers things for you, I might include an installation check in a future version of the script.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=1441#respond' onclick='return addComment.moveForm("comment-1441", "1441", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt depth-2" id="li-comment-1551">
+  	
+
+     <div id="comment-1551" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/3b3ca05cd28ed9c11944619bf74c4fa7?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Alek</strong> </span>June 8, 2010 at 07:28 				
+				  <div class="text"><p>In Ubuntu there is a package called "flac" that you must install. I ran into the same problem.</p>
+<p>rechosen: thank you so much for this script. I was planning on writing something like it if I couldn't find one but it looks like you saved me a lot of time.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=1551#respond' onclick='return addComment.moveForm("comment-1551", "1551", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor even depth-3" id="li-comment-1561">
+  	
+
+     <div id="comment-1561" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>June 8, 2010 at 17:12 				
+				  <div class="text"><p>Glad to hear that!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=1561#respond' onclick='return addComment.moveForm("comment-1561", "1561", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-1614">
+  	
+
+     <div id="comment-1614" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/24faacda1cd523a07494dce22448dc73?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://none.com' rel='external nofollow' class='url'>Mark Vice</a></strong> </span>June 12, 2010 at 14:01 				
+				  <div class="text"><p>I love it!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=1614#respond' onclick='return addComment.moveForm("comment-1614", "1614", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-1615">
+  	
+
+     <div id="comment-1615" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>June 12, 2010 at 14:09 				
+				  <div class="text"><p>Glad to hear that, too!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=1615#respond' onclick='return addComment.moveForm("comment-1615", "1615", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-7726">
+  	
+
+     <div id="comment-7726" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/bfdedf7f095cfe550e954a33df2994f5?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Anonymous</strong> </span>January 2, 2011 at 03:10 				
+				  <div class="text"><p>It seems it does not fully support weird characters since it chokes on À for me. Also is there any way to have it fully replicate the directory as it was and ignore non flac files? Because it seems to create this same named sub-directories that weren't there before and crash/stop when I drop a directory that have non-FLAC files like .cue in it.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=7726#respond' onclick='return addComment.moveForm("comment-7726", "7726", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment even depth-2" id="li-comment-7727">
+  	
+
+     <div id="comment-7727" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/bfdedf7f095cfe550e954a33df2994f5?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Anonymous</strong> </span>January 2, 2011 at 03:15 				
+				  <div class="text"><p>Never mind, after looking through the comments it seems simply adding an -a to the first grep in the file solves this issue. I'm going to browse through the comments and see if I can't find the solution to my other problem.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=7727#respond' onclick='return addComment.moveForm("comment-7727", "7727", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-14962">
+  	
+
+     <div id="comment-14962" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/e79802a826a113cdb9c49f5d04dc6946?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.renownedmedia.com' rel='external nofollow' class='url'>Renowned Media</a></strong> </span>April 3, 2011 at 02:58 				
+				  <div class="text"><p>Awesome script, thanks for the hard work!</p>
+<p>I had a need to immediately delete the FLAC file once it was done being converted to MP3, so I added the following on the second to last line (preceding the "fi" line):</p>
+<p>rm "$file"</p>
+<p>It would be a cool feature to be added into your main script (useful if you've got 1.4TB of a 1.5TB drive filled!), perhaps add a -D argument to flac2mp3 to enable this.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=14962#respond' onclick='return addComment.moveForm("comment-14962", "14962", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback even thread-even depth-1" id="li-comment-15956">
+  	
+
+     <div id="comment-15956" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://vladoportos.sk/ubuntu-how-to/solution-converting-flac-to-mp3-advanced-supports-drag-%e2%80%98n-drop/' rel='external nofollow' class='url'>Solution: Converting flac to mp3 advanced (supports drag ‘n drop) | Mac - Android - Scripting</a></strong> </span>April 15, 2011 at 11:28 				
+				  <div class="text"><p>[...] keep the tags of the files fully intact and enjoy an easy-to-use drag &#8216;n drop interface. Linux Tutorial Blog   Share and [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=15956#respond' onclick='return addComment.moveForm("comment-15956", "15956", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback odd alt thread-odd thread-alt depth-1" id="li-comment-24555">
+  	
+
+     <div id="comment-24555" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://blog.ucanmail.me/?p=15' rel='external nofollow' class='url'>Bcoz Ucanmail Me &raquo; Convertir du Flac en MP3</a></strong> </span>August 4, 2011 at 22:41 				
+				  <div class="text"><p>[...] Attention: this post now has an advanced counterpart providing a nice script. SeeSolution: Converting flac to mp3 advanced (supports drag &#8216;n drop). [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=24555#respond' onclick='return addComment.moveForm("comment-24555", "24555", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-29906">
+  	
+
+     <div id="comment-29906" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/4adcca49b3b1e5a08ac202f5d5a9e688?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Album Cover</strong> </span>September 27, 2011 at 18:56 				
+				  <div class="text"><p>I modified the script to let lame add album art. I place a file "front.jpg" in every folder.</p>
+<p># Convert the tags to options for lame<br />
+...</p>
+<p>### start insert ###<br />
+# Test if there exists a file front.jpg<br />
+coverartpath=$(dirname "$file")<br />
+coverartfile=${coverartpath}/'front.jpg'<br />
+if [ -e "$coverartfile" ]; then<br />
+	# Append lame option for album art in options array<br />
+	command=("${command[@]}" "--ti" "$coverartfile")<br />
+fi<br />
+### end insert ###</p>
+<p>[ "$verbose" ] &amp;&amp; echo "Lame options: ""${command[@]}"</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=29906#respond' onclick='return addComment.moveForm("comment-29906", "29906", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-29908">
+  	
+
+     <div id="comment-29908" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/4adcca49b3b1e5a08ac202f5d5a9e688?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Album Cover</strong> </span>September 27, 2011 at 19:08 				
+				  <div class="text"><p>I like this script very much. I just had to add a workaround for a bug with respect to character encoding in ID3 tags. German characters äüöß and French é weren't displayed correctly by my player.</p>
+<p># Workaround for bug: Lame frontend doesn't convert strings for ID3 to Latin1 encoding<br />
+# <a href="https://bugs.launchpad.net/ubuntu/+source/lame/+bug/606886" rel="nofollow">https://bugs.launchpad.net/ubuntu/+source/lame/+bug/606886</a><br />
+# command[$((i+1))]="${info[$((i/2))]}"<br />
+command[$((i+1))]=`echo "${info[$((i/2))]}" | iconv -f utf-8 -t iso-8859-1`</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=29908#respond' onclick='return addComment.moveForm("comment-29908", "29908", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-38570">
+  	
+
+     <div id="comment-38570" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/ec6e9799abf95fd9143578f05562cc8c?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://playingwithpointers.com' rel='external nofollow' class='url'>Sanjoy Das</a></strong> </span>November 10, 2011 at 16:27 				
+				  <div class="text"><p>Your script just saved me a lot of time!</p>
+<p>Thank you!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=38570#respond' onclick='return addComment.moveForm("comment-38570", "38570", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-42572">
+  	
+
+     <div id="comment-42572" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/ec8b1e72f3322327fb91b9a7267b9bec?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>p-we</strong> </span>November 26, 2011 at 22:42 				
+				  <div class="text"><p>Very nice Rechosen, Thank-you! Also thanks to markus, Jacob Laursen and Brian Smith for submitting the fixes and the added skipping existing files functionality.</p>
+<p>There is bug I have found but I am not knowlegdeable enough to fix it. If there are brackets [] in any of the directory names in the source directory pathway, the directory pathway is not duplicated correctly in the output pathway. The preceeding directory is omitted. In my case, I had a few of these:</p>
+<p>/source/artist name/album name with [brackets] somewhere/song name.flac  became<br />
+/output/album name with [brackets] somewhere/song name.mp3</p>
+<p>So the directory for the artist name was omitted. Getting rid of the brackets fixed it.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=42572#respond' onclick='return addComment.moveForm("comment-42572", "42572", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-45487">
+  	
+
+     <div id="comment-45487" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/ef6d2d6f10871a732f1b2035997da65c?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Ronald Wielink</strong> </span>December 5, 2011 at 21:41 				
+				  <div class="text"><p>Brilliant stuff, thanks a lot. really helpful to batch convert all my flac stuff to car stereo compatible mp3's.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=45487#respond' onclick='return addComment.moveForm("comment-45487", "45487", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-67386">
+  	
+
+     <div id="comment-67386" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/7a1e8b1bb94345cdea7a9142dba473e7?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Jeffc</strong> </span>February 9, 2012 at 04:09 				
+				  <div class="text"><p>This works great. I don't bother with the dragndrop stuff, just use the command line.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=67386#respond' onclick='return addComment.moveForm("comment-67386", "67386", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-69450">
+  	
+
+     <div id="comment-69450" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/aaecf73976dc782414643f6e900a3a6e?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Nathan</strong> </span>February 17, 2012 at 11:06 				
+				  <div class="text"><p>Hi all, thanks for the script mate.</p>
+<p>To jt (old post, 2008):<br />
+"I thought all was fine last time, but I found a problem when transcoding the files located in the directories named in Japanese (UTF-8)."</p>
+<p>I thought I'd add that the -a switch to match binary with grep worked for me too. </p>
+<p>The script ran fine for me, just before I had changed my locale over to utf8, and once I changed it and reloaded, it stopped working.</p>
+<p>The command was: </p>
+<p>flac2mp3 -v -b 256 -r -d 2 -o ~/Music/temp/ ~/Music/flac/</p>
+<p>The error:</p>
+<p>Options parsed. Left on the command-line: /home/nathanp/Music/flac/<br />
+Checking for unsupported URLs...<br />
+Removing any "file://" prefixes...<br />
+Thanks for using flac2mp3 1.0! This script by Rechosen.<br />
+Using find to get the flac files and re-executing the script for each of them.<br />
+Options parsed. Left on the command-line: Binary file (standard input) matches</p>
+<p>Checking for unsupported URLs...<br />
+Removing any "file://" prefixes...<br />
+Getting file to convert...<br />
+File: Binary file (standard input) matches</p>
+<p>Getting the tags...<br />
+Binary file (standard input) matches<br />
+: ERROR: reading metadata, status = "FLAC__METADATA_CHAIN_STATUS_ERROR_OPENING_FILE"</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=69450#respond' onclick='return addComment.moveForm("comment-69450", "69450", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-83371">
+  	
+
+     <div id="comment-83371" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/2dc6d66777de28438de446a9bdda83cb?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Tyler</strong> </span>April 7, 2012 at 15:33 				
+				  <div class="text"><p>If you want to parallel the conversions across N processes (i.e cpus), change</p>
+<p>xargs -i -0 "$0" "${optionstopass[@]}" -s {}</p>
+<p>to include the -P and -n options, e.g for 2 processes:</p>
+<p>xargs -i -n 1 -P 2 -0 "$0" "${optionstopass[@]}" -s {}</p>
+<p>Helped me quite a bit when I had to convert &gt;500 flacs to mp3s!</p>
+<p>Cheers</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop?replytocom=83371#respond' onclick='return addComment.moveForm("comment-83371", "83371", "respond", "77")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+	</ul>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+ 
+
+
+<div id="respond">
+
+<h2>Post comment</h2>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="solution-converting-flac-to-mp3-advanced-supports-drag-n-drop#respond" style="display:none;">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://www.linuxtutorialblog.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><label for="author">Name (required)</label>
+<input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required='true' />
+</p>
+
+<p><label for="email">Mail (will not be published) (required)</label>
+<input type="text" name="email" id="email" value="" size="22" tabindex="2" aria-required='true' />
+</p>
+
+<p><label for="url">Website</label>
+<input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+
+<p><label for="comment">Comment</label>
+<textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Send &raquo;" />
+<input type='hidden' name='comment_post_ID' value='77' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='0' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="e0b4f20ef7" /></p>
+</form>
+
+</div>
+
+					
+			</div>
+			<!-- end col left -->
+	
+<!-- begin col right -->
+		<div id="colRight" class="clearfix">
+			
+<!-- begin search box -->
+		<div id="searchBox" class="clearfix">
+			<form id="searchform" action="solution-converting-flac-to-mp3-advanced-supports-drag-n-drop" method="get">
+				<input id="s" type="text" name="s" value=""/>
+				<input id="searchsubmit" type="submit" value="SEARCH"/>
+			</form>
+		</div>
+		<!-- end search box -->
+		<!-- begin adsBox -->
+				<!-- end adsBox -->
+		
+		<!-- begin twitter box -->
+				
+		<div id="twitter">
+			<a href="http://twitter.com/LinuxTutBlog" title="Follow us on Twitter!"><img src="../wp-content/themes/colorbold/images/ico_twitter.png" alt="Follow us on Twitter!" />
+			<span id="twitterfollow">Follow us on Twitter!</span><br /><span id="twittertxt">See and influence what's coming up!</span></a>
+		</div>
+				<!-- end twitter box -->
+		
+		<h2>Contact</h2>			<div class="textwidget">Got a question? You can e-mail the author using the <a href="../contact-me">contact form</a>.</div>
+				
+	
+		</div>
+		<!-- end col right -->
+
+
+
+	</div>
+	<!-- end content -->
+	</div>
+	<!-- end wrapper -->
+	<!-- begin footer -->
+	<div id="footer">
+	&copy; 2007-2012 <strong>Rechosen</strong>. All Right Reserved. 
+	<ul id="footerMenu">
+		<li><a href="2007/01">Home</a></li>
+				<li class="page_item page-item-248"><a href="../contact-me" title="Contact me">Contact me</a></li>
+	</ul>
+	<div id="site5bottom">Based on the Colorbold theme by <a href="http://www.site5.com/reseller"><img src="../wp-content/themes/colorbold/images/site5_tiny.png" alt="Site5" /></a>.<br />Kudos to them for such a great free theme!</div>
+	</div>
+	<!-- end footer -->
+</div>
+<!-- end mainWrapper -->
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1651184-1";
+urchinTracker();
+</script>
+</body>
+</html>
+

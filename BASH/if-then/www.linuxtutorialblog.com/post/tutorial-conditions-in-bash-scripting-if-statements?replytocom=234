@@ -1,0 +1,1888 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Tutorial: Conditions in bash scripting (if statements) &laquo;  Linux Tutorial Blog</title>
+
+	<link rel="stylesheet" href="../wp-content/themes/colorbold/style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../wp-content/themes/colorbold/css/blue.css" media="screen" />
+		<link rel="stylesheet" href="../wp-content/themes/colorbold/css/jquery.lightbox-0.5.css" media="screen" />
+	 <link rel="stylesheet" href="../wp-content/themes/colorbold/css/superfish.css" media="screen" />	 
+	 <!--[if gte IE 7]>
+    <link rel="stylesheet" media="screen" type="text/css" href="http://www.linuxtutorialblog.com/wp-content/themes/colorbold/ie7.css" />
+    <![endif]-->
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery-1.3.2.min.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery.form.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery.lightbox-0.5.min.js">
+	</script>
+    <script type="text/javascript" src="../wp-content/themes/colorbold/js/superfish.js"></script>
+	
+	<!-- lightbox initialize script -->
+	<script type="text/javascript">
+		$(function() {
+		   $('a.lightbox').lightBox();
+		});
+	 </script>
+	<!-- ajax contact form -->
+	 <script type="text/javascript">
+		 $(document).ready(function(){
+			  $('#contact').ajaxForm(function(data) {
+				 if (data==1){
+					 $('#success').fadeIn("slow");
+					 $('#bademail').fadeOut("slow");
+					 $('#badserver').fadeOut("slow");
+					 $('#contact').resetForm();
+					 }
+				 else if (data==2){
+						 $('#badserver').fadeIn("slow");
+					  }
+				 else if (data==3)
+					{
+					 $('#bademail').fadeIn("slow");
+					}
+					});
+				 });
+		</script>
+		<script type="text/javascript"> 
+			$(document).ready(function(){ 
+				$("ul.sf-menu").superfish({
+					autoArrows:  false,
+					delay:       200,                             // one second delay on mouseout 
+					animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+					speed:       'fast',                          // faster animation speed 
+					autoArrows:  true,                           // disable generation of arrow mark-up 
+					dropShadows: true                            // disable drop shadows 			
+					}); 
+			});
+		</script>
+
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="../feed" />
+	<link rel="alternate" type="text/xml" title="RSS .92" href="../feed/rss" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="../feed/atom" />
+	
+	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+
+	<link rel="pingback" href="../xmlrpc.php" />
+		<link rel='archives' title='March 2010' href='2010/03' />
+	<link rel='archives' title='August 2008' href='2008/08' />
+	<link rel='archives' title='November 2007' href='2007/11' />
+	<link rel='archives' title='September 2007' href='2007/09' />
+	<link rel='archives' title='July 2007' href='2007/07' />
+	<link rel='archives' title='May 2007' href='2007/05' />
+	<link rel='archives' title='April 2007' href='2007/04' />
+	<link rel='archives' title='March 2007' href='2007/03' />
+	<link rel='archives' title='February 2007' href='2007/02' />
+	<link rel='archives' title='January 2007' href='2007/01' />
+		<meta name='robots' content='noindex,nofollow' />
+<link rel="alternate" type="application/rss+xml" title="Linux Tutorial Blog &raquo; Tutorial: Conditions in bash scripting (if statements) Comments Feed" href="tutorial-conditions-in-bash-scripting-if-statements/feed" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Linux Tutorial Blog' href='2007/01' />
+<link rel='start' title='SSH and SCP: Howto, tips &amp; tricks' href='ssh-and-scp-howto-tips-tricks' />
+<link rel='prev' title='Linux Tutorial Blog is no longer frozen!' href='linux-tutorial-blog-is-no-longer-frozen' />
+<link rel='next' title='Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)' href='solution-converting-flac-to-mp3-advanced-supports-drag-n-drop' />
+<meta name="generator" content="WordPress 3.2.1" />
+<link rel='canonical' href='../index.html?p=70' />
+<link rel='shortlink' href='../index.html?p=70' />
+
+</head>
+<body>
+
+<!-- begin mainWrapper -->
+<div id="mainWrapper">
+	<!-- begin wrapper -->
+	<div id="wrapper">
+	<!-- begin header -->
+	<div id="header">
+	<a href="../feed" title="RSS" class="rssTag">RSS Feeds</a>
+	<!-- logo -->
+		<div id="logo"><a href="2007/01"><img src="../wp-content/themes/colorbold/images/logo.png" alt="Linux Tutorial Blog" /></a></div>
+		<!-- begin topmenu -->
+		<!--<div id="topMenu">
+			<ul>
+				<li><a href="http://www.linuxtutorialblog.com/">Home</a></li>
+				<li class="page_item page-item-248"><a href="http://www.linuxtutorialblog.com/contact-me" title="Contact me">Contact me</a></li>
+			</ul>
+		</div>-->
+		<!-- end topmenu -->
+		<!-- begin mainMenu -->
+			<div id="mainMenu">
+				<ul class="sf-menu">
+					<li class="cat-item cat-item-3"><a rel="nofollow" href="../category/tutorials" title="The tutorials of Linux Tutorial Blog.">Tutorials</a>
+</li>
+	<li class="cat-item cat-item-4"><a rel="nofollow" href="../category/solutions" title="Short posts that aim to fix a specific problem.">Solutions</a>
+</li>
+	<li class="cat-item cat-item-6"><a rel="nofollow" href="../category/news" title="Posts containing news about Linux Tutorial Blog.">News</a>
+</li>
+	<li class="cat-item cat-item-5"><a rel="nofollow" href="../category/miscellaneous" title="Posts that don&#039;t fit in the other categories.">Miscellaneous</a>
+</li>
+	<li class="cat-item cat-item-7"><a rel="nofollow" href="../category/fun-stuff" title="Posts on less serious matters, like easter eggs.">Fun Stuff</a>
+</li>
+				</ul>
+			</div>
+		<!-- end mainMenu -->
+	</div>
+	<!-- end header -->
+	<!-- begin content -->
+	<div id="content" class="clearfix">
+<!-- begin col left -->
+	<div id="colLeft">		
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">Aug</div>
+				<div class="year">2008</div>
+				<div class="comments"><a href="../index.html?p=70#comments" rel="nofollow" title="Comment on Tutorial: Conditions in bash scripting (if statements)">43</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="../index.html?p=70">Tutorial: Conditions in bash scripting (if statements)</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="../category/tutorials" title="View all posts in Tutorials" rel="category tag">Tutorials</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="../tag/bash" rel="nofollow tag">bash</a>, <a href="../tag/conditions" rel="nofollow tag">conditions</a>, <a href="../tag/scripting" rel="nofollow tag">scripting</a></div>
+				<p>If you use bash for scripting you will undoubtedly have to use conditions a lot, for example for an <em>if ... then</em> construct or a <em>while</em> loop. The syntax of these conditions can seem a bit daunting to learn and use. This tutorial aims to help the reader understanding conditions in bash, and provides a comprehensive list of the possibilities. A small amount of general shell knowledge is assumed.</p>
+<p>Difficulty: <em><strong>Basic - Medium</strong></em><span id="more-70"></span></p>
+<h2><a title="introduction" name="introduction">Introduction</a></h2>
+<p>Bash features a lot of built-in checks and comparisons, coming in quite handy in many situations. You've probably seen if statements like the following before:</p>
+<blockquote><p>if [ $foo -ge 3 ]; then</p></blockquote>
+<p>The condition in this example is essentially a command. It may sound strange, but surrounding a comparison with square brackets is the same as using the built-in test command, like this:</p>
+<blockquote><p>if test $foo -ge 3; then</p></blockquote>
+<p>If $foo is <strong>G</strong>reater then or <strong>E</strong>qual to 3, the block after 'then' will be executed. If you always wondered why bash tends to use -ge or -eq instead of &gt;= or ==, it's because this condition type originates from a command, where -ge and -eq are options.<br />
+And that's what <em>if</em> does essentially, checking the exit status of a command. I'll explain that in more detail further in the tutorial.<br />
+There also are built-in checks that are more specific to shells. What<br />
+about this one?</p>
+<blockquote><p>if [ -f regularfile ]; then</p></blockquote>
+<p>The above condition is true if the file 'regularfile' exists <em>and</em><br />
+is a regular file. A regular file means that it's not a block or<br />
+character device, or a directory. This way, you can make sure a usable<br />
+file exists before doing something with it. You can even check if a<br />
+file is readable!</p>
+<blockquote><p>if [ -r readablefile]; then</p></blockquote>
+<p>The above condition is true if the file 'readablefile' exists <em>and</em> is readable. Easy, isn't it?</p>
+<h2><a title="the-syntax-of-an-if-statement" name="the-syntax-of-an-if-statement">The syntax of an if statement (a short explanation)</a></h2>
+<p>The basic syntax of an <em>if ... then</em> statement is like this:</p>
+<blockquote><p>if <em>&lt;condition&gt;</em>; then<br />
+<em>&lt;commands&gt;</em><br />
+fi</p></blockquote>
+<p>The condition is, depending on its type, surrounded by certain<br />
+brackets, eg. [  ]. You can read about the different types further on<br />
+in the tutorial. You can add commands to be executed when the condition is false using the <em>else</em> keyword, and use the <em>elif</em> (elseif) keyword to execute commands on another condition if the primary condition is false. The <em>else</em> keyword always comes last. Example:</p>
+<blockquote><p>if [ -r somefile ]; then<br />
+content=$(cat somefile)<br />
+elif [ -f somefile ]; then<br />
+echo "The file 'somefile' exists but is not readable to the script."<br />
+else<br />
+echo "The file 'somefile' does not exist."<br />
+fi</p></blockquote>
+<p>A short explanation of the example: first we check if the file somefile is readable ("if [ -r somefile ]"). If so, we read it into a variable. If not, we check if it actually exists ("elif [ -f somefile ]"). If that's true, we report that it exists but isn't readable (if it was, we would have read the content). If the file doesn't exist, we report so, too. The condition at <em>elif</em> is only executed if the condition at <em>if</em> was false. The commands belonging to <em>else</em> are only executed if both conditions are false.</p>
+<h2><a title="the-basic-rules-of-conditions" name="the-basic-rules-of-conditions">The basic rules of conditions</a></h2>
+<p>When you start writing and using your own conditions, there are some rules you should know to prevent getting errors that are hard to trace. Here follow three important ones:</p>
+<ol>
+<li><strong>Always keep spaces between the brackets and the actual check/comparison</strong>. The following won't work:<br />
+<blockquote><p>if [$foo -ge 3]; then</p></blockquote>
+<p>Bash will complain about a "missing `]'".</li>
+<li><strong>Always terminate the line before putting a new keyword like "then"</strong>. The words <em>if</em>, <em>then</em>, <em>else</em>, <em>elif</em> and <em>fi</em> are shell keywords, meaning that they cannot share the same line. Put a ";" between the previous statement and the keyword or place the keyword on the start of a new line. Bash will throw errors like "syntax error near unexpected token `fi'" if you don't.</li>
+<li><em>It is a good habit to quote string variables if you use them in conditions</em>, because otherwise they are likely to give trouble if they contain<br />
+spaces and/or newlines. By quoting I mean:</p>
+<blockquote><p>if [ "$stringvar" == "tux" ]; then</p></blockquote>
+<p>There are a few cases in which you should not<br />
+quote, but they are rare. You will see one of them further on in the tutorial.</li>
+</ol>
+<p>Also, there are two things that may be useful to know:</p>
+<ol>
+<li><em>You can invert a condition</em> by putting an "!" in front of it. Example:<br />
+<blockquote><p>if [ ! -f regularfile ]; then</p></blockquote>
+<p>Be sure to place the "!" inside the brackets!</li>
+<li><em>You can combine conditions</em> by using certain operators. For the single-bracket syntax that we've been using so far, you can use "-a" for <em>and</em> and "-o" for <em>or</em>. Example:<br />
+<blockquote><p>if [ $foo -ge 3 -a $foo -lt 10 ]; then</p></blockquote>
+<p>The above condition will return true if $foo contains an integer greater than or equal to 3 and <strong>L</strong>ess <strong>T</strong>han 10. You can read more about these combining expressions at the respective condition syntaxes.</li>
+</ol>
+<p>And, one more basic thing: don't forget that conditions can also be used in other statements, like <em>while</em> and <em>until</em>. It is outside the scope of this tutorial to explain those, but you can read about them at the <a title="Read about the while and the until loop in the Bash Guide for Beginners" href="http://www.tldp.org/LDP/Bash-Beginners-Guide/html/sect_09_02.html">Bash Guide for Beginners</a>.</p>
+<p>Anyway, I've only shown you conditions between single brackets so far. There are more syntaxes, however, as you will read in the next section.</p>
+<h2><a title="different-condition-syntaxes" name="different-condition-syntaxes">Different condition syntaxes</a></h2>
+<p>Bash features different syntaxes for conditions. I will list the three of them:</p>
+<h3><a title="single-bracket-syntax" name="single-bracket-syntax">1. Single-bracket syntax</a></h3>
+<p>This is the condition syntax you have already seen in the previous paragraphs; it's the oldest supported syntax. It supports three types of conditions:</p>
+<ul>
+<li><strong>File-based conditions</strong>
+<ul>
+<li>Allows different kinds of checks on a file. Example:<br />
+<blockquote><p>if [ -L symboliclink ]; then</p></blockquote>
+<p>The above condition is true if the file 'symboliclink' exists and is a symbolic link. For more file-based conditions see <a title="Go to the table of testing expressions" href="tutorial-conditions-in-bash-scripting-if-statements?replytocom=234#file-based-conditions">the table</a> below.</li>
+</ul>
+</li>
+<li><strong>String-based conditions</strong>
+<ul>
+<li>Allows checks on a string and comparing of strings. Example one:<br />
+<blockquote><p>if [ -z "$emptystring" ]; then</p></blockquote>
+<p>The above condition is true if $emptystring is an empty string or an uninitialized variable. Example two:</p>
+<blockquote><p>if [ "$stringvar1" == "cheese" ]; then</p></blockquote>
+<p>The above condition is true if $stringvar1 contains just the string "cheese". For more string-based conditions see <a title="Go to the table of testing expressions" href="tutorial-conditions-in-bash-scripting-if-statements?replytocom=234#string-based-conditions">the table</a> below.</li>
+</ul>
+</li>
+<li><strong>Arithmetic (number-based) conditions</strong>
+<ul>
+<li>Allows comparing integer numbers. Example:<br />
+<blockquote><p>if [ $num -lt 1 ]; then</p></blockquote>
+<p>The above condition returns true if $num is less than 1. For more arithmetic conditions see <a title="Go to the table of testing expressions" href="tutorial-conditions-in-bash-scripting-if-statements?replytocom=234#arithmetic-conditions">the table</a> below.</li>
+</ul>
+</li>
+</ul>
+<h3><a title="double-bracket-syntax" name="double-bracket-syntax">2. Double-bracket syntax</a></h3>
+<p>You may have encountered conditions enclosed in double square brackets already, which look like this:</p>
+<blockquote><p>if [[ "$stringvar" == *string* ]]; then</p></blockquote>
+<p>The double-bracket syntax serves as an enhanced version of the single-bracket syntax; it mainly has the same features, but also some important differences with it. I will list them here:</p>
+<ul>
+<li><em>The first difference</em> can be seen in the above example; when comparing strings, the double-bracket syntax features shell globbing. This means that an asterisk ("*") will expand to literally anything, just as you probably know from normal command-line usage. Therefore, if $stringvar contains the phrase "string" anywhere, the condition will return true. Other forms of shell globbing are allowed, too. If you'd like to match both "String" and "string", you could use the following syntax:<br />
+<blockquote><p>if [[ "$stringvar" == *[sS]tring* ]]; then</p></blockquote>
+<p>Note that only general shell globbing is allowed. Bash-specific things like {1..4} or {foo,bar} will not work. Also note that the <strong>globbing will not work if you quote the right string</strong>. In this case you should leave it unquoted.</li>
+<li><em>The second difference</em> is that word splitting is prevented. Therefore, you could omit placing quotes around string variables and use a condition like the following without problems:<br />
+<blockquote><p>if [[ $stringvarwithspaces != foo ]]; then</p></blockquote>
+<p>Nevertheless, the quoting string variables remains a good habit, so I recommend just to keep doing it.</li>
+<li><em>The third difference</em> consists of not expanding filenames. I will illustrate this difference using two examples, starting with the old single-bracket situation:<br />
+<blockquote><p>if [ -a *.sh ]; then</p></blockquote>
+<p>The above condition will return true if there is one single file in the working directory that has a .sh extension. If there are none, it will return false. If there are several .sh files, bash will throw an error and stop executing the script. This is because *.sh is expanded to the files in the working directory. Using double brackets prevents this:</p>
+<blockquote><p>if [[ -a *.sh ]]; then</p></blockquote>
+<p>The above condition will return true only if there is a file in the working directory called "*.sh", no matter what other .sh files exist. The asterisk is taken literally, because the double-bracket syntax does not expand filenames.</li>
+<li><em>The fourth difference</em> is the addition of more generally known combining expressions, or, more specific, the operators "&amp;&amp;" and "||". Example:<br />
+<blockquote><p>if [[ $num -eq 3 &amp;&amp; "$stringvar" == foo ]]; then</p></blockquote>
+<p>The above condition returns true if $num is equal to 3 and $stringvar is equal to "foo". The -a and -o known from the single-bracket syntax is supported, too.</p>
+<p>Note that the <em>and</em> operator has precedence over the <em>or</em> operator, meaning that "&amp;&amp;" or "-a" will be evaluated before "||" or "-o".</li>
+<li><em>The fifth difference</em> is that the double-bracket syntax allows regex pattern matching using the "=~" operator. See <a href="tutorial-conditions-in-bash-scripting-if-statements?replytocom=234#string-based-conditions">the table</a> for more information.</li>
+</ul>
+<h3><a title="double-parenthesis-syntax" name="double-parenthesis-syntax">3. Double-parenthesis syntax</a></h3>
+<p>There also is another syntax for arithmetic (number-based) conditions, most likely adopted from the Korn shell:</p>
+<blockquote><p>if (( $num &lt;= 5 )); then</p></blockquote>
+<p>The above condition is true if $num is less than or equal to 5. This syntax may seem more familiar to programmers. It features all the 'normal' operators, like "==", "&lt;" and "&gt;=". It supports the "&amp;&amp;" and "||" combining expressions (but not the -a and -o ones!). It is equivalent to the built-in let command.</p>
+<h2><a title="table-of-conditions" name="table-of-conditions">Table of conditions</a></h2>
+<p>The following table list the condition possibilities for both the single- and the double-bracket syntax. Save a single exception, the examples are given in single-bracket syntax, but are always compatible with double brackets.</p>
+<table>
+<tbody>
+<tr>
+<td class="colspan" colspan="3">
+<h3><a name="file-based-conditions" title="file-based-conditions"></a>&nbsp;1. File-based conditions:</h3>
+</td>
+</tr>
+<tr>
+<th>Condition</th>
+<th>True if</th>
+<th>Example/explanation</th>
+</tr>
+<tr>
+<td>
+			[ -a existingfile ]
+			</td>
+<td>file 'existingfile' exists.
+			</td>
+<td>if [ -a tmp.tmp ]; then<br />
+			&nbsp;&nbsp;&nbsp; rm -f tmp.tmp # <em>Make sure we're not bothered by an old temporary file<br />
+			</em>fi
+			</td>
+</tr>
+<tr>
+<td>
+			[ -b blockspecialfile ]
+			</td>
+<td>file 'blockspecialfile' exists and is block special.
+			</td>
+<td>Block special files are special kernel files found in /dev, mainly used for ATA devices like hard disks, cd-roms and floppy disks.</p>
+<p>			if [ -b /dev/fd0 ]; then<br />
+			&nbsp;&nbsp;&nbsp; dd if=floppy.img of=/dev/fd0 #<em> Write an image to a floppy</em><br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>
+			[ -c characterspecialfile ]
+			</td>
+<td>file 'characterspecialfile' exists and is character special.
+			</td>
+<td>Character special files are special kernel files found in /dev, used for all kinds of purposes (audio hardware, tty's, but also /dev/null).</p>
+<p>			if [ -c /dev/dsp ]; then<br />
+			&nbsp;&nbsp;&nbsp; cat raw.wav &gt; /dev/dsp #<em> This actually works for certain raw wav files</em><br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -d directory ]
+			</td>
+<td>file 'directory' exists and is a directory.
+			</td>
+<td>In UNIX-style, directories are a special kind of file.</p>
+<p>			if [ -d ~/.kde ]; then<br />
+			&nbsp;&nbsp;&nbsp; echo &quot;You seem to be a kde user.&quot;<br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -e existingfile ]
+			</td>
+<td>file 'existingfile' exists.
+			</td>
+<td>(same as -a, see that entry for an example)</td>
+</tr>
+<tr>
+<td>[ -f regularfile ]
+			</td>
+<td>file 'regularfile' exists and is a regular file.
+			</td>
+<td>A regular file is neither a block or character special file nor a directory.</p>
+<p>			if [ -f ~/.bashrc ]; then<br />
+			&nbsp;&nbsp;&nbsp; source ~/.bashrc<br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -g sgidfile ]
+			</td>
+<td>file 'sgidfile' exists and is set-group-ID.
+			</td>
+<td>When the SGID-bit is set on a directory, all files created in that directory will inherit the group of the directory.</p>
+<p>			if [ -g . ]; then<br />
+			&nbsp;&nbsp; echo &quot;Created files are inheriting the group '$(ls -ld . | awk '{ print $4 }')' from the working directory.&quot;<br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -G fileownedbyeffectivegroup ] 
+			</td>
+<td>file 'fileownedbyeffectivegroup' exists and is owned by the effective group ID.
+			</td>
+<td>The effective group id is the primary group id of the executing user.</p>
+<p>			if [ ! -G file ]; then #<em> An exclamation mark inverts the outcome of the condition following it</em><br />
+			&nbsp;&nbsp; chgrp $(id -g) file #<em> Change the group if it's not the effective one</em><br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -h symboliclink ]
+			</td>
+<td>file 'symboliclink' exists and is a symbolic link.
+			</td>
+<td>if [ -h $pathtofile ]; then<br />
+			&nbsp;&nbsp;&nbsp; pathtofile=$(readlink -e $pathtofile) #<em> Make sure $pathtofile contains the actual file and not a symlink to it</em><br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -k stickyfile ]
+			</td>
+<td>file 'stickyfile' exists and has its sticky bit set.
+			</td>
+<td>The sticky bit has got <a href="http://en.wikipedia.org/wiki/Sticky_bit" title="Read about the sticky bit on Wikipedia">quite a history</a>, but is now used to prevent world-writable directories from having their contents deletable by anyone.</p>
+<p>			if [ ! -k /tmp ]; then #<em> An exclamation mark inverts the outcome of the condition following it</em><br />
+			&nbsp;&nbsp;&nbsp; echo &quot;Warning! Anyone can delete and/or rename your files in /tmp!&quot;<br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -L symboliclink ]
+			</td>
+<td>file 'symboliclink' exists and is a symbolic link.
+			</td>
+<td>(same as -h, see that entry for an example)</td>
+</tr>
+<tr>
+<td>[ -N modifiedsincelastread ]
+			</td>
+<td>file 'modifiedsincelastread' exists and was modified after the last read.
+			</td>
+<td>if [ -N /etc/crontab ]; then<br />
+			&nbsp;&nbsp;&nbsp; killall -HUP crond #<em> SIGHUP makes crond reread all crontabs<br />
+			</em>fi
+			</td>
+</tr>
+<tr>
+<td>[ -O fileownedbyeffectiveuser ]
+			</td>
+<td>file 'fileownedbyeffectiveuser' exists and is owned by the user executing the script.</td>
+<td>if [ -O file ]; then<br />
+			&nbsp;&nbsp;&nbsp; chmod 600 file #<em> Makes the file private, which is a bad idea if you don't own it</em><br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -p namedpipe ]
+			</td>
+<td>file 'namedpipe' exists and is a named pipe.
+			</td>
+<td>A named pipe is a file in /dev/fd/ that can be read just once. See <a href="tutorial-the-best-tips-tricks-for-bash#using-several-ways-of-substitution" title="See a way of using a named pipe in my bash tutorial">my bash tutorial</a> for a case in which it's used.</p>
+<p>			if [ -p $file ]; then<br />
+			&nbsp;&nbsp;&nbsp; cp $file tmp.tmp #<em> Make sure we'll be able to read</em><br />
+			&nbsp;&nbsp;&nbsp; file=&quot;tmp.tmp&quot;&nbsp;&nbsp;&nbsp; #<em> the file as many times as we like</em><br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -r readablefile ]
+			</td>
+<td>file 'readablefile' exists and is readable to the script.
+			</td>
+<td>if [-r file ]; then<br />
+			&nbsp;&nbsp;&nbsp; content=$(cat file) #<em> Set $content to the content of the file<br />
+			</em>fi
+			</td>
+</tr>
+<tr>
+<td>[ -s nonemptyfile ]
+			</td>
+<td>file 'nonemptyfile' exists and has a size of more than 0 bytes.
+			</td>
+<td>if [ -s logfile ]; then<br />
+			&nbsp;&nbsp;&nbsp; gzip logfile&nbsp;&nbsp;&nbsp; #<em> Backup the old logfile</em><br />
+			&nbsp;&nbsp;&nbsp; touch logfile #<em> before creating a fresh one.</em><br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -S socket ]
+			</td>
+<td>file 'socket' exists and is a socket.
+			</td>
+<td>A socket file is used for inter-process communication, and features an interface similar to a network connection.</p>
+<p>			if [ -S /var/lib/mysql/mysql.sock ]; then<br />
+			&nbsp;&nbsp;&nbsp; mysql --socket=/var/lib/mysql/mysql.sock #<em> See <a href="http://www.tech-recipes.com/mysql_tips762.html" title="MySQL socket in non-default place">this MySQL tip</a><br />
+			</em>fi
+			</td>
+</tr>
+<tr>
+<td>[ -t openterminal ]
+			</td>
+<td>file descriptor 'openterminal' exists and refers to an open terminal.
+			</td>
+<td>Virtually everything is done using files on Linux/UNIX, and the terminal is no exception.</p>
+<p>			if [ -t /dev/pts/3 ]; then<br />
+			&nbsp;&nbsp;&nbsp; echo -e &quot;\nHello there. Message from terminal $(tty) to you.&quot; &gt; /dev/pts/3 #<em> Anyone using that terminal will actually see this message!</em><br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -u suidfile ]
+			</td>
+<td>file 'suidfile' exists and is set-user-ID.
+			</td>
+<td>Setting the suid-bit on a file causes execution of that file to be done with the credentials of the owner of the file, not of the executing user.</p>
+<p>			if [ -u executable ]; then<br />
+			&nbsp;&nbsp;&nbsp; echo &quot;Running program executable as user $(ls -l executable | awk '{ print $3 }').&quot;<br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -w writeablefile ]
+			</td>
+<td>file 'writeablefile' exists and is writeable to the script. </td>
+<td>if [ -w /dev/hda ]; then<br />
+			&nbsp;&nbsp;&nbsp; grub-install /dev/hda<br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ -x executablefile ]
+			</td>
+<td>file 'executablefile' exists and is executable for the script.
+			</td>
+<td>Note that the execute permission on a directory means that it's searchable (you can see which files it contains).</p>
+<p>			if [ -x /root ]; then<br />
+			&nbsp;&nbsp;&nbsp; echo &quot;You can view the contents of the /root directory.&quot;<br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ newerfile -nt olderfile ]
+			</td>
+<td>file 'newerfile' was changed more recently than 'olderfile', or if 'newerfile' exists and 'olderfile' doesn't.
+			</td>
+<td>if [ story.txt1 -nt story.txt ]; then<br />
+			&nbsp;&nbsp;&nbsp; echo &quot;story.txt1 is newer than story.txt; I suggest continuing with the former.&quot;<br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ olderfile -ot newerfile ]
+			</td>
+<td>file 'olderfile' was changed longer ago than 'newerfile', or if 'newerfile' exists and 'olderfile' doesn't.
+			</td>
+<td>if [ /mnt/remote/remotefile -ot localfile ]; then<br />
+			&nbsp;&nbsp;&nbsp; cp -f localfile /mnt/remote/remotefile #<em> Make sure the remote location has the newest version of the file, too</em><br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ same -ef file ]
+			</td>
+<td>file 'same' and file 'file' refer to the same device/inode number.
+			</td>
+<td>if [ /dev/cdrom -ef /dev/dvd ]; then<br />
+			&nbsp;&nbsp;&nbsp; echo &quot;Your primary cd drive appears to read dvd's, too.&quot;<br />
+			fi
+			</td>
+</tr>
+<tr>
+<td class="colspan" colspan="3">
+<h3><a name="string-based-conditions" title="string-based-conditions"></a>&nbsp;2. String-based conditions:</h3>
+</td>
+</tr>
+<tr>
+<th>Condition</th>
+<th>True if</th>
+<th>Example/explanation</th>
+</tr>
+<tr>
+<td>[ STRING1 == STRING2 ]
+			</td>
+<td>STRING1 is equal to STRING2.
+			</td>
+<td>if [ &quot;$1&quot; == &quot;moo&quot; ]; then<br />
+			&nbsp;&nbsp;&nbsp; echo $cow #<em> Ever tried executing 'apt-get moo'?<br />
+			</em>fi</p>
+<p>			Note: you can also use a single &quot;=&quot; instead of a double one.
+			</td>
+</tr>
+<tr>
+<td>[ STRING1 != STRING2 ]</td>
+<td>STRING1 is not equal to STRING2.</td>
+<td>if [ &quot;$userinput&quot; != &quot;$password&quot; ]; then<br />
+			&nbsp;&nbsp;&nbsp; echo &quot;Access denied! Wrong password!&quot;<br />
+			&nbsp;&nbsp;&nbsp; exit 1 #<em> Stops script execution right here</em><br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ STRING1 \&gt; STRING2 ]</td>
+<td>STRING1 sorts after STRING2 in the current locale (lexographically).</td>
+<td rowspan="2" valign="top">The backslash before the angle bracket is there because the bracket needs to be escaped to be interpreted correctly. As an example we have a basic <a href="http://en.wikipedia.org/wiki/Sorting_algorithm#Bubble_sort" title="What is a bubble sort? See wikipedia!">bubble sort</a>:</p>
+<p>			<em>(Don't feel ashamed if you don't understand this, it is a more complex example)</em><br />
+			&nbsp;<br />
+			array=( linux tutorial blog )<br />
+			swaps=1<br />
+			while (( swaps &gt; 0 )); do<br />
+			&nbsp;&nbsp;&nbsp;<br />
+			swaps=0<br />
+			&nbsp;&nbsp;&nbsp; for (( i=0; i &lt; (( ${#array[@]} - 1 )) ; i++ )); do<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; if [ &quot;${array[$i]}&quot; \&gt; &quot;${array[$(( i + 1 ))]}&quot; ]; then #<em> Here is the sorting condition</em><br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; tempstring=${array[$i]}<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; array[$i]=${array[$(( i + 1 ))]}<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; array[$(( i + 1 ))]=$tempstring<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; (( swaps=swaps + 1 ))<br />
+			&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; fi<br />
+			&nbsp;&nbsp;&nbsp; done<br />
+			done<br />
+			echo ${array[@]} #<em> Returns &quot;blog linux tutorial&quot;</em>
+			</td>
+</tr>
+<tr>
+<td>[ STRING1 \&lt; STRING2 ]</td>
+<td>STRING1 sorts before STRING2 in the current locale (lexographically).</td>
+</tr>
+<tr>
+<td>[ -n NONEMPTYSTRING ]
+			</td>
+<td>NONEMPTYSTRING has a length of more than zero.
+			</td>
+<td>This condition only accepts valid strings, so be sure to quote anything you give to it.</p>
+<p>			if [ -n &quot;$userinput&quot; ]; then<br />
+			&nbsp;&nbsp;&nbsp; userinput=parse($userinput) # <em>Only parse if the user actually gave some input.</em><br />
+			fi</p>
+<p>			Note that you can also omit the &quot;-n&quot;, as brackets with just a string in it behave the same.
+			</td>
+</tr>
+<tr>
+<td>[ -z EMPTYSTRING ]
+			</td>
+<td>EMPTYSTRING is an empty string. </td>
+<td>This condition also accepts non-string input, like an uninitialized variable:</p>
+<p>			if [ -z $uninitializedvar ]; then<br />
+			&nbsp;&nbsp;&nbsp; uninitializedvar=&quot;initialized&quot; #<em> -z returns true on an uninitialized variable, so we initialize it here.</em><br />
+			fi
+			</td>
+</tr>
+<tr>
+<td><em>Double-bracket syntax only:<br />
+			</em>[[ STRING1 =~ REGEXPATTERN ]]
+			</td>
+<td>STRING1 matches REGEXPATTERN.
+			</td>
+<td>If you are familiar with Regular Expressions, you can use this conditions to perform a regex match.</p>
+<p>			if [[ &quot;$email&quot; =~ &quot;\b[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}\b&quot; ]]; then<br />
+			&nbsp;&nbsp;&nbsp; echo &quot;\$email contains a valid e-mail address.&quot;<br />
+			fi
+			</td>
+</tr>
+<tr>
+<td class="colspan" colspan="3">
+<h3><a name="arithmetic-conditions" title="arithmetic-conditions"></a>&nbsp;3. Arithmetic (number-based) conditions:</h3>
+</td>
+</tr>
+<tr>
+<th>Condition</th>
+<th>True if</th>
+<th>Example/explanation</th>
+</tr>
+<tr>
+<td>[ NUM1 -eq NUM2 ]
+			</td>
+<td>NUM1 is <strong>EQ</strong>ual to NUM2.
+			</td>
+<td rowspan="6" valign="top">These conditions only accept integer numbers. Strings will be converted to integer numbers, if possible. Some random examples:</p>
+<p>			if [ $? -eq 0 ]; then #<em> $? returns the exit status of the previous command</em><br />
+			&nbsp;&nbsp;&nbsp; echo &quot;Previous command ran succesfully.&quot;<br />
+			fi</p>
+<p>			if [ $(ps -p $pid -o ni=) -ne $(nice) ]; then<br />
+			&nbsp;&nbsp;&nbsp; echo &quot;Process $pid is running with a non-default nice value&quot;<br />
+			fi</p>
+<p>			if [ $num -lt 0 ]; then<br />
+			&nbsp;&nbsp;&nbsp; echo &quot;Negative numbers not allowed; exiting...&quot;<br />
+			&nbsp;&nbsp;&nbsp; exit 1<br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>[ NUM1 -ne NUM2 ]
+			</td>
+<td>NUM1 is <strong>N</strong>ot <strong>E</strong>qual to NUM2.
+			</td>
+</tr>
+<tr>
+<td>[ NUM1 -gt NUM2 ]
+			</td>
+<td>NUM1 is <strong>G</strong>reater <strong>T</strong>han NUM2.
+			</td>
+</tr>
+<tr>
+<td>[ NUM1 -ge NUM2 ]
+			</td>
+<td>NUM1 is <strong>G</strong>reater than or <strong>E</strong>qual to NUM2.
+			</td>
+</tr>
+<tr>
+<td>[ NUM1 -lt NUM2 ]
+			</td>
+<td>NUM1 is <strong>L</strong>ess <strong>T</strong>han NUM2.
+			</td>
+</tr>
+<tr>
+<td>[ NUM1 -le NUM2 ]
+			</td>
+<td>NUM1 is <strong>L</strong>ess than or <strong>E</strong>qual to NUM2.
+			</td>
+</tr>
+<tr>
+<td class="colspan" colspan="3">
+<h3><a name="miscellaneous-conditions" title="miscellaneous-conditions"></a> 4. Miscellaneous conditions:</h3>
+</td>
+</tr>
+<tr>
+<th>Condition</th>
+<th>True if</th>
+<th>Example/explanation</th>
+</tr>
+<tr>
+<td>[ -o shelloption ]
+			</td>
+<td>shell option 'shelloption' is enabled.
+			</td>
+<td>Shell options modify the behaviour of bash, except a few unmodifiable ones that indicate the shell status.</p>
+<p>			if [ ! -o checkwinsize ] #<em> An exclamation mark inverts the outcome of the condition following it</em><br />
+			&nbsp;&nbsp;&nbsp; echo &quot;Shell option checkwinsize is disabled; enabling it so you can resize you terminal window without problems.&quot;<br />
+			&nbsp;&nbsp;&nbsp; shopt -s checkwinsize #<em> This shell option is modifiable</em><br />
+			fi</p>
+<p>			if [ -o login_shell ]; then<br />
+			&nbsp;&nbsp;&nbsp; echo &quot;This a a login shell.&quot; #<em> This shell option is not modifiable<br />
+			</em><br />
+			fi
+			</td>
+</tr>
+</tbody>
+</table>
+<p>
+With the double-parenthesis syntax, you can use the following conditions:
+</p>
+<table>
+<tbody>
+<tr>
+<td class="colspan" colspan="3">
+<h3><a name="double-parenthesis-syntax-conditions" title="double-parenthesis-syntax-conditions"></a> 5. Double-parenthesis syntax conditions:</h3>
+</td>
+</tr>
+<tr>
+<th>Condition</th>
+<th>True if</th>
+<th>Example/explanation</th>
+</tr>
+<tr>
+<td>(( NUM1 == NUM2 ))
+			</td>
+<td>NUM1 is equal to NUM2.
+			</td>
+<td rowspan="6" valign="top">These conditions only accept integer numbers. Strings will be converted to integer numbers, if possible. Some random examples:</p>
+<p>			if (( $? == 0 )); then #<em> $? returns the exit status of the previous command</em><br />
+			&nbsp;&nbsp;&nbsp; echo &quot;Previous command ran succesfully.&quot;<br />
+			fi</p>
+<p>			if (( $(ps -p $pid -o ni=) != $(nice) )); then<br />
+			&nbsp;&nbsp;&nbsp; echo &quot;Process $pid is running with a non-default nice value&quot;<br />
+			fi</p>
+<p>			if (( $num &lt; 0 )); then<br />
+			&nbsp;&nbsp;&nbsp; echo &quot;Negative numbers not allowed; exiting...&quot;<br />
+			&nbsp;&nbsp;&nbsp; exit 1<br />
+			fi
+			</td>
+</tr>
+<tr>
+<td>(( NUM1 != NUM2 ))
+			</td>
+<td>NUM1 is not equal to NUM2.
+			</td>
+</tr>
+<tr>
+<td>(( NUM1 &gt; NUM2 ))
+			</td>
+<td>NUM1 is greater than NUM2.
+			</td>
+</tr>
+<tr>
+<td>(( NUM1 &gt;= NUM2 ))
+			</td>
+<td>NUM1 is greater than or equal to NUM2.
+			</td>
+</tr>
+<tr>
+<td>(( NUM1 &lt; NUM2 ))
+			</td>
+<td>NUM1 is less than NUM2.
+			</td>
+</tr>
+<tr>
+<td>(( NUM1 &lt;= NUM2 ))
+			</td>
+<td>NUM1 is less than or&nbsp;<strong></strong>equal to NUM2.
+			</td>
+</tr>
+</tbody>
+</table>
+<p>After this dry information load, here's a bit of explanation for those who want to know more...</p>
+<h2><a title="diving-a-little-deeper" name="diving-a-little-deeper">Diving a little deeper</a></h2>
+<p>I said I'd tell more about the fact that <em>if</em> essentially checks the exit status of commands. And so I will. The basic rule of bash when it comes to conditions is <em>0 equals true, &gt;0 equals false</em>.<br />
+That's pretty much the opposite of many programming languages where 0 equals false and 1 (or more) equals true. The reason behind this is that shells like bash deal with programs a lot. By UNIX convention, programs use an exit status for indicating whether execution went alright or an error occured. As a succesful execution doesn't require any explanation, it needs only one exit status. If there was a problem, however, it is useful to know what went wrong. Therefore, 0 is used for a succesful execution, and 1-255 to indicate what kind of error occured. The meaning of the numbers 1-255 differs depending on the program returning them.</p>
+<p>Anyway, <em>if</em> executes the block after <em>then</em> when the command returns 0. Yes, conditions are commands. The phrase [ $foo -ge 3 ] returns an exit status, and the other two syntaxes as well! Therefore, there's a neat trick you can use to quickly test a condition:</p>
+<blockquote><p>[ $foo -ge 3 ] &amp;&amp; echo true</p></blockquote>
+<p>In this example, "echo true" is only executed if "[ $foo -ge 3 ]" returns 0 (true). Why is that, you might ask. It's because bash only evaluates a condition when needed. When using the <em>and</em> combining expression, both conditions need to be true to make the combining expression return true. If the first condition returns false, it doesn't matter what the second one returns; the result will be false. Therefore, bash doesn't evaluate the second condition, and that's the reason why "echo true" is not executed in the example. This is the same for the <em>or</em> operator ("||"), where the second condition is not evaluated if the first one is true.</p>
+<p>Well, so much for the diving. If you want to know even more, I'd like to point you to the <a title="Go to the &quot;Tests&quot; section of the Advanced Bash-Scripting Guide" href="http://www.tldp.org/LDP/abs/html/tests.html">Advanced Bash-Scripting Guide</a> and maybe the <a title="Read about conditional constructs in the Bash Reference Manual" href="http://www.gnu.org/software/bash/manual/bashref.html#Conditional-Constructs">Bash Reference Manual</a>.</p>
+<h2><a title="conclusion" name="conclusion">Conclusion</a></h2>
+<p>In this tutorial, you've been able to make a start at understanding the many possibilities of conditions in bash scripting. You've been able to read about the basic rules of writing and using conditions, about the three syntaxes and their properties, and maybe you took the opportunity to dive a little deeper. I hope you enjoyed the reading as much as I enjoyed the writing. You can always return here to look up conditions in <a title="Bookmark this link to see the table directly" href="tutorial-conditions-in-bash-scripting-if-statements?replytocom=234#table-of-conditions">the table</a> (bookmark that link to see the table directly), or to refresh your knowledge. If you have any suggestions, additions or other feedback, feel free to comment. Thanks for reading and happy scripting!</p>
+ 
+		<!-- Social Sharing Icons -->
+		<div class="social clearfix">
+			 <span>If you enjoyed this article please consider <strong>sharing it!</strong></span>
+				<a href="http://twitter.com/home/?status=Tutorial: Conditions in bash scripting (if statements) : http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements" title="Tweet this!">
+				<img src="../wp-content/themes/colorbold/images/twitter.png" alt="Tweet this!" />
+				</a>
+				
+				<a href="http://www.stumbleupon.com/submit?url=http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements&amp;amp;title=Tutorial: Conditions in bash scripting (if statements)" title="StumbleUpon.">
+				<img src="../wp-content/themes/colorbold/images/stumbleupon.png" alt="StumbleUpon" />
+				</a>
+				
+				<a href="http://www.reddit.com/submit?url=http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements&amp;amp;title=Tutorial: Conditions in bash scripting (if statements)" title="Vote on Reddit.">
+				<img src="../wp-content/themes/colorbold/images/reddit.png" alt="Reddit" />
+				</a>
+				<a href="http://digg.com/submit?phase=2&amp;amp;url=http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements&amp;amp;title=Tutorial: Conditions in bash scripting (if statements)" title="Digg this!">
+				<img src="../wp-content/themes/colorbold/images/digg.png" alt="Digg This!" />
+				</a>
+				
+				<a href="http://del.icio.us/post?url=http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements&amp;amp;title=Tutorial: Conditions in bash scripting (if statements)" title="Bookmark on Delicious.">
+				<img src="../wp-content/themes/colorbold/images/delicious.png" alt="Bookmark on Delicious" />
+				</a>
+				
+				<a href="http://www.facebook.com/sharer.php?u=http://www.linuxtutorialblog.com/post/tutorial-conditions-in-bash-scripting-if-statements&amp;amp;t=Tutorial: Conditions in bash scripting (if statements)" title="Share on Facebook.">
+				<img src="../wp-content/themes/colorbold/images/facebook.png" alt="Share on Facebook" id="sharethis-last" />
+				</a>
+				
+			</div>
+		
+		<!-- end Social Sharing Icons -->
+			</div>
+		</div>
+		<!-- end post -->
+		
+		
+		
+        
+<!-- You can start editing here. -->
+
+	<h2 class="comments">43 Comments to &#8220;Tutorial: Conditions in bash scripting (if statements)&#8221;</h2>
+
+	<ul class="commentlist clearfix">
+	   <li class="comment even thread-even depth-1" id="li-comment-231">
+  	
+
+     <div id="comment-231" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/986d77a1f198088c8649e7e78331b289?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://morvinis.blogspot.com' rel='external nofollow' class='url'>morvin</a></strong> </span>February 22, 2009 at 17:31 				
+				  <div class="text"><p>Topic: 
+<p>thanx info..</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=231#respond' onclick='return addComment.moveForm("comment-231", "231", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-241">
+  	
+
+     <div id="comment-241" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/910585b28fc9a512827294afad43bbe4?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://natonelbronx.wordpress.com' rel='external nofollow' class='url'>Mastro</a></strong> </span>March 4, 2009 at 10:27 				
+				  <div class="text"><p>Topic: Nice one
+<p>I think this is a great tutorial!</p>
+<p>:)<br />
+my thanks to the author!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=241#respond' onclick='return addComment.moveForm("comment-241", "241", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-238">
+  	
+
+     <div id="comment-238" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>josh</strong> </span>March 25, 2009 at 05:02 				
+				  <div class="text"><p>Topic: 
+<p>wow, this tutorial's a lifesaver. It shows a lot of those subtle bash scripting syntaxes as well</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=238#respond' onclick='return addComment.moveForm("comment-238", "238", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-239">
+  	
+
+     <div id="comment-239" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>ben</strong> </span>April 10, 2009 at 11:57 				
+				  <div class="text"><p>Topic: Great
+<p>This is by far the most in depth tutorial I've found so far, if you could cover cmp as a condition in the if statement, it would be superb</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=239#respond' onclick='return addComment.moveForm("comment-239", "239", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-240">
+  	
+
+     <div id="comment-240" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/97ec371f59ad4537533a51abe8540863?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>vijay</strong> </span>April 24, 2009 at 14:33 				
+				  <div class="text"><p>Topic: 
+<p>linux if while</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=240#respond' onclick='return addComment.moveForm("comment-240", "240", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-237">
+  	
+
+     <div id="comment-237" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/ff5a5f64e62a4b16cd9b6e15b3766adb?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>ateelia</strong> </span>June 10, 2009 at 05:30 				
+				  <div class="text"><p>Topic: superb
+<p>This is great for me, a beginner in bash. A great compliments to the author, wishing you all the best</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=237#respond' onclick='return addComment.moveForm("comment-237", "237", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-236">
+  	
+
+     <div id="comment-236" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>liz</strong> </span>July 2, 2009 at 05:59 				
+				  <div class="text"><p>Topic: very comprehensive
+<p>This helped me a lot, as most tutorials don't go into the syntax.</p>
+<p>How do I compare to a string plus wildcard?  I tried:</p>
+<p>if [ "$bval" == "b1000"* ]</p>
+<p>which is wrong (I want the next command to execute whether $bval is b1000 or b1000_othertext)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=236#respond' onclick='return addComment.moveForm("comment-236", "236", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-234">
+  	
+
+     <div id="comment-234" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>liz</strong> </span>July 2, 2009 at 06:04 				
+				  <div class="text"><p>Topic: *headdesk*
+<p>Sorry for my idiocy; I reread the tutorial and got my answer - double brackets!</p>
+<p>This tutorial really is complete and comprehensive.  Kudos to the author.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=234#respond' onclick='return addComment.moveForm("comment-234", "234", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-235">
+  	
+
+     <div id="comment-235" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/34d78b29d6ef785dec072d8acef96ef0?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Kenneth E. David II</strong> </span>July 7, 2009 at 00:15 				
+				  <div class="text"><p>Topic: Question 5 (school)
+<p>HELP.. I am very new to linux and I need help.</p>
+<p>You work for a company that collects billing data and manages the billing for several customers. Last week, a customer sent you a number of files that were not intended for you. The customer just discovered the problem and is not sure about the files that were sent to you. The customer knows that all files end with .cvs and the files that customers send end with .dat. </p>
+<p>Write a script that will use a loop to generate a list of files to be deleted so that the customer can see what you received, and delete the files one at a time in the loop.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=235#respond' onclick='return addComment.moveForm("comment-235", "235", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-233">
+  	
+
+     <div id="comment-233" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Noble Bhaskar</strong> </span>July 24, 2009 at 08:18 				
+				  <div class="text"><p>Topic: Conditions in bash scripting (if statements)
+<p>This tutorial is good.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=233#respond' onclick='return addComment.moveForm("comment-233", "233", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-232">
+  	
+
+     <div id="comment-232" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://unstableme.blogspot.com/' rel='external nofollow' class='url'>Jadu Saikia</a></strong> </span>August 29, 2009 at 20:29 				
+				  <div class="text"><p>Topic: Thanks
+<p>Nice page for all these commands, really well written. I maintain this unix bash scripting blog <a href="http://unstableme.blogspot.com/" rel="nofollow">http://unstableme.blogspot.com/</a> , people might find it useful. Thanks.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=232#respond' onclick='return addComment.moveForm("comment-232", "232", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-242">
+  	
+
+     <div id="comment-242" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>| | |</strong> </span>October 16, 2009 at 18:20 				
+				  <div class="text"><p>Topic: Double-bracket syntax
+<p>Um, so does "if [[ ... ]];" glob or not?  Under the "first difference", you say that it expands * to anything.  Then under "third difference" you say it only matches a filename called *.  So which one is it?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=242#respond' onclick='return addComment.moveForm("comment-242", "242", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-243">
+  	
+
+     <div id="comment-243" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.pricetrooper.com' rel='external nofollow' class='url'>Beginner</a></strong> </span>October 31, 2009 at 16:44 				
+				  <div class="text"><p>Topic: Good tutorial!
+<p>This tutorial is very well thought out and written, which makes it easy to understand.Great for beginners like me.Best I found online so far on the topic. Once again good work...and thanks!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=243#respond' onclick='return addComment.moveForm("comment-243", "243", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-244">
+  	
+
+     <div id="comment-244" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/fd960d3d23d910797dfce9d899190150?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>ukrishna</strong> </span>November 3, 2009 at 11:44 				
+				  <div class="text"><p>Topic: Beginner
+<p>Really Really amasing tutorial....Contains even the minutest detail about if statement.....</p>
+<p>Thanks a million to the author..:-)</p>
+<p>Expect many more...</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=244#respond' onclick='return addComment.moveForm("comment-244", "244", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-245">
+  	
+
+     <div id="comment-245" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/65d93f5611f6a41f2ee52c055a758941?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>pradeep d rajmane</strong> </span>January 12, 2010 at 19:24 				
+				  <div class="text"><p>Topic: basic
+<p>all writen in well and precise manner good for even layman and can start scripting from scratch.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=245#respond' onclick='return addComment.moveForm("comment-245", "245", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-246">
+  	
+
+     <div id="comment-246" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/?d=http://www.gravatar.com/avatar/61a58ec1c1fba116f8424035089b7c71&amp;s=40' alt='' class='avatar avatar-40 photo avatar-default' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>ahmed</strong> </span>February 9, 2010 at 12:57 				
+				  <div class="text"><p>Topic: pls solve this
+<p>file_date="hello"<br />
+cur_date="hello"<br />
+echo "hi"</p>
+<p>if ["$file_date" == "$cur_date"];<br />
+then<br />
+echo "good, its working"<br />
+else<br />
+echo "hmm, need to learn still"<br />
+fi</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=246#respond' onclick='return addComment.moveForm("comment-246", "246", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-247">
+  	
+
+     <div id="comment-247" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/b618d4f147642dac16dca829ce28d052?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>ahmed</strong> </span>February 9, 2010 at 13:00 				
+				  <div class="text"><p>Topic: pls solve this
+<p>guide me where im wrong, since im new to this platform.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=247#respond' onclick='return addComment.moveForm("comment-247", "247", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment odd alt depth-2" id="li-comment-590">
+  	
+
+     <div id="comment-590" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/6fc300ec960f8edaa418921a3efc7d0a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>someguy</strong> </span>March 17, 2010 at 17:24 				
+				  <div class="text"><p>ahmed: you didn't even post a) an error message or b) what you want to accomplish.</p>
+<p>nevertheless.. try to use this here:    if [ "$file_date" == "$cur_date" ];</p>
+<p>spaces are important.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=590#respond' onclick='return addComment.moveForm("comment-590", "590", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-645">
+  	
+
+     <div id="comment-645" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/402a34af723a8b0d5d5b7ff8e71c6b67?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>charles</strong> </span>March 25, 2010 at 23:08 				
+				  <div class="text"><p>I have a directory that I want to use as a mount point for  tmpfs, but I only want to mount if this is not already mounted.</p>
+<p>One way to do this would be to detect if the devices are the same.</p>
+<p>ie</p>
+<p>if [ /foo ??? /foo/tmp ] ; then<br />
+# /foo/tmp is the same device as /foo therefore not mounted.<br />
+mount -t tmpfs none /foo/tmp<br />
+fi</p>
+<p>What do I use for ???</p>
+<p>Thanks</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=645#respond' onclick='return addComment.moveForm("comment-645", "645", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-647">
+  	
+
+     <div id="comment-647" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>March 26, 2010 at 08:01 				
+				  <div class="text"><p>I think df would do the job here. If you run df <foldername>, it will detect whether the specified folder is a mount or just a directory inside an other mount. Try this:</p>
+<p>if ! df /foo/tmp | grep -q /foo/tmp; then<br />
+    # Nothing is currently specifically mounted to /foo/tmp (not including subdirectories)<br />
+    mount -t tmpfs none /foo/tmp<br />
+fi</foldername></p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=647#respond' onclick='return addComment.moveForm("comment-647", "647", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment even thread-even depth-1" id="li-comment-741">
+  	
+
+     <div id="comment-741" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/28f4af7aa615fddab36b52a2528841c5?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>pwnstar</strong> </span>April 10, 2010 at 18:39 				
+				  <div class="text"><p>Fantastic tutorial. The tables at the bottom are especially helpful!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=741#respond' onclick='return addComment.moveForm("comment-741", "741", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor odd alt depth-2" id="li-comment-757">
+  	
+
+     <div id="comment-757" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>April 11, 2010 at 07:55 				
+				  <div class="text"><p>Thanks! I hope to publish a similar tutorial on bash arithmetics soon.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=757#respond' onclick='return addComment.moveForm("comment-757", "757", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="pingback even thread-odd thread-alt depth-1" id="li-comment-1691">
+  	
+
+     <div id="comment-1691" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.techremedy.net/blog/?p=192' rel='external nofollow' class='url'>17 Amazing Tutorials for Creating Bash Scripts | Tech Remedy</a></strong> </span>June 20, 2010 at 05:23 				
+				  <div class="text"><p>[...] 14.  Conditions in Bash Scripting [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=1691#respond' onclick='return addComment.moveForm("comment-1691", "1691", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback odd alt thread-even depth-1" id="li-comment-1905">
+  	
+
+     <div id="comment-1905" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.itoperationz.com/2010/07/ultimate-tutorials-to-create-bash-scripts/' rel='external nofollow' class='url'>Ultimate tutorials to Create BASH scripts | IT OPERATIONZ</a></strong> </span>July 8, 2010 at 06:57 				
+				  <div class="text"><p>[...] a Simple Bash Script HypeXR’s Getting Started With Bash SiteGround – Advanced Bash Loops Conditions in Bash Scripting Lutus’ Bash Shell Programming in Linux Advanced Bash Environment Variables GNU Universal Bash [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=1905#respond' onclick='return addComment.moveForm("comment-1905", "1905", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-1910">
+  	
+
+     <div id="comment-1910" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/0d2f9c34f3c462ffce88031c4f169b95?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Chris</strong> </span>July 8, 2010 at 12:36 				
+				  <div class="text"><p>Great stuff, handy quick reference.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=1910#respond' onclick='return addComment.moveForm("comment-1910", "1910", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-1915">
+  	
+
+     <div id="comment-1915" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/f5ba0843f620ab1dff7b8f86e381f7f6?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>MadKat</strong> </span>July 8, 2010 at 20:14 				
+				  <div class="text"><p>Simply: Thank You :)</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=1915#respond' onclick='return addComment.moveForm("comment-1915", "1915", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback even thread-odd thread-alt depth-1" id="li-comment-1958">
+  	
+
+     <div id="comment-1958" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.linuxquestions.org/questions/linux-newbie-8/a-question-on-inverting-a-bash-script-statement-819222/#post4029952' rel='external nofollow' class='url'>A question on inverting a bash script statement...</a></strong> </span>July 11, 2010 at 16:29 				
+				  <div class="text"><p>[...] something is worth taking a look at.   I think you need some bash tutorials.  Here are some links: <a href="http://www.linuxtutorialblog.com/pos...-if-statements" rel="nofollow">http://www.linuxtutorialblog.com/pos...-if-statements</a> <a href="http://tldp.org/LDP/abs/html/" rel="nofollow">http://tldp.org/LDP/abs/html/</a> <a href="http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html" rel="nofollow">http://tldp.org/HOWTO/Bash-Prog-Intro-HOWTO.html</a> [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=1958#respond' onclick='return addComment.moveForm("comment-1958", "1958", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-5299">
+  	
+
+     <div id="comment-5299" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/eda7feb7f0d2cdddbf5a315f6c10bba7?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>macdental</strong> </span>November 30, 2010 at 09:30 				
+				  <div class="text"><p>this is a very nice tutorial!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=5299#respond' onclick='return addComment.moveForm("comment-5299", "5299", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-9118">
+  	
+
+     <div id="comment-9118" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/525565d0ec86f99b80585abcb81f2411?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Mansoor Ali</strong> </span>January 20, 2011 at 15:20 				
+				  <div class="text"><p>its a real great tutorial...  Thank You</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=9118#respond' onclick='return addComment.moveForm("comment-9118", "9118", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback odd alt thread-even depth-1" id="li-comment-14134">
+  	
+
+     <div id="comment-14134" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.linuxquestions.org/questions/programming-9/bash-script-comparison-with-sequence-of-numbers-870069/#post4299375' rel='external nofollow' class='url'>Bash script: comparison with sequence of numbers?</a></strong> </span>March 22, 2011 at 17:13 				
+				  <div class="text"><p>[...] what he&#039;s getting at.   There&#039;s a really good explanation of the different uses of parenthesis here.   I&#039;d normally just use it as you have it only with the correct operator i.e. -gt and -lt rather [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=14134#respond' onclick='return addComment.moveForm("comment-14134", "14134", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-14805">
+  	
+
+     <div id="comment-14805" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/d7699f063274406de5898dcde49d1c86?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>m*</strong> </span>March 31, 2011 at 19:16 				
+				  <div class="text"><p>Must say "Brilliant". Your effort is very much appreciated.<br />
+Thanks.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=14805#respond' onclick='return addComment.moveForm("comment-14805", "14805", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-15647">
+  	
+
+     <div id="comment-15647" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/dd28df23e62ca107f2be831053dd4d24?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>falco</strong> </span>April 11, 2011 at 09:15 				
+				  <div class="text"><p>Really good job. Almost the best tutorial I've ever found on this subject.<br />
+Thanks!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=15647#respond' onclick='return addComment.moveForm("comment-15647", "15647", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment byuser comment-author-admin bypostauthor even depth-2" id="li-comment-15648">
+  	
+
+     <div id="comment-15648" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/841d461f2528ab5b584954869f80136a?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='2007/01' rel='external nofollow' class='url'>rechosen</a></strong> </span>April 11, 2011 at 09:40 				
+				  <div class="text"><p>Thanks! Though if you don't mind my asking, which one is even better? I might learn from it :).</p>
+<p>Rechosen</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=15648#respond' onclick='return addComment.moveForm("comment-15648", "15648", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="comment odd alt thread-odd thread-alt depth-1" id="li-comment-16576">
+  	
+
+     <div id="comment-16576" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/598819c85539d270b2d966f6aabbd306?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>rabindra</strong> </span>April 27, 2011 at 09:23 				
+				  <div class="text"><p>what are the errors in this code? can anyone comment?</p>
+<p>Part B<br />
+ 1 #!/bin/bash<br />
+  2 # Process each file and link it if it is okay.<br />
+  3<br />
+processfile()<br />
+    4 {<br />
+  5   lnopts="$1"<br />
+  6   filename="$2"<br />
+  7<br />
+  8   # file must be "normal file"<br />
+  9   if [ ! -f "$filename" ]<br />
+ 10   then<br />
+ 11     echo "Not a normal file: $filename"<br />
+ 12     retval=1<br />
+ 13   # must have "read perms"<br />
+ 14   elif [ ! -r "$filename" ]<br />
+ 15   then<br />
+ 16     echo "No read permissions: $filename"<br />
+ 17     retval=1<br />
+ 18   # user must either effective owner the file or effective group owner of the file<br />
+ 19   elif [ ! -O "$filename" -o ! -G "$filename" ]<br />
+ 20   then<br />
+ 21     echo "No effective ownership or effective group ownership of file: $filename"<br />
+ 22     retval=1<br />
+ 23   # Otherwise all is well, link the file to current directory using existing name<br />
+ 24   else<br />
+ 25     ln $lnopts $filename<br />
+ 26     retval=$?<br />
+ 27   fi<br />
+ 28   # Return the exit status code &gt; 0 if a problem occured<br />
+ 29   return $retval<br />
+ 30 }<br />
+ 31 # Initialise variables<br />
+ 32 cont='N'<br />
+ 33 lnopts='' 	"<br />
+ 34<br />
+ 35 # Process switches<br />
+ 36 while test "$1" = '-c' '-o' "$1" = '-s'<br />
+ 37 do<br />
+ 38   if [ "$1" = '-c' ]<br />
+ 39   then<br />
+ 40     cont='Y'<br />
+ 41     shift<br />
+ 42   fi<br />
+ 43   if [ "$1" = '-s' ]<br />
+ 44   then<br />
+ 45     lnopts='-s'<br />
+ 46     shift<br />
+ 47   fi<br />
+ 48 done<br />
+ 49<br />
+ 50 echo "Commencing generation of files”<br />
+ 51<br />
+ 52 if [ $# -lt 1 ]<br />
+ 53   while read filename<br />
+ 54   do<br />
+ 55     processfile "$lnopts" "$filename"<br />
+ 56     result=$?<br />
+ 57     test $result -ne 0 -a "$cont" != 'Y' -a "$cont" != 'y' || exit 1<br />
+ 58   done<br />
+ 59 else<br />
+ 60   for filename in $*<br />
+ 61   do<br />
+ 62     processfile "$lnopts" "$filename"<br />
+ 63     result=$?<br />
+ 64     if [ $result -ne 0 -a "$cont" != 'Y' ]<br />
+ 65     then<br />
+ 66       echo -n "Error occurred.  Continue (y/n/a)? "<br />
+ 67       read $cont<br />
+ 68       test "$cont" = 'n' -o "$cont" = 'N' &amp;&amp; exit 1<br />
+ 69       [ "$cont" = 'a' || "$cont" = 'A' ] &amp;&amp; cont='Y'<br />
+ 70     fi<br />
+ 71   done<br />
+ 72 fi<br />
+ 73 echo "All files processed"</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=16576#respond' onclick='return addComment.moveForm("comment-16576", "16576", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+<ul class='children'>
+   <li class="comment even depth-2" id="li-comment-20952">
+  	
+
+     <div id="comment-20952" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/134af4883883bd747fc548c18876cdd0?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>ndmaque</strong> </span>June 28, 2011 at 14:05 				
+				  <div class="text"><p>rabindra</p>
+<p>you seem to be using a single = rather than double ==<br />
+if yr if[ "$x" = "$y" ]<br />
+should it be<br />
+if yr if[ "$x" == "$y" ]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=20952#respond' onclick='return addComment.moveForm("comment-20952", "20952", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+</ul>
+</li>
+   <li class="pingback odd alt thread-even depth-1" id="li-comment-17586">
+  	
+
+     <div id="comment-17586" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://tybarts.wordpress.com/2011/05/17/unix-man-sayfalari-ile-dosya-okuma-arama-komutlari-ve-ortam-degiskenleri/' rel='external nofollow' class='url'>UNIX &#8211; MAN Sayfaları ile Dosya Okuma-Arama Komutları ve Ortam Değişkenleri | Taha Yavuz Bodur weblogging..</a></strong> </span>May 17, 2011 at 19:20 				
+				  <div class="text"><p>[...] Bash Conditionals #Sade [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=17586#respond' onclick='return addComment.moveForm("comment-17586", "17586", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-19547">
+  	
+
+     <div id="comment-19547" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/a22e742aedd0d2b435d5595b874faff2?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Aniket</strong> </span>June 11, 2011 at 07:52 				
+				  <div class="text"><p>I need to write the script like. if output like contains two word then ok otherwise write error message.</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=19547#respond' onclick='return addComment.moveForm("comment-19547", "19547", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-25970">
+  	
+
+     <div id="comment-25970" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/f94bb0225f545fa58653c41924e56394?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong>Nisrine</strong> </span>August 19, 2011 at 07:18 				
+				  <div class="text"><p>If i need to print the next value in the array if a certain condition is verified<br />
+for example:<br />
+for i in “${array[@]}”<br />
+do<br />
+if(….) then<br />
+echo $(i+1)<br />
+fi<br />
+done</p>
+<p>$(i+1) is wrong what can i do?</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=25970#respond' onclick='return addComment.moveForm("comment-25970", "25970", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-33837">
+  	
+
+     <div id="comment-33837" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/fa7e0bf45c565d75549ab9f06d2baae8?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.hostingnuggets.com/' rel='external nofollow' class='url'>Web Hosting</a></strong> </span>October 17, 2011 at 09:55 				
+				  <div class="text"><p>Very extensive tutorial about bash scripting conditional statements, I would even say it's a reference. Well done!</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=33837#respond' onclick='return addComment.moveForm("comment-33837", "33837", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback odd alt thread-even depth-1" id="li-comment-41211">
+  	
+
+     <div id="comment-41211" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.dagorret.net/2011/11/21/howto-for-bash/' rel='external nofollow' class='url'>Howto for Bash</a></strong> </span>November 21, 2011 at 21:55 				
+				  <div class="text"><p>[...] Simple Bash Script 12. HypeXR’s Getting Started With Bash 13. SiteGround – Advanced Bash Loops 14. Conditions in Bash Scripting 15. Lutus’ Bash Shell Programming in Linux 16. Advanced Bash Environment Variables 17. GNU [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=41211#respond' onclick='return addComment.moveForm("comment-41211", "41211", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment even thread-odd thread-alt depth-1" id="li-comment-67818">
+  	
+
+     <div id="comment-67818" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://0.gravatar.com/avatar/03365c1c4d2aa1dfe36d0bfd059c91dd?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://borngeek.in' rel='external nofollow' class='url'>Mohammed</a></strong> </span>February 10, 2012 at 18:23 				
+				  <div class="text"><p>Hello author,</p>
+<p>Thanks for the great info, I have completely understood the if command loop .. I would like you to write more such posts ... please please please</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=67818#respond' onclick='return addComment.moveForm("comment-67818", "67818", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="comment odd alt thread-even depth-1" id="li-comment-70756">
+  	
+
+     <div id="comment-70756" >
+	 
+	 <div class="comment-metaLeft">
+			<img src='http://1.gravatar.com/avatar/97ce48e3f321bd91b314380c18ca887c?s=40&amp;d=http%3A%2F%2Fwww.gravatar.com%2Favatar%2F61a58ec1c1fba116f8424035089b7c71%3Fs%3D40&amp;r=G' alt='' class='avatar avatar-40 photo' height='40' width='40' />			</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://www.telecomseva.com' rel='external nofollow' class='url'>Telecom News</a></strong> </span>February 22, 2012 at 11:45 				
+				  <div class="text"><p>great post for easily understand and useful for every developer</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=70756#respond' onclick='return addComment.moveForm("comment-70756", "70756", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+   <li class="pingback even thread-odd thread-alt depth-1" id="li-comment-79370">
+  	
+
+     <div id="comment-79370" >
+	 
+	 <div class="comment-metaLeft">
+						</div>
+			<div class="commentRight">
+			<div class="commentBullet"></div>
+				 <span><strong><a href='http://blog.codevariety.com/2012/03/22/shell-multiprocessing-script-example/' rel='external nofollow' class='url'>Shell: Multiprocessing Script Example | SELECT lessons FROM the_job</a></strong> </span>March 22, 2012 at 18:58 				
+				  <div class="text"><p>[...] Tutorial: Conditions in bash scripting (if statements) [...]</p>
+ </div>
+				   			<div class="reply">
+					 <a class='comment-reply-link' href='tutorial-conditions-in-bash-scripting-if-statements?replytocom=79370#respond' onclick='return addComment.moveForm("comment-79370", "79370", "respond", "70")'>Reply</a>				  </div>
+			</div>
+	 
+      
+     </div>
+</li>
+	</ul>
+
+	<div class="navigation">
+		<div class="alignleft"></div>
+		<div class="alignright"></div>
+	</div>
+ 
+
+
+<div id="respond">
+
+<h2>Post comment on <a href="tutorial-conditions-in-bash-scripting-if-statements?replytocom=234#comment-234">liz</a></h2>
+
+<div class="cancel-comment-reply">
+	<small><a rel="nofollow" id="cancel-comment-reply-link" href="../index.html?p=70#respond">Click here to cancel reply.</a></small>
+</div>
+
+
+<form action="http://www.linuxtutorialblog.com/wp-comments-post.php" method="post" id="commentform">
+
+
+<p><label for="author">Name (required)</label>
+<input type="text" name="author" id="author" value="" size="22" tabindex="1" aria-required='true' />
+</p>
+
+<p><label for="email">Mail (will not be published) (required)</label>
+<input type="text" name="email" id="email" value="" size="22" tabindex="2" aria-required='true' />
+</p>
+
+<p><label for="url">Website</label>
+<input type="text" name="url" id="url" value="" size="22" tabindex="3" />
+</p>
+
+
+<!--<p><small><strong>XHTML:</strong> You can use these tags: <code>&lt;a href=&quot;&quot; title=&quot;&quot;&gt; &lt;abbr title=&quot;&quot;&gt; &lt;acronym title=&quot;&quot;&gt; &lt;b&gt; &lt;blockquote cite=&quot;&quot;&gt; &lt;cite&gt; &lt;code&gt; &lt;del datetime=&quot;&quot;&gt; &lt;em&gt; &lt;i&gt; &lt;q cite=&quot;&quot;&gt; &lt;strike&gt; &lt;strong&gt; </code></small></p>-->
+
+<p><label for="comment">Comment</label>
+<textarea name="comment" id="comment" cols="100%" rows="10" tabindex="4"></textarea></p>
+
+<p><input name="submit" type="submit" id="submit" tabindex="5" value="Send &raquo;" />
+<input type='hidden' name='comment_post_ID' value='70' id='comment_post_ID' />
+<input type='hidden' name='comment_parent' id='comment_parent' value='234' />
+</p>
+<p style="display: none;"><input type="hidden" id="akismet_comment_nonce" name="akismet_comment_nonce" value="aa19a51c9e" /></p>
+</form>
+
+</div>
+
+					
+			</div>
+			<!-- end col left -->
+	
+<!-- begin col right -->
+		<div id="colRight" class="clearfix">
+			
+<!-- begin search box -->
+		<div id="searchBox" class="clearfix">
+			<form id="searchform" action="tutorial-conditions-in-bash-scripting-if-statements?replytocom=234" method="get">
+				<input id="s" type="text" name="s" value=""/>
+				<input id="searchsubmit" type="submit" value="SEARCH"/>
+			</form>
+		</div>
+		<!-- end search box -->
+		<!-- begin adsBox -->
+				<!-- end adsBox -->
+		
+		<!-- begin twitter box -->
+				
+		<div id="twitter">
+			<a href="http://twitter.com/LinuxTutBlog" title="Follow us on Twitter!"><img src="../wp-content/themes/colorbold/images/ico_twitter.png" alt="Follow us on Twitter!" />
+			<span id="twitterfollow">Follow us on Twitter!</span><br /><span id="twittertxt">See and influence what's coming up!</span></a>
+		</div>
+				<!-- end twitter box -->
+		
+		<h2>Contact</h2>			<div class="textwidget">Got a question? You can e-mail the author using the <a href="../contact-me">contact form</a>.</div>
+				
+	
+		</div>
+		<!-- end col right -->
+
+
+
+	</div>
+	<!-- end content -->
+	</div>
+	<!-- end wrapper -->
+	<!-- begin footer -->
+	<div id="footer">
+	&copy; 2007-2012 <strong>Rechosen</strong>. All Right Reserved. 
+	<ul id="footerMenu">
+		<li><a href="2007/01">Home</a></li>
+				<li class="page_item page-item-248"><a href="../contact-me" title="Contact me">Contact me</a></li>
+	</ul>
+	<div id="site5bottom">Based on the Colorbold theme by <a href="http://www.site5.com/reseller"><img src="../wp-content/themes/colorbold/images/site5_tiny.png" alt="Site5" /></a>.<br />Kudos to them for such a great free theme!</div>
+	</div>
+	<!-- end footer -->
+</div>
+<!-- end mainWrapper -->
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1651184-1";
+urchinTracker();
+</script>
+</body>
+</html>
+

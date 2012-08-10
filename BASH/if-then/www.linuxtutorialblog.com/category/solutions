@@ -1,0 +1,332 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" dir="ltr" lang="en-US">
+
+<head profile="http://gmpg.org/xfn/11">
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+
+<title>Solutions &laquo;  Linux Tutorial Blog</title>
+
+	<link rel="stylesheet" href="../wp-content/themes/colorbold/style.css" type="text/css" media="screen" />
+		<link rel="stylesheet" href="../wp-content/themes/colorbold/css/blue.css" media="screen" />
+		<link rel="stylesheet" href="../wp-content/themes/colorbold/css/jquery.lightbox-0.5.css" media="screen" />
+	 <link rel="stylesheet" href="../wp-content/themes/colorbold/css/superfish.css" media="screen" />	 
+	 <!--[if gte IE 7]>
+    <link rel="stylesheet" media="screen" type="text/css" href="http://www.linuxtutorialblog.com/wp-content/themes/colorbold/ie7.css" />
+    <![endif]-->
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery-1.3.2.min.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery.form.js"></script>
+	<script language="JavaScript" type="text/javascript" src="../wp-content/themes/colorbold/js/jquery.lightbox-0.5.min.js">
+	</script>
+    <script type="text/javascript" src="../wp-content/themes/colorbold/js/superfish.js"></script>
+	
+	<!-- lightbox initialize script -->
+	<script type="text/javascript">
+		$(function() {
+		   $('a.lightbox').lightBox();
+		});
+	 </script>
+	<!-- ajax contact form -->
+	 <script type="text/javascript">
+		 $(document).ready(function(){
+			  $('#contact').ajaxForm(function(data) {
+				 if (data==1){
+					 $('#success').fadeIn("slow");
+					 $('#bademail').fadeOut("slow");
+					 $('#badserver').fadeOut("slow");
+					 $('#contact').resetForm();
+					 }
+				 else if (data==2){
+						 $('#badserver').fadeIn("slow");
+					  }
+				 else if (data==3)
+					{
+					 $('#bademail').fadeIn("slow");
+					}
+					});
+				 });
+		</script>
+		<script type="text/javascript"> 
+			$(document).ready(function(){ 
+				$("ul.sf-menu").superfish({
+					autoArrows:  false,
+					delay:       200,                             // one second delay on mouseout 
+					animation:   {opacity:'show',height:'show'},  // fade-in and slide-down animation 
+					speed:       'fast',                          // faster animation speed 
+					autoArrows:  true,                           // disable generation of arrow mark-up 
+					dropShadows: true                            // disable drop shadows 			
+					}); 
+			});
+		</script>
+
+	<link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="../feed" />
+	<link rel="alternate" type="text/xml" title="RSS .92" href="../feed/rss" />
+	<link rel="alternate" type="application/atom+xml" title="Atom 1.0" href="../feed/atom" />
+	
+	<link rel="shortcut icon" type="image/x-icon" href="../favicon.ico" />
+
+	<link rel="pingback" href="../xmlrpc.php" />
+		<link rel='archives' title='March 2010' href='../post/2010/03' />
+	<link rel='archives' title='August 2008' href='../post/2008/08' />
+	<link rel='archives' title='November 2007' href='../post/2007/11' />
+	<link rel='archives' title='September 2007' href='../post/2007/09' />
+	<link rel='archives' title='July 2007' href='../post/2007/07' />
+	<link rel='archives' title='May 2007' href='../post/2007/05' />
+	<link rel='archives' title='April 2007' href='../post/2007/04' />
+	<link rel='archives' title='March 2007' href='../post/2007/03' />
+	<link rel='archives' title='February 2007' href='../post/2007/02' />
+	<link rel='archives' title='January 2007' href='../post/2007/01' />
+		<link rel="alternate" type="application/rss+xml" title="Linux Tutorial Blog &raquo; Solutions Category Feed" href="http://www.linuxtutorialblog.com/category/solutions/feed" />
+<link rel="EditURI" type="application/rsd+xml" title="RSD" href="../xmlrpc.php?rsd" />
+<link rel="wlwmanifest" type="application/wlwmanifest+xml" href="../wp-includes/wlwmanifest.xml" /> 
+<link rel='index' title='Linux Tutorial Blog' href='../post/2007/01' />
+<meta name="generator" content="WordPress 3.2.1" />
+<!-- Meta tags added by Robots Meta: http://yoast.com/wordpress/meta-robots-wordpress-plugin/ -->
+<meta name="robots" content="noindex,follow" />
+
+</head>
+<body>
+
+<!-- begin mainWrapper -->
+<div id="mainWrapper">
+	<!-- begin wrapper -->
+	<div id="wrapper">
+	<!-- begin header -->
+	<div id="header">
+	<a href="../feed" title="RSS" class="rssTag">RSS Feeds</a>
+	<!-- logo -->
+		<div id="logo"><a href="../post/2007/01"><img src="../wp-content/themes/colorbold/images/logo.png" alt="Linux Tutorial Blog" /></a></div>
+		<!-- begin topmenu -->
+		<!--<div id="topMenu">
+			<ul>
+				<li><a href="http://www.linuxtutorialblog.com/">Home</a></li>
+				<li class="page_item page-item-248"><a href="http://www.linuxtutorialblog.com/contact-me" title="Contact me">Contact me</a></li>
+			</ul>
+		</div>-->
+		<!-- end topmenu -->
+		<!-- begin mainMenu -->
+			<div id="mainMenu">
+				<ul class="sf-menu">
+					<li class="cat-item cat-item-3"><a rel="nofollow" href="tutorials" title="The tutorials of Linux Tutorial Blog.">Tutorials</a>
+</li>
+	<li class="cat-item cat-item-4 current-cat"><a rel="nofollow" href="solutions" title="Short posts that aim to fix a specific problem.">Solutions</a>
+</li>
+	<li class="cat-item cat-item-6"><a rel="nofollow" href="news" title="Posts containing news about Linux Tutorial Blog.">News</a>
+</li>
+	<li class="cat-item cat-item-5"><a rel="nofollow" href="miscellaneous" title="Posts that don&#039;t fit in the other categories.">Miscellaneous</a>
+</li>
+	<li class="cat-item cat-item-7"><a rel="nofollow" href="fun-stuff" title="Posts on less serious matters, like easter eggs.">Fun Stuff</a>
+</li>
+				</ul>
+			</div>
+		<!-- end mainMenu -->
+	</div>
+	<!-- end header -->
+	<!-- begin content -->
+	<div id="content" class="clearfix">	
+
+		
+		<!-- begin colLeft -->
+		<div id="colLeft">
+		<!-- archive-title -->				
+																		<div id="archive-title">
+						Browsing all articles in <strong>Solutions</strong>
+						</div>
+																							<!-- /archive-title -->
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">Aug</div>
+				<div class="year">2008</div>
+				<div class="comments"><a href="../post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop#comments" rel="nofollow" title="Comment on Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)">46</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="../post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop">Solution: Converting flac to mp3 advanced (supports drag &#8216;n drop)</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="../post/2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="solutions" title="View all posts in Solutions" rel="category tag">Solutions</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="../tag/bash" rel="nofollow tag">bash</a>, <a href="http://www.linuxtutorialblog.com/tag/conversion" rel="nofollow tag">conversion</a>, <a href="http://www.linuxtutorialblog.com/tag/drag-n-drop" rel="nofollow tag">drag 'n drop</a>, <a href="http://www.linuxtutorialblog.com/tag/flac" rel="nofollow tag">flac</a>, <a href="http://www.linuxtutorialblog.com/tag/mp3" rel="nofollow tag">mp3</a>, <a href="../tag/scripting" rel="nofollow tag">scripting</a></div>
+				<p><a title="Go to the post containing the simple version" href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3">My short solution to convert flac to mp3</a> caught a lot of attention, and uncovered a demand for a more sophisticated solution. Therefore, after all the scripts posted in the comments, I decided to go on and write an extensive script that should be able to offer all the requested functionality (and more). This post contains a script and installation instructions to allow you to convert both individual files and directories, keep the tags of the files fully intact and enjoy an easy-to-use drag 'n drop interface. <a href="../post/solution-converting-flac-to-mp3-advanced-supports-drag-n-drop#more-77" class="more-link">read more</a></p>
+ 
+			</div>
+		</div>
+		<!-- end post -->
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">Nov</div>
+				<div class="year">2007</div>
+				<div class="comments"><a href="http://www.linuxtutorialblog.com/post/solution-getting-a-gravis-gamepad-pro-to-work-on-linux#comments" rel="nofollow" title="Comment on Solution: Getting a Gravis GamePad Pro to work on Linux">3</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="http://www.linuxtutorialblog.com/post/solution-getting-a-gravis-gamepad-pro-to-work-on-linux">Solution: Getting a Gravis GamePad Pro to work on Linux</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="../post/2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="solutions" title="View all posts in Solutions" rel="category tag">Solutions</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="http://www.linuxtutorialblog.com/tag/gameport" rel="nofollow tag">gameport</a>, <a href="http://www.linuxtutorialblog.com/tag/gravis-gamepad-pro" rel="nofollow tag">Gravis Gamepad Pro</a></div>
+				<p>After a whole afternoon of struggling, I finally found how to get a Gravis GamePad Pro to work correctly (with all ten buttons enabled) on Linux. Because this took me so much effort and the information on it was so scattered and incomplete, I decided to break the frozenness of Linux Tutorial Blog and write a post about it. <a href="http://www.linuxtutorialblog.com/post/solution-getting-a-gravis-gamepad-pro-to-work-on-linux#more-66" class="more-link">read more</a></p>
+ 
+			</div>
+		</div>
+		<!-- end post -->
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">Jul</div>
+				<div class="year">2007</div>
+				<div class="comments"><a href="http://www.linuxtutorialblog.com/post/solution-preventing-damage-after-a-system-lockup#comments" rel="nofollow" title="Comment on Solution: Preventing damage after a system lockup">1</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="http://www.linuxtutorialblog.com/post/solution-preventing-damage-after-a-system-lockup">Solution: Preventing damage after a system lockup</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="../post/2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="solutions" title="View all posts in Solutions" rel="category tag">Solutions</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="http://www.linuxtutorialblog.com/tag/kernel" rel="nofollow tag">kernel</a>, <a href="http://www.linuxtutorialblog.com/tag/preventing-damage" rel="nofollow tag">preventing damage</a>, <a href="http://www.linuxtutorialblog.com/tag/rebooting" rel="nofollow tag">rebooting</a></div>
+				<p>No matter how stable the Linux kernel is, things like hardware failures can still lock up your system quite effectively. If you ever encounter a case like that, rebooting is pretty much the only option. However, there is rebooting and rebooting. This solution describes a way to reboot your system that will do things like terminating all processes, syncing the remounting the disks, in order to prevent damage as much as possible. This can save you a lot of fscking and data loss. <a href="http://www.linuxtutorialblog.com/post/solution-preventing-damage-after-a-system-lockup#more-63" class="more-link">read more</a></p>
+ 
+			</div>
+		</div>
+		<!-- end post -->
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">May</div>
+				<div class="year">2007</div>
+				<div class="comments"><a href="http://www.linuxtutorialblog.com/post/solution-creating-an-mpeg-with-mencoder-that-plays-on-windows-media-player#comments" rel="nofollow" title="Comment on Solution: Creating an mpeg with mencoder that plays on Windows Media Player">5</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="http://www.linuxtutorialblog.com/post/solution-creating-an-mpeg-with-mencoder-that-plays-on-windows-media-player">Solution: Creating an mpeg with mencoder that plays on Windows Media Player</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="../post/2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="solutions" title="View all posts in Solutions" rel="category tag">Solutions</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="http://www.linuxtutorialblog.com/tag/mencoder" rel="nofollow tag">mencoder</a>, <a href="http://www.linuxtutorialblog.com/tag/mpeg" rel="nofollow tag">mpeg</a>, <a href="http://www.linuxtutorialblog.com/tag/windows-media-player" rel="nofollow tag">Windows Media Player</a></div>
+				<p>This solution contains some options for the mencoder command that will result in an mpeg video file that will play on pretty much all players, even Windows Media Player. <a href="http://www.linuxtutorialblog.com/post/solution-creating-an-mpeg-with-mencoder-that-plays-on-windows-media-player#more-59" class="more-link">read more</a></p>
+ 
+			</div>
+		</div>
+		<!-- end post -->
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">Apr</div>
+				<div class="year">2007</div>
+				<div class="comments"><a href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3#comments" rel="nofollow" title="Comment on Solution: Converting flac to mp3">50</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3">Solution: Converting flac to mp3</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="../post/2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="solutions" title="View all posts in Solutions" rel="category tag">Solutions</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="../tag/bash" rel="nofollow tag">bash</a>, <a href="http://www.linuxtutorialblog.com/tag/conversion" rel="nofollow tag">conversion</a>, <a href="http://www.linuxtutorialblog.com/tag/flac" rel="nofollow tag">flac</a>, <a href="http://www.linuxtutorialblog.com/tag/mp3" rel="nofollow tag">mp3</a></div>
+				<p>Sometimes you need to convert a load of flac files to mp3's, for example when wanting to listen them on your mp3 player. This solution contains a single line of bash that'll convert all flac files in the current directory to mp3's, keeping the flac files. <a href="http://www.linuxtutorialblog.com/post/solution-converting-flac-to-mp3#more-52" class="more-link">read more</a></p>
+ 
+			</div>
+		</div>
+		<!-- end post -->
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">Feb</div>
+				<div class="year">2007</div>
+				<div class="comments"><a href="http://www.linuxtutorialblog.com/post/solution-resetting-your-screen-resolution-with-xrandr#comments" rel="nofollow" title="Comment on Solution: Resetting your screen resolution with xrandr">3</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="http://www.linuxtutorialblog.com/post/solution-resetting-your-screen-resolution-with-xrandr">Solution: Resetting your screen resolution with xrandr</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="../post/2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="solutions" title="View all posts in Solutions" rel="category tag">Solutions</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="http://www.linuxtutorialblog.com/tag/screen-resolution" rel="nofollow tag">screen resolution</a>, <a href="http://www.linuxtutorialblog.com/tag/xrandr" rel="nofollow tag">xrandr</a></div>
+				<p>I recently discovered a very useful tool: xrandr. This command allows you to reset your screen resolution, which comes in very handy when some buggy app changes you screen resolution and doesn't set it back. It saves logging out and in again or even having to use Ctrl + Alt + Backspace! <a href="http://www.linuxtutorialblog.com/post/solution-resetting-your-screen-resolution-with-xrandr#more-41" class="more-link">read more</a></p>
+ 
+			</div>
+		</div>
+		<!-- end post -->
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">Feb</div>
+				<div class="year">2007</div>
+				<div class="comments"><a href="http://www.linuxtutorialblog.com/post/solution-converting-line-breaks#comments" rel="nofollow" title="Comment on Solution: Converting line breaks">1</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="http://www.linuxtutorialblog.com/post/solution-converting-line-breaks">Solution: Converting line breaks</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="../post/2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="solutions" title="View all posts in Solutions" rel="category tag">Solutions</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="http://www.linuxtutorialblog.com/tag/conversion" rel="nofollow tag">conversion</a>, <a href="http://www.linuxtutorialblog.com/tag/line-breaks" rel="nofollow tag">line breaks</a></div>
+				<p>Linux text files and Windows text files differ from each other in an important aspect. They have a different way to indicate the end of a line. Sometimes, when opening a text file on Linux, you see a ^M here and there. This means that the text file contains Windows-like line breaks. This solution describes how to convert a Windows-like text file to a Linux-like one, and the other way around. <a href="http://www.linuxtutorialblog.com/post/solution-converting-line-breaks#more-145" class="more-link">read more</a></p>
+ 
+			</div>
+		</div>
+		<!-- end post -->
+				<!-- begin post -->
+		<div class="blogPost clearfix">
+			<div class="metaLeft">
+				<div class="month">Jan</div>
+				<div class="year">2007</div>
+				<div class="comments"><a href="http://www.linuxtutorialblog.com/post/solution-gently-killing-a-process#comments" rel="nofollow" title="Comment on Solution: Gently killing a process">1</a></div>
+			</div>
+			<div class="postRight">
+				<div class="titBullet"></div>
+				<h1><a href="http://www.linuxtutorialblog.com/post/solution-gently-killing-a-process">Solution: Gently killing a process</a></h1>
+				<div class="metaRight">
+				<img src="../wp-content/themes/colorbold/images/ico_user.png" alt="Author" /> <a href="../post/2007/01" title="Visit rechosen&#8217;s website" rel="external">rechosen</a>&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_folder.png" alt="Category" /> <a href="solutions" title="View all posts in Solutions" rel="category tag">Solutions</a>	&nbsp;&nbsp;&nbsp; <img src="../wp-content/themes/colorbold/images/ico_tag.png" alt="Tags" />  <a href="http://www.linuxtutorialblog.com/tag/kill" rel="nofollow tag">kill</a>, <a href="http://www.linuxtutorialblog.com/tag/process" rel="nofollow tag">process</a></div>
+				<p>Sometimes you somehow can't quit a certain process, but you don't want to lose all unsaved data by killing it. You can then try giving it a SIGQUIT. This solution describes how. <a href="http://www.linuxtutorialblog.com/post/solution-gently-killing-a-process#more-22" class="more-link">read more</a></p>
+ 
+			</div>
+		</div>
+		<!-- end post -->
+		
+		<div class="navigation">
+			<div class="alignleft"></div>
+			<div class="alignright"></div>
+		</div>
+
+			</div>
+		<!-- end colLeft -->
+
+<!-- begin colRight -->
+		<div id="colRight">	
+			
+<!-- begin search box -->
+		<div id="searchBox" class="clearfix">
+			<form id="searchform" action="solutions" method="get">
+				<input id="s" type="text" name="s" value=""/>
+				<input id="searchsubmit" type="submit" value="SEARCH"/>
+			</form>
+		</div>
+		<!-- end search box -->
+		<!-- begin adsBox -->
+				<!-- end adsBox -->
+		
+		<!-- begin twitter box -->
+				
+		<div id="twitter">
+			<a href="http://twitter.com/LinuxTutBlog" title="Follow us on Twitter!"><img src="../wp-content/themes/colorbold/images/ico_twitter.png" alt="Follow us on Twitter!" />
+			<span id="twitterfollow">Follow us on Twitter!</span><br /><span id="twittertxt">See and influence what's coming up!</span></a>
+		</div>
+				<!-- end twitter box -->
+		
+		<h2>Contact</h2>			<div class="textwidget">Got a question? You can e-mail the author using the <a href="../contact-me">contact form</a>.</div>
+				
+	
+			</div>
+<!-- end colRight -->
+
+	</div>
+	<!-- end content -->
+	</div>
+	<!-- end wrapper -->
+	<!-- begin footer -->
+	<div id="footer">
+	&copy; 2007-2012 <strong>Rechosen</strong>. All Right Reserved. 
+	<ul id="footerMenu">
+		<li><a href="../post/2007/01">Home</a></li>
+				<li class="page_item page-item-248"><a href="../contact-me" title="Contact me">Contact me</a></li>
+	</ul>
+	<div id="site5bottom">Based on the Colorbold theme by <a href="http://www.site5.com/reseller"><img src="../wp-content/themes/colorbold/images/site5_tiny.png" alt="Site5" /></a>.<br />Kudos to them for such a great free theme!</div>
+	</div>
+	<!-- end footer -->
+</div>
+<!-- end mainWrapper -->
+<script src="http://www.google-analytics.com/urchin.js" type="text/javascript">
+</script>
+<script type="text/javascript">
+_uacct = "UA-1651184-1";
+urchinTracker();
+</script>
+</body>
+</html>
+
