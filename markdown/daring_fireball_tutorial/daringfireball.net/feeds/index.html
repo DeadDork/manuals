@@ -1,0 +1,136 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Daring Fireball: Syndicated Feeds</title>
+	<meta name="viewport" content="width=600, initial-scale=0.5, minimum-scale=0.45" />	<link rel="apple-touch-icon-precomposed" href="../graphics/apple-touch-icon.png" />
+	<link rel="shortcut icon" href="../graphics/favicon.ico?v=005" />
+	<link rel="stylesheet" type="text/css" media="screen"  href="../css/fireball_screen.css?v1.52" />
+	<link rel="stylesheet" type="text/css" media="screen"  href="../css/ie_sucks.php" />
+	<link rel="stylesheet" type="text/css" media="print"   href="../css/fireball_print.css?v01" />
+	<link rel="alternate" type="application/atom+xml" href="../index.xml" />
+	<script src="../js/js-global/FancyZoom.js" type="text/javascript"></script>
+	<script src="../js/js-global/FancyZoomHTML.js" type="text/javascript"></script>
+	<link rel="shortcut icon" href="../favicon.ico" />
+</head>
+<body>
+<div id="Box">
+
+<div id="Banner">
+<a href="../index.html" title="Daring Fireball: Home"><img src="../graphics/logos/index.html" alt="Daring Fireball" height="56" /></a>
+</div>
+
+<div id="Sidebar">
+<p>By <strong>John&nbsp;Gruber</strong></p>
+
+<ul><!--&#9733;-->
+<li><a href="../archive/index.html" title="Previous articles.">Archive</a></li>
+<!-- 
+<li><a href="/shirts" title="Buy some swell t-shirts.">T-Shirts</a></li>
+ -->
+<li><script type="text/javascript">
+// <![CDATA[
+function ReadCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+var display_linked_list = ReadCookie('displayLinkedList');
+var li_linked = '<a href="../linked/index.html" title="The Linked List.">Linked List<\/a>';
+var li_members = '<a href="../members/index.html" title="Support Daring Fireball with a contribution.">Membership<\/a>';
+if (display_linked_list == "hide") {
+	// Linked List is off on home page, so show it in menu:
+	document.write(li_linked + "<\/li>\n<li>" + li_members);
+}
+else {
+	// Default to not putting separate LL item in sidebar:
+	document.write(li_members);
+}
+// ]]>
+</script></li>
+<li><a href="../projects/index.html" title="Software projects, including SmartyPants and Markdown.">Projects</a></li>
+<li><a href="../contact/index.html" title="How to send email regarding Daring Fireball.">Contact</a></li>
+<li><a href="../colophon/index.html" title="About this site and the tools used to produce it.">Colophon</a></li>
+<li><a href="index.html">RSS Feed</a></li>
+<li><a href="sponsors/index.html">Sponsorship</a></li>
+</ul>
+
+</div> <!-- Sidebar -->
+
+<div id="Main">
+
+<div class="article">
+<h1>Syndicated Feeds</h1>
+
+<h2>Subscribe to the Main Feed</h2>
+
+<p><a href="../index.xml">http://daringfireball.net/index.xml</a></p>
+
+<h2>Articles-Only Feed</h2>
+
+<p>A feed containing only the longer, feature articles (like the &#8220;old&#8221; DF feed) is available as a less-frequently-updated alternative:</p>
+
+<p><a href="http://daringfireball.net/feeds/articles">http://daringfireball.net/feeds/articles</a></p>
+
+<h2>Sponsorship</h2>
+
+<p><a href="sponsors/index.html">Information and rates for week-long exclusive sponsorship</a> of the Daring Fireball feed.</p>
+
+</div> <!-- article -->
+
+<div id="Footer">
+<form id="SiteSearch" action="http://daringfireball.net/search" method="get" style="margin-bottom: 2.5em;">
+<div>
+<input name="q" type="text" value="" style="margin-right: 8px; width: 26em;" />
+<input type="submit" value="Search" />
+</div>
+</form>
+<p class='smallprint'><a href='http://www.amazon.com/exec/obidos/redirect?tag=daringfirebal-20&amp;path=subst/home/home.html'>Shop at Amazon.com and support Daring Fireball</a></p>
+
+<p class="smallprint">
+<a href="../linked/index.html" title="Recent Linked List entries and archive.">Linked List</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="../preferences/index.html" title="Customize the font size and presentation options for this web site.">Display Preferences</a><br />
+Copyright &copy; 2002–2012 John Gruber</p>
+</div>
+
+<div id="SidebarTheDeck">
+<script type="text/javascript">
+// <![CDATA[
+	(function(id) {
+		document.write('<script type="text/javascript" src="' +
+			'http://connect.decknetwork.net/deck' + id + '_js.php?' +
+			(new Date().getTime()) + '"></' + 'script>');
+	})("DF");
+	var deckDiv = document.getElementById("SidebarTheDeck");
+	var sidebarDiv = document.getElementById("Sidebar");
+	sidebarDiv.appendChild(deckDiv);
+// ]]>
+</script>
+
+<p id="ViaTheDeck"><a href="http://decknetwork.net/">
+<img src="../graphics/madison/via_the_deck.png" width="70"    alt="Ads via The Deck" class="the_deck_promo" />
+<span>Ads via The Deck</span>
+</a></p>
+
+</div>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-593949-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</div> <!-- Main -->
+
+</div> <!-- box -->
+</body>
+</html>

@@ -1,0 +1,800 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+	<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+	<title>Daring Fireball Projects: SmartyPants</title>
+	<meta name="viewport" content="width=600, initial-scale=0.5, minimum-scale=0.45" />	<link rel="apple-touch-icon-precomposed" href="../../graphics/apple-touch-icon.png" />
+	<link rel="shortcut icon" href="../../graphics/favicon.ico?v=005" />
+	<link rel="stylesheet" type="text/css" media="screen"  href="../../css/fireball_screen.css?v1.52" />
+	<link rel="stylesheet" type="text/css" media="screen"  href="../../css/ie_sucks.php" />
+	<link rel="stylesheet" type="text/css" media="print"   href="../../css/fireball_print.css?v01" />
+	<link rel="alternate" type="application/atom+xml" href="../../index.xml" />
+	<script src="../../js/js-global/FancyZoom.js" type="text/javascript"></script>
+	<script src="../../js/js-global/FancyZoomHTML.js" type="text/javascript"></script>
+	<link rel="shortcut icon" href="../../favicon.ico" />
+	<script src="../../mint/index.html?js" type="text/javascript"></script>
+</head>
+<body>
+<div id="Box">
+
+<div id="Banner">
+<a href="../../index.html" title="Daring Fireball: Home"><img src="../../graphics/logos/index.html" alt="Daring Fireball" height="56" /></a>
+</div>
+
+<div id="Sidebar">
+<p>By <strong>John&nbsp;Gruber</strong></p>
+
+<ul><!--&#9733;-->
+<li><a href="../../archive/index.html" title="Previous articles.">Archive</a></li>
+<!-- 
+<li><a href="/shirts" title="Buy some swell t-shirts.">T-Shirts</a></li>
+ -->
+<li><script type="text/javascript">
+// <![CDATA[
+function ReadCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+var display_linked_list = ReadCookie('displayLinkedList');
+var li_linked = '<a href="../../linked/index.html" title="The Linked List.">Linked List<\/a>';
+var li_members = '<a href="../../members/index.html" title="Support Daring Fireball with a contribution.">Membership<\/a>';
+if (display_linked_list == "hide") {
+	// Linked List is off on home page, so show it in menu:
+	document.write(li_linked + "<\/li>\n<li>" + li_members);
+}
+else {
+	// Default to not putting separate LL item in sidebar:
+	document.write(li_members);
+}
+// ]]>
+</script></li>
+<li><a href="../index.html" title="Software projects, including SmartyPants and Markdown.">Projects</a></li>
+<li><a href="../../contact/index.html" title="How to send email regarding Daring Fireball.">Contact</a></li>
+<li><a href="../../colophon/index.html" title="About this site and the tools used to produce it.">Colophon</a></li>
+<li><a href="../../feeds/index.html">RSS Feed</a></li>
+<li><a href="../../feeds/sponsors/index.html">Sponsorship</a></li>
+</ul>
+
+</div> <!-- Sidebar -->
+
+
+
+<div id="Main">
+
+<img src="../../graphics/smartypants_title.gif" width="384" alt="SmartyPants -- Smart quotes plug-in for Movable Type" height="96" />
+<div class="article">
+
+
+<h2>Download</h2>
+<p>
+<a href="http://daringfireball.net/projects/downloads/SmartyPants_1.5.1.zip">SmartyPants 1.5.1</a> (20 KB) — Fri 12 Mar 2004
+</p>
+<p>
+<a href="index.html#version_1.5.1">What&#8217;s new?</a>
+</p>
+
+<h2>Description</h2>
+
+<p>
+SmartyPants is a free web publishing plug-in for Movable Type, Blosxom,
+and BBEdit that easily translates plain ASCII punctuation characters
+into &#8220;smart&#8221; typographic punctuation HTML entities.
+</p>
+
+<p>
+SmartyPants can perform the following transformations:
+</p>
+
+
+<ul>
+<li>
+Straight quotes ( &#34; and &#39; ) into &#8220;curly&#8221; quote HTML entities
+</li>
+
+<li>
+Backticks-style quotes (<code>``like this''</code>) into &#8220;curly&#8221; quote HTML entities
+</li>
+
+<li>
+Dashes (&#8220;<code>--</code>&#8221; and &#8220;<code>---</code>&#8221;) into en- and em-dash entities
+</li>
+
+<li>
+Three consecutive dots (&#8220;<code>...</code>&#8221;) into an ellipsis entity
+</li>
+</ul>
+
+<p>
+This means you can write, edit, and save your posts using plain old
+ASCII straight quotes, plain dashes, and plain dots, but your published
+posts (and final HTML output) will appear with smart quotes, em-dashes,
+and proper ellipses.
+</p>
+
+<p>
+SmartyPants is a combination plug-in &#8212; a single plug-in file that works with Movable Type, Blosxom, and BBEdit. It can also be used from a Unix-style command-line.
+</p>
+
+<p>
+SmartyPants does not modify characters within <code>&lt;pre&gt;</code>, <code>&lt;code&gt;</code>, <code>&lt;kbd&gt;</code>, or <code>&lt;script&gt;</code> tag blocks. Typically, these tags are used to display text where smart quotes and other &#8220;smart punctuation&#8221; would not be appropriate, such as source code or example markup.
+</p>
+
+
+<h2>Version Requirements</h2>
+
+<ul>
+<li>Movable Type: 2.5 or later (including Movable Type 3.0)</li>
+
+<li>Blosxom: 2.0 or later</li>
+
+<li>BBEdit: 5.1 or later</li>
+
+<li>Perl: 5.005 or later</li>
+
+</ul>
+
+
+<h2>MT-Textile Integration</h2>
+
+<p>
+Movable Type users should also note that SmartyPants can work in
+conjunction with <a href="http://bradchoate.com/past/mttextile.php" title="MT-Textile">Brad Choate&#8217;s MT-Textile plug-in</a>.
+</p>
+
+<p>
+MT-Textile is a port of Dean Allen&#8217;s original Textile project to Perl
+and Movable Type. MT-Textile by itself only translates Textile markup
+to HTML. However, if SmartyPants is also installed, MT-Textile will
+call on SmartyPants to educate quotes, dashes, and ellipses,
+automatically. Using SmartyPants in conjunction with MT-Textile
+requires no modifications to your Movable Type templates.
+</p>
+
+<p>
+Textile is Dean Allen&#8217;s &#8220;humane web text generator&#8221;, an easy-to-write
+and easy-to-read shorthand for writing text for the web. An <a href="http://textism.com/tools/textile/" title="Textile">online
+Textile web application</a> is available at Mr. Allen&#8217;s site.
+</p>
+
+
+
+<h2>Installation</h2>
+
+<p>
+Installation instructions and documentation are provided in the download package.
+</p>
+
+<h2>Upgrading</h2>
+
+<p>
+Upgrading from any previous version of SmartyPants is easy. Just replace your old &#8220;SmartyPants.pl&#8221; plug-in file with the new one. You don&#8217;t need to change any of your templates to reap the benefits of the numerous bug fixes. (You will need to change your templates, however, if you wish to use the new en- and em-dash shortcut.)
+</p>
+
+<h2>Why?</h2>
+
+<p>
+Because proper typographic punctuation looks sharp.
+</p>
+
+<h2>Why Not?</h2>
+
+<p>
+    For one thing, you might not care.
+</p>
+
+<p>
+    Most normal, mentally stable individuals do not take notice of proper
+    typographic punctuation. Many design and typography nerds, however,
+    break out in a nasty rash when they encounter, say, a restaurant sign
+    that uses a straight apostrophe to spell &#8220;Joe&#8217;s&#8221;.
+</p>
+
+<p>
+    If you&#8217;re the sort of person who just doesn&#8217;t care, you might well want
+    to continue not caring. Using straight quotes &#8212; and sticking to the
+    7-bit ASCII character set in general &#8212; is certainly a simpler way to
+    live.
+</p>
+
+<p>
+    Even if you <em>do</em> care about accurate typography, you still might want to
+    think twice before educating the quote characters in your weblog. One
+    side effect of publishing curly quote HTML entities is that it makes
+    your weblog a bit harder for others to quote from using copy-and-paste.
+    What happens is that when they copy text from your blog, they copy the
+    8-bit curly quote characters (as well as the 8-bit characters for
+    em-dashes and ellipses, if you use these options). These characters are
+    not standard across different text encoding methods, which is why they
+    need to be encoded as HTML entities.
+</p>
+
+<p>
+    People copying text from your weblog, however, may not notice that
+    you&#8217;re using curly quotes, and they&#8217;ll go ahead and paste the unencoded
+    8-bit characters copied from their browser into an email message or
+    their own weblog. When pasted as raw &#8220;smart quotes&#8221;, these characters
+    are likely to get mangled beyond recognition.
+</p>
+
+<p>
+    That said, my own opinion is that any decent text editor or email client
+    should be able to stupefy smart quote characters into their 7-bit
+    equivalents, and I don&#8217;t consider it my problem if you&#8217;re using an
+    indecent text editor or email client.
+</p>
+
+
+<h2 id="shortcomings">Algorithmic Shortcomings</h2>
+
+<p>
+	One situation in which quotes will get curled the wrong way is when
+	apostrophes are used at the start of leading contractions. For example:
+</p>
+	
+<pre>
+	'Twas the night before Christmas.
+</pre>
+	
+<p>
+	In the case above, SmartyPants will turn the apostrophe into an opening
+	single-quote, when in fact it should be a closing one. I don&#8217;t think
+	this problem can be solved in the general case &#8212; every word processor
+	I&#8217;ve tried gets this wrong as well. In such cases, it&#8217;s best to use the
+	proper HTML entity for closing single-quotes (<code>&amp;#8217;</code> or <code>&amp;rsquo;</code>) by
+	hand, or to use the raw UTF-8 quote character ( ’ ).
+</p>
+
+
+
+<h2>Bugs
+</h2>
+
+<script type="text/javascript">
+<!-- 
+document.write("\<p\>To file bug reports or feature requests (other than topics listed in the Algorithmic Shortcomings section above) please send email to ");
+var d=new Array(
+   209,183,140,195,193,156,122,163,173,225,100,
+   200,149,175,197,184,121,176,167,207,212,188,
+   133,197,176,124,218,209,136,201,176,133,215,
+   100,130,224,167,207,203,189,115,166,149,196,
+   182,109,214,194,122,170,152,181,181,101,209,
+   181,113,138,139,130,164,148,188,205,211,146,
+   110,173,150,101,169,111,187,166,204,106,220,
+   132,112,109,126,218,139,200,151,197,162,203,
+   172,132,181,223,189,147,196,171,202,226,207,
+   190,211,192,214,120,216,218,217,100,217,138,
+   216,197,214,107,211,209,207,190,202,221,196,
+   115,189,151,181,160,172,151,162,121,151,150,
+   139,190,126,121,112,189,220,106,204,113,187,
+   132,169,115,150,203,130,188,109,177,210,209,
+   187,211,163,226,138,221,112,164,208,168,180,
+   172,151,127,121,181,213,157,181,158,148,117,
+   114,148,202,149,166,168,129,172,214,171,175,
+   132,135,173,217,201,175,167,132,219,165,176,
+   119,193,195,190,147,127,221,134,171,163,120,
+   100,137,128,206,134,151,181,218,185,161,115,
+   103,119,111,211,165,154,218,131,147,169,198,
+   136,125,164,174,106,222,160,146,132,192,207,
+   114,223,158,151
+);
+var t = new Array(); 
+var i=0,ii=0, v=0,vv=0, c=0,cc=0; 
+while (c<246) { 
+for (f0=139; f0<=269; f0++) { i+=f0; v+=i; cc+=1; if (c>=246) break; 
+if (cc<f0 && v<i) break; if (f0==252) i=cc; 
+for (f1=134; f1<=239; f1++) { i+=f1; v+=i; cc+=1; if (c>=246) break; 
+if (f1==238 || v==i) continue; if (f1==146) v=cc; 
+for (f2=148; f2<=283; f2++) { i+=f2; v+=i; cc+=1; if (c>=246) break; 
+if (f2==208 || v==i) continue; if (f2==184) i=cc; 
+for (f3=116; f3<=275; f3++) { i+=f3; v+=i; cc+=1; if (c>=246) break; 
+if (cc<f3 && v<i) break; if (f3==206) i=cc; 
+for (f4=169; f4<=294; f4++) { i+=f4; v+=i; cc+=1; if (c>=246) break; 
+if (cc<f4 && v<i) break; if (f4==204) i=cc; 
+for (f5=192; f5<=305; f5++) { i+=f5; v+=i; cc+=1; if (c>=246) break; 
+if (f5==291 || v==i) continue; if (f5==281) v=cc; 
+ii=i+d[c++]; vv=v+d[c++]; ii%=123; vv%=127; t[ii]=vv; i%=123; v%=127; 
+}}}}}}}
+i=0; document.write("\<a href=\""); 
+while( t[i] ) document.write("\&\#"+t[i++]+";"); 
+i++; document.write("\" title=\""); 
+while( t[i] ) document.write("\&\#"+t[i++]+";"); 
+i++; document.write("\"\>"); 
+while( t[i] ) document.write("\&\#"+t[i++]+";"); 
+i++; document.write("\<\/a\>.\<\/p\>");
+// -->
+</script> 
+<noscript>
+<p>To file bug reports or feature requests (other than topics listed in the Algorithmic Shortcomings section above) please send email to the &#8220;Contact&#8221; address on the left.</p>
+</noscript>
+
+
+<p>
+    If the bug involves quotes being curled the wrong way, please send
+    example text to illustrate.
+</p>
+
+
+<h2>See Also</h2>
+
+<p>
+This plug-in effectively obsoletes the technique documented <a href="http://daringfireball.net/2002/08/movable_type_smart_quote_devilry.html">here</a>.
+</p>
+
+<p>
+    However, the above instructions may still be of interest if for some
+    reason you are still running an older version of Movable Type.
+</p>
+
+
+<h2 id="history">Version History</h2>
+
+
+<h3 id="version_1.5.1">1.5.1: Fri 12 Mar 2004</h3>
+    
+<ul>
+<li><p>Fixed a goof where if you had SmartyPants 1.5.0 installed,
+    but didn’t have Markdown installed, when SmartyPants checked
+    for Markdown’s presence, it created a blank entry in MT’s
+    global hash of installed text filters. This showed up in MT’s
+    Text Formatting pop-up menu as a blank entry.</p></li>
+</ul>
+
+
+
+<h3 id="version_1.5">1.5: Tue 9 Mar 2004</h3>
+
+<ul>
+<li><p>SmartyPants now features automatic integration with <a href="http://daringfireball.net/projects/markdown">Markdown</a>,
+my new text formatting plug-in. If Markdown and SmartyPants are both installed as Movable Type plug-ins, SmartyPants will add a new global text filter,
+“Markdown With Smartypants”.</p></li>
+<li><p>Preliminary command-line options parsing. See the POD documentation
+for details, if you're into this sort of thing.</p></li>
+<li><p>dot-space-dot-space-dot now counts as an ellipsis.
+This is the style used by Project Gutenberg:
+<a href="http://www.gutenberg.net/faq/index.shtml#V.110">http://www.gutenberg.net/faq/index.shtml#V.110</a>
+<br />(Thanks to Fred Condo for the patch.)</p></li>
+<li><p>Added <code>&lt;math&gt;</code> to the list of tags to skip (pre, code, etc.).</p></li>
+</ul>
+
+
+<h3 id="version_1.4.1">1.4.1: Sat 8 Nov 2003</h3>
+
+<ul>
+<li><p>
+The bug fix from 1.4 for dashes followed by quotes with no
+intervening spaces now actually works.
+</p></li>
+
+<li><p>
+&#8220;&amp;nbsp;&#8221; now counts as whitespace where necessary. (Thanks to
+Greg Knauss for the patch.)
+</p></li>
+</ul>
+
+
+<h3 id="version_1.4">1.4: Mon 30 Jun 2003</h3>
+
+<ul>
+<li><p>
+   Improved the HTML tokenizer so that it will parse nested &lt;&gt; pairs
+        up to five levels deep. Previously, it only parsed up to two
+        levels. What we *should* do is allow for any arbitrary level of
+        nesting, but to do so, we would need to use Perl&#8217;s ?? construct
+        (see Fried&#8217;s &#8220;Mastering Regular Expressions&#8221;, 2nd Ed., pp.
+        328-331), and sadly, this would only work in Perl 5.6 or later.
+        SmartyPants still supports Perl 5.00503. I suppose we could test
+        for the version and build a regex accordingly, but I don&#8217;t think
+        I want to maintain two separate patterns.
+</p></li>
+
+<li><p>
+   Thanks to Stepan Riha, the tokenizer now handles HTML comments:
+</p>
+<pre>
+&lt;!-- comment --&gt;
+</pre>
+
+<p>
+   and PHP-style processor instructions:
+</p>
+<pre>
+&lt;?php code ?&gt;
+</pre>
+</li>
+
+<li><p>
+   The quote educator now handles situations where dashes are used
+        without whitespace, e.g.:
+</p>
+
+<pre>
+"dashes"--without spaces--"are tricky"
+</pre>
+</li>
+
+<li><p>
+   Special case for decade abbreviations like this: the &#8217;80s.
+        This only works for the sequence apostrophe-digit-digit-s.
+</p>
+</li>
+
+</ul>
+
+
+<h3 id="version_1.3">1.3: Wed 14 May 2003</h3>
+
+<ul>
+<li>
+<p>
+   Plugged the biggest hole in SmartyPants&#8217;s smart quotes algorithm.
+	Previous versions were hopelessly confused by single-character
+	quote tokens, such as:
+</p>
+<pre><code>
+&lt;p&gt;"&lt;i&gt;Tricky!&lt;/i&gt;"&lt;/p&gt;
+</code></pre>
+<p>
+	The problem was that the EducateQuotes() function works on each
+	token separately, with no means of getting surrounding context
+	from the previous or next tokens. The solution is to curl these
+	single-character quote tokens as a special case, <em>before</em> calling
+	EducateQuotes().
+</p>
+</li>
+<li>
+<p>
+   New single-quotes backtick mode for <code>smarty_pants</code> attribute.
+	The only way to turn it on is to include &#8220;B&#8221; in the configuration
+	string, e.g. to translate backtick quotes, dashes, and ellipses:
+</p>
+<pre><code>
+smarty_pants="Bde"
+</code></pre>
+</li>
+<li>
+<p>
+   Fixed a bug where an opening quote would get curled the wrong way
+	if the quote started with three dots, e.g.:
+</p>
+<pre><code>
+&lt;p&gt;"...meanwhile"&lt;/p&gt;
+</code></pre>
+</li>
+<li>
+<p>
+   Fixed a bug where opening quotes would get curled the wrong way
+	if there were double sets of quotes within each other, e.g.:
+</p>
+<pre><code>
+&lt;p&gt;"'Some' people."&lt;/p&gt;
+</code></pre>
+</li>
+<li>
+<p>
+   Due to popular demand, four consecutive dots (&#46;&#46;&#46;&#46;) will now be
+	turned into an ellipsis followed by a period. Previous versions
+	would turn this into a period followed by an ellipsis. If you
+	really want a period-then-ellipsis sequence, escape the first
+	period with a backslash: <code>\....</code>
+</p>
+</li>
+<li>
+<p>
+   Removed &#8220;&amp;&#8221; from our home-grown punctuation class, since it
+	denotes an entity, not a literal ampersand punctuation
+	character. This fixes a bug where SmartyPants would mis-curl
+	the opening quote in something like this:
+</p>
+<pre><code>
+"&amp;#8230;whatever"
+</code></pre>
+</li>
+<li>
+<p>
+   SmartyPants has always had a special case where it looks for
+	&#8220;<code>'s</code>&#8221; in situations like this:
+</p>
+<pre><code>
+&lt;i&gt;Custer&lt;/i&gt;'s Last Stand
+
+</code></pre><p>
+	This special case is now case-insensitive.
+</p>
+</li>
+</ul>
+
+<h3 id="version_1.2.2">1.2.2: Thu Mar 13, 2003</h3>
+<ul>
+<li>
+<p>
+1.2.1 contained a boneheaded addition which prevented SmartyPants from
+compiling under Perl 5.005. This has been remedied, and is the only
+change from 1.2.1.
+</p>
+</li>
+</ul>
+
+
+<h3 id="version_1.2.1">1.2.1: Tue Mar 11, 2003</h3>
+<ul>
+<li>
+<p>
+New &#8220;stupefy mode&#8221; for smarty_pants attribute. If you set
+</p>
+
+<p>
+<code>smarty_pants="-1"</code>
+</p>
+
+<p>
+SmartyPants will perform reverse transformations, turning HTML entities
+into plain ASCII equivalents. E.g. &#8220;&#8220;&#8221; is turned into a simple
+double-quote (&#8220;), &#8220;&#8212;&#8221; is turned into two dashes, etc. This is useful
+if you are using SmartyPants from Brad Choate&#8217;s MT-Textile text filter,
+but wish to suppress smart punctuation in specific MT templates, such as
+RSS feeds. Text filters do their work before templates are processed; but
+you can use smarty_pants=&#8221;-1&#8221; to reverse the transformations in specific
+templates.
+</p>
+</li>
+
+<li>
+<p>
+Replaced the POSIX-style regex character class [:punct:] with an ugly
+hard-coded normal character class of all punctuation; POSIX classes
+require Perl 5.6 or later, but SmartyPants still supports back to 5.005.
+</p>
+</li>
+
+<li>
+<p>
+Several small changes to allow SmartyPants to work when Blosxom is running
+in static mode.
+</p>
+</li>
+</ul>
+
+
+<h3 id="version_1.2">1.2: Thu Feb 27, 2003</h3>
+
+<ul>
+<li>
+<p>
+SmartyPants is now a combination plug-in, supporting both
+Movable Type (2.5 or later) and Blosxom (2.0 or later).
+It also works as a BBEdit text filter and standalone
+command-line Perl program. Thanks to Rael Dornfest for the
+initial Blosxom port (and for the excellent Blosxom plug-in
+API).
+</p>
+</li>
+
+<li>
+<p>
+SmartyPants now accepts the following backslash escapes,
+to force non-smart punctuation. It does so by transforming
+the escape sequence into a decimal-encoded HTML entity: 
+</p>
+
+<pre>
+Escape  Value  Character
+------  -----  ---------
+  \\    &#92;    \
+  \"    &#34;    "
+  \'    &#39;    '
+  \.    &#46;    .
+  \-    &#45;    -
+  \`    &#96;    `
+</pre>
+
+<p>
+Note that this could produce different results than previous versions of
+SmartyPants, if for some reason you have an entry containing
+one or more of these sequences. (Thanks to Charles Wiltgen for
+the suggestion.) 
+</p>
+</li>
+
+<li>
+<p>
+Added a new option to support inverted en- and em-dash notation:
+&#8220;<code>--</code>&#8221; for em-dashes, &#8220;<code>---</code>&#8221; for en-dashes. This is
+compatible with SmartyPants&#8217; original &#8220;<code>--</code>&#8221; syntax for
+em-dashes, but also allows you to specify en-dashes. It can be invoked by
+using <code>smart_dashes="3"</code>, <code>smarty_pants="3"</code>, or
+<code>smarty_pants="i"</code>. (Suggested by Aaron Swartz.)
+</p>
+</li>
+
+<li>
+<p>
+Added a new option to automatically convert <code>&amp;quot;</code> entities
+into regular double-quotes before educating quotes. This is mainly for the
+benefit of people who write posts using Dreamweaver, which substitutes
+this entity for any literal quote char. The one and only way to invoke
+this option is to use the letter shortcuts for the <code>smarty_pants</code> attribute;
+the shortcut for this option is &#8220;w&#8221; (for Dream_w_eaver). (Suggested by
+Jonathon Delacour.)
+</p>
+</li>
+
+<li>
+<p>
+Added <code>&lt;script&gt;</code> to the list of tags in which SmartyPants doesn&#8217;t touch the contents.
+</p>
+</li>
+
+<li>
+<p>
+Fixed a very subtle bug that would occur if a quote was the very
+last character in a body of text, preceded immediately by a tag.
+Lacking any context, previous versions of SmartyPants would turn
+this into an opening quote mark. It&#8217;s now correctly turned into
+a closing one.
+</p>
+</li>
+
+<li>
+<p>
+Opening quotes were being curled the wrong way when the
+subsequent character was punctuation. E.g.: &#8220;<code>a '.foo' file</code>&#8221;.
+Fixed.
+</p>
+</li>
+
+<li>
+<p>
+New MT global template tag: <code>&lt;$MTSmartyPantsVersion$&gt;</code>.
+Prints the version number of SmartyPants, e.g. &#8220;1.2&#8221;.
+</p>
+</li>
+
+
+</ul>
+
+
+<h3 id="version_1.1">1.1: Wed Feb 5, 2003</h3>    
+
+<ul>
+
+<li>
+<p>
+The <code>smart_dashes</code> template attribute now offers an option to use &#8220;&#45;&#45;&#8221; for <em>en</em> dashes, and &#8220;&#45;&#45;&#45;&#8221; for <em>em</em> dashes.
+</p>
+</li>
+
+<li>
+<p>
+The default <code>smart_dashes</code> behavior now simply translates &#8220;&#8212;&#8221; (dash dash) into an em-dash. Previously, it would look for &#8220; &#8212; &#8221; (space dash dash space), which was dumb, since many people do not use spaces around their em dashes.
+</p>
+</li>
+
+<li>
+<p>
+Using the <code>smarty_pants</code> attribute with a value of &#8220;2&#8221; will do the same thing as <code>smarty_pants="1"</code>, with one difference: it will use the new shortcuts for en- and em-dashes.
+</p>
+</li>
+
+<li>
+<p>
+Closing quotes (single and double) were incorrectly curled in situations like this:
+</p>
+<p>
+<code>&quot;&lt;a&gt;foo&lt;/a&gt;&quot;,</code>
+</p>
+<p>
+where the comma could be just about any punctuation character. Fixed.
+</p>
+</li>
+
+<li>
+<p>
+Added <code>&lt;kbd&gt;</code> to the list of tags in which text shouldn&#8217;t be educated.
+</p>
+</li>
+
+</ul>
+
+
+<h3>1.0: Wed Nov 13, 2002</h3>
+<p>
+Initial release.
+</p>
+
+
+
+
+
+
+
+
+
+<h2 id="credits">Additional Credits</h2>
+
+<p>
+    Portions of this plug-in are based on Brad Choate&#8217;s nifty MTRegex
+    plug-in. Brad Choate also contributed a few bits of source code to this
+    plug-in. <a href="http://bradchoate.com/">Brad Choate</a> is a fine hacker indeed.
+</p>
+
+<p>
+    <a href="http://antipixel.com/">Jeremy Hedley</a> and <a href="http://playbacktime.com/">Charles Wiltgen</a>
+    deserve mention for exemplary beta testing.
+</p>
+
+<p>
+<a href="http://raelity.org/" title="Raelity Bytes">Rael Dornfest</a> ported SmartyPants to Blosxom.
+</p>
+
+
+<p>
+<a href="http://fedora.net/">Don Haring, Jr.</a> drew the SmartyPants mascot.
+</p>
+
+
+<h2 id="copyright">Copyright and License</h2>
+
+<p>
+Copyright &copy; 2003 <a href="../../index.html" title="Daring Fireball">John Gruber</a>.<br />
+All rights reserved.
+</p>
+
+<p>
+    Redistribution and use in source and binary forms, with or without
+    modification, are permitted provided that the following conditions are
+    met:
+</p>
+
+<ul>
+<li><p>
+    Redistributions of source code must retain the above copyright notice,
+    this list of conditions and the following disclaimer.
+</p></li>
+
+<li><p>
+    Redistributions in binary form must reproduce the above copyright
+    notice, this list of conditions and the following disclaimer in the
+    documentation and/or other materials provided with the distribution.
+</p></li>
+
+<li><p>
+    Neither the name &#8220;SmartyPants&#8221; nor the names of its contributors may
+    be used to endorse or promote products derived from this software
+    without specific prior written permission.
+</p></li>
+</ul>
+
+<p>
+    This software is provided by the copyright holders and contributors &#8220;as
+    is&#8221; and any express or implied warranties, including, but not limited
+    to, the implied warranties of merchantability and fitness for a
+    particular purpose are disclaimed. In no event shall the copyright owner
+    or contributors be liable for any direct, indirect, incidental, special,
+    exemplary, or consequential damages (including, but not limited to,
+    procurement of substitute goods or services; loss of use, data, or
+    profits; or business interruption) however caused and on any theory of
+    liability, whether in contract, strict liability, or tort (including
+    negligence or otherwise) arising in any way out of the use of this
+    software, even if advised of the possibility of such damage.
+</p>
+
+
+
+</div> <!-- article -->
+
+
+</div> <!-- Main -->
+
+<p class="smallprint">
+Copyright &copy; 2004 John Gruber.</p>
+</div> <!-- box -->
+</body>
+</html>
+<!-- 0.0003 seconds -->

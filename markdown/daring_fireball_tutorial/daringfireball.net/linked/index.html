@@ -1,0 +1,1349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8" />
+	<title>Daring Fireball: Linked List</title>
+	<meta name="viewport" content="width=600, initial-scale=0.5, minimum-scale=0.45" />	<link rel="apple-touch-icon-precomposed" href="../graphics/apple-touch-icon.png" />
+	<link rel="shortcut icon" href="../graphics/favicon.ico?v=005" />
+	<link rel="stylesheet" type="text/css" media="screen"  href="../css/fireball_screen.css?v1.52" />
+	<link rel="stylesheet" type="text/css" media="screen"  href="../css/ie_sucks.php" />
+	<link rel="stylesheet" type="text/css" media="print"   href="../css/fireball_print.css?v01" />
+	<link rel="alternate" type="application/atom+xml" href="../index.xml" />
+	<script src="../js/js-global/FancyZoom.js" type="text/javascript"></script>
+	<script src="../js/js-global/FancyZoomHTML.js" type="text/javascript"></script>
+	<script src="../mint/index.html?js" type="text/javascript"></script>
+</head>
+<body>
+<div id="Box">
+
+<div id="Banner">
+<a href="../index.html" title="Daring Fireball: Home"><img src="../graphics/logos/index.html" alt="Daring Fireball" height="56" /></a>
+</div>
+
+<div id="Sidebar">
+<p>By <strong>John&nbsp;Gruber</strong></p>
+
+<ul><!--&#9733;-->
+<li><a href="../archive/index.html" title="Previous articles.">Archive</a></li>
+<!-- 
+<li><a href="/shirts" title="Buy some swell t-shirts.">T-Shirts</a></li>
+ -->
+<li><script type="text/javascript">
+// <![CDATA[
+function ReadCookie(name) {
+	var nameEQ = name + "=";
+	var ca = document.cookie.split(';');
+	for(var i=0;i < ca.length;i++) {
+		var c = ca[i];
+		while (c.charAt(0)==' ') c = c.substring(1,c.length);
+		if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+	}
+	return null;
+}
+var display_linked_list = ReadCookie('displayLinkedList');
+var li_linked = '<a href="index.html" title="The Linked List.">Linked List<\/a>';
+var li_members = '<a href="../members/index.html" title="Support Daring Fireball with a contribution.">Membership<\/a>';
+if (display_linked_list == "hide") {
+	// Linked List is off on home page, so show it in menu:
+	document.write(li_linked + "<\/li>\n<li>" + li_members);
+}
+else {
+	// Default to not putting separate LL item in sidebar:
+	document.write(li_members);
+}
+// ]]>
+</script></li>
+<li><a href="../projects/index.html" title="Software projects, including SmartyPants and Markdown.">Projects</a></li>
+<li><a href="../contact/index.html" title="How to send email regarding Daring Fireball.">Contact</a></li>
+<li><a href="../colophon/index.html" title="About this site and the tools used to produce it.">Colophon</a></li>
+<li><a href="../feeds/index.html">RSS Feed</a></li>
+<li><a href="../feeds/sponsors/index.html">Sponsorship</a></li>
+</ul>
+
+</div> <!-- Sidebar -->
+
+<div id="Main">
+
+<div class="article">
+<h1>The Daring Fireball Linked List</h1>
+<h2 class="dateline">Thursday, 9 Aug 2012</h2>
+<dl class="linkedlist">
+<dt>
+<a href="http://tpmdc.talkingpointsmemo.com/2012/08/colbert-papa-johns-obamacare.php">&#8216;Fuck That, Eat the Nickels, You Have Your&#160;Dignity.&#8217;</a>&nbsp;<a class="permalink" title="Permanent link to ‘&#8216;Fuck That, Eat the Nickels, You Have Your Dignity.&#8217;’." href="http://daringfireball.net/linked/2012/08/09/colbert">&#9733;</a>
+</dt>
+<dd>
+<p>Stephen Colbert on Papa John’s “Obamacare” price hike threat.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.forbes.com/sites/meghancasserly/2012/08/08/heres-what-happens-to-google-employees-when-they-die/">Google Employee Death&#160;Benefits</a>&nbsp;<a class="permalink" title="Permanent link to ‘Google Employee Death Benefits’." href="http://daringfireball.net/linked/2012/08/09/google-benefits">&#9733;</a>
+</dt>
+<dd>
+<p>Meghan Casserly, for Forbes:</p>
+
+<blockquote>
+  <p>Instead, Bock, who joined the company in 2006 after a stint with
+General Electric, blew me away by disclosing a
+never-before-made-public-perk:  Should a U.S. Googler pass away
+while under the employ of the 14-year old search giant, their
+surviving spouse or domestic partner will receive a check for 50%
+of their salary every year for the next decade. Even more
+surprising, a Google spokesperson confirms that there’s “no
+tenure requirement” for this benefit, meaning most of their 34
+thousand Google employees qualify.</p>
+</blockquote>
+
+<p>Serious kudos to Google; that&#8217;s a great benefit.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://gigaom.com/2012/08/08/need-disposable-phone-numbers-burner-has-you-covered/">Burner: iPhone App Supplies Temporary Phone&#160;Numbers</a>&nbsp;<a class="permalink" title="Permanent link to ‘Burner: iPhone App Supplies Temporary Phone Numbers’." href="http://daringfireball.net/linked/2012/08/09/burner">&#9733;</a>
+</dt>
+<dd>
+<p>Eliza Kern:</p>
+
+<blockquote>
+  <p>Say hello to Burner, the app that lets users purchase short-term
+cell numbers that can be used and “burned” in a short period
+of time, all managed through a user’s personal iPhone without
+giving away that cell’s number.</p>
+</blockquote>
+
+<p>Neat idea. But I wonder how the company is getting all these disposable phone numbers?</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://blog.macromates.com/2012/textmate-2-at-github/">TextMate 2 Goes Open&#160;Source</a>&nbsp;<a class="permalink" title="Permanent link to ‘TextMate 2 Goes Open Source’." href="http://daringfireball.net/linked/2012/08/09/textmate-2">&#9733;</a>
+</dt>
+<dd>
+<p>Pretty sure this is it for TextMate, but I&#8217;d love to be proven wrong. Text editors are hard, hard work.</p>
+
+</dd>
+</dl>
+
+
+
+<h2 class="dateline">Wednesday, 8 Aug 2012</h2>
+<dl class="linkedlist">
+<dt>
+<a href="https://join.app.net/">App.net</a>&nbsp;<a class="permalink" title="Permanent link to ‘App.net’." href="http://daringfireball.net/linked/2012/08/08/app-net">&#9733;</a>
+</dt>
+<dd>
+<p>In a nut, App.net is a startup aiming to build a rival platform to Twitter, &#8220;where users and developers come first, not advertisers.&#8221; How? By generating revenue from users instead of from advertisers. They&#8217;re not using Kickstarter but they&#8217;ve built their own Kickstarter-like system.</p>
+
+<p>Alas, they&#8217;re five days away from the deadline and only 45 percent of the way to their goal. If you&#8217;re dismayed by Twitter&#8217;s <a href="http://techcrunch.com/2011/03/11/twitter-ecosystem-guidelines/">shabby</a> and <a href="https://dev.twitter.com/blog/delivering-consistent-twitter-experience">getting-shabbier</a>-by-the-<a href="http://dcurt.is/twitter-war">month</a> treatment of third-party developers and the ever-increasing mass-market promotional detritus littering Twitter&#8217;s first-party interfaces, I really encourage you to get on board as an App.net backer. <a href="http://alpha.app.net/gruber">I did</a>, and I&#8217;m already liking <a href="https://alpha.app.net/gruber/post/8582">what I&#8217;m seeing</a> in the alpha release.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://teamcoco.com/video/samsung-denies-apples-charges-copying">Samsung Calls B.S. on Apple&#8217;s Charges of&#160;Copying</a>&nbsp;<a class="permalink" title="Permanent link to ‘Samsung Calls B.S. on Apple&#8217;s Charges of Copying’." href="http://daringfireball.net/linked/2012/08/08/coco-samsung">&#9733;</a>
+</dt>
+<dd>
+<p>From last night&#8217;s Conan O&#8217;Brien show.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://thenextweb.com/insider/2012/08/08/hp-incurs-8-billion-q3-impairment-charge-as-it-tries-to-limit-damage-from-27000-job-cuts/">HP to Incur $8 Billion &#8216;Impairment&#160;Charge&#8217;</a>&nbsp;<a class="permalink" title="Permanent link to ‘HP to Incur $8 Billion &#8216;Impairment Charge&#8217;’." href="http://daringfireball.net/linked/2012/08/08/hp">&#9733;</a>
+</dt>
+<dd>
+<p>Matt Brian, reporting for The Next Web:</p>
+
+<blockquote>
+  <p>HP believes that its earnings-per-share will rise to $1.00 in its
+third fiscal quarter, up from previous estimates of $0.94, but
+will exclude the hefty $8 billion impairment charge that it
+expects to record in the same period.</p>
+
+<p>The $8 billion charge has been derived from an overview of HP’s
+stock, taking in market conditions and business trends in its
+Services segment. This basically means after it assessed and
+tested the value of its assets (or goodwill), it has determined
+that its Services business may be overvalued. As a result, it has
+to issue an impairment charge on its balance sheet to take into
+account the reduced value of its goodwill.</p>
+</blockquote>
+
+<p>I have no idea what this actually means.</p>
+
+<p><strong>Update:</strong> A few readers emailed to explain that what this means is that HP overpaid by $8 billion on acquisitions to build its Services division &#8212; presumably at least in part <a href="http://www.bloomberg.com/news/2012-08-08/hp-raises-forecast-sees-8-billion-impairment-charge.html">the $13 billion HP paid for EDS in 2008</a>. Keep that in mind next time you see someone draw up <a href="http://dealbook.nytimes.com/2012/07/30/suggestions-for-an-apple-shopping-list/">a list</a> of expensive acquisitions for Apple to expend its cash hoard upon.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.nytimes.com/2012/08/08/technology/starbucks-and-square-to-team-up.html">Starbucks and Square to Team&#160;Up</a>&nbsp;<a class="permalink" title="Permanent link to ‘Starbucks and Square to Team Up’." href="http://daringfireball.net/linked/2012/08/08/starbucks-square">&#9733;</a>
+</dt>
+<dd>
+<p>Here&#8217;s <a href="https://squareup.com/letters/onward">Jack Dorsey&#8217;s announcement</a>.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="https://gist.github.com/3291908">Rename Active BBEdit Document&#160;Script</a>&nbsp;<a class="permalink" title="Permanent link to ‘Rename Active BBEdit Document Script’." href="http://daringfireball.net/linked/2012/08/08/bbedit-rename-document">&#9733;</a>
+</dt>
+<dd>
+<p>Matt Neuburg&#8217;s <a href="http://tidbits.com/article/13187">piece today</a> on the document-saving changes in Mountain Lion included a bit about the convenient new File → Rename command, which reminded me of this AppleScript I wrote for BBEdit <a href="http://daringfireball.net/2004/10/rename_active_document">years ago</a> to do the same thing &#8212; change the name of the current document in one easy step, circumventing any hassles with Save As dialogs. Might be of use to fellow BBEdit users.</p>
+
+</dd>
+</dl>
+
+
+
+<h2 class="dateline">Tuesday, 7 Aug 2012</h2>
+<dl class="linkedlist">
+<dt>
+<a href="http://allthingsd.com/20120807/samsungs-2010-report-on-how-its-galaxy-would-be-better-if-it-were-more-like-the-iphone/">&#8216;Directions for Improvement&#8217;</a>&nbsp;<a class="permalink" title="Permanent link to ‘&#8216;Directions for Improvement&#8217;’." href="http://daringfireball.net/linked/2012/08/07/paczkowski">&#9733;</a>
+</dt>
+<dd>
+<p>John Paczkowski:</p>
+
+<blockquote>
+  <p>As part of its case against Samsung, Apple has shown snippets of
+an internal Samsung document comparing the original Galaxy S phone
+with the iPhone. On Tuesday, Apple managed to get the whole
+132-page document admitted into evidence. And it’s a doozy. The
+2010 report, translated from Korean, goes feature by feature,
+evaluating how Samsung’s phone stacks up against the iPhone.</p>
+
+<p>Authored by Samsung’s product engineering team, the document
+evaluates everything from the home screen to the browser to the
+built in apps on both devices. In each case, it comes up with a
+recommendation on what Samsung should do going forward and in most
+cases its answer is simple: Make it work more like the iPhone.</p>
+</blockquote>
+
+<p>Paczkowski uploaded <a href="http://www.scribd.com/doc/102317767/44">the whole thing to Scribd</a>. You really have to read it to believe just how audacious it is.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.wired.com/gadgetlab/2012/08/apple-icloud-password-freeze/">Wired: Apple Suspends Over-the-Phone AppleID Password&#160;Resets</a>&nbsp;<a class="permalink" title="Permanent link to ‘Wired: Apple Suspends Over-the-Phone AppleID Password Resets’." href="http://daringfireball.net/linked/2012/08/07/apple-id-resets">&#9733;</a>
+</dt>
+<dd>
+<p>Nathan Olivarez-Giles and Mat Honan, writing for Gadget Lab:</p>
+
+<blockquote>
+  <p>An Apple worker with knowledge of the situation, speaking on
+condition of anonymity, told Wired that the over-the-phone
+password freeze would last at least 24 hours. The employee
+speculated that the freeze was put in place to give Apple
+more time to determine what security policies needed to be
+changed, if any.</p>
+</blockquote>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://parislemon.com/post/28920134502/compromising-on-no-compromises">Compromising on &#8216;No&#160;Compromises&#8217;</a>&nbsp;<a class="permalink" title="Permanent link to ‘Compromising on &#8216;No Compromises&#8217;’." href="http://daringfireball.net/linked/2012/08/07/compromise">&#9733;</a>
+</dt>
+<dd>
+<p>MG Siegler on the news that Office 2013 RT for Windows RT will be missing a bunch of features from Office 2013 for Windows Regular.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://news.cnet.com/8301-13579_3-57487895-37/malfunction-not-ipad-played-greater-role-in-galaxy-returns/">Malfunction, Not Confusion With iPad, Played Greater Role in Galaxy Tab&#160;Returns</a>&nbsp;<a class="permalink" title="Permanent link to ‘Malfunction, Not Confusion With iPad, Played Greater Role in Galaxy Tab Returns’." href="http://daringfireball.net/linked/2012/08/07/malfunction">&#9733;</a>
+</dt>
+<dd>
+<p>Steven Musil, reporting for CNet:</p>
+
+<blockquote>
+  <p>The study was entered into evidence today in the high-stakes
+patent trial between Apple and Samsung. There had been suggestions
+that unhappy customers were returning Samsung&#8217;s tablet because
+they originally thought they were buying an iPad, but the newly
+released study reveals a different set of motivations.</p>
+
+<p>The study, conducted last year at 30 Best Buy stores in New
+York, Los Angeles, and Florida to determine why consumers were
+returning the tablet, found that 25 percent of the returns cited
+malfunctions such as browser freezes, lack of screen
+sensitivity, and poor Wi-Fi connectivity. Another 17 percent
+cited issues such as screen lagging, short battery life, and
+inability to sync with PCs.</p>
+</blockquote>
+
+<p>Uh, good news for Samsung?</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.wired.com/gadgetlab/2012/08/amazon-changes-policy-wont-add-new-credit-cards-to-accounts-over-the-phone/">Amazon Closes Account Security&#160;Hole</a>&nbsp;<a class="permalink" title="Permanent link to ‘Amazon Closes Account Security Hole’." href="http://daringfireball.net/linked/2012/08/07/amazon-security">&#9733;</a>
+</dt>
+<dd>
+<p>Nathan Olivarez-Giles, writing for Gadget Lab:</p>
+
+<blockquote>
+  <p>On Tuesday, Amazon handed down to its customer service department
+a policy change that no longer allows people to call in and change
+account settings, such as credit cards or email addresses
+associated with its user accounts.</p>
+
+<p>Amazon officials weren’t available for comment on the security
+changes, but during phone calls to Amazon customer service on
+Tuesday, representatives told us that the changes were sent out
+this morning and put in place for “your security.”</p>
+</blockquote>
+
+<p>Now it&#8217;s Apple&#8217;s move.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://macperformanceguide.com/MountainLion-SaveAs-data-destruction.html">Speaking of the New Mountain Lion &#8216;Save As&#8217;&#160;Command</a>&nbsp;<a class="permalink" title="Permanent link to ‘Speaking of the New Mountain Lion &#8216;Save As&#8217; Command’." href="http://daringfireball.net/linked/2012/08/07/save-as">&#9733;</a>
+</dt>
+<dd>
+<p>Mac Performance Guide:</p>
+
+<blockquote>
+  <p>If one edits a document, then chooses Save As, then BOTH the
+edited original document <em>and</em> the copy are saved, thus not only
+saving a new copy, but <em>silently saving the original with the same
+changes, thus overwriting the original</em>.</p>
+
+<p>If you notice this auto-whack, you can “Revert To” the older
+version (manually), but if you don’t notice, then at some later
+date you’ll be in for a confusing surprise. And maybe an
+OMG-what-happened (consider a customer invoice that was
+overwritten).</p>
+</blockquote>
+
+<p>Matt Neuburg points out this change in his <a href="http://daringfireball.net/linked/2012/08/07/neuburg-mountain-lion-documents">aforelinked</a> examination of <a href="http://tidbits.com/article/13187">document-model changes in Mountain Lion</a>, but it deserves attention in and of itself. I&#8217;m hoping this is a bug or oversight in 10.8.0, because I honestly can&#8217;t see why anyone would want Save As to work this way.</p>
+
+<p>With nearly all of these changes in 10.7 and 10.8 regarding documents and saving, it&#8217;s easy to see the tradeoffs involved. Maybe <em>you</em> prefer the old way, but you can see how other users (especially new Mac users) might benefit from the new way. But with this change to Save As, I can&#8217;t see how anyone benefits.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://tidbits.com/article/13187">The Very Model of a Modern Mountain Lion&#160;Document</a>&nbsp;<a class="permalink" title="Permanent link to ‘The Very Model of a Modern Mountain Lion Document’." href="http://daringfireball.net/linked/2012/08/07/neuburg-mountain-lion-documents">&#9733;</a>
+</dt>
+<dd>
+<p>Matt Neuburg:</p>
+
+<blockquote>
+  <p>In the recently released OS X 10.8 Mountain Lion, Apple has done
+something I thought they’d never do: they backtracked &#8212; sort of.
+They heeded the objections of users to a major feature of Mac OS X
+10.7 Lion, and took steps to meet those objections. They didn’t
+remove the feature &#8212; that, I suppose, would be asking too much &#8212;
+but they changed the interface and provided an increased range of
+user choices and capabilities.</p>
+
+<p>In this article, I’ll sketch out how Mountain Lion is different
+from Lion with regard to this feature, and why, therefore, I
+personally like Mountain Lion much more than Lion.</p>
+</blockquote>
+
+<p>Detailed treatment of some very significant changes to document handling in Mountain Lion.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.marco.org/2012/08/07/how-apple-and-amazon-security-flaws-led-to-my-epic-hacking">The Security Flaws in Apple&#8217;s iCloud Account Reset&#160;Policies</a>&nbsp;<a class="permalink" title="Permanent link to ‘The Security Flaws in Apple&#8217;s iCloud Account Reset Policies’." href="http://daringfireball.net/linked/2012/08/07/marco-icloud-security">&#9733;</a>
+</dt>
+<dd>
+<p>Marco Arment:</p>
+
+<blockquote>
+  <p>Amazon’s system is partially at fault, but the weakest link by far
+is Apple. It’s appalling that they will give control of your
+iCloud account to anyone who knows your name and address, which
+are very easy for anyone to find, and the last four digits of your
+credit card, which are usually considered safe to display on
+websites and receipts.</p>
+
+<p>At the bare minimum, for this level of recovery that bypasses
+security questions, they should require confirmation of the entire
+credit-card number and verification code, no matter what they need
+to do to remain PCI-compliant and pull that off.</p>
+</blockquote>
+
+<p>Apple needs to address this, and quickly. I can only wonder how many nogoodniks have been trying this scam in the last day now that it&#8217;s been widely publicized.</p>
+
+<p><strong>Update:</strong> I should point out that I disagree with Marco, though, about Apple requiring more credit card digits. This whole strategy of verification is fundamentally flawed. I wouldn&#8217;t write my iCloud password on a piece of paper in my wallet, but my wallet contains my home address and credit cards. Someone who finds my wallet should not be able to take over my iCloud account with nothing more than my driver&#8217;s license and credit card.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.loopinsight.com/2012/08/07/apples-motivation-for-suing-samsung/">Apple’s Motivation for Suing&#160;Samsung</a>&nbsp;<a class="permalink" title="Permanent link to ‘Apple’s Motivation for Suing Samsung’." href="http://daringfireball.net/linked/2012/08/07/dalrymple-apple-samsung">&#9733;</a>
+</dt>
+<dd>
+<p>Jim Dalrymple:</p>
+
+<blockquote>
+  <p>In a column on <a href="http://bits.blogs.nytimes.com/2012/08/05/apple-patent-fight-with-samsung-spills-some-iphone-and-ipad-secrets-disruptions/">The New York Times</a> last weekend, Nick Bilton wrote
+that Apple is doing itself more harm than good in suing Samsung.</p>
+
+<p>“By showing the public how it designs products that twice
+radically changed the electronics industry, Apple could risk
+losing some of its magic,” said Bilton.</p>
+
+<p>I’m not going to say that Apple doesn’t care at all about keeping
+its secrets, but this is a case of dealing with the lesser of two
+evils. Sue Samsung now and show some old prototype photos but
+stop them from copying future products, or let them continue
+copying.</p>
+</blockquote>
+
+<p>Agreed. The lawsuit is about Samsung&#8217;s actions over the past few years, but Apple&#8217;s goal is about what Samsung and other like-minded competitors will do over the next few years. The stakes are far higher than the $2+ billion Apple is seeking in damages.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://blog.laptopmag.com/samsung-investigating-alleged-child-labor-abuse-at-chinese-factory">Samsung Investigating Alleged Child Labor Abuse at Chinese&#160;Factory</a>&nbsp;<a class="permalink" title="Permanent link to ‘Samsung Investigating Alleged Child Labor Abuse at Chinese Factory’." href="http://daringfireball.net/linked/2012/08/07/samsung-china">&#9733;</a>
+</dt>
+<dd>
+<p>Avram Piltch, writing for Laptop Magazine:</p>
+
+<blockquote>
+  <p>It looks like Apple and Samsung have another thing in common,
+aside from their love of rectangular tablet designs: alleged labor
+abuses at the Chinese factories which make their products. In a
+scathing undercover report issued last night, activist group China
+Labor Watch detailed a litany of alleged abuses, including
+employing workers as young as 14, at Samsung supplier HEG’s
+factory complex in mainland China.</p>
+</blockquote>
+
+<p>I&#8217;m sure this will get just as much media attention as Apple&#8217;s supply chain labor practices have.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.kernelmag.com/features/report/3028/samsung-power-corruption-and-lies/">Samsung: Power, Corruption and&#160;Lies</a>&nbsp;<a class="permalink" title="Permanent link to ‘Samsung: Power, Corruption and Lies’." href="http://daringfireball.net/linked/2012/08/07/samsung-wright">&#9733;</a>
+</dt>
+<dd>
+<p>Mic Wright, writing for The Kernel:</p>
+
+<blockquote>
+  <p>The idea that South Korea is a shiny futurescape of democratic
+wonder is ultimately the result of sitting next to the fetid,
+Communist disaster that is North Korea.</p>
+
+<p>The South looks better, thanks to the success consumer technology
+and semiconductors has brought, it but the grip of the chaebols is
+pernicious and corruption lies beneath every facet of Korean
+society.</p>
+
+<p>You’re welcome to love Android and hate Apple. Just don’t be
+fooled into thinking Samsung are the good guys.</p>
+</blockquote>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.ft.com/intl/cms/s/0/9e522560-dca1-11e1-a304-00144feab49a.html">Acer Chief Takes Aim at Microsoft&#160;Surface</a>&nbsp;<a class="permalink" title="Permanent link to ‘Acer Chief Takes Aim at Microsoft Surface’." href="http://daringfireball.net/linked/2012/08/07/acer-surface">&#9733;</a>
+</dt>
+<dd>
+<p>Robert Budden and Sarah Mishkin, reporting for the Financial Times:</p>
+
+<blockquote>
+  <p>JT Wang, chairman and chief executive of Acer, said Microsoft’s
+plans to launch its own “Surface” tablet in October &#8212; in direct
+competition with his company’s Iconia or HP’s TouchPad tablets
+would be “negative for the worldwide ecosystem” in computing. He
+is the first head of a big PC maker to criticise Microsoft’s move
+publicly.</p>
+
+<p>“We have said [to Microsoft] think it over,” he told the Financial
+Times. “Think twice. It will create a huge negative impact for the
+ecosystem and other brands may take a negative reaction. It is not
+something you are good at so please think twice.”</p>
+</blockquote>
+
+<p>A little late for that now.</p>
+
+<blockquote>
+  <p>Campbell Kan, Acer’s president for personal computer global
+operations, said the Taiwanese company was debating internally how
+to respond to the Surface and any further challenges that could
+arise if Microsoft expands further into hardware.</p>
+
+<p>“If Microsoft … is going to do hardware business, what should we
+do? Should we still rely on Microsoft, or should we find other
+alternatives?,” Mr Kan said.</p>
+</blockquote>
+
+<p>Here&#8217;s the problem for Acer and all the other PC makers &#8212; <em>what alternatives</em>? Linux? No one wants it. Android? Google&#8217;s in the hardware business now too. That&#8217;s why Microsoft can make this play &#8212; the PC makers have no leverage.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.extremetech.com/extreme/134041-inside-nasas-curiosity-its-an-apple-airport-extreme-with-wheels">The Computing Tech Specs of NASA’s&#160;Curiosity</a>&nbsp;<a class="permalink" title="Permanent link to ‘The Computing Tech Specs of NASA’s Curiosity’." href="http://daringfireball.net/linked/2012/08/07/curiosity-specs">&#9733;</a>
+</dt>
+<dd>
+<p>Sebastian Anthony, writing for ExtremeTech:</p>
+
+<blockquote>
+  <p>In Curiosity’s case, the CPU is a PowerPC 750 (PowerPC G3 in Mac
+nomenclature) clocked at around 200MHz &#8212; which might seem slow,
+but it’s still hundreds of times faster than, say, the Apollo
+Guidance Computer used in the first Moon landings. Also on the
+motherboard are 256MB of DRAM, and 2GB of flash storage &#8212; which
+will be used to store video and scientific data before
+transmission to Earth. […]</p>
+
+<p>On the software side of things, NASA again stuck to
+tried-and-tested solutions, opting for the 27-year-old VxWorks
+operating system. VxWorks, developed by Wind River Systems (which
+was acquired by Intel), is a real-time operating system used in a
+huge number of embedded systems. The previous Mars rovers
+(Sojourner, Spirit, Opportunity), Mars Reconnaissance Orbiter, and
+the SpaceX Dragon spacecraft all use VxWorks. VxWorks also powers
+BMW iDrive, the Apache Longbow helicopter, and the Apple Airport
+Extreme and Linksys WRT54G routers (really).</p>
+</blockquote>
+
+<p>Fascinating, really, that these specs seem so humble &#8212; especially storage capacity.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://allthingsd.com/20120806/iphone-caused-crisis-of-design-at-samsung-memo/">iPhone Caused &#8216;Crisis of Design&#8217; at&#160;Samsung</a>&nbsp;<a class="permalink" title="Permanent link to ‘iPhone Caused &#8216;Crisis of Design&#8217; at Samsung’." href="http://daringfireball.net/linked/2012/08/07/samsung-crisis">&#9733;</a>
+</dt>
+<dd>
+<p>Mike Isaac:</p>
+
+<blockquote>
+  <p>It’s a memo that Samsung didn’t want admitted into the trial, and
+until now had kept it out. But this morning, when Samsung legal
+counsel John Quinn mentioned the “crisis of design” moment in a
+question to Samsung strategist Justin Denison, all bets were off,
+and the memo was in.</p>
+
+<p>“Influential figures outside the company come across the iPhone,
+and they point out that ‘Samsung is dozing off.’ All this time
+we’ve been paying all our attention to Nokia, and concentrated our
+efforts on things like Folder, Bar, Slide,” Shin wrote. “Yet when
+our UX is compared to the unexpected competitor Apple’s iPhone,
+the difference is truly that of Heaven and Earth. It’s a crisis of
+design.”</p>
+</blockquote>
+
+<p>Not sure what they were worried about. It&#8217;s just black rectangles.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="https://twitter.com/jeffjarvis/status/232646416789565442">Should We Assume That Apple Killed the iOS YouTube App, and Not the Other Way&#160;Around?</a>&nbsp;<a class="permalink" title="Permanent link to ‘Should We Assume That Apple Killed the iOS YouTube App, and Not the Other Way Around?’." href="http://daringfireball.net/linked/2012/08/07/youtube-ios">&#9733;</a>
+</dt>
+<dd>
+<p>Jeff Jarvis:</p>
+
+<blockquote>
+  <p>Apple killing YouTube on iPhone just happens to be the last
+straw. Went into the AT&amp;T store today to begin switch to my
+Android phone.</p>
+</blockquote>
+
+<p>Jean-Louis Gassée, <a href="https://twitter.com/gassee/status/232660365299838977">in response</a>:</p>
+
+<blockquote>
+  <p>How do we know Apple “killed” the iOS YouTube app? What if it is
+the other way around?</p>
+
+<p>The iOS YouTube app had no ads. What if Google wanted ads and
+Apple said no? Next, a YouTube app from GOOG, with ads.</p>
+</blockquote>
+
+<p>We don&#8217;t know. No one (outside Google and Apple) knows what the previous licensing terms were, and no one knows what terms (if any) were proposed going forward. And for that matter, I don&#8217;t think anyone should assume that the YouTube experience on iOS <a href="http://www.imore.com/yes-ios-6-beta-4-removes-youtube-app-and-could-be-good-thing">is necessarily going to be worse</a> without this app built in.</p>
+
+</dd>
+</dl>
+
+
+
+<h2 class="dateline">Monday, 6 Aug 2012</h2>
+<dl class="linkedlist">
+<dt>
+<a href="http://www.wired.com/gadgetlab/2012/08/apple-amazon-mat-honan-hacking/all/">How Apple and Amazon Security Flaws Led to Mat Honan&#8217;s Epic&#160;Hacking</a>&nbsp;<a class="permalink" title="Permanent link to ‘How Apple and Amazon Security Flaws Led to Mat Honan&#8217;s Epic Hacking’." href="http://daringfireball.net/linked/2012/08/06/honan">&#9733;</a>
+</dt>
+<dd>
+<p>Mat Honan:</p>
+
+<blockquote>
+  <p>But what happened to me exposes vital security flaws in several
+customer service systems, most notably Apple and Amazon’s. Apple
+tech support gave the hackers access to my iCloud account. Amazon
+tech support gave them the ability to see a piece of information
+&#8212; a partial credit card number &#8212; that Apple used to release
+information. In short, the very four digits that Amazon considers
+unimportant enough to display in the clear on the Web are
+precisely the same ones that Apple considers secure enough to
+perform identity verification. The disconnect exposes flaws in
+data management policies endemic to the entire technology
+industry, and points to a looming nightmare as we enter the era of
+cloud computing and connected devices.</p>
+</blockquote>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://thenextweb.com/google/2012/08/06/chrome-rises-google-browser-grabs-13-of-the-global-market-statcounter/">StatCounter: Google Chrome Passes IE for Lead in Global Browser&#160;Market</a>&nbsp;<a class="permalink" title="Permanent link to ‘StatCounter: Google Chrome Passes IE for Lead in Global Browser Market’." href="http://daringfireball.net/linked/2012/08/06/chrome">&#9733;</a>
+</dt>
+<dd>
+<p>Impressive achievement in just four years.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.macrumors.com/2012/08/06/ios-6-beta-4-removes-dedicated-youtube-app/">iOS 6 Beta 4 Removes Dedicated YouTube&#160;App</a>&nbsp;<a class="permalink" title="Permanent link to ‘iOS 6 Beta 4 Removes Dedicated YouTube App’." href="http://daringfireball.net/linked/2012/08/06/apple-google-youtube">&#9733;</a>
+</dt>
+<dd>
+<p>I&#8217;ve been expecting this ever since YouTube didn&#8217;t make it into Mountain Lion&#8217;s system-wide sharing feature. Apple gave this statement <a href="http://www.theverge.com/2012/8/6/3223775/apple-youtube-ios6">to The Verge</a>:</p>
+
+<blockquote>
+  <p>Our license to include the YouTube app in iOS has ended, customers
+can use YouTube in the Safari browser and Google is working on a
+new YouTube app to be on the App Store.</p>
+</blockquote>
+
+<p><strong>Update:</strong> Some <a href="http://thenextweb.com/apple/2012/08/06/why-is-apple-ditching-the-youtube-app-from-ios-6-its-about-money-and-machismo/">smart analysis on this move from Matthew Panzarino</a>.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://peanutbuttereggdirt.com/e/2011/05/03/apple-vs-samsung-a-visual-guide-to-apples-ip-claims-hardware-icons-packaging/">Apple vs. Samsung: A Visual Guide to Apple’s IP&#160;Claims</a>&nbsp;<a class="permalink" title="Permanent link to ‘Apple vs. Samsung: A Visual Guide to Apple’s IP Claims’." href="http://daringfireball.net/linked/2012/08/06/apple-samsung-visual">&#9733;</a>
+</dt>
+<dd>
+<p>Nice comparison from PeanutbutterEggDirt. See also <a href="http://allthingsd.com/20120803/apples-case-against-samsung-in-three-pictures/">this post from John Paczkowski</a>.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://adriveintothegap.com/">&#8216;A Drive Into the&#160;Gap&#8217;</a>&nbsp;<a class="permalink" title="Permanent link to ‘&#8216;A Drive Into the Gap&#8217;’." href="http://daringfireball.net/linked/2012/08/06/drive-into-the-gap">&#9733;</a>
+</dt>
+<dd>
+<p>I was lucky enough to get a chance to read Kevin Guilfoile&#8217;s new book a few weeks ago, and it&#8217;s just splendid. The first chapter is right here, and I bet by the end, you&#8217;re clicking the &#8220;Buy&#8221; button.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://fieldnotesbrand.com/daygame/">Field Notes &#8216;Day Game&#8217;&#160;Edition</a>&nbsp;<a class="permalink" title="Permanent link to ‘Field Notes &#8216;Day Game&#8217; Edition’." href="http://daringfireball.net/linked/2012/08/06/field-notes-day-game">&#9733;</a>
+</dt>
+<dd>
+<p>New batch of baseball-themed Field Notes notebooks? And a copy of Kevin Guilfoile&#8217;s new book, <em>A Drive Into the Gap</em>? Sold.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.nytimes.com/interactive/2012/08/05/sports/olympics/the-100-meter-dash-one-race-every-medalist-ever.html?hp">Usain Bolt vs. 116 Years of Olympic&#160;Sprinters</a>&nbsp;<a class="permalink" title="Permanent link to ‘Usain Bolt vs. 116 Years of Olympic Sprinters’." href="http://daringfireball.net/linked/2012/08/06/bolt-olympics">&#9733;</a>
+</dt>
+<dd>
+<p>Fascinating infographic work by the NYT, showing how Usain Bolt&#8217;s second 100-meter sprint gold medal performance compares against all previous medalists in the event. Don&#8217;t miss the links to similar treatments for other events at the bottom.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.nytimes.com/2012/08/06/science/space/curiosity-rover-lands-safely-on-mars.html">Curiosity Rover Lands on&#160;Mars</a>&nbsp;<a class="permalink" title="Permanent link to ‘Curiosity Rover Lands on Mars’." href="http://daringfireball.net/linked/2012/08/06/curiosity">&#9733;</a>
+</dt>
+<dd>
+<p>Kenneth Chang, reporting for the NYT:</p>
+
+<blockquote>
+  <p>The rover, called Curiosity, ushers in a new era of exploration
+that could turn up evidence that the Red Planet once had the
+necessary ingredients for life &#8212; or might even still harbor
+life today. NASA and administration officials were also quick to
+point to the success to counter criticism that the space agency
+had turned into a creaky bureaucracy incapable of matching its
+past glory.</p>
+</blockquote>
+
+</dd>
+</dl>
+
+
+
+<h2 class="dateline">Sunday, 5 Aug 2012</h2>
+<dl class="linkedlist">
+<dt>
+<a href="http://www.emptyage.com/post/28679875595/yes-i-was-hacked-hard">Mat Honan&#8217;s iCloud Account Was Hacked and It All Went Downhill, Quickly, From&#160;There</a>&nbsp;<a class="permalink" title="Permanent link to ‘Mat Honan&#8217;s iCloud Account Was Hacked and It All Went Downhill, Quickly, From There’." href="http://daringfireball.net/linked/2012/08/05/honan">&#9733;</a>
+</dt>
+<dd>
+<p>Jaw-dropping tale from Mat Honan. A hacker took over his iCloud account &#8212; not by guessing or cracking his password, but by calling Apple tech support and socially engineering the support representative into resetting the password.</p>
+
+</dd>
+</dl>
+
+
+
+<h2 class="dateline">Friday, 3 Aug 2012</h2>
+<dl class="linkedlist">
+<dt>
+<a href="http://bit.ly/juggeriosfireball">Juggernaut: Revenge of&#160;Sovering</a>&nbsp;<a class="permalink" title="Permanent link to ‘Juggernaut: Revenge of Sovering’." href="http://daringfireball.net/linked/2012/08/03/juggernaut">&#9733;</a>
+</dt>
+<dd>
+<p>My thanks to Mail.Ru Games for sponsoring this week&#8217;s DF RSS feed to promote Juggernaut: Revenge of Sovering, a new role-playing game for iPhone and iPad. It&#8217;s a swashbuckling sword-fighting and magic action game, lots of fun and with terrific retina-quality graphics.</p>
+
+<p>It&#8217;s a free download &#8212; free, I tell you &#8212; <a href="http://bit.ly/juggeriosfireball">from the App Store</a>, so get it today and see for yourself.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://muleradio.net/thetalkshow/11/">&#8216;We’re Going to Get You Some Jeans&#160;Today, Jimmy&#8217;</a>&nbsp;<a class="permalink" title="Permanent link to ‘&#8216;We’re Going to Get You Some Jeans Today, Jimmy&#8217;’." href="http://daringfireball.net/linked/2012/08/03/the-talk-show-011">&#9733;</a>
+</dt>
+<dd>
+<p>Special guest John Moltz joins yours truly on this week&#8217;s episode of The Talk Show. Topics include the new “genius” Apple commercials, the Apple v. Samsung court trial, Andrew Ross Sorkin’s suggestions for major acquisitions by Apple, and more.</p>
+
+<p>Brought to you by two excellent sponsors:</p>
+
+<ul>
+<li><a href="http://www.pixelmator.com/">Pixelmator</a>: the powerful, elegant image editing app for Mac OS X</li>
+<li><a href="http://msre.ly/flixel.com">Flixel</a>: a new free iPhone app for creating cinemagraphs &#8212; photos with animation</li>
+</ul>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://thenextweb.com/apple/2012/08/03/apples-phil-schiller-each-new-model-of-iphone-sells-as-many-units-as-all-previous-models-combined/">Phil Schiller in Court, on iPhone Sales to&#160;Date</a>&nbsp;<a class="permalink" title="Permanent link to ‘Phil Schiller in Court, on iPhone Sales to Date’." href="http://daringfireball.net/linked/2012/08/03/schiller-iphone-sales">&#9733;</a>
+</dt>
+<dd>
+<p>Matthew Panzarino:</p>
+
+<blockquote>
+  <p>Schiller was being asked about the cumulative sales of the
+original iPhone, and he said that they were ‘extremely good’ and
+exceeded Apple’s expectations. Then, the court was shown
+cumulative unit sales for the iPhone and iPad and Schiller
+explained Apple’s simple metric for success of each model it
+released:</p>
+
+<blockquote>
+  <p>Each new generation sold approximately equal to all previous
+generations combined.</p>
+</blockquote>
+</blockquote>
+
+<p>Matt Richman <a href="http://www.mattrichman.net/post/5049211490/another-way-of-looking-at-iphone-sales">noted this last year</a>, and it&#8217;s <a href="http://daringfireball.net/linked/2012/01/24/richman">continued</a> to hold true.</p>
+
+<p>The Verge has <a href="http://www.theverge.com/2012/8/3/3217057/day-two-testimony-apple-samsung-trial">a full run-down of Schiller&#8217;s testimony</a>.</p>
+
+</dd>
+</dl>
+
+
+
+<h2 class="dateline">Thursday, 2 Aug 2012</h2>
+<dl class="linkedlist">
+<dt>
+<a href="http://arstechnica.com/information-technology/2012/08/microsoft-metro-out-windows-8-style-ui-in-amid-rumors-of-a-trademark-dispute/">Microsoft Drops &#8216;Metro&#8217;&#160;Name</a>&nbsp;<a class="permalink" title="Permanent link to ‘Microsoft Drops &#8216;Metro&#8217; Name’." href="http://daringfireball.net/linked/2012/08/02/metro">&#9733;</a>
+</dt>
+<dd>
+<p>Peter Bright:</p>
+
+<blockquote>
+  <p>But sources are telling us that this is coming to an abrupt end
+after the company&#8217;s Legal and Corporate Affairs team sent out a
+memo banning the word &#8220;Metro.&#8221; LCA&#8217;s memo reportedly says that
+Microsoft has been threatened with legal action for infringing on
+&#8220;Metro&#8221; trademarks held by German retailer Metro AG.</p>
+
+<p>From now on, the new terminology that Microsoft is using is
+&#8220;Windows 8-style UI&#8221; when talking about Windows 8 applications,
+and &#8220;New User Interface&#8221; when talking about the company&#8217;s full
+product line-up.</p>
+</blockquote>
+
+<p>&#8220;Windows 8-style UI&#8221;. That&#8217;s catchy.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.extremetech.com/computing/133448-black-hat-hacker-gains-access-to-4-million-hotel-rooms-with-arduino-microcontroller">Black Hat Hacker Gains Access to 4 Million Hotel Rooms With Arduino&#160;Microcontroller</a>&nbsp;<a class="permalink" title="Permanent link to ‘Black Hat Hacker Gains Access to 4 Million Hotel Rooms With Arduino Microcontroller’." href="http://daringfireball.net/linked/2012/08/02/hotels">&#9733;</a>
+</dt>
+<dd>
+<p>Sebastian Anthony, writing for ExtremeTech:</p>
+
+<blockquote>
+  <p>I wish I could say that Brocious spent months on this hack,
+painstakingly reverse-engineering the Onity lock protocol, but the
+truth is far more depressing. “With how stupidly simple this is,
+it wouldn’t surprise me if a thousand other people have found this
+same vulnerability and sold it to other governments,” says
+Brocious, in an interview with Forbes. “An intern at the NSA could
+find this in five minutes.”</p>
+</blockquote>
+
+<p><strong>Update:</strong> I got a nice email from Cody Brocious, the security researcher who discovered this. He wrote:</p>
+
+<blockquote>
+  <p>One thing I&#8217;d really like to clarify (which ExtremeTech still
+hasn&#8217;t) is that it <em>did</em> take me months. In fact, the work I
+released is the product of 3 years of reversing the entire system.
+The simplicity of the result really hides the work that was done
+to reach this point.</p>
+
+<p>That said, thanks for covering this; anything that gets the word
+out about the (lack of) security here is a Good Thing (TM).</p>
+</blockquote>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.theatlantic.com/health/archive/2012/08/the-woman-who-went-to-every-country/260653/">The Woman Who Went to Every&#160;Country</a>&nbsp;<a class="permalink" title="Permanent link to ‘The Woman Who Went to Every Country’." href="http://daringfireball.net/linked/2012/08/02/agosti">&#9733;</a>
+</dt>
+<dd>
+<p>Lovely piece by Alison Agosti for The Atlantic.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.youtube.com/watch?v=wglDXHRqVY0&amp;feature=youtu.be">$13,238.86 Left in a NYC&#160;Taxi</a>&nbsp;<a class="permalink" title="Permanent link to ‘$13,238.86 Left in a NYC Taxi’." href="http://daringfireball.net/linked/2012/08/02/taxi">&#9733;</a>
+</dt>
+<dd>
+<p>&#8220;I gave him $500. It&#8217;s a lot more than I could afford, but a lot less than he deserved.&#8221;</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://www.macworld.com/article/1167742/developers_dish_on_iclouds_challenges.html">Developers Dish on iCloud&#8217;s&#160;Challenges</a>&nbsp;<a class="permalink" title="Permanent link to ‘Developers Dish on iCloud&#8217;s Challenges’." href="http://daringfireball.net/linked/2012/08/02/friedman-icloud">&#9733;</a>
+</dt>
+<dd>
+<p>More on the challenges iCloud presents for developers, from Lex Friedman at Macworld.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://tightwind.net/2012/07/the-problem-with-icloud/">The Problem With&#160;iCloud</a>&nbsp;<a class="permalink" title="Permanent link to ‘The Problem With iCloud’." href="http://daringfireball.net/linked/2012/08/02/baxter-icloud">&#9733;</a>
+</dt>
+<dd>
+<p>Kyle Baxter:</p>
+
+<blockquote>
+  <p>Both as a user and developer, I want iCloud to live up to its
+promise. I hope it does soon. But the reality is that right now,
+it isn’t there yet, and for developers, choosing between iCloud
+and their own custom sync service is no easy choice.</p>
+</blockquote>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://blog.cloudfour.com/explaining-the-ios-and-android-mobile-disparity/comment-page-1/#comment-11234">It&#8217;s the iPad</a>&nbsp;<a class="permalink" title="Permanent link to ‘It&#8217;s the iPad’." href="http://daringfireball.net/linked/2012/08/02/ipad-web-share">&#9733;</a>
+</dt>
+<dd>
+<p>Guy Podjarny, commenting on Jason Grigsby&#8217;s post analyzing the disparity between iOS and Android web browser usage stats:</p>
+
+<blockquote>
+  <p><a href="http://www.akamai.com/html/io/io_dataset.html#stat=mobile_browser&amp;top=5&amp;type=line&amp;start=20120701&amp;end=20120731&amp;net=n&amp;hide=others+nokia+opera%20mini+microsoft%20mobile%20explorer">On non-cellular networks</a>, Mobile Safari accounts for ~67% of
+mobile browser activity. iPad accounts for ~43% of that, and
+iPhone/iPod-touch for the remaining 24%. Android WebKit’s share is
+~18%. So iPhone still had a notable lead over Android on
+non-cellular networks, but the gap isn’t as big if you don’t count
+the iPad.</p>
+
+<p><a href="http://www.akamai.com/html/io/io_dataset.html#stat=mobile_browser&amp;top=5&amp;type=line&amp;start=20120701&amp;end=20120731&amp;net=m&amp;hide=others+microsoft%20mobile%20explorer+blackberry+opera%20mini">On cellular networks</a>, Mobile Safari accounts for ~35% of mobile
+browsing, and only ~7% of that comes from iPads. Android WebKit’s
+share is ~38%, and less than 1% of that comes from tablets.</p>
+</blockquote>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://talkingpointsmemo.com/archives/2012/08/polltracker_mobile_live.php">TPM PollTracker Mobile&#160;App</a>&nbsp;<a class="permalink" title="Permanent link to ‘TPM PollTracker Mobile App’." href="http://daringfireball.net/linked/2012/08/02/polltracker-mobile">&#9733;</a>
+</dt>
+<dd>
+<p>New free app from TPM. Josh Marshall writes:</p>
+
+<blockquote>
+  <p>And if you’re a real campaign junkie like me: real-time
+notifications. Just choose the races you want to follow on the app
+and you’ll get notified the moment a new poll from that race is
+released. For me, finding out a day or even a few hours later that
+a big presidential poll came out isn’t good enough. I want to know
+right away. Like &#8212; gimme my crack! &#8212; right away.</p>
+</blockquote>
+
+<p>I&#8217;ve been using it for a few days and it&#8217;s great.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://speirs.org/blog/2012/8/2/thoughts-on-the-google-nexus-7.html">Fraser Speirs on the&#160;Nexus 7</a>&nbsp;<a class="permalink" title="Permanent link to ‘Fraser Speirs on the Nexus 7’." href="http://daringfireball.net/linked/2012/08/02/speirs">&#9733;</a>
+</dt>
+<dd>
+<p>Fraser Speirs:</p>
+
+<blockquote>
+  <p>Before I received the Nexus 7, I had expected to like the
+hardware and hate the software. I thought it would be like
+test-driving a Citroën car: great design ideas - can&#8217;t wait until
+the Germans or Japanese put them in their cars. The reality was a
+little more subtle.</p>
+</blockquote>
+
+<p>Thoughtful review.</p>
+
+</dd>
+</dl>
+
+
+
+<h2 class="dateline">Wednesday, 1 Aug 2012</h2>
+<dl class="linkedlist">
+<dt>
+<a href="http://blog.cloudfour.com/explaining-the-ios-and-android-mobile-disparity/">More on the iOS and Android Mobile Browser Usage&#160;Disparity</a>&nbsp;<a class="permalink" title="Permanent link to ‘More on the iOS and Android Mobile Browser Usage Disparity’." href="http://daringfireball.net/linked/2012/08/01/more-mobile-web-usage">&#9733;</a>
+</dt>
+<dd>
+<p>Jason Grigsby, using data from Akamai, posits that the disparity in web browser usage between iOS and Android is almost entirely Wi-Fi traffic, and that the two are neck-and-neck on cellular networks. Fascinating, if accurate.</p>
+
+<p><strong>Update:</strong> A bunch of readers emailed to suggest the following explanation: there are a lot of iPod Touches and even more Wi-Fi-only iPads in active use, and there are very few Wi-Fi-only Android devices. Thus, iOS accounts for way more Wi-Fi traffic than Android.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://jeffstern.co/2012/07/17/advice-verizon-wireless-store/">The Carriers vs. Apple, Verizon&#160;Edition</a>&nbsp;<a class="permalink" title="Permanent link to ‘The Carriers vs. Apple, Verizon Edition’." href="http://daringfireball.net/linked/2012/08/01/verizon">&#9733;</a>
+</dt>
+<dd>
+<p>Jeff Stern spent 40 minutes in a Verizon retail store:</p>
+
+<blockquote>
+  <ul>
+<li>“They released the iPhone 4S because Steve Jobs died so they
+just threw in a couple more features and pushed it out.”</li>
+<li>“Apple’s servers are really small and when you use Siri it
+normally redirects to Google anyway.”</li>
+<li>“Every icon looks alike on your homescreen and it’s really hard
+to find applications.”</li>
+</ul>
+
+<p>All things I heard salespeople say in the 40 minutes I was
+there. I’m certainly not an Apple fanboy. I was in your store to
+buy an Android phone. But you’re really trying too hard to steer
+people away from the iPhone and I’m not the only person that’s
+noticed it.</p>
+</blockquote>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://insights.chitika.com/2012/ipad-takes-slight-dive-samsung-google-see-tablet-success-in-july/">More on Tablet Web Usage&#160;Numbers</a>&nbsp;<a class="permalink" title="Permanent link to ‘More on Tablet Web Usage Numbers’." href="http://daringfireball.net/linked/2012/08/01/tablet-chitika">&#9733;</a>
+</dt>
+<dd>
+<p>Another explanation for the enormous gap between &#8220;smartphone marketshare&#8221; and &#8220;mobile OS web usage share&#8221; numbers: tablets. The iPad is enormously popular for web browsing; Android tablets not so much.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://netmarketshare.com/browser-market-share.aspx?qprid=1&amp;qpcustomb=1">Mobile Browser Market&#160;Share</a>&nbsp;<a class="permalink" title="Permanent link to ‘Mobile Browser Market Share’." href="http://daringfireball.net/linked/2012/08/01/mobile-browser-market-share">&#9733;</a>
+</dt>
+<dd>
+<p>Mobile Safari&#8217;s lead over Android continues to grow in terms of mobile web browser market share &#8212; well over three times higher according to NetMarketshare&#8217;s numbers, 66 to 19 percent. Compare that with <a href="http://www.comscore.com/Press_Events/Press_Releases/2012/8/comScore_Reports_June_2012_U.S._Mobile_Subscriber_Market_Share">these new ComScore numbers</a>:</p>
+
+<blockquote>
+  <p>Google Android continued to grow its share in the U.S. smartphone
+market, accounting for 51.6 percent of smartphone subscribers,
+while Apple captured 32.4 percent.</p>
+</blockquote>
+
+<p>Not sure how to square the disparity here other than to assume that an awful lot of Android smartphones don&#8217;t really get used as smartphones.</p>
+
+</dd>
+
+
+
+
+<dt>
+<a href="http://007.lucklaboratories.com/">The Business of&#160;Bond</a>&nbsp;<a class="permalink" title="Permanent link to ‘The Business of Bond’." href="http://daringfireball.net/linked/2012/08/01/bond">&#9733;</a>
+</dt>
+<dd>
+<p>Box office returns and budgets for the 22 official James Bond films. Be sure to flip the toggle to adjust for inflation.</p>
+
+</dd>
+</dl>
+
+
+
+</div>
+
+<div class="article">
+<h1>About the Linked List</h1>
+
+<p>The Daring Fireball Linked List is a daily list of interesting links
+and brief commentary, updated frequently but not frenetically. Call it
+a “link log”, or “linkblog”, or just “a good way to dick around on the
+Internet for a few minutes a day”.</p>
+
+</div>
+
+<div class="article">
+<h1 id="archive">Linked List Archive</h1>
+<ul>
+
+<li><a href="http://daringfireball.net/linked/2012/august">August 2012</a></li>
+
+<li><a href="http://daringfireball.net/linked/2012/july">July 2012</a></li>
+
+<li><a href="http://daringfireball.net/linked/2012/june">June 2012</a></li>
+
+<li><a href="http://daringfireball.net/linked/2012/may">May 2012</a></li>
+
+<li><a href="http://daringfireball.net/linked/2012/april">April 2012</a></li>
+
+<li><a href="http://daringfireball.net/linked/2012/march">March 2012</a></li>
+
+<li><a href="http://daringfireball.net/linked/2012/february">February 2012</a></li>
+
+<li><a href="http://daringfireball.net/linked/2012/january">January 2012</a></li>
+
+<li><a href="http://daringfireball.net/linked/2011/december">December 2011</a></li>
+
+<li><a href="http://daringfireball.net/linked/2011/november">November 2011</a></li>
+
+<li><a href="http://daringfireball.net/linked/2011/october">October 2011</a></li>
+
+<li><a href="http://daringfireball.net/linked/2011/september">September 2011</a></li>
+
+<li><a href="http://daringfireball.net/linked/2011/august">August 2011</a></li>
+
+<li><a href="http://daringfireball.net/linked/2011/july">July 2011</a></li>
+
+<li><a href="http://daringfireball.net/linked/2011/june">June 2011</a></li>
+
+<li><a href="http://daringfireball.net/linked/2011/may">May 2011</a></li>
+
+<li><a href="http://daringfireball.net/linked/2011/april">April 2011</a></li>
+
+<li><a href="http://daringfireball.net/linked/2011/march">March 2011</a></li>
+
+<li><a href="http://daringfireball.net/linked/2011/february">February 2011</a></li>
+
+<li><a href="http://daringfireball.net/linked/2011/january">January 2011</a></li>
+
+<li><a href="http://daringfireball.net/linked/2010/december">December 2010</a></li>
+
+<li><a href="http://daringfireball.net/linked/2010/november">November 2010</a></li>
+
+<li><a href="http://daringfireball.net/linked/2010/october">October 2010</a></li>
+
+<li><a href="http://daringfireball.net/linked/2010/september">September 2010</a></li>
+
+<li><a href="http://daringfireball.net/linked/2010/august">August 2010</a></li>
+
+<li><a href="http://daringfireball.net/linked/2010/july">July 2010</a></li>
+
+<li><a href="http://daringfireball.net/linked/2010/june">June 2010</a></li>
+
+<li><a href="http://daringfireball.net/linked/2010/may">May 2010</a></li>
+
+<li><a href="http://daringfireball.net/linked/2010/april">April 2010</a></li>
+
+<li><a href="http://daringfireball.net/linked/2010/march">March 2010</a></li>
+
+<li><a href="http://daringfireball.net/linked/2010/february">February 2010</a></li>
+
+<li><a href="http://daringfireball.net/linked/2010/january">January 2010</a></li>
+
+<li><a href="http://daringfireball.net/linked/2009/december">December 2009</a></li>
+
+<li><a href="http://daringfireball.net/linked/2009/november">November 2009</a></li>
+
+<li><a href="http://daringfireball.net/linked/2009/october">October 2009</a></li>
+
+<li><a href="http://daringfireball.net/linked/2009/september">September 2009</a></li>
+
+<li><a href="http://daringfireball.net/linked/2009/august">August 2009</a></li>
+
+<li><a href="http://daringfireball.net/linked/2009/july">July 2009</a></li>
+
+<li><a href="http://daringfireball.net/linked/2009/june">June 2009</a></li>
+
+<li><a href="http://daringfireball.net/linked/2009/may">May 2009</a></li>
+
+<li><a href="http://daringfireball.net/linked/2009/april">April 2009</a></li>
+
+<li><a href="http://daringfireball.net/linked/2009/march">March 2009</a></li>
+
+<li><a href="http://daringfireball.net/linked/2009/february">February 2009</a></li>
+
+<li><a href="http://daringfireball.net/linked/2009/january">January 2009</a></li>
+
+<li><a href="http://daringfireball.net/linked/2008/december">December 2008</a></li>
+
+<li><a href="http://daringfireball.net/linked/2008/november">November 2008</a></li>
+
+<li><a href="http://daringfireball.net/linked/2008/october">October 2008</a></li>
+
+<li><a href="http://daringfireball.net/linked/2008/september">September 2008</a></li>
+
+<li><a href="http://daringfireball.net/linked/2008/august">August 2008</a></li>
+
+<li><a href="http://daringfireball.net/linked/2008/july">July 2008</a></li>
+
+<li><a href="http://daringfireball.net/linked/2008/june">June 2008</a></li>
+
+<li><a href="http://daringfireball.net/linked/2008/may">May 2008</a></li>
+
+<li><a href="http://daringfireball.net/linked/2008/april">April 2008</a></li>
+
+<li><a href="http://daringfireball.net/linked/2008/march">March 2008</a></li>
+
+<li><a href="http://daringfireball.net/linked/2008/february">February 2008</a></li>
+
+<li><a href="http://daringfireball.net/linked/2008/january">January 2008</a></li>
+
+<li><a href="http://daringfireball.net/linked/2007/december">December 2007</a></li>
+
+<li><a href="http://daringfireball.net/linked/2007/november">November 2007</a></li>
+
+<li><a href="http://daringfireball.net/linked/2007/october">October 2007</a></li>
+
+<li><a href="http://daringfireball.net/linked/2007/september">September 2007</a></li>
+
+<li><a href="http://daringfireball.net/linked/2007/august">August 2007</a></li>
+
+<li><a href="http://daringfireball.net/linked/2007/july">July 2007</a></li>
+
+<li><a href="http://daringfireball.net/linked/2007/june">June 2007</a></li>
+
+<li><a href="http://daringfireball.net/linked/2007/may">May 2007</a></li>
+
+<li><a href="http://daringfireball.net/linked/2007/april">April 2007</a></li>
+
+<li><a href="http://daringfireball.net/linked/2007/march">March 2007</a></li>
+
+<li><a href="http://daringfireball.net/linked/2007/february">February 2007</a></li>
+
+<li><a href="http://daringfireball.net/linked/2007/january">January 2007</a></li>
+
+<li><a href="http://daringfireball.net/linked/2006/december">December 2006</a></li>
+
+<li><a href="http://daringfireball.net/linked/2006/november">November 2006</a></li>
+
+<li><a href="http://daringfireball.net/linked/2006/october">October 2006</a></li>
+
+<li><a href="http://daringfireball.net/linked/2006/september">September 2006</a></li>
+
+<li><a href="http://daringfireball.net/linked/2006/august">August 2006</a></li>
+
+<li><a href="http://daringfireball.net/linked/2006/july">July 2006</a></li>
+
+<li><a href="http://daringfireball.net/linked/2006/june">June 2006</a></li>
+
+<li><a href="http://daringfireball.net/linked/2006/may">May 2006</a></li>
+
+<li><a href="http://daringfireball.net/linked/2006/april">April 2006</a></li>
+
+<li><a href="http://daringfireball.net/linked/2006/march">March 2006</a></li>
+
+<li><a href="http://daringfireball.net/linked/2006/february">February 2006</a></li>
+
+<li><a href="http://daringfireball.net/linked/2006/january">January 2006</a></li>
+
+<li><a href="http://daringfireball.net/linked/2005/december">December 2005</a></li>
+
+<li><a href="http://daringfireball.net/linked/2005/november">November 2005</a></li>
+
+<li><a href="http://daringfireball.net/linked/2005/october">October 2005</a></li>
+
+<li><a href="http://daringfireball.net/linked/2005/september">September 2005</a></li>
+
+<li><a href="http://daringfireball.net/linked/2005/august">August 2005</a></li>
+
+<li><a href="http://daringfireball.net/linked/2005/july">July 2005</a></li>
+
+<li><a href="http://daringfireball.net/linked/2005/june">June 2005</a></li>
+
+<li><a href="http://daringfireball.net/linked/2005/may">May 2005</a></li>
+
+<li><a href="http://daringfireball.net/linked/2005/april">April 2005</a></li>
+
+<li><a href="http://daringfireball.net/linked/2005/march">March 2005</a></li>
+
+<li><a href="http://daringfireball.net/linked/2005/february">February 2005</a></li>
+
+<li><a href="http://daringfireball.net/linked/2005/january">January 2005</a></li>
+
+<li><a href="http://daringfireball.net/linked/2004/december">December 2004</a></li>
+
+<li><a href="http://daringfireball.net/linked/2004/november">November 2004</a></li>
+
+<li><a href="http://daringfireball.net/linked/2004/october">October 2004</a></li>
+
+<li><a href="http://daringfireball.net/linked/2004/september">September 2004</a></li>
+
+<li><a href="http://daringfireball.net/linked/2004/august">August 2004</a></li>
+
+<li><a href="http://daringfireball.net/linked/2004/july">July 2004</a></li>
+
+<li><a href="http://daringfireball.net/linked/2004/june">June 2004</a></li>
+
+</ul>
+</div> <!-- article -->
+<div id="Footer">
+<form id="SiteSearch" action="http://daringfireball.net/search" method="get" style="margin-bottom: 2.5em;">
+<div>
+<input name="q" type="text" value="" style="margin-right: 8px; width: 26em;" />
+<input type="submit" value="Search" />
+</div>
+</form>
+<p class='smallprint'><a href='http://www.amazon.com/exec/obidos/redirect?tag=daringfirebal-20&amp;path=subst/home/home.html'>Shop at Amazon.com and support Daring Fireball</a></p>
+
+<p class="smallprint">
+<a href="index.html" title="Recent Linked List entries and archive.">Linked List</a>&nbsp;&nbsp;&nbsp;|&nbsp;&nbsp;&nbsp;<a href="../preferences/index.html" title="Customize the font size and presentation options for this web site.">Display Preferences</a><br />
+Copyright &copy; 2002–2012 John Gruber</p>
+</div>
+
+<div id="SidebarTheDeck">
+<script type="text/javascript">
+// <![CDATA[
+	(function(id) {
+		document.write('<script type="text/javascript" src="' +
+			'http://connect.decknetwork.net/deck' + id + '_js.php?' +
+			(new Date().getTime()) + '"></' + 'script>');
+	})("DF");
+	var deckDiv = document.getElementById("SidebarTheDeck");
+	var sidebarDiv = document.getElementById("Sidebar");
+	sidebarDiv.appendChild(deckDiv);
+// ]]>
+</script>
+
+<p id="ViaTheDeck"><a href="http://decknetwork.net/">
+<img src="../graphics/madison/via_the_deck.png" width="70"    alt="Ads via The Deck" class="the_deck_promo" />
+<span>Ads via The Deck</span>
+</a></p>
+
+</div>
+
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-593949-1']);
+  _gaq.push(['_trackPageview']);
+  (function() {
+	var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+	ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+	var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+</div> <!-- Main -->
+
+</div> <!-- Box -->
+</body>
+</html>
