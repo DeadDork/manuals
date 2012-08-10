@@ -1,0 +1,18 @@
+User-agent: Mediapartners-Google 
+Disallow:
+
+User-agent: *
+Disallow: /quiztest
+Disallow: /banners
+Disallow: /images
+Disallow: /ado/demo_db_edit.asp
+Disallow: /html/tryit.asp
+Disallow: /css/tryit.asp
+Disallow: /dom/tryit.asp
+Disallow: /js/tryit.asp
+Disallow: /dhtml/tryit.asp
+Disallow: /jsref/tryit.asp
+Disallow: /support.asp
+Disallow: *.aspx$
+Disallow: *.php$
+

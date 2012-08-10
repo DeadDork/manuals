@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+<title>SQL Tutorial</title>
+ 
+<meta charset="iso-8859-1">
+<meta name="Keywords" content="html,css,tutorial,html5,dhtml,css3,xsl,xslt,xhtml,javascript,jquery,asp,ado,net,vbscript,dom,sql,colors,soap,php,rss,authoring,programming,training,learning,quiz,beginner's guide,primer,lessons,school,howto,reference,examples,samples,source code,tags,demos,tips,links,FAQ,tag list,forms,frames,color table,w3c,cascading style sheets,active server pages,dynamic html,internet,database,development,Web building,Webmaster,html guide" />
+<meta name="Description" content="Well organized easy to understand SQL tutorial with lots of examples. Including PHP, ASP, ADO, Oracle, Access, SQL Server. Related: HTML, JavaScript, XML, XQuery" />
+<link rel="shortcut icon" href="../favicon.ico" type="image/x-icon" />
+<script type="text/javascript">
+<!--
+var gaJsHost = (("https:" == document.location.protocol) ? "https://ssl." : "http://www.");
+document.write(unescape("%3Cscript src='" + gaJsHost + "google-analytics.com/ga.js' type='text/javascript'%3E%3C/script%3E"));
+//-->
+</script>
+<script type="text/javascript">
+<!--
+function searchfield_focus(obj)
+{
+obj.style.color=""
+obj.style.fontStyle=""
+if (obj.value=="Search w3schools.com")
+	{obj.value=""}
+}
+var pageTracker = _gat._getTracker("UA-3855518-1");
+pageTracker._initData();
+pageTracker._trackPageview();
+var addr=document.location.href;
+function displayError()
+{
+document.getElementById("err_url").value=addr;
+document.getElementById("err_form").style.display="block";
+document.getElementById("err_desc").focus();
+hideSent();
+}
+function hideError()
+{
+document.getElementById("err_form").style.display="none";
+}
+function hideSent()
+{
+document.getElementById("err_sent").style.display="none";
+}
+function sendErr()
+{
+var xmlhttp;
+var err_url=document.getElementById("err_url").value;
+var err_email=document.getElementById("err_email").value;
+var err_desc=document.getElementById("err_desc").value;
+if (window.XMLHttpRequest)
+  {// code for IE7+, Firefox, Chrome, Opera, Safari
+  xmlhttp=new XMLHttpRequest();
+  }
+else
+  {// code for IE6, IE5
+  xmlhttp=new ActiveXObject("Microsoft.XMLHTTP");
+  }
+xmlhttp.open("POST","/err_sup.asp",true);
+xmlhttp.setRequestHeader("Content-type","application/x-www-form-urlencoded");
+xmlhttp.send("err_url=" + err_url + "&err_email=" + err_email + "&err_desc=" + escape(err_desc));
+hideError();
+document.getElementById("err_sent").style.display="block";
+}
+function click_expandingMenuHeader(obj,sectionName)
+{
+var x=document.getElementById("cssprop_" + sectionName).parentNode.className;
+if (x.indexOf("expandingMenuNotSelected")>-1)
+	{
+	x=x.replace("expandingMenuNotSelected","expandingMenuSelected");
+	document.getElementById("cssprop_" + sectionName).parentNode.className=x;
+	document.getElementById("cssprop_" + sectionName).style.display="block";
+	}
+else
+	{
+	x=x.replace("expandingMenuSelected","expandingMenuNotSelected");
+	document.getElementById("cssprop_" + sectionName).parentNode.className=x;
+	document.getElementById("cssprop_" + sectionName).style.display="none";
+	}
+}
+//-->
+</script>
+<!--[if lt IE 7]>
+<style>
+#leftcolumn{margin-left:0}
+</style>
+<![endif]-->
+<script type='text/javascript'>
+(function() {
+var useSSL = 'https:' == document.location.protocol;
+var src = (useSSL ? 'https:' : 'http:') +
+'//www.googletagservices.com/tag/js/gpt.js';
+document.write('<scr' + 'ipt src="' + src + '"></scr' + 'ipt>');
+})();
+</script>
+<script type='text/javascript'>
+googletag.defineSlot('/16833175/BottomRectangle', [336, 280], 'div-gpt-ad-1343810007679-0').addService(googletag.pubads());
+googletag.defineSlot('/16833175/LargePS', [600, 350], 'div-gpt-ad-1343810007679-1').addService(googletag.pubads());
+googletag.defineSlot('/16833175/MainLeaderboard', [728, 90], 'div-gpt-ad-1343810007679-2').addService(googletag.pubads());
+googletag.defineSlot('/16833175/SkyScraper', [120, 600], 'div-gpt-ad-1343810007679-3').addService(googletag.pubads());
+googletag.defineSlot('/16833175/SmallPS', [600, 100], 'div-gpt-ad-1343810007679-4').addService(googletag.pubads());
+googletag.defineSlot('/16833175/TopRectangle', [227, 90], 'div-gpt-ad-1343810007679-5').addService(googletag.pubads());
+googletag.pubads().setTargeting("content","sql");
+googletag.pubads().enableSyncRendering();
+googletag.pubads().enableSingleRequest();
+googletag.enableServices();
+</script>
+<link rel="stylesheet" type="text/css" href="../stdtheme.css" />
+</head>
+<body>
+
+<p>From <b>http://www.w3schools.com</b> (Copyright Refsnes Data)</p>
+
+<h1>SQL <span class="color_h1">Tutorial</span></h1>
+<div class="chapter">
+<div class="prev"><a class="chapter" href="../default.asp">&laquo; W3Schools Home</a></div>
+<div class="next"><a class="chapter" href="sql_intro.asp">Next Chapter &raquo;</a></div>
+</div>
+<br />
+<div class="tutintro">
+<img src="http://w3schools.com/images/w3sql.gif" alt="SQL" />
+<p>SQL is a standard language for accessing databases.</p>
+<p>Our SQL tutorial will teach you how to use SQL to access and manipulate data in:</p>
+<p>MySQL, SQL Server, Access, Oracle, Sybase, DB2, and other database systems.</p>
+</div>
+
+<div class="example">
+<h2 class="example">SQL Syntax</h2>
+<div class="example_code notranslate">
+SELECT Company, Country FROM Customers WHERE Country &lt;&gt; 'USA'
+</div>
+<br />
+<h2 class="example">SQL Result</h2>
+<table class="reference">
+<tr>
+<th align="left" style="background-color:white">Company</th><th align="left" style="background-color:white">Country</th>
+</tr>
+<tr>
+<td>Island Trading</td>
+<td>UK</td>
+</tr>
+<tr>
+<td>Galería del gastrónomo</td>
+<td>Spain</td>
+</tr>
+<tr>
+<td>Laughing Bacchus Wine Cellars</td>
+<td>Canada</td>
+</tr>
+<tr>
+<td>Paris spécialités</td>
+<td>France</td>
+</tr>
+<tr>
+<td>Simons bistro</td>
+<td>Denmark</td>
+</tr>
+<tr>
+<td>Wolski Zajazd</td>
+<td>Poland</td>
+</tr>
+</table>
+<br /><a href="sql_tryit.asp" class="tryitbtn">Try it yourself &raquo;</a>
+</div>
+<br />
+<p class="tutintro"><a href="sql_intro.asp"><b>Start learning SQL now!</b></a></p>
+
+<h2 class="tutheader">SQL Demo</h2>
+<p>Learn by examples! With our editor, you can edit the SQL, and click on a button to view the result.</p>
+<p><a href="sql_tryit.asp">Try-It-Yourself!</a></p>
+<h2 class="tutheader">SQL Quiz Test</h2>
+<p>Test your SQL skills at W3Schools!</p>
+<p><a href="sql_quiz.asp">Start SQL Quiz!</a></p>
+<h2 class="tutheader">SQL Quick Reference</h2>
+<p>An SQL Quick Reference. Print it and put it in your pocket.</p>
+<p><a href="sql_quickref.asp">SQL Quick Reference</a></p>
+<h2 class="tutheader">SQL Data Types</h2>
+<p>Data types and ranges for Microsoft Access, MySQL and SQL Server.</p>
+<p><a href="sql_datatypes.asp">SQL Data Types</a></p>
+<h2 class="tutheader">W3Schools Exam</h2>
+<div style="width:630px;margin:auto">
+<div style="float:left;width:224px;">
+<a href="../cert/default.asp"><img src="http://w3schools.com/images/w3cert.gif" style="margin-top:40px;border:0;" alt="W3Schools Certification" /></a> 
+</div>
+<div style="float:left;width:400px;">
+<h2>W3Schools' Online Certification</h2>
+<p>The perfect solution for professionals who need to balance work, family, and career building.</p>
+<p>More than 10 000 certificates already issued!</p>
+<p><a class="tryitbtn" style="width:200px;font-size:120%;margin-top:5px;" href="../cert/default.asp">Get Your Certificate &raquo;</a></p>
+</div>
+<p style="clear:both;">The <a href="../cert/default.asp">HTML Certificate</a> documents your knowledge of HTML.</p>
+<p>The <a href="../cert/default.asp">CSS Certificate</a> documents your knowledge of advanced CSS.</p>
+<p>The <a href="../cert/default.asp">JavaScript Certificate</a> documents your knowledge of JavaScript and HTML DOM.</p>
+<p>The <a href="../cert/default.asp">jQuery Certificate</a> documents your knowledge of jQuery.</p>
+<p>The <a href="../cert/default.asp">XML Certificate</a> documents your knowledge of XML, XML DOM and XSLT.</p>
+<p>The <a href="../cert/default.asp">ASP Certificate</a> documents your knowledge of ASP, SQL, and ADO.</p>
+<p>The <a href="../cert/default.asp">PHP Certificate</a> documents your knowledge of PHP and SQL (MySQL).</p>
+</div>
+<div class="chapter">
+<div class="prev"><a class="chapter" href="../default.asp">&laquo; W3Schools Home</a></div>
+<div class="next"><a class="chapter" href="sql_intro.asp">Next Chapter &raquo;</a></div>
+</div>
+
+<p>From <b>http://www.w3schools.com</b> (Copyright Refsnes Data)</p>
+
+</body>
+</html>
