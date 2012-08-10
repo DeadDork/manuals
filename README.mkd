@@ -1,18 +1,18 @@
 manuals
 =======
 
-A bunch of wget-ed documentation I regularly reference.
+A bunch of wget-ed documentation I regularly reference offline.
 
 Suggested Use
 -------------
 
-Manuals can be viewed by opening what is usually named the *index.html* files, etc. For instance, to view the LaTeXPrimer manual in the LaTeX directory, open it with Chromium with the following from the manuals directory:
+Downloaded documentation can be viewed by opening what is usually named the *index.html* file. For instance, to view the LaTeXPrimer manual in the LaTeX directory, open it in Chromium with the following command from the *manuals* repository directory:
 
 		chromium-browser LaTeX/LaTeXPrimer/www.maths.tcd.ie/~dwilkins/LaTeXPrimer/index.html
 
-If you find a manual you want for off-line reference that's not included in the cloned repository, you can download it yourself easily enough:
+If you find some online documentation you want for off-line reference that's not in the cloned repository already, you can download it yourself easily enough:
 
-1.	Change to the manuals repository directory. E.G.
+1.	Change to the *manuals* repository directory. E.G.
 
 		cd ~/Programming/programming_projects/manuals
 
@@ -22,4 +22,4 @@ If you find a manual you want for off-line reference that's not included in the 
 
 		./wget_manual.sh ./LaTeX/LaTeXPrimer http://www.maths.tcd.ie/~dwilkins/LaTeXPrimer/
 
-I personally like to bookmark the files in a browser for easy off-line reference, but doing so goes beyond the scope of this README. 
+I personally like to also bookmark these files in a browser for quicker off-line reference, but doing so goes beyond the scope of this README. 
