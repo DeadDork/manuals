@@ -1,0 +1,217 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN">
+<HTML
+><HEAD
+><TITLE
+>ASCII Table</TITLE
+><META
+NAME="GENERATOR"
+CONTENT="Modular DocBook HTML Stylesheet Version 1.7"><LINK
+REL="HOME"
+TITLE="Advanced Bash-Scripting Guide"
+HREF="http://tldp.org/LDP/abs/html/index.html"><LINK
+REL="PREVIOUS"
+TITLE="Copyright"
+HREF="copyright.html"><LINK
+REL="NEXT"
+TITLE="Index"
+HREF="xrefindex.html"></HEAD
+><BODY
+CLASS="APPENDIX"
+BGCOLOR="#FFFFFF"
+TEXT="#000000"
+LINK="#0000FF"
+VLINK="#840084"
+ALINK="#0000FF"
+><DIV
+CLASS="NAVHEADER"
+><TABLE
+SUMMARY="Header navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TH
+COLSPAN="3"
+ALIGN="center"
+>Advanced Bash-Scripting Guide: </TH
+></TR
+><TR
+><TD
+WIDTH="10%"
+ALIGN="left"
+VALIGN="bottom"
+><A
+HREF="copyright.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="80%"
+ALIGN="center"
+VALIGN="bottom"
+></TD
+><TD
+WIDTH="10%"
+ALIGN="right"
+VALIGN="bottom"
+><A
+HREF="xrefindex.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+></TABLE
+><HR
+ALIGN="LEFT"
+WIDTH="100%"></DIV
+><DIV
+CLASS="APPENDIX"
+><H1
+><A
+NAME="ASCIITABLE"
+></A
+>Appendix S. ASCII Table</H1
+><P
+>By tradition, a book of this sort has an <A
+HREF="special-chars.html#ASCIIDEF"
+>ASCII</A
+> Table appendix.
+      This book does not. Instead, here is a short
+      shell script that generates a complete ASCII table and writes it
+      to the file <TT
+CLASS="FILENAME"
+>ASCII.txt</TT
+>.</P
+><DIV
+CLASS="EXAMPLE"
+><A
+NAME="ASCIISH"
+></A
+><P
+><B
+>Example S-1. A script that generates an ASCII table</B
+></P
+><TABLE
+BORDER="0"
+BGCOLOR="#E0E0E0"
+WIDTH="100%"
+><TR
+><TD
+><FONT
+COLOR="#000000"
+><PRE
+CLASS="PROGRAMLISTING"
+>#!/bin/bash
+# ascii.sh
+# ver. 0.2, reldate 26 Aug 2008
+# Patched by ABS Guide author.
+
+# Original script by Sebastian Arming.
+# Used with permission (thanks!).
+
+exec &#62;ASCII.txt         #  Save stdout to file,
+                        #+ as in the example scripts
+                        #+ reassign-stdout.sh and upperconv.sh.
+
+MAXNUM=256
+COLUMNS=5
+OCT=8
+OCTSQU=64
+LITTLESPACE=-3
+BIGSPACE=-5
+
+i=1 # Decimal counter
+o=1 # Octal counter
+
+while [ "$i" -lt "$MAXNUM" ]; do  # We don't have to count past 400 octal.
+        paddi="    $i"
+        echo -n "${paddi: $BIGSPACE}  "       # Column spacing.
+        paddo="00$o"
+#       echo -ne "\\${paddo: $LITTLESPACE}"   # Original.
+        echo -ne "\\0${paddo: $LITTLESPACE}"  # Fixup.
+#                   ^
+        echo -n "     "
+        if (( i % $COLUMNS == 0)); then       # New line.
+           echo
+        fi
+        ((i++, o++))
+        # The octal notation for 8 is 10, and 64 decimal is 100 octal.
+        (( i % $OCT == 0))    &#38;&#38; ((o+=2))
+        (( i % $OCTSQU == 0)) &#38;&#38; ((o+=20))
+done
+
+exit $?
+
+# Compare this script with the "pr-asc.sh" example.
+# This one handles "unprintable" characters.
+
+# Exercise:
+# Rewrite this script to use decimal numbers, rather than octal.</PRE
+></FONT
+></TD
+></TR
+></TABLE
+></DIV
+></DIV
+><DIV
+CLASS="NAVFOOTER"
+><HR
+ALIGN="LEFT"
+WIDTH="100%"><TABLE
+SUMMARY="Footer navigation table"
+WIDTH="100%"
+BORDER="0"
+CELLPADDING="0"
+CELLSPACING="0"
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+><A
+HREF="copyright.html"
+ACCESSKEY="P"
+>Prev</A
+></TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+><A
+HREF="http://tldp.org/LDP/abs/html/index.html"
+ACCESSKEY="H"
+>Home</A
+></TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+><A
+HREF="xrefindex.html"
+ACCESSKEY="N"
+>Next</A
+></TD
+></TR
+><TR
+><TD
+WIDTH="33%"
+ALIGN="left"
+VALIGN="top"
+>Copyright</TD
+><TD
+WIDTH="34%"
+ALIGN="center"
+VALIGN="top"
+>&nbsp;</TD
+><TD
+WIDTH="33%"
+ALIGN="right"
+VALIGN="top"
+>Index</TD
+></TR
+></TABLE
+></DIV
+></BODY
+></HTML
+>
