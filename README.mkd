@@ -1,7 +1,7 @@
 manuals
 =======
 
-A bunch of wget-ed documentation I regularly reference offline.
+A bunch of wget-ed online documentation I regularly reference offline.
 
 Suggested Use
 -------------
