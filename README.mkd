@@ -6,22 +6,24 @@ A bunch of wget-ed online documentation I regularly reference offline.
 Purpose
 -------
 
-Over the years, I've accrued favorite online documentation & references for the various tools, programs, and languages I regularly use for work & leisure. So long as I'm working on my oldest computer--and all of its bookmarks--and connected to the internet, I'm happy.
+Over the years, I've accrued favorite online documentation & references for the various tools, programs, and languages I regularly use for work & leisure. So long as I'm working on my oldest computer--with all of its bookmarks--and connected to the internet, life is good.
 
 But I don't always use my oldest computer, and I don't always have internet access.
 
 Accordingly, a manuals repository.
 
-This way, I can use my preferred documentation offline on any computer, but easily add & sync new documentation once I'm back online.
+With this, I can use my preferred documentation offline on any computer, and easily add & sync new documentation once I'm back online.
 
 Suggested Use
 -------------
 
-Downloaded documentation can be viewed by opening what is usually named the *index.html* file. For instance, to view the LaTeXPrimer manual in the LaTeX directory, open it in Chromium with the following command from the *manuals* repository directory:
+Downloaded documentation can be viewed by opening what is usually named the *index.html* file of each wget-ed documentation. For instance, to view the LaTeXPrimer manual in the LaTeX directory, open it in Chromium with the following command from the *manuals* repository directory:
 
 		chromium-browser LaTeX/LaTeXPrimer/www.maths.tcd.ie/~dwilkins/LaTeXPrimer/index.html
+		
+Unfortunately, sometimes finding this *index.html* file can be tricky. It might not be called *index.html*, it might be several, several layers deep in a confusing jumble of directories, etc. I can only wish you good luck here! My **strong** recommendation is to bookmark each such file in your favorite browser as soon as you find it. This way you only have to search just the once.
 
-If you find some online documentation you want for off-line reference that's not in the cloned repository already, you can download it yourself easily enough:
+You should feel free to add to the downloaded documentation collected here. If you find some online documentation you want for off-line reference that's not in the cloned repository already, you can download it yourself easily enough:
 
 1.	Change to the *manuals* repository directory. E.G.
 
@@ -33,4 +35,4 @@ If you find some online documentation you want for off-line reference that's not
 
 		./wget_manual.sh ./LaTeX/LaTeXPrimer http://www.maths.tcd.ie/~dwilkins/LaTeXPrimer/
 
-I personally like to also bookmark these files in a browser for quicker off-line reference, but doing so goes beyond the scope of this README. 
+Nota bene: be advised that not all documentation is licensed such that it can be used this way legally. Be sure to check the license before downloading!
