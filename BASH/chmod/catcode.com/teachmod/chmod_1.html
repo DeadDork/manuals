@@ -1,0 +1,337 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Changing File Permissions</title>
+<style type="text/css">
+<!--
+#col1 {position: relative; background-color:white;}
+#col2 {position: relative; background-color:white;}
+#col3 {position: relative; background-color:white;}
+#col4 {position: relative; background-color:white;}
+#col5 {position: relative; background-color:white;}
+#col6 {position: relative; background-color:white;}
+
+#pop1 {position: absolute; left: 0; top: 0; visibility: hidden;
+	width: 250; border-width: 1pt; border-style: solid;
+	border-color: black; background-color: #eee;}
+#pop2 {position: absolute; left: 0; top: 0; visibility: hidden;
+	width: 250; border-width: 1pt; border-style: solid;
+	border-color: black; background-color: #eee;}
+#pop3 {position: absolute; left: 0; top: 0; visibility: hidden;
+	width: 250; border-width: 1pt; border-style: solid;
+	border-color: black; background-color: #eee;}
+#pop4 {position: absolute; left: 0; top: 0; visibility: hidden;
+	width: 250; border-width: 1pt; border-style: solid;
+	border-color: black; background-color: #eee;}
+#pop5 {position: absolute; left: 0; top: 0; visibility: hidden;
+	width: 250; border-width: 1pt; border-style: solid;
+	border-color: black; background-color: #eee;}
+#pop6 {position: absolute; left: 0; top: 0; visibility: hidden;
+	width: 250; border-width: 1pt; border-style: solid;
+	border-color: black; background-color: #eee;}
+-->
+</style>
+
+<script type="text/javascript">
+// <![CDATA[
+var lastCol = 0;
+
+function getObjectStyle( objName )
+{
+	var theStyle;
+
+	if (document.getElementById )
+	{
+		theStyle = document.getElementById( objName ).style;
+	}
+	else if (document.all)
+	{
+		theStyle = eval( "document.all." + objName + ".style");
+	}
+	else
+	{
+		theStyle = null;
+	}
+	return theStyle;
+}
+
+function getObject( objName )
+{
+	var theObj;
+
+	if (document.getElementById )
+	{
+		theObj = document.getElementById( objName );
+	}
+	else if (document.all)
+	{
+		theObj = eval( "document.all." + objName );
+	}
+	else
+	{
+		theObj = null;
+	}
+	return theObj;
+}
+
+function shiftTo( obj, x, y )
+{
+	var theStyle = getObjectStyle( obj );
+window.status = x + " " + y;
+	theStyle.left = x + "px";
+	theStyle.top = y + "px";
+}
+
+function setbg( entity, colour )
+{
+	var obj = getObjectStyle( entity );
+	obj.backgroundColor = colour;
+}
+
+function push( n )
+{
+	var obj = getObjectStyle("pop" + lastCol );
+	obj.visibility = "hidden";
+}
+
+function pop( n )
+{
+	var obj, y;
+	if (n != lastCol && lastCol != 0)
+	{
+		setbg("col" + lastCol, "#ffffff");
+		obj = getObjectStyle("pop" + lastCol);
+		obj.visibility = "hidden";	
+	}
+	setbg( "col" + n, "#ccffcc");
+
+	shiftTo( "pop" + n, 20*n, Math.floor(window.innerHeight / 2) );
+	obj = getObjectStyle("pop" + n);
+	obj.visibility = "visible";
+
+	lastCol = n;
+}
+// ]]>
+</script>
+</head>
+
+<body>
+<h1>Changing File Permissions</h1>
+<p>
+Let&#8217;s take a closer look at the contents of a 
+sample directory by typing the command
+<a href="http://catcode.com/teachmod/placeholder.html?the%20ls%20command"><code>ls -l</code></a>
+(the &#8220;<code>l</code>&#8221; stands for
+&#8220;long&#8221;.)
+</p>
+<table border="0">
+<tr><td colspan="6"><pre class="small">total 42</pre></td></tr>
+<tr>
+<td>
+<div id="col1">
+<pre class="small">
+-rwxr-xr-x
+-rw-rw-r--
+-rw-rw-r--
+-rw-r--r--
+drwxrwxr-x
+-rw-r-----
+-rwxr-xr-x
+</pre>
+</div>
+</td>
+
+<td>
+<div id="col2">
+<pre class="small">
+  1
+  1
+  1
+  1
+  2
+  1
+  1
+</pre>
+</div>
+</td>
+
+<td>
+<div id="col3">
+<pre class="small">
+  joe  acctg
+  joe  acctg
+  joe  acctg
+  joe  acctg
+  joe  acctg
+  joe  acctg
+  joe  acctg
+</pre>
+</div>
+</td>
+
+<td>
+<div id="col4">
+<pre class="small">
+ 23068
+ 12878
+  2645
+   168
+  1024
+   512
+  2645
+</pre>
+</div>
+</td>
+
+<td>
+<div id="col5">
+<pre class="small">
+ Feb 26  2004
+ Jul 24 21:58
+ Jun 30 08:48
+ Jul 17 11:51
+ Mar 18 16:27
+ Sep  1 07:00 
+ Aug  4 11:03
+</pre>
+</div>
+</td>
+
+<td>
+<div id="col6">
+<pre class="small">
+ archive.sh
+ orgchart.gif
+ personnel.txt
+ publicity.html
+ sales
+ topsecret.inf
+ wordmatic
+</pre>
+</div>
+</td>
+</tr>
+<tr align="center">
+<td align="center">
+<a href="javascript: pop(1);"><img src="info.gif" width="23" height="22" alt="info" border="0" /></a>
+</td>
+<td>
+<a href="javascript: pop(2);"><img src="info.gif" width="23" height="22" alt="info" border="0" /></a>
+</td>
+<td>
+<a href="javascript: pop(3);"><img src="info.gif" width="23" height="22" alt="info" border="0" /></a>
+</td>
+<td>
+<a href="javascript: pop(4);"><img src="info.gif" width="23" height="22" alt="info" border="0" /></a>
+</td>
+<td>
+<a href="javascript: pop(5);"><img src="info.gif" width="23" height="22" alt="info" border="0" /></a>
+</td>
+<td>
+<a href="javascript: pop(6);"><img src="info.gif" width="23" height="22" alt="info" border="0" /></a>
+</td>
+</tr>
+</table>
+<p>The <code>total</code> line tells how many blocks (usually 1024
+bytes per block) are contained in this directory.</p>
+<p>
+To see what the columns in the remainder of the
+listing mean, click the &#8220;info&#8221; buttons
+beneath them.
+</p>
+
+<div id="pop1">
+<div class="nospace" align="right">
+<a href="javascript:push(1)"><img src="close.gif" width="20"
+  height="17" alt="Close window" border="0" /></a>
+</div>
+<p class="nospace">
+The first character in this column tells what kind of file
+this is. The dash represents a normal file; the <code>d</code>
+represents a directory.
+</p>
+<p>
+The remaining characters describe the file&#8217;s <dfn>permissions</dfn>,
+which we will cover in detail in the next pages.
+</p>
+</div>
+
+<div id="pop2">
+<div class="nospace" align="right">
+<a href="javascript:push(2)"><img src="close.gif" width="20"
+  height="17" alt="Close window" border="0" /></a>
+</div>
+<p class="nospace">
+This column tells how many <dfn>hard
+links</dfn> there are for this file.
+</p>
+<p></p>
+</div>
+
+<div id="pop3">
+<div class="nospace" align="right">
+<a href="javascript:push(3)"><img src="close.gif" width="20"
+  height="17" alt="Close window" border="0" /></a>
+</div>
+<p class="nospace">
+These two columns tell you the name of the owner of the file and the group to
+which the owner belongs.
+</p>
+<p></p>
+</div>
+
+<div id="pop4">
+<div class="nospace" align="right">
+<a href="javascript:push(4)"><img src="close.gif" width="20"
+  height="17" alt="Close window" border="0" /></a>
+</div>
+<p class="nospace">
+The size of the file, in bytes. For directories, this is the
+size of the directory, <b>not</b> the total of the
+directory&#8217;s contents!
+</p>
+<p></p>
+</div>
+
+<div id="pop5">
+<div class="nospace" align="right">
+<a href="javascript:push(5)"><img src="close.gif" width="20"
+  height="17" alt="Close window" border="0" /></a>
+</div>
+<p class="nospace">
+This column contains the date and time at which the
+file was last modified. Note that you get time of day
+if the modification was during this year; otherwise
+you see the year.
+</p>
+<p></p>
+</div>
+
+<div id="pop6">
+<div class="nospace" align="right">
+<a href="javascript:push(6)"><img src="close.gif" width="20"
+  height="17" alt="Close window" border="0" /></a>
+</div>
+<p class="nospace">
+The last column contains the file name.
+</p>
+<p></p>
+</div>
+
+<table width="100%">
+<tr>
+<td width="33%" align="left"> &nbsp;
+
+</td>
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right"><a href="chmod_2.html">Your Permissions &gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,75 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Others' Permissions</title>
+</head>
+
+<body>
+<h1>Others&#8217; Permissions</h1>
+<p>
+The last three letters in the permissions column tell us what
+everyone else in the world, the &#8220;others&#8221; may do.
+</p>
+
+<pre>
+<span class="dim">-rwxr-x <span class="emph">r-x</span></span>  joe  acctg  archive.sh 
+<span class="dim">-rw-rw- <span class="emph">r--</span></span>  joe  acctg  orgchart.gif
+<span class="dim">-rw-rw- <span class="emph">r--</span></span>  joe  acctg  personnel.txt
+<span class="dim">-rw-r-- <span class="emph">r--</span></span>  joe  acctg  publicity.html
+<span class="dim">drwxrwx <span class="emph">r-x</span></span>  joe  acctg  sales
+<span class="dim">-rw-r-- <span class="emph">---</span></span>  joe  acctg  topsecret.inf
+<span class="dim">-rwxr-x <span class="emph">r-x</span></span>  joe  acctg  wordmatic
+</pre>
+
+<p>
+The &#8220;others&#8221; lead highly restricted lives.
+They can&#8217;t write any files or directories, and they have absolutely
+no access to the <code>topsecret.inf</code> file.
+</p>
+<p>
+They may still run the <code>archive.sh</code> script and
+the <code>wordmatic</code> program, and they may search
+the <code>sales</code> directory.
+</p>
+<p>
+However, things are not as we should like. 
+</p>
+<ul>
+<li>
+We don&#8217;t want anyone outside our group to execute <code>archive.sh</code>
+(although they can read it to learn how to write a good shell script).
+</li>
+<li>
+We want to restrict <code>topsecret.inf</code> so that it&#8217;s closed off
+to everyone except user Joe.
+</li>
+<li>
+We also want to deny access to the <code>sales</code> directory to
+outsiders.
+</li>
+<li>
+Finally, the <code>publicity.html</code> file contains
+press releases, and it should be open to anyone in the company to
+change.
+</li>
+</ul>
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+<a href="chmod_3.html">&lt;&lt; Group Permissions</a>
+</td>
+
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right"><a href="chmod_cmd.html">The 
+<code>chmod</code> command &gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

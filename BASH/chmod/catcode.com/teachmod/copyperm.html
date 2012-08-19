@@ -1,0 +1,73 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Copying Permissions</title>
+</head>
+
+<body>
+<h1>Copying Permissions</h1>
+<p>
+As one other shortcut, it&#8217;s possible to tell <code>chmod</code>
+&#8220;give users of one class the same permissions that some
+other class has.&#8221;
+</p>
+<p>
+Let&#8217;s say we have these files:
+</p>
+<pre>
+d------rwx  joe  acctg  sales 
+-rw-r--r--  joe  acctg  info.dat
+</pre>
+<p>
+The <b>o</b>ther users have full permissions on the <code>sales</code>
+directory. We&#8217;d like to say &#8220;
+the <b>u</b>ser and <b>g</b>roup should be assigned (=) the permissions
+belonging to <b>o</b>thers.&#8221; That translates to:
+</p>
+<pre>
+   chmod ug=o
+</pre>
+<p>
+Similarly, to make <code>info.dat</code> readable and writable to the
+<b>g</b>roup, we can say:
+</p>
+<pre>
+   chmod g=u info.dat
+</pre>
+<p>
+(you can read this as &#8220;the <b>g</b>roup is assigned (=) the
+permissions currently held by the <b>u</b>ser.&#8221;)
+</p>
+<p>
+You may also use + and - to add and subtract the permissions that
+currently belong to a different class of user.
+</p>
+<p>
+You can&#8217;t mix the standard permissions (<code>r</code>,
+<code>w</code>, and <code>x</code>) with the coyping shortcuts.
+<code>chmod</code> will protest if you give it something like this:
+</p>
+<pre>
+   chmod g=wu info.dat
+</pre>
+
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+<a href="try_1.html">&lt;&lt; Try <code>chmod</code></a>
+</td>
+
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right"><a href="try_2.html">Try <code>chmod</code>
+again &gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

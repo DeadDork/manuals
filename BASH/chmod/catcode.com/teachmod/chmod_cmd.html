@@ -1,0 +1,104 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>The chmod command</title>
+</head>
+
+<body>
+<h1>The <code>chmod</code> Command</h1>
+<p>
+We use the <code>chmod</code> command to <b>ch</b>ange the access
+<b>mod</b>e of a file.  This command comes in many flavors, but
+we'll be talking primarily about one of them.
+</p>
+<blockquote>
+<pre style="font-size: large">
+chmod <i>who</i>=<i>permissions</i> <i>filename</i></pre>
+</blockquote>
+<p>
+This gives &#8220;<b>who</b>&#8221; the specified <b>permissions</b>
+for a given <b>filename</b>.
+</p>
+<h2>Who</h2>
+<p>
+The &#8220;who&#8221; is a list of letters that specifies whom you&#8217;re
+going to be giving permissions to. These may be specified in any order.
+</p>
+<table border="1">
+<tr>
+<th>Letter</th><th>Meaning</th>
+</tr>
+<tr>
+<td align="center"> <code> &nbsp; u &nbsp; </code> </td>
+<td>
+	The <b>u</b>ser who owns the file (this means &#8220;you.&#8221;)
+</td>
+</tr>
+<tr>
+<td align="center"> <code> &nbsp; g &nbsp; </code> </td>
+<td>
+	The <b>g</b>roup the file belongs to.
+</td>
+</tr>
+<tr>
+<td align="center"> <code> &nbsp; o &nbsp; </code> </td>
+<td>
+	The <b>o</b>ther users
+</td>
+</tr>
+<tr>
+<td align="center"> <code> &nbsp; a &nbsp; </code> </td>
+<td>
+	<b>a</b>ll of the above (an abbreviation for <code>ugo</code>)
+</td>
+</tr>
+</table>
+
+<h2>Permissions</h2>
+<p>
+Of course, the permissions are the same letters that you
+see in the directory listing:
+</p>
+<table border="1">
+<tr>
+<td align="center"><code> &nbsp; r &nbsp; </code></td>
+<td>
+	Permission to <b>r</b>ead the file.
+</td>
+</tr>
+<tr>
+<td align="center"><code> &nbsp; w &nbsp; </code></td>
+<td>
+	Permission to <b>w</b>rite (or delete) the file.
+</td>
+</tr>
+<tr>
+<td align="center"><code> &nbsp; x &nbsp; </code></td>
+<td>
+	Permission to e<b>x</b>ecute the file, or, in 
+	the case of a directory, search it.
+</td>
+</tr>
+</table>
+<p>
+Note: Do not put blanks around the equal sign, or your
+command will not work!
+</p>
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+&nbsp;<a href="chmod_4.html">&lt;&lt; Others&#8217; Permissions</a>
+</td>
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right"><a href="chmod_cmd2.html">Some examples
+&gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

@@ -1,0 +1,58 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Group Permissions</title>
+</head>
+
+<body>
+<h1>Group Permissions</h1>
+<p>
+The next three letters after the user's permission are the
+group's
+permissions. 
+</p>
+
+<pre>
+<span class="dim">-rwx <span class="emph">r-x</span> r-x</span>  joe  acctg  archive.sh 
+<span class="dim">-rw- <span class="emph">rw-</span> r--</span>  joe  acctg  orgchart.gif
+<span class="dim">-rw- <span class="emph">rw-</span> r--</span>  joe  acctg  personnel.txt
+<span class="dim">-rw- <span class="emph">r--</span> r--</span>  joe  acctg  publicity.html
+<span class="dim">drwx <span class="emph">r-x</span> r-x</span>  joe  acctg  sales
+<span class="dim">-rw- <span class="emph">r--</span> ---</span>  joe  acctg  topsecret.inf
+<span class="dim">-rwx <span class="emph">r-x</span> r-x</span>  joe  acctg  wordmatic
+</pre>
+
+<p>
+Other people in the <code>acctg</code> group can not write
+the <code>archive.sh</code> script, <code>publicity.html</code> and
+<code>topsecret.inf</code> files,
+or <code>wordmatic</code> program.
+</p>
+<p>
+They may write the <code>orgchart.gif</code> and <code>personnel.txt</code>,
+files, as well as the <code>sales</code> directory.
+</p>
+<p>
+They may execute <code>archive.sh</code> and
+<code>wordmatic</code>, and search the <code>sales</code> directory.
+</p>
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+<a href="chmod_2.html">&lt;&lt; Your Permissions</a>
+</td>
+
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right"><a href="chmod_4.html">Others&#8217;
+Permissions &gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

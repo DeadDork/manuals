@@ -1,0 +1,74 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Try chmod (2)</title>
+
+<script type="text/javascript">
+// <![CDATA[
+var simple=0;
+var	helpWindow;
+
+function do_help()
+{
+	helpWindow = window.open("help.html", "helpWindow",
+			"resizable=yes,scrollbars=yes,width=450,height=300");
+	helpWindow.focus();
+}
+// ]]>
+</script>
+
+<script type="text/javascript" src="try_chmod.js">
+</script>
+</head>
+
+<body onload = "reset_permissions()">
+<h1>Try <code>chmod</code> Again</h1>
+<p>
+Here&#8217;s the directory again, with an opportunity for you to play
+with the <code>chmod</code> command. You can use all the
+features that have been explained in this tutorial.</p>
+<p>
+Note: the form will only accept the "*" at the end of a filename 
+as a wildcard. The
+<b>Reset</b> button will set the file permissions as they were
+when you first entered the page.
+The <b>Help</b> button will pop up a quick reference.
+</p>
+
+<form name="chmodform" action="try_2.html#" onsubmit="do_command(); return false;"
+   method="post">
+<textarea name="ls" rows="7" cols="60"></textarea>
+<p>
+Type command here: <input type="text" name="cmd" size="40" maxlength="38" />
+</p>
+<p>
+<input type="button" onclick="do_command();" value="Do command" />
+<input type="button" onclick="reset_permissions();" value="Reset" />
+<input type="button" onclick="do_help();" value="Help" />
+</p>
+</form>
+<form name="errform" action="try_2.html#">
+<p>
+Errors: <input type="text" name="errmsg" size="60" />
+</p>
+</form>
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+<a href="copyperm.html">&lt;&lt; Copying Permissions</a>
+</td>
+
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right">
+<a href="no_prob.html"><code>chmod</code> Solves Problems &gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

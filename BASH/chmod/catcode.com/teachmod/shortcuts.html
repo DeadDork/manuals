@@ -1,0 +1,70 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>chmod Shortcuts</title>
+</head>
+
+<body>
+<h1><code>chmod</code> Shortcuts</h1>
+<p>
+Let&#8217;s say we have these files:
+</p>
+<pre>
+-rwxrwxrwx  joe  acctg  wordmatic
+-r--r--r--  joe  acctg  calcmatic
+</pre>
+<p>
+We&#8217;d like to remove write permission for the <b>g</b>roup
+and <b>o</b>thers on
+<code>wordmatic</code>, and add write and
+execute permission for <b>a</b>ll users
+on <code>calcmatic</code>.
+</p>
+<p>
+Rather than try to figure out what the new permissions are
+and do these commands:
+</p>
+<pre>
+   chmod go=rx wordmatic
+   chmod a=rwx calcmatic
+</pre>
+<p>
+The <code>chmod</code> command literally lets us add and subtract
+permissions from an existing set by using <code>+</code> or
+<code>-</code> instead of <code>=</code>.
+</p>
+<p>
+Thus, we can take away the first file&#8217;s write permission for the
+<b>g</b>roup and
+<b>o</b>thers with this command:
+</p>
+<pre>
+   chmod go-w wordmatic
+</pre>
+<p>
+...and we can add write and execute permission to the second file for
+<b>a</b>ll users with:
+</p>
+<pre>
+   chmod a+wx calcmatic
+</pre>
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+<a href="try_1.html">&lt;&lt; Try <code>chmod</code></a>
+</td>
+
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right"><a href="copyperm.html">Copying Permissions
+&gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

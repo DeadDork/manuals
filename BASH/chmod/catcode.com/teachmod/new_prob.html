@@ -1,0 +1,99 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>A New Problem</title>
+</head>
+
+<body>
+<h1>A New Problem</h1>
+<p>
+Michele in the Marketing department would also like to use the summary program
+to find out who&#8217;s buying the product.  Steve does this:
+</p>
+
+<pre>
+   chmod og+rx summarize
+</pre>
+
+<p>
+Now his permissions look like this:
+</p>
+<pre>
+-rw-------  steve  sales  customers.dat
+-rwxr-xr-x  steve  sales  summarize
+</pre>
+<p>
+Now everyone can execute the summary program, but the customer file is still
+protected, Steve thinks.  Well, unfortunately, it is. 
+Let&#8217;s see what happens
+when Michele tries to run the program.
+</p>
+
+<table border="1" cellpadding="3">
+<tr><th>Event</th><th>Linux says</th></tr>
+<tr>
+<td>
+Michele types <code>/home/steve/summarize</code>
+</td>
+<td>
+You are user <code>michele</code> of group <code>mktg</code>. <br />
+You are &#8220;other&#8221;. <br />
+You want to e<b>x</b>ecute file <code>/home/steve/summarize</code>. <br />
+Permission granted.
+</td>
+</tr>
+
+<tr>
+<td>
+Program begins.
+</td>
+<td>
+---
+</td>
+</tr>
+
+<tr>
+<td>
+Program asks to read
+file <code>/home/steve/customers.dat</code>
+</td>
+<td>
+You are user <code>michele</code> of group <code>mktg</code>. <br />
+You are &#8220;other&#8221;. <br />
+You want to <b>r</b>ead file <code>/home/steve/customers.dat</code>.<br />
+Permission <span style="font-weight:bold;color:red">denied</span>.
+</td>
+</tr>
+</table>
+
+<p>
+Steve has a problem. If he says:
+</p>
+<pre>
+   chmod og+r customers.dat
+</pre>
+<p>
+then the customer file is open to anyone at any time. If only Steve could
+say, &#8220;Give Michele the same permissions that I have&#8211;but
+only if she&#8217;s running my program.&#8221;
+</p>
+
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+&nbsp;<a href="no_prob.html">&lt;&lt;<code>chmod</code> Solves
+Problems</a>
+</td>
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right"><a href="setuid.html">Set UID &gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

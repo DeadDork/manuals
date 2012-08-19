@@ -1,0 +1,169 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Numeric Mode in Action</title>
+<script type="text/javascript">
+// <![CDATA[
+var alpha = new Array(
+	"---", "--x", "-w-", "-wx", "r--", "r-x", "rw-", "rwx"
+);
+
+function trim( str )
+{
+	str = str.replace( /\s+$/, "" );
+	str = str.replace( /^\s+/, "" );
+	return str;
+}
+
+function showPermissions( )
+{
+	var err = document.getElementById( "octalerror" );
+	var perm = document.getElementById( "permissions" );
+	var octal = document.octal_to_perm.octal.value;
+	var valid = /^[0-7]+$/;
+	var txt;
+	var i;
+	var permStr;
+	var zeros = "000";
+
+	octal = trim(octal);
+	if (octal.search(valid) >= 0)
+	{
+		permStr = "-";
+		if (octal.length < 3)
+		{
+			octal = zeros.substr(0, 3 - octal.length) + octal;
+		}
+		for (i=0; i < octal.length; i++)
+		{
+			permStr = permStr + alpha[octal.charAt(i)];
+		}
+		permStr = permStr;
+		txt = document.createTextNode( permStr );
+		perm.replaceChild( txt, perm.firstChild );
+		txt = document.createTextNode( "\u00a0" );		
+	}
+	else
+	{
+		if (octal == "")
+		{
+			octal = "Your input";
+		}
+		txt = document.createTextNode( octal +
+			" does not consist of three digits in the range 0 to 7" );
+	}
+	err.replaceChild( txt, err.firstChild );
+	return false;
+}
+
+function showOctal()
+{
+	var octal = "";
+	var obj = document.getElementById( "numeric" );
+	var txt;
+	var choice;
+	choice = document.perm_to_octal.user.selectedIndex;
+	octal = octal +
+		document.perm_to_octal.user.options[choice].value;
+	choice = document.perm_to_octal.group.selectedIndex;
+	octal = octal +
+		document.perm_to_octal.group.options[choice].value;
+	choice = document.perm_to_octal.other.selectedIndex;
+	octal = octal +
+		document.perm_to_octal.other.options[choice].value;
+	txt = document.createTextNode( octal );
+	obj.replaceChild( txt, obj.firstChild);
+	return false;
+}
+// ]]>
+</script>
+</head>
+
+<body>
+<h1>Numeric Mode in Action</h1>
+<noscript>
+<p>
+You must have JavaScript enabled for this page to work properly.
+</p>
+</noscript>
+
+<p>
+Enter a three-digit code to see the effect on the permissions.
+</p>
+
+<div class="inset">
+<form name="octal_to_perm" action="numeric2.html#" onsubmit="return showPermissions();">
+<pre>
+chmod <input type="text" name="octal" size="4" maxlength="3" value="644"/> testfile <input type="submit" value="Change Permissions" />
+
+<span id="permissions">-rw-r--r--</span> testfile
+</pre>
+<div id="octalerror">&nbsp;</div>
+</form>
+</div>
+
+<hr />
+<p>
+Enter a combination of r, w, x, and - to see the corresponding 
+numeric code.
+</p>
+
+<div class="inset">
+<form name="perm_to_octal" action="numeric2.html#" onsubmit="return showOctal();">
+<p><code>
+-<select name="user">
+	<option value="0">---</option>
+	<option value="1">--x</option>
+	<option value="2">-w-</option>
+	<option value="3">-wx</option>
+	<option value="4">r--</option>
+	<option value="5">r-x</option>
+	<option value="6">rw-</option>
+	<option value="7">rwx</option>
+	</select><select name="group">
+	<option value="0">---</option>
+	<option value="1">--x</option>
+	<option value="2">-w-</option>
+	<option value="3">-wx</option>
+	<option value="4">r--</option>
+	<option value="5">r-x</option>
+	<option value="6">rw-</option>
+	<option value="7">rwx</option>
+	</select><select name="other">
+	<option value="0">---</option>
+	<option value="1">--x</option>
+	<option value="2">-w-</option>
+	<option value="3">-wx</option>
+	<option value="4">r--</option>
+	<option value="5">r-x</option>
+	<option value="6">rw-</option>
+	<option value="7">rwx</option>
+	</select>
+	
+	testfile <input type="submit" value="Show Numeric" /></code>
+</p>
+<p>
+<code>chmod <span id="numeric">000</span> testfile</code>
+</p>
+</form>
+</div>
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+<a href="numeric.html">&lt;&lt; <code>chmod</code> by the Numbers</a>
+</td>
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right">
+<!--<a href="numeric2.html">Numeric Mode in Action &gt;&gt;</a>-->
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+

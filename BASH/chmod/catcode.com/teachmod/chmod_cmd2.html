@@ -1,0 +1,118 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>chmod Examples</title>
+<style type="text/css">
+.changed { color: red; font-weight: bold; }
+</style>
+</head>
+
+<body>
+<h1><code>chmod</code> Examples</h1>
+<p>
+Let&#8217;s change some of the permissions as we discussed a couple of
+pages ago.  Here&#8217;s the way our files are now:
+</p>
+<pre>
+-rwxr-xr-x  joe  acctg  archive.sh 
+-rw-rw-r--  joe  acctg  orgchart.gif
+-rw-rw-r--  joe  acctg  personnel.txt
+-rw-r--r--  joe  acctg  publicity.html
+drwxrwxr-x  joe  acctg  sales
+-rw-r-----  joe  acctg  topsecret.inf
+-rwxr-xr-x  joe  acctg  wordmatic
+</pre>
+<p>
+First, let&#8217;s prevent outsiders from executing <code>archive.sh</code>
+</p>
+
+<table border="1" cellpadding="3">
+<tr>
+<td>Before:</td>
+<td><code>-rwxr-xr-x&nbsp;&nbsp;archive.sh</code></td>
+</tr>
+<tr>
+<td>Command:</td>
+<td><code>chmod o=r archive.sh</code></td>
+</tr>
+<tr>
+<td>After:</td>
+<td>
+<code>
+-rwxr-x<span class="changed">r--</span>&nbsp;&nbsp;archive.sh
+</code>
+</td>
+</tr>
+</table>
+
+<p>
+Take away all permissions for the group for <code>topsecret.inf</code>
+We do this by leaving the permissions part of the command empty.
+</p>
+
+<table border="1" cellpadding="3">
+<tr>
+<td>Before:</td>
+<td><code>
+-rw-r-----&nbsp;&nbsp;topsecret.inf
+</code></td>
+</tr>
+<tr>
+<td>Command:</td>
+<td><code>chmod g= topsecret.inf</code></td>
+</tr>
+<tr>
+<td>After:</td>
+<td>
+<code>
+-rw-<span class="changed">------</span>&nbsp;&nbsp;topsecret.inf
+</code>
+</td>
+</tr>
+</table>
+
+<p>
+Open up <code>publicity.html</code> for reading and writing by
+anyone.
+</p>
+
+<table border="1" cellpadding="3">
+<tr>
+<td>Before:</td>
+<td><code>
+-rw-r--r--&nbsp;&nbsp;publicity.html
+</code></td>
+</tr>
+<tr>
+<td>Command:</td>
+<td><code>chmod og=rw publicity.html</code></td>
+</tr>
+<tr>
+<td>After:</td>
+<td>
+<code>
+-rw-<span class="changed">rw-rw-</span>&nbsp;&nbsp;publicity.html
+</code>
+</td>
+</tr>
+</table>
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+&nbsp;<a href="chmod_cmd.html">&lt;&lt; The <code>chmod</code> Command</a>
+</td>
+
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right"><a href="try_1.html">
+Try it &gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

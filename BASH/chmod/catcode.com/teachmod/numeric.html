@@ -1,0 +1,101 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>chmod by the Numbers</title>
+</head>
+
+<body>
+<h1><code>chmod</code> by the Numbers</h1>
+<p>
+Up to this point, we&#8217;ve been setting the mode with letters.
+It turns out that you can also set the mode numerically.  Here&#8217;s
+how it works:
+</p>
+
+<ol>
+<li><p>Write the permissions you want the file to have. To make your
+life easier, write the permissions grouped into sets of three letters.
+For example, let&#8217;s
+say you want file <code>info.sh</code> to have these permissions</p>
+<pre>
+- rwx r-x r-- info.sh
+</pre>
+</li>
+
+<li><p>Under each letter, write a digit 1; under each dash write a digit zero.
+Ignore the dash at the very beginning that tells you
+whether it&#8217;s a file or
+directory. This gives you three 
+<dfn title="&quot;base 2&quot; numbers -- numbers made up of only digits 0 and 1">binary</dfn> numbers.</p>
+<pre>
+- rwx r-x r-- info.sh
+  111 101 100
+</pre>
+</li>
+
+<li><p>Now convert each set of three digits to a single digit using this
+table:</p>
+
+<table>
+<tr>
+<td>
+<table border="1" cellpadding="3">
+<thead>
+<tr><th>Binary</th><th>Becomes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>000</code></td><td><code>0</code></td></tr>
+<tr><td><code>001</code></td><td><code>1</code></td></tr>
+<tr><td><code>010</code></td><td><code>2</code></td></tr>
+<tr><td><code>011</code></td><td><code>3</code></td></tr>
+</tbody>
+</table>
+</td>
+<td>
+<table border="1" cellpadding="3">
+<thead>
+<tr><th>Binary</th><th>Becomes</th></tr>
+</thead>
+<tbody>
+<tr><td><code>100</code></td><td><code>4</code></td></tr>
+<tr><td><code>101</code></td><td><code>5</code></td></tr>
+<tr><td><code>110</code></td><td><code>6</code></td></tr>
+<tr><td><code>111</code></td><td><code>7</code></td></tr>
+</tbody>
+</table>
+</td>
+</tr>
+</table>
+<p>
+From our example, the <code>111 101 100</code> translates to the
+number <code>754</code>.
+</p>
+</li>
+
+<li><p>Now use that number in a <code>chmod</code> command to set your
+desired permissions on the file:</p>
+<pre>chmod 754 info.sh</pre>
+</li>
+
+</ol>
+
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+<a href="summary.html">&lt;&lt; <code>chmod</code> Quick Reference Summary</a>
+</td>
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right">
+<a href="numeric2.html">Numeric Mode in Action &gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+

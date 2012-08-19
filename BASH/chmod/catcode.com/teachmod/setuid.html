@@ -1,0 +1,103 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Set UID</title>
+</head>
+
+<body>
+<h1>Set UID</h1>
+<p>
+Of course, there is a way to let Steve give Michele the same permissions that
+he has when she&#8217;s running the summarize program.  Steve types this:
+</p>
+<pre>
+   chmod u+s summarize
+</pre>
+<p>
+This means &#8220;Add the <b>Set User ID</b> capability for the <b>u</b>ser
+who owns the file to <code>summarize</code>.&#8221;  Now his permissions look
+like this:
+</p>
+<pre>
+-rw-------  steve  sales  customers.dat
+-rw<b>s</b>r-xr-x  steve  sales  summarize
+</pre>
+<p>
+Now let&#8217;s see what happens when Michele runs the program:
+</p>
+
+<table border="1" cellpadding="3">
+<tr><th>Event</th><th>Linux says</th></tr>
+<tr>
+<td>
+Michele types <code>/home/steve/summarize</code>
+</td>
+<td>
+You are user <code>michele</code> of group <code>mktg</code>. <br />
+You are &#8220;other&#8221;. <br />
+You want to e<b>x</b>ecute file <code>/home/steve/summarize</code>. <br />
+Permission granted.
+</td>
+</tr>
+
+<tr>
+<td>
+Program begins.
+</td>
+<td>
+<b>Set User ID</b> is in effect.<br />
+Alakabaud! &reg; I have changed your user ID. <br />
+You are now user <code>steve</code>
+for as long as this program runs.
+</td>
+</tr>
+
+<tr>
+<td>
+Program asks to read
+file <code>/home/steve/customers.dat</code>
+</td>
+<td>
+You are user <code>steve</code>. <br />
+You want to <b>r</b>ead file <code>/home/steve/customers.dat</code>.<br />
+Permission granted.
+</td>
+</tr>
+</table>
+
+
+<p>
+The problem is now solved! Steve can let Michele run his program. His
+program temporarily changes Michele&#8217;s user ID to Steve&#8217;s so that the
+customer file becomes readable.  If Michele tries to get to the customer file
+from any other program, the permissions will keep her out.
+</p>
+
+<p>
+You may also use a construction like this
+to give the group&#8217;s permissions to anyone who runs the program.
+</p>
+<pre>
+   chmod g+s summarize
+</pre>
+<hr />
+Note: Alakabaud! is a registered trademark of Vadic, the Modem Magician.
+<hr />
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+<a href="new_prob.html">&lt;&lt; A New Problem</a>
+</td>
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right"><a href="summary.html">Quick Reference Summary &gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

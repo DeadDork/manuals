@@ -1,0 +1,85 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>Your Permissions</title>
+<style type="text/css">
+.divider {
+	border-left: 1px solid black;
+	margin-left: 0.5em;
+	padding-left: 0.5em;
+}
+</style>
+</head>
+
+<body>
+<h1>Your File Permissions</h1>
+<p>
+Let&#8217;s take a closer look at the first column. As we said on the previous
+page, the first letter tells you whether you&#8217;re dealing with a regular
+file or a directory.  The next letters tell the system what access is
+<b>permitted</b> for this file; hence the name &#8220;permissions.&#8221;
+</p>
+<p>
+In the listing below, we&#8217;ve eliminated some columns and added spaces to
+the permissions column to make it easier to read.
+</p>
+<table border="0">
+<tr valign="top">
+<td>
+<pre>
+<span class="dim">- <span class="emph"><b>rwx</b></span> r-xr-x</span>  joe  acctg  archive.sh 
+<span class="dim">- <span class="emph">rw-</span> rw-r--</span>  joe  acctg  orgchart.gif
+<span class="dim">- <span class="emph">rw-</span> rw-r--</span>  joe  acctg  personnel.txt
+<span class="dim">- <span class="emph">rw-</span> r--r--</span>  joe  acctg  publicity.html
+<span class="dim">d <span class="emph">rwx</span> r-xr-x</span>  joe  acctg  sales
+<span class="dim">- <span class="emph">rw-</span> r-----</span>  joe  acctg  topsecret.inf
+<span class="dim">- <span class="emph">rwx</span> r-xr-x</span>  joe  acctg  wordmatic
+</pre>
+</td>
+<td class="divider">
+<p>
+The first set three letters after the file type tell what
+you, the owner of the file, have permission to do.
+</p>
+<p>
+An <b>r</b> in the first position means you are permitted to <b>r</b>ead
+the file. A <b>w</b> in the second position means you may <b>w</b>rite
+the file. This includes the ability to delete a file.
+An <b>x</b> in the third position means you may
+e<b>x</b>ecute the file.
+</p>
+<p>
+A hyphen in any position means that you don&#8217;t have that particular
+permission.
+</p>
+</td>
+</tr>
+</table>
+<p>
+As you can see above, <code>joe</code>, the user who owns the file, can
+read and write all the files. He can execute the shell script
+<code>archive.sh</code> and the program <code>wordmatic</code>.
+</p>
+<p>
+But what&#8217;s the <code>x</code> doing on the <code>sales</code> directory?
+When a directory has the <code>x</code> set, this takes the special meaning of 
+&#8220;permitted to search this directory&#8221;.
+</p>
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+<a>&lt;&lt; Introduction</a></td>
+
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right"><a href="chmod_3.html">Group Permissions &gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

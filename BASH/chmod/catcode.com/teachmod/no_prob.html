@@ -1,0 +1,88 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>chmod Solves Problems</title>
+</head>
+
+<body bgcolor="#ffffff">
+<h1><code>chmod</code> Solves Problems</h1>
+<p>
+We can do a lot to keep our files protected with what we know already.
+Before we go on to another very important aspect of <code>chmod</code>,
+let&#8217;s take a look at a problem that we can already solve.
+</p>
+<p>
+Here&#8217;s a listing of the contents of the directory
+<code>/home/steve</code>,
+which belongs to user <code>steve</code> in group <code>sales</code>.
+</p>
+<pre>
+-rw-------  steve  sales  customers.dat
+-rwx------  steve  sales  summarize
+</pre>
+<p>
+The <code>customers.dat</code> file contains names, addresses, phone numbers,
+ages, and incomes of customers. The <code>summarize</code> program reads this
+file and prints a summary of customers, grouped by age and income. Steve clearly
+doesn&#8217;t want just anyone reading his confidential data, so he has used
+what he already knows about <code>chmod</code> to set up his permissions so that
+he is the only person who can read the confidential customer data or execute the
+program. Let&#8217;s see exactly what happens when Steve runs the program.
+</p>
+
+
+<table border="1" cellpadding="3">
+<tr><th>Event</th><th>Linux says</th></tr>
+<tr>
+<td>
+Steve types <code>summarize</code>
+</td>
+<td>
+You are user <code>steve</code>. <br />
+You want to e<b>x</b>ecute file <code>/home/steve/summarize</code>. <br />
+Permission granted.
+</td>
+</tr>
+
+<tr>
+<td>
+Program begins.
+</td>
+<td>
+---
+</td>
+</tr>
+
+<tr>
+<td>
+Program asks to read
+file <code>/home/steve/customers.dat</code>
+</td>
+<td>
+You are user <code>steve</code>. <br />
+You want to <b>r</b>ead file <code>/home/steve/customers.dat</code>.<br />
+Permission granted.
+</td>
+</tr>
+</table>
+
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+<a href="try_2.html">&lt;&lt; Try <code>chmod</code> again</a>
+</td>
+
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right"><a href="new_prob.html">A New Problem
+&gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>

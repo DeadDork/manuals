@@ -1,0 +1,81 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+<link rel="stylesheet" type="text/css" href="style.css" />
+<title>chmod Quick Reference Summary</title>
+</head>
+
+<body>
+<h1><code>chmod</code> Quick Reference Summary</h1>
+<p>
+The general form of the <code>chmod</code> command:
+</p>
+<pre>
+   chmod <i>options</i> <i>file</i>
+</pre>
+<p>
+The <b>options</b> are constructed by choosing one
+from each of these columns, with no blank between them:
+</p>
+<table border="1" cellpadding="3">
+<tr>
+<th>Who</th><th>Operation</th><th>Permission</th>
+</tr>
+<tr valign="top">
+<td>
+A combination of: <br />
+&nbsp; &nbsp; <code>u</code> user (file owner) <br />
+&nbsp; &nbsp; <code>g</code> group <br />
+&nbsp; &nbsp; <code>o</code> others<br />
+&nbsp; &nbsp; <code>a</code> all (same as ugo)
+</td>
+
+<td>
+Permissions are: <br />
+
+&nbsp; &nbsp; <code>=</code> assigned <br />
+&nbsp; &nbsp; <code>+</code> added<br />
+&nbsp; &nbsp; <code>-</code> subtracted
+</td>
+
+<td>
+A combination of: <br />
+&nbsp; &nbsp; <code>r</code> read <br />
+&nbsp; &nbsp; <code>w</code> write <br />
+&nbsp; &nbsp; <code>x</code> execute <br />
+or one of the following<br />
+to copy permissions:<br />
+&nbsp; &nbsp; <code>u</code> user <br />
+&nbsp; &nbsp; <code>g</code> group <br />
+&nbsp; &nbsp; <code>o</code> other <br />
+or, to set user id:<br />
+&nbsp; &nbsp; <code>s</code>
+</td>
+</tr>
+</table>
+<p>
+Note: Set User ID is usually used only with
+programs. You may set the <b>s</b> permission
+for the user or group; people who run the
+program will then &#8220;adopt&#8221; the identity
+of that user or group for the duration of the program.
+</p>
+
+<table width="100%">
+<tr>
+<td width="33%" align="left">
+<a href="setuid.html">&lt;&lt; Set User ID</a>
+</td>
+<td width="33%" align="center">
+	<a href="http://catcode.com/teachmod/index.html">Index</a>
+</td>
+<td width="33%" align="right">
+<a href="numeric.html"><code>chmod</code> by the Numbers &gt;&gt;</a>
+</td>
+</tr>
+</table>
+
+</body>
+</html>
+
