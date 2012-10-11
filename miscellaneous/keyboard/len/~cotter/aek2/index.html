@@ -1,0 +1,328 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+
+
+<head>
+
+<title>Apple Extended Keyboard II USB Conversion</title>
+
+<style>
+
+	h1 { text-decoration: underline; }
+	h2 { text-decoration: underline; }
+	h3 { text-decoration: underline; }
+	h4 { text-decoration: underline; }
+	h5 { text-decoration: underline; }
+	h6 { text-decoration: underline; }
+
+	p { text-align: justify; }
+	pre { white-space: pre-wrap; }
+
+	table.header { width: 100%; }
+	table.header td {
+		width: 33%;
+		text-align: center; 
+		vertical-align: bottom;
+	}
+
+	table.downloads {
+		border-collapse: collapse;
+		border: 1px solid black;
+	}
+	table.downloads tr td { padding: 0.25em 0.5em; }
+	table.downloads tr th {
+		font-weight: normal;
+		padding: 0.25em 0.5em;
+	}
+	table.downloads tr.normal td { background: #f0f0f0; }
+	table.downloads tr.normal th {
+		text-align: right;
+		background: #e0e0e0;
+		border-right: 1px solid black;
+	}
+	table.downloads tr.header {
+		background: #d0d0d0;
+		border: 1px solid black;
+	}
+	table.downloads tr.header th {
+		text-align: center;
+	}
+
+	table.matrix {
+		border-collapse: collapse;
+	}
+	table.matrix tr td {
+		padding: 0.25em 0.5em;
+		text-align: center;
+	}
+	table.matrix tr.normal td {
+		border: 1px solid black;
+		background: #f0f0f0;
+	}
+	table.matrix tr th {
+		padding: 0.25em 0.5em;
+		text-align: center;
+		border: 1px solid black;
+		background: #e0e0e0;
+		font-weight: bold;
+	}
+
+	div.sidebars {
+		padding: 0 0 0 0.5em;
+		float: right;
+		width: 30%;
+	}
+	div.sidebar {
+		margin: 0.5em 0;
+		padding: 0 0.5em;
+		border: 1px solid black;
+		background: #f0f0f0;
+	}
+
+	table.images {
+		border: 1px solid black;
+		background: #f0f0f0;
+	}
+	div.sidebar table.images { background: #e0e0e0; }
+	table.images table { float: left; margin: 0.5em; }
+	table.images table td { text-align: center; }
+
+</style>
+
+<script type="text/javascript">
+<!--
+	// http://www.bytemycode.com/snippets/snippet/400/
+	String.prototype.reverse = function() {
+
+		characters = this.split( '' );
+		reversed_characters = characters.reverse();
+		reversed = reversed_characters.join( '' );
+		return reversed;
+	}
+
+	var email_address = 'ude.citt@rettoc'.reverse();
+	var mailto_link = ( '<a href="mailto:' + email_address + '">' + email_address + '</a>' );
+-->
+</script>
+
+</head>
+
+
+<body>
+
+<h1>Apple Extended Keyboard II USB Conversion</h1>
+
+<p>This page documents a USB conversion which I performed on an AEK2, by
+replacing the controller with a <a href="http://www.pjrc.com/teensy">Teensy++
+2.0</a>. The <a href="index.html#software">software</a> supports multiple layers, in
+particular a media layer containing mouse keys, volume controls, and so on. The
+controller also acts as an ADB host, so the remaining ADB port works, but only
+supports keyboards for the moment (I don't have an ADB mouse to test).</p>
+
+<blockquote>
+<table class="images">
+<tr><td>
+
+	<table>
+	<tr><td><a href="images/keyboard.jpg"><img src="images/keyboard_thumb.png" width=180 height=90 alt=""/></a></tr></tr>
+	<tr><td><small>Keyboard</small></td></tr>
+	</table>
+
+	<table>
+	<tr><td><a href="images/usb.jpg"><img src="images/usb_thumb.png" width=180 height=120 alt=""/></a></tr></tr>
+	<tr><td><small>USB B port</small></td></tr>
+	</table>
+
+	<table>
+	<tr><td><a href="images/adb.jpg"><img src="images/adb_thumb.png" width=180 height=120 alt=""/></a></tr></tr>
+	<tr><td><small>ADB port</small></td></tr>
+	</table>
+
+	<table>
+	<tr><td><a href="images/leds.jpg"><img src="images/leds_thumb.png" width=180 height=120 alt=""/></a></tr></tr>
+	<tr><td><small>LEDs</small></td></tr>
+	</table>
+
+	<div style="clear: both;"></div>
+
+</td></tr>
+</table>
+</blockquote>
+
+<a name="hardware"><h2>Hardware</h2></a>
+
+<p>There are three ICs on the board: a <a
+href="documents/datasheet-controller.pdf">controller</a>, <a
+href="documents/datasheet-inverter.pdf">inverter</a> and <a
+href="documents/datasheet-decoder.pdf">decoder</a> (the linked datasheets
+came from <a href="http://www.alldatasheet.com/">alldatasheet.com</a> and <a
+href="http://www.datasheetarchive.com">the datasheet archive</a>). The
+following images show their locations (or, in the case of the controller, its
+<em>former</em> location--I removed it):</p>
+
+<blockquote>
+<table class="images">
+<tr><td>
+
+	<table>
+	<tr><td><a href="images/controller_top.jpg"><img src="images/controller_top_thumb.png" width=180 height=120 alt=""/></a></tr></tr>
+	<tr><td><small>Former controller location</small></td></tr>
+	</table>
+
+	<table>
+	<tr><td><a href="images/leds_top.jpg"><img src="images/leds_top_thumb.png" width=180 height=120 alt=""/></a></tr></tr>
+	<tr><td><small>Inverter</small></td></tr>
+	</table>
+
+	<table>
+	<tr><td><a href="images/decoder_top.jpg"><img src="images/decoder_top_thumb.png" width=180 height=120 alt=""/></a></tr></tr>
+	<tr><td><small>Decoder</small></td></tr>
+	</table>
+
+	<div style="clear: both;"></div>
+
+</td></tr>
+</table>
+</blockquote>
+
+<p>The pin assignments for the controller are documented in <a
+href="documents/pins.txt">this text file</a>. The keyboard matrix has 8 rows
+and 16 columns, the latter of which are accessed through the decoder. Setting
+the four decoder data pins to the binary value of a column index will make the
+corresponding column low. For any switch in this column which is pressed, the
+corresponding row pin will then be pulled low, permitting the state of the
+switch to be read by the controller. This is not an NKRO keyboard matrix (no
+diodes!), so there can be <a
+href="http://www.microsoft.com/appliedsciences/antighostingexplained.mspx">ghosting</a>,
+which must be handled in software. The keyboard matrix is given in the
+following table:</p>
+
+<blockquote>
+<table class="matrix">
+	<tr class="header"> <td>&nbsp;</th> <th>0</th>        <th>1</th>      <th>2</th>      <th>3</th>      <th>4</th>      <th>5</th>     <th>6</th>            <th>7</th>     <th>8</th>      <th>9</th>      <th>10</th>     <th>11</th>     <th>12</th>     <th>13</th>     <th>14</th>     <th>15</th>     <td>&nbsp;</td> </tr>
+	<tr class="normal"> <th>0</th>      <td>KP 9</td>     <td>numlk</td>  <td>&nbsp;</td> <td>scrlk</td>  <td>prtscr</td> <td>F12</td>   <td>F10</td>          <td>F9</td>    <td>F7</td>     <td>F6</td>     <td>F5</td>     <td>F4</td>     <td>F3</td>     <td>F2</td>     <td>F1</td>     <td>esc</td>    <th>0</th>      </tr>
+	<tr class="normal"> <th>1</th>      <td>KP /</td>     <td>KP =</td>   <td>KP 8</td>   <td>pause</td>  <td>pgup</td>   <td>bksp</td>  <td>F11</td>          <td>0)</td>    <td>F8</td>     <td>7&amp;</td> <td>6^</td>     <td>4$</td>     <td>3#</td>     <td>2@</td>     <td>1!</td>     <td>`~</td>     <th>1</th>      </tr>
+	<tr class="normal"> <th>2</th>      <td>KP *</td>     <td>&nbsp;</td> <td>KP 7</td>   <td>&nbsp;</td> <td>pgdn</td>   <td>\|</td>    <td>=+</td>           <td>O</td>     <td>9(</td>     <td>8*</td>     <td>T</td>      <td>5%</td>     <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <th>2</th>      </tr>
+	<tr class="normal"> <th>3</th>      <td>KP -</td>     <td>&nbsp;</td> <td>KP 6</td>   <td>&nbsp;</td> <td>end</td>    <td>home</td>  <td>[{</td>           <td>-_</td>    <td>&nbsp;</td> <td>&nbsp;</td> <td>Y</td>      <td>G</td>      <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <th>3</th>      </tr>
+	<tr class="normal"> <th>4</th>      <td>KP 3</td>     <td>right</td>  <td>KP 5</td>   <td>&nbsp;</td> <td>del</td>    <td>ins</td>   <td>]}</td>           <td>P</td>     <td>K</td>      <td>I</td>      <td>&nbsp;</td> <td>R</td>      <td>E</td>      <td>W</td>      <td>Q</td>      <td>tab</td>    <th>4</th>      </tr>
+	<tr class="normal"> <th>5</th>      <td>KP enter</td> <td>&nbsp;</td> <td>KP 4</td>   <td>&nbsp;</td> <td>up</td>     <td>enter</td> <td>&apos;&quot;</td> <td>;:</td>    <td>L</td>      <td>&nbsp;</td> <td>U</td>      <td>&nbsp;</td> <td>D</td>      <td>&nbsp;</td> <td>&nbsp;</td> <td>&nbsp;</td> <th>5</th>      </tr>
+	<tr class="normal"> <th>6</th>      <td>&nbsp;</td>   <td>&nbsp;</td> <td>KP +</td>   <td>left</td>   <td>&nbsp;</td> <td>.&gt;</td> <td>/?</td>           <td>,&lt;</td> <td>J</td>      <td>H</td>      <td>B</td>      <td>F</td>      <td>&nbsp;</td> <td>&nbsp;</td> <td>S</td>      <td>A</td>      <th>6</th>      </tr>
+	<tr class="normal"> <th>7</th>      <td>&nbsp;</td>   <td>KP .</td>   <td>&nbsp;</td> <td>down</td>   <td>KP 2</td>   <td>KP 1</td>  <td>KP 0</td>         <td>M</td>     <td>N</td>      <td>&nbsp;</td> <td>space</td>  <td>V</td>      <td>C</td>      <td>X</td>      <td>Z</td>      <td>&nbsp;</td> <th>7</th>      </tr>
+	<tr class="header"> <td>&nbsp;</th> <th>0</th>        <th>1</th>      <th>2</th>      <th>3</th>      <th>4</th>      <th>5</th>     <th>6</th>            <th>7</th>     <th>8</th>      <th>9</th>      <th>10</th>     <th>11</th>     <th>12</th>     <th>13</th>     <th>14</th>     <th>15</th>     <td>&nbsp;</td> </tr>
+</table>
+</blockquote>
+
+<p>Notice that some keys are missing: the modifiers, caps lock key, and the ADB
+power (PSW) button. All of these are connected directly to controller pins, and
+hence may be treated as simple (active low) pushbuttons (the PSW button is a
+bit of an exception, since it's potentially also connected to other peripherals
+via the ADB port).</p>
+
+<p><a href="images/pcb.jpg">This image</a> outlines the changes I made on the
+PCB, with more zoomed-in views in the following images. I'm not a good
+solderer, but everything (miraculously) works.</p>
+
+<blockquote>
+<table class="images">
+<tr><td>
+
+	<table>
+	<tr><td><a href="images/pcb.jpg"><img src="images/pcb_thumb.png" width=180 height=90 alt=""/></a></tr></tr>
+	<tr><td><small>PCB</small></td></tr>
+	</table>
+
+	<table>
+	<tr><td><a href="images/controller_bottom.jpg"><img src="images/controller_bottom_thumb.png" width=180 height=120 alt=""/></a></tr></tr>
+	<tr><td><small>Former controller location</small></td></tr>
+	</table>
+
+	<table>
+	<tr><td><a href="images/leds_bottom.jpg"><img src="images/leds_bottom_thumb.png" width=180 height=120 alt=""/></a></tr></tr>
+	<tr><td><small>LEDs and ADB port</small></td></tr>
+	</table>
+
+	<table>
+	<tr><td><a href="images/teensy.jpg"><img src="images/teensy_thumb.png" width=120 height=180 alt=""/></a></tr></tr>
+	<tr><td><small>Teensy++ and USB port</small></td></tr>
+	</table>
+
+	<div style="clear: both;"></div>
+
+</td></tr>
+</table>
+</blockquote>
+
+<p>I first replaced the LEDs and the corresponding resistors. The controller
+was replaced with a <a href="http://www.pjrc.com/teensy">Teensy++ 2.0</a>,
+which I wired into the controller location based on the aforementioned <a
+href="documents/pins.txt">text file</a>, with one difference: both command keys
+are connected to the same pin, and I wanted my software to be able to
+distinguish between them, so I cut the trace for the left command (GUI) key,
+and wired it directly to the teensy. Also, as hasu/soarer (I forget which)
+suggested on the geekhack forums, I connected a 1k&Omega; external pull-up
+resistor to the ADB pin.</p>
+
+<p>The teensy is located at the edge of the board so that it can fit into a
+small "channel" on the bottom of the case. It's snug--I had to tape a little
+piece of plastic around the teensy's button to prevent it from being pressed
+once the keyboard was assembled, and also dremel the portion of the case
+containing the USB port, in order to get it to fit. For such a large keyboard,
+there's suprisingly little room.</p>
+
+<a name="software"><h2>Software</h2></a>
+
+<p>My software's USB support is based loosely on the PJRC <a
+href="http://pjrc.com/teensy/usb_keyboard.html">keyboard</a> and <a
+href="http://pjrc.com/teensy/usb_mouse.html">mouse</a> examples, but has been
+heavily-modified into a more object-oriented style. I wrote the ADB support
+myself, but was inspired by, and referred to, hasu's <a
+href="http://geekhack.org/showwiki.php?title=Island:14290">ADB-to-USB
+converter</a>, as well as <a href="documents/adb.pdf">Chapter 6 of the Apple
+IIGS Hardware Reference</a>, which hasu refers to in his documentation. All
+source code is copyrighted, and licensed under the <a
+href="http://www.gnu.org/licenses/gpl.html">GPLv3</a> (PJRC kindly permits
+relicensing under certain conditions). Be warned that the code is
+overcomplicated and poorly-documented--I hope to improve it in the future.</p>
+
+<blockquote>
+<table class="downloads">
+	<tr class="header">
+		<td>&nbsp;</td>
+		<th>TAR.GZ</th>
+		<th>ZIP</th>
+	</tr>
+	<tr class=normal>
+		<th>Source code</th>
+		<td><a href="archives/aek2_src.tgz">aek2_src.tgz</a> (67K)</td>
+		<td><a href="archives/aek2_src.zip">aek2_src.zip</a> (93K)</td>
+	</tr>
+</table>
+</blockquote>
+
+<p>As is typical in such keyboard-controller projects, my software supports
+multiple layers. In particular, it's configured with a media layer (activated
+by pressing the right option key) and support for the <a
+href="http://half-qwerty.com/">Matias half-QWERTY</a> layout (activated by
+pressing the spacebar in the media layer). <a href="documents/keymap.pdf">This
+pdf file</a> documents the current keyboard mapping, although of course it is
+configurable (by changing the tables in main.cc).</p>
+
+<p>NKRO-over-USB is supported (although the AEK2's keyboard matrix is not NKRO,
+so this is of limited usefulness). You can find the HID descriptors in the
+code, but the basic idea is to have two keyboard interfaces, the first of which
+is a boot-mode interface. The second interface contains two seven-byte reports
+with bit flags for the (in my opinion) 112 most-useful keys, as well as a third
+report for consumer controls. Keypresses are sent through the boot-mode
+interface unless it is "full", in which case they fall-back to the extended
+interface. I've tested this on Linux, OSX and Windows, and it works (although
+perhaps it won't on older versions of these OSes). There is also a mouse
+interface, which is used by the mouse keys.</p>
+
+<script language="javascript">
+document.writeln( "<hr/>" + mailto_link + "<div style=\"float: right\">Last modified on " + document.lastModified + "</div>" );
+</script>
+
+</body>
+
+
+</html>
