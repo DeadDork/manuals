@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /account/
+Disallow: /booksellers/
+Disallow: /cart/
+Disallow: /catalog/search/
+Disallow: /errors/
+Disallow: /includes/
