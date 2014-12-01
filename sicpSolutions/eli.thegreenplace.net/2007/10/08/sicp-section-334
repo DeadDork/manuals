@@ -1,0 +1,558 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP section 3.3.4 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-section-334"
+                       rel="bookmark"
+                       title="Permalink to SICP section 3.3.4">
+                        SICP section 3.3.4
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> October 08, 2007 at 06:31</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>The code for this section is in Common Lisp.</p>
+
+
+	<p>As I mentioned in previous sections, while using a function that returns a <code>dispatch</code> procedure is probably accepted as a basic method of implementing objects with state in Scheme, it is not commonly used in Common Lisp. In fact, CL has a full fledged object oriented system called <span class="caps">CLOS</span> that contains many tools that help build extensible object systems. So I&#8217;ve decided to give it a try for this section, and coded <code>wire</code> as a <span class="caps">CLOS</span> class.</p>
+
+
+	<p>I will present the code here without explaning too much, because there are better sources for that. For example, the excellent Practical Common Lisp book<sup><a href="sicp-section-334#fn1">1</a></sup> has a good explanation of the topic in chapters 16 and 17.</p>
+
+
+<pre>
+(defclass wire ()
+  ( (signal-value
+      :initform 0
+      :accessor signal-value
+      :documentation
+        "The signal associated with the wire")
+    (action-procedures
+      :initform '()
+      :accessor action-procedures
+      :documentation
+        "Procedures that are executed when there's
+        an event on the wire")))
+
+(defun make-wire ()
+  (make-instance 'wire))
+
+(defmethod (setf signal-value) :around (new-value (w wire))
+  (let ((old-value (signal-value w)))
+    (prog1 (call-next-method)
+      (unless (= old-value new-value)
+        (call-each (action-procedures w))))))
+
+(defgeneric add-action! (w proc)
+  (:documentation "Add a new action procedure"))
+
+(defmethod add-action! ((w wire) proc)
+  (push proc (action-procedures w))
+  (funcall proc))
+
+(defmethod print-object ((w wire) stream)
+  (print-unreadable-object (w stream :type t)
+    (with-slots ( (sv signal-value) 
+                  (ap action-procedures)) w
+      (format stream "Sig: ~a, N procs: ~a" 
+        sv (length ap)))))
+
+(defun call-each (procs)
+  (dolist (proc procs)
+    (funcall proc)))
+</pre>
+
+	<p>Most of it is quite straightforward. The only non-trivial part is the definition of the setter for <code>signal-value</code>. I defined the slot <code>signal-value</code> with an accessor of a similar name<sup><a href="sicp-section-334#fn2">2</a></sup>. This is in order to comply to the CL convention of accessing the slot as follows:</p>
+
+
+<pre>
+(defvar x (make-wire))
+
+(setf (signal-value x) 1) ; writer
+(print (signal-value x)) ; reader
+</pre>
+
+	<p>However, the writer of <code>signal-value</code> is not trivial &#8211; it must check for a change in the value and notify the relevant action procedures. So I used the <code>:around</code> feature of <span class="caps">CLOS</span> to add custom code on calls of the writer. Features like this one make <span class="caps">CLOS</span> a very flexible system, and you should definitely check it out for writing objects with state.</p>
+
+
+	<p>The code for <code>inverter</code> and <code>and-gate</code> is pretty much the same:</p>
+
+
+<pre>
+(defvar *inverter-delay* 2)
+
+(defun inverter (input output)
+  (flet ((invert-input ()
+            (let ((new-value 
+                    (logical-not 
+                      (signal-value input))))
+              (after-delay 
+                *inverter-delay*
+                (lambda ()
+                  (setf 
+                    (signal-value output) 
+                    new-value))))))
+    (add-action! input #'invert-input)
+    'ok))
+
+(defun logical-not (s)
+  (case s
+    (0 1)
+    (1 0)
+    (otherwise (error "Invalid signal" s))))
+
+(defvar *and-gate-delay* 3)
+
+(defun and-gate (a1 a2 output)
+  (flet ((and-action ()
+            (let ((new-value
+                    (logand 
+                      (signal-value a1)
+                      (signal-value a2))))
+              (after-delay
+                *and-gate-delay*
+                (lambda ()
+                  (setf 
+                    (signal-value output) 
+                    new-value))))))
+    (add-action! a1 #'and-action)
+    (add-action! a2 #'and-action)
+    'ok))
+</pre>
+
+	<h4>Exercise 3.28</h4>
+
+
+<pre>
+(defvar *or-gate-delay* 3)
+
+(defun or-gate (a1 a2 output)
+  (flet ((or-action ()
+            (let ((new-value
+                    (logior 
+                      (signal-value a1)
+                      (signal-value a2))))
+              (after-delay
+                *or-gate-delay*
+                (lambda ()
+                  (setf 
+                    (signal-value output) 
+                    new-value))))))
+    (add-action! a1 #'or-action)
+    (add-action! a2 #'or-action)
+    'ok))
+</pre>
+
+	<h4>Exercise 3.29</h4>
+
+
+	<p>Using De-Morgan&#8217;s rules, we know that <code>A or B</code> is equivalent to <code>not ((not A) and (not B))</code>. So:</p>
+
+
+<pre>
+(defun or-gate-dm (a1 a2 output)
+  (with-wires (na1 na2 and12)
+    (inverter a1 na1)
+    (inverter a2 na2)
+    (and-gate na1 na2 and12)
+    (inverter and12 output))
+    'ok)
+</pre>
+
+	<p>But wait a sec, what is <code>with-wires</code> ? Ah, that&#8230; it&#8217;s really about time we started using some of the advanced features of Lisp. In this case the most powerful of them all &#8211; macros !</p>
+
+
+<pre>
+(defmacro with-wires ((&#38;rest names) &#38;body body)
+  `(let ,(loop for n in names collect `(,n (make-wire)))
+    ,@body))
+</pre>
+
+	<p>This macro makes our code less repetitive, and hence much more pleasant to write. For example, <code>half-adder</code> is defined as follows (Compare it with the definition in the book, writing all those <code>make-wire</code> calls manually):</p>
+
+
+<pre>
+(defun half-adder (a b s c)
+  (with-wires (d e)
+    (or-gate a b d)
+    (and-gate a b c)
+    (inverter c e)
+    (and-gate d e s)
+    'ok))
+</pre>
+
+	<p>The delay of this or-gate is the delay of the and-gate plus twice the delay of the inverter.</p>
+
+
+	<h4>Exercise 3.30</h4>
+
+
+<pre>
+(defun ripple-carry-adder (la lb ls c)
+  (let ((n (length la)))
+    (unless (= n (length lb) (length ls))
+      (error "Expecting all lists of same length"))
+    (labels (
+      (ripple-build (la lb lcin ls lcout)
+        (unless (null la)
+          (full-adder (car la) (car lb) (car lcin) 
+                      (car ls) (car lcout))
+          (ripple-build (cdr la) (cdr lb) (cdr lcin)
+                        (cdr ls) (cdr lcout)))))
+
+      (let ((lcin '()) (lcout '()))
+        (dotimes (i n) 
+          (let ((ci (make-wire)))
+            (push ci lcin)
+            (push ci lcout)))
+        (push c lcout)
+        (ripple-build la lb lcin ls lcout)))))
+</pre>
+
+	<h4>Agenda</h4>
+
+
+	<p>Here&#8217;s the CL code for <code>agenda</code>. It begins by loading the code from exercise 3.21 where queue operations are implemented:</p>
+
+
+<pre>
+;;;;;;;;;;;;;;;;;;;;; Agenda ;;;;;;;;;;;;;;;;;;;;;
+;;
+
+(load "ex_3_21") ; queue
+
+(defun make-time-segment (time queue)
+  (cons time queue))
+
+(defun segment-time (s) (car s))
+(defun segment-queue (s) (cdr s))
+
+(defun make-agenda () (list 0))
+(defun cur-time (agenda) (car agenda))
+(defun set-cur-time! (agenda time) 
+  (setf (car agenda) time))
+(defun segments (agenda) (cdr agenda))
+(defun set-segments! (agenda segments)
+  (setf (cdr agenda) segments))
+(defun first-segment (agenda) 
+  (car (segments agenda)))
+(defun rest-segments (agenda) 
+  (cdr (segments agenda)))
+
+(defun empty-agenda? (agenda)
+  (null (segments agenda)))
+
+(defun add-to-agenda! (time action agenda)
+  (labels (
+    (belongs-before? (segments)
+      (or (null segments)
+          (&lt; time (segment-time (car segments)))))
+    (make-new-time-segment (time action)
+      (let ((q (make-queue)))
+        (insert-queue! q action)
+        (make-time-segment time q)))
+    (add-to-segments! (segments)
+      (if (= (segment-time (car segments)) time)
+        (insert-queue! 
+          (segment-queue (car segments))
+          action)
+        (let ((rest (cdr segments)))
+          (if (belongs-before? rest)
+            (setf 
+              (cdr segments)
+              (cons 
+                (make-new-time-segment time action)
+                (cdr segments)))
+            (add-to-segments! rest))))))
+
+    (let ((segments (segments agenda)))
+      (if (belongs-before? segments)
+        (set-segments!
+          agenda
+          (cons 
+            (make-new-time-segment time action)
+            segments))
+        (add-to-segments! segments)))))
+
+(defun remove-first-agenda-item! (agenda)
+  (let ((q (segment-queue (first-segment agenda))))
+    (delete-queue! q)
+    (if (empty-queue? q)
+      (set-segments! agenda (rest-segments agenda)))))
+
+(defun first-agenda-item (agenda)
+  (if (empty-agenda? agenda)
+    (error "Agenda is empty")
+    (let ((first-seg (first-segment agenda)))
+      (set-cur-time! agenda (segment-time first-seg))
+      (front-queue (segment-queue first-seg)))))
+
+(defun print-agenda-details (agenda)
+  (format t "--------~%Agenda:~%Cur time: ~a~%" 
+    (cur-time agenda))
+  (dolist (seg (segments agenda))
+    (format t "Seg. Time: ~a" (segment-time seg))
+    (format t ", Queue: ~a~%" (segment-queue seg))
+  (format t "--------~%")))
+
+;;;;;;;;;;;;;;;;;;; Simulation ;;;;;;;;;;;;;;;;;;;
+;;
+
+(defvar *the-agenda* (make-agenda))
+
+(defun after-delay (delay action)
+  (add-to-agenda! 
+    (+ delay (cur-time *the-agenda*))
+    action
+    *the-agenda*))
+
+(defun propagate ()
+  (if (empty-agenda? *the-agenda*)
+    'done
+    (let ((first-item (first-agenda-item *the-agenda*)))
+      (funcall first-item)
+      (remove-first-agenda-item! *the-agenda*)
+      (propagate))))
+
+(defun probe (name wire)
+  (add-action! wire
+    (lambda ()
+      (format t "~a ~a new-value = ~a~%" 
+        name
+        (cur-time *the-agenda*)
+        (signal-value wire)))))
+</pre>
+
+	<h4>Exercise 3.31</h4>
+
+
+	<p>By calling the action procedure, it makes sure that the operation of the gate is actually defined. Consider the inverter gate again:</p>
+
+
+<pre>
+(defun inverter (input output)
+  (flet ((invert-input ()
+            (let ((new-value 
+                    (logical-not 
+                      (signal-value input))))
+              (after-delay 
+                *inverter-delay*
+                (lambda ()
+                  (setf 
+                    (signal-value output) 
+                    new-value))))))
+    (add-action! input #'invert-input)
+    'ok))
+</pre>
+
+	<p>When <code>(inverter x nx)</code> is executed, <code>add-action!</code> is called. It is expected to call <code>invert-input</code> once, because otherwise the <code>after-delay</code> call won&#8217;t be executed and won&#8217;t add the gate operation to the agenda.</p>
+
+
+	<p>What this means is that the <em>initial</em> values of the signals won&#8217;t be propagated through the logic gates.</p>
+
+
+	<h4>Exercise 3.32</h4>
+
+
+	<p>The first transition from 0 to 1 would bring the gate&#8217;s inputs both to 1 momentarily, which would make it switch to 1. But at the same segment, the transition of the other signal from 1 to 0 would make it switch back to 0. It can also be simulated using the current queue implementation, by changing the order of signal assignments. Compare this:</p>
+
+
+<pre>
+(setq x (make-wire))
+(setq y (make-wire))
+(setq z (make-wire))  
+
+(and-gate y x z)
+
+(setf (signal-value x) 1)
+(setf (signal-value y) 0)
+
+(propagate)
+
+(setf (signal-value x) 0)
+(setf (signal-value y) 1)
+
+(propagate)
+
+=&gt; Z 0 new-value = 0
+</pre>
+
+	<p>To this (the change is in the order between assignments to <code>x</code> and <code>y</code> before the 2nd <code>propagate</code>):</p>
+
+
+<pre>
+(setq x (make-wire))
+(setq y (make-wire))
+(setq z (make-wire))  
+
+(and-gate y x z)
+
+(setf (signal-value x) 1)
+(setf (signal-value y) 0)
+
+(propagate)
+
+(setf (signal-value y) 1)
+(setf (signal-value x) 0)
+
+(propagate)
+
+=&gt; Z 0 new-value = 0
+=&gt; Z 6 new-value = 1
+=&gt; Z 6 new-value = 0
+</pre>
+
+	<p>In real electronic systems this is called a <em>hazard</em>, and can happen if the time difference between the change of two inputs is larger than the propagation delay of the gate, and the intermediate state is different from the final one.</p>
+
+<img class="align-center" src="../../../images/hline.jpg" style="width: 320px; height: 5px;" />
+
+	<p id="fn1"><sup>1</sup> Available for free <a href="http://www.gigamonkeys.com/book/">online</a>.</p>
+
+
+	<p id="fn2"><sup>2</sup> The final version of this code owes much to very helpful advice I received from the <a href="http://groups.google.com/group/comp.lang.lisp/topics">comp.lang.lisp newsgroup</a>.</p>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-section-334';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/10/08/sicp-section-334';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-section-334#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

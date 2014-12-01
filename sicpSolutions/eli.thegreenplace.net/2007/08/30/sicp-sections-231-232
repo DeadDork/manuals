@@ -1,0 +1,650 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP sections 2.3.1 - 2.3.2 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-sections-231-232"
+                       rel="bookmark"
+                       title="Permalink to SICP sections 2.3.1 - 2.3.2">
+                        SICP sections 2.3.1 - 2.3.2
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> August 30, 2007 at 05:17</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>The solutions for these sections are coded in Common Lisp.</p>
+
+
+	<h3>Section 2.3.1</h3>
+
+
+	<p>First of all, a few words on equality. Until this point, all the data we worked on in the book were numbers, which are compared with the <code>=</code> operator, both in Common Lisp and Scheme. Now, we&#8217;ll also have symbolic data and lists to consider for equality.</p>
+
+
+	<p>The equality operators in Common Lisp and Scheme are quite different. I&#8217;ve written in length about the various equality operators in CL. For example, the best candidate for an equivalent to Scheme&#8217;s <code>eq?</code> that&#8217;s used in the definition of <code>memq</code> is the CL function <code>eql</code> (which compares symbols, numbers and characters). Here is <code>memq</code>:</p>
+
+
+<pre>
+(defun memq (item x)
+  (cond ((null x) nil)
+        ((eql item (car x)) x)
+        (t (memq item (cdr x)))))
+</pre>
+
+	<h4>Exercise 2.53</h4>
+
+
+<pre>
+(list 'a 'b 'c)
+==&gt; (A B C)
+
+(list (list 'george))
+==&gt; ((GEORGE))
+
+(cdr '((x1 x2) (y1 y2)))
+==&gt; ((Y1 Y2))
+
+(cadr '((x1 x2) (y1 y2)))
+==&gt; (Y1 Y2)
+
+(consp (car '(a short list)))
+==&gt; NIL
+
+(memq 'red '((red shoes) (blue socks)))
+==&gt; NIL
+
+(memq 'red '(red shoes blue socks))
+==&gt; (RED SHOES BLUE SOCKS) 
+</pre>
+
+	<h4>Exercise 2.54</h4>
+
+
+	<p>The <code>equal?</code> wanted here is the <code>equal</code> function of CL. Here&#8217;s an implementation, as requested:</p>
+
+
+<pre>
+(defun equal? (la lb)
+  (cond 
+    ((and (symbolp la) (symbolp lb))
+      (eql la lb))
+    ((symbolp la) (symbolp lb))
+    ((symbolp lb) (symbolp la))
+    ((null la) (null lb))
+    ((null lb) (null la))
+    (t (and
+        (equal? (car la) (car lb))
+        (equal? (cdr la) (cdr lb))))))
+</pre>
+
+	<h4>Exercise 2.55</h4>
+
+
+<pre>
+(car ''abracadabra)
+==&gt; QUOTE
+</pre>
+
+	<p>As footnote 34 in the book says, the quote character is just an abbreviation for the special operator <code>quote</code>. In fact, in the environment it is just syntactic sugar that is translated to <code>quote</code> internally. So we can see the statement entered above as equivalent to:</p>
+
+
+<pre>
+(car '(quote abracadabra))
+</pre>
+
+	<p>Which, unsurprisingly, returns <code>QUOTE</code>.</p>
+
+
+	<h3>Section 2.3.2</h3>
+
+
+	<p>As in the picture language from section 2.2.4, this section presents an example of a beautifully designed system. To quote the authors:</p>
+
+
+	<blockquote>
+		<p>To embody these rules in a procedure we indulge in a little wishful thinking, as we did in designing the rational-number implementation. If we had a means for representing algebraic expressions, we should be able to tell whether an expression is a sum, a product, a constant, or a variable. We should be able to &#8230;</p>
+	</blockquote>
+
+
+	<p>This <em>wishful thinking</em> is one of the most powerful methods to design software systems (any systems, really)[1].</p>
+
+
+	<p>Here is an implementation of the basic derivation, without simplification:</p>
+
+
+<pre>
+(defun variable? (x)
+  (symbolp x))
+
+(defun same-variable? (v1 v2)
+  (and 
+    (variable? v1)
+    (variable? v2)
+    (eql v1 v2)))
+
+(defun make-sum (a1 a2)
+  (list '+ a1 a2))
+
+(defun make-product (m1 m2)
+  (list '* m1 m2))
+
+(defun sum? (x)
+  (and (consp x) (eql (car x) '+)))
+
+(defun addend (s)
+  (cadr s))
+
+(defun augend (s)
+  (caddr s))
+
+(defun product? (x)
+  (and (consp x) (eql (car x) '*)))
+
+(defun multiplier (s)
+  (cadr s))
+
+(defun multiplicand (s)
+  (caddr s))
+
+(defun deriv (expr var)
+  (cond ((numberp expr) 0)
+        ((variable? expr)
+          (if (same-variable? expr var) 1 0))
+        ((sum? expr)
+          (make-sum (deriv (addend expr) var)
+                    (deriv (augend expr) var)))
+        ((product? expr)
+          (make-sum
+            (make-product (multiplier expr)
+                          (deriv (multiplicand expr) var))
+            (make-product (deriv (multiplier expr) var)
+                          (multiplicand expr))))
+        (t
+          (error "unknown expression type -- DERIV ~A" expr))))
+</pre>
+
+	<p>And these are the simplification functions:</p>
+
+
+<pre>
+(defun =number? (expr num)
+  (and (numberp expr) (= expr num)))
+
+(defun make-sum (a1 a2)
+  (cond ((=number? a1 0) a2)
+        ((=number? a2 0) a1)
+        ((and (numberp a1) (numberp a2)) (+ a1 a2))
+        (t (list '+ a1 a2))))
+
+(defun make-product (m1 m2)
+  (cond ((or (=number? m1 0) (=number? m2 0)) 0)
+        ((=number? m1 1) m2)
+        ((=number? m2 1) m1)
+        ((and (numberp m1) (numberp m2)) (* m1 m2))
+        (t (list '* m1 m2))))
+</pre>
+
+	<h4>Exercise 2.56</h4>
+
+
+<pre>
+(defun make-exponentation (base exp)
+  (cond ((=number? exp 0) 1)
+        ((=number? exp 1) base)
+        ((and (numberp base) (numberp exp)) 
+          (expt base exp))
+        (t (list '** base exp))))
+
+(defun exponentation? (x)
+  (and (consp x) (eql (car x) '**)))
+
+(defun base (s)
+  (cadr s))
+
+(defun exponent (s)
+  (caddr s))
+
+(defun deriv (expr var)
+  (cond ((numberp expr) 0)
+        ((variable? expr)
+          (if (same-variable? expr var) 1 0))
+        ((exponentation? expr)
+          (make-product 
+            (make-product 
+              (exponent expr)
+              (make-exponentation 
+                      (base expr)
+                      (1- (exponent expr))))
+            (deriv (base expr) var)))
+        ((sum? expr)
+          (make-sum (deriv (addend expr) var)
+                    (deriv (augend expr) var)))
+        ((product? expr)
+          (make-sum
+            (make-product (multiplier expr)
+                          (deriv (multiplicand expr) var))
+            (make-product (deriv (multiplier expr) var)
+                          (multiplicand expr))))
+        (t
+          (error "unknown expression type -- DERIV ~A" expr))))
+</pre>
+
+	<p>Note that I&#8217;ve also added a test in <code>make-exponentation</code> that checks if both the base and the exponent are number and computes the result directly calling CL&#8217;s built-in function <code>expt</code>.</p>
+
+
+	<h4>Exercise 2.57</h4>
+
+
+First let&#8217;s see how to define sums (products are very similar):
+<pre>
+(defun make-sum (&#38;rest nums)
+  (append (list '+) nums))
+</pre>
+
+	<p>Here I&#8217;m using CL&#8217;s <code>&#38;rest</code> argument. It passes all the arguments it receives as a list into the function. For example:</p>
+
+
+<pre>
+(defun foo (&#38;rest args) args)
+(foo 1 2 3)
+==&gt; (1 2 3)
+</pre>
+
+	<p>Therefore, it is possible to create sums as follows:</p>
+
+
+<pre>
+(make-sum 1 'x 4)
+==&gt;
+'(+ 1 x 4)
+</pre>
+
+	<p>Let&#8217;s see the other building blocks of the representation:</p>
+
+
+<pre>
+(defun sum? (x)
+  (and (consp x) (eql (car x) '+)))
+
+(defun addend (s)
+  (cadr s))
+
+(defun augend (s)
+  (let ((aug (cddr s)))
+    (if (= (length aug) 1)
+      (car aug)
+      (append (list '+) aug))))
+</pre>
+
+	<p><code>sum?</code> and <code>addend</code> remain unchanged. <code>augend</code> changes, however. As the authors  proposed, it returns the sum of the rest of the terms (when there&#8217;s more than two terms). Note that I use <code>append</code> directly, and not <code>make-sum</code> inside <code>augend</code>. There is a reason for it, and it&#8217;s subtle. <code>make-sum</code> is using <code>&#38;rest</code> which means it accepts multiple arguments and turns them into a list. But multiple arguments are not the same as a list, and when we pass a list into it, we don&#8217;t get what we expect. This is easily demonstrable:</p>
+
+
+<pre>
+(defun foo (&#38;rest args) args)
+(foo 1 2 3)
+==&gt; (1 2 3)
+
+(foo '(1 2 3))
+((1 2 3))
+</pre>
+
+	<p>As you see, the two calls to <code>foo</code> give different results, as expected. Since in <code>augend</code> we only have a list to pass, we can&#8217;t use <code>make-sum</code> and must use <code>append</code> directly.</p>
+
+
+	<p>And this is the code for products (note that this code is without simplification, which is considerably more difficult when each expression has multiple operands):</p>
+
+
+<pre>
+(defun make-product (&#38;rest nums)
+  (append (list '*) nums))
+
+(defun product? (x)
+  (and (consp x) (eql (car x) '*)))
+
+(defun multiplier (s)
+  (cadr s))
+
+(defun multiplicand (s)
+  (let ((m (cddr s)))
+    (if (= (length m) 1)
+      (car m)
+      (append (list '*) m))))
+</pre>
+
+	<p>Inded, <code>deriv</code> can remain unchanged.</p>
+
+
+	<h4>Exercise 2.58</h4>
+
+
+	<h4>a.</h4>
+
+
+	<p>This part is actually quite easy. If we assume input correctness<sup><a href="sicp-sections-231-232#fn2">2</a></sup>, the only thing that has changed is the ordering of operands inside expressions. In the earlier versions, the operator came first. Now it&#8217;s in the middle.</p>
+
+
+	<p>These are the new accessors (<code>deriv</code> and everything else stays unmodified):</p>
+
+
+<pre>
+(defun make-sum (a1 a2)
+  (list a1 '+ a2))
+
+(defun make-product (m1 m2)
+  (list m1 '* m2))
+
+(defun sum? (x)
+  (and (consp x) (eql (cadr x) '+)))
+
+(defun addend (s)
+  (car s))
+
+(defun augend (s)
+  (caddr s))
+
+(defun product? (x)
+  (and (consp x) (eql (cadr x) '*)))
+
+(defun multiplier (s)
+  (car s))
+
+(defun multiplicand (s)
+  (caddr s))
+</pre>
+
+	<h4>b.</h4>
+
+
+	<p>This is quite a bit trickier. Parsing arbitrary infix expressions, respecting the rules of operator precedence and parenthesizing is far from being simple. I&#8217;m pretty sure this is not what the authors of <span class="caps">SICP</span> meant, but to solve this exercise I wrote a full blown recursive-descent parser with a stack of token streams. The most important thing is that I had loads of fun writing it :-)</p>
+
+
+	<p>What we have here is a simple formal grammar that can be described in <span class="caps">BNF</span> notation:</p>
+
+
+<pre>
+;;
+;; &lt;sum&gt;    -&gt; &lt;term&gt; + &lt;sum&gt;
+;;           | &lt;term&gt;
+;;
+;; &lt;term&gt;   -&gt; &lt;factor&gt; * &lt;term&gt;
+;;           | &lt;factor&gt;
+;;
+;; &lt;factor&gt; -&gt; symbol 
+;;           | number
+;;           | (&lt;sum&gt;)
+;;
+</pre>
+
+	<p>What I wrote is a parser that converts expressions in infix notation to expressions in standard Lisp prefix notation, with two operands per operator. Essentially, a parse tree. This parse tree is exactly the format the original <code>deriv</code> wants, so problem solved. Here is the whole parsing code:</p>
+
+
+<pre>
+;; A stream is this case is a Lisp list,
+;; with all operators in infix notation.
+;; "Scanning" the stream is just popping
+;; the next list element off the front.
+;;
+(defvar *stream* '() "Token stream")
+
+(defun init-stream (stream)
+  "Initializes the stream" 
+  (setq *stream* stream))
+
+(defun next-token ()
+  "Returns the next token of the stream" 
+  (car *stream*))
+
+(defun scan ()
+  "Scans the stream to 'find' the next token" 
+  (pop *stream*))
+
+;; In order to parse nested infix expressions,
+;; we must keep a stack of streams, since
+;; the stream keeps state for the parsing calls.
+;;
+(defvar *stream-stack* '() "Stack of streams")
+
+(defun push-stream (stream)
+  "Push the current *stream* on stack, and set
+  this stream as *stream*" 
+  (push *stream* *stream-stack*)
+  (init-stream stream))
+
+(defun pop-stream ()
+  "Pop a stream from the stack and set it to
+  *stream*" 
+  (init-stream (pop *stream-stack*)))
+
+;;
+;; BNF grammar:
+;;
+;; &lt;sum&gt;    -&gt; &lt;term&gt; + &lt;sum&gt;
+;;           | &lt;term&gt;
+;;
+;; &lt;term&gt;   -&gt; &lt;factor&gt; * &lt;term&gt;
+;;           | &lt;factor&gt;
+;;
+;; &lt;factor&gt; -&gt; symbol 
+;;           | number
+;;           | (&lt;sum&gt;)
+;;
+;;
+
+(defun parse-factor ()
+  (let ((tok (next-token)))
+    (cond 
+      ((or (numberp tok) (symbolp tok))
+        (scan)
+        tok)
+      ((listp tok)
+        (push-stream tok)
+        (let ((sum (parse-sum)))
+          (pop-stream)
+          (scan)
+          sum))
+      (t
+        (error "Bad token in parse-atom -- ~A" tok)))))
+
+(defun parse-term ()
+  (let ((lfact (parse-factor)))
+    (if (eq (next-token) '*)
+      (progn
+        (scan)
+        (let ((rterm (parse-term)))
+          (list '* lfact rterm)))
+      lfact)))
+
+(defun parse-sum ()
+  (let ((lterm (parse-term)))
+    (if (eq (next-token) '+)
+      (progn
+        (scan)
+        (let ((rsum (parse-sum)))
+          (list '+ lterm rsum)))
+      lterm)))
+</pre>
+
+	<p>The &#8220;main&#8221; function here is <code>parse-sum</code>. It converts an expression from infix to prefix notation. Now, to complete the derivation code for this representation, all I did was rename the function <code>deriv</code> to <code>deriv-prefix</code>, and created the new function:</p>
+
+
+<pre>
+(defun deriv-infix (expr var)
+  (init-stream expr)
+  (deriv-prefix (parse-sum) var))
+</pre>
+
+	<p>Yeah, I know, I know that I should have changed the accessors and kept <code>deriv</code> intact. It&#8217;s possible, but it&#8217;s just more more, so since the example is very artificial anyway, this will do.</p>
+
+
+	<p>A few words on the parser implementation. Most of the code is very straightforward (your usual textbook RD parser). The only thing that isn&#8217;t immediately obvious is why the stack of streams is needed. To understand this, recall how Lisp treats parenthesized expressions:</p>
+
+
+<pre>
+(car '(1 * (2 + 3) * 4))
+=&gt; 1
+
+(caddr '(1 * (2 + 3) * 4)))
+=&gt; (2 + 3)
+</pre>
+
+	<p>So, Lisp automatically treats parentheses not like other symbols (tokens), but rather as specifiers for internal lists.</p>
+
+
+	<p>Now, to match a parenthesized <code>sum</code> in <code>factor</code> (see the <span class="caps">BNF</span> above), I must first match a left paren &#8216;(&#8217;, then a <code>sum</code>, then a right paren &#8216;)&#8217;. But there is no way to &#8220;match&#8221; a paren in a Lisp list because Lisp treats them in a special way !</p>
+
+
+	<p>There are a few approaches to solve this. I could convert the whole thing to a string and employ string processing. But why give up all the comfort of Lisp lists ? I could also insert special &#8220;open brace&#8221; and &#8220;end brace&#8221; symbols around the parens. This would be easier, but still quite kludgy.</p>
+
+
+	<p>The solution I eventually chose is <span class="caps">IMHO</span> the most elegant. I created a so-called <em>stack automata</em>. My parser walks the stream of tokens, and when it meets a sub-expression it parses it recursively. It does this by setting the sub-expression as a new stream to work on. However, the old stream must be preserved, because after we&#8217;re finished with the sub-expression we must come back to the same place we left. This is why it is pushed on a stack, thus providing unlimited nesting capabilities.</p>
+
+
+	<p id="fn1"><sup>1</sup> Sometimes I see negative comments about <span class="caps">SICP</span> here and there online. One of the most common complaints (apart from the one on using Scheme and not a &#8220;modern&#8221; language like Java, sigh) is that <span class="caps">SICP</span> doens&#8217;t really teach how to program, but is just a bunch of unrelated trivia items. Those commenters must have never read <span class="caps">SICP</span>, it appears to me, since this book is just packed solid with amazingly thoughtful advice on how to design and write software. I wish there were other books like it.</p>
+
+
+	<p id="fn2"><sup>2</sup> Assuming input correctness is a common trick used by programmers to make their life easier in exploratory and prototype programming.</p>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-sections-231-232';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/08/30/sicp-sections-231-232';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-sections-231-232#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

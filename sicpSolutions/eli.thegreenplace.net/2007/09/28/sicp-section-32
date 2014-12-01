@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP section 3.2 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-section-32"
+                       rel="bookmark"
+                       title="Permalink to SICP section 3.2">
+                        SICP section 3.2
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> September 28, 2007 at 18:06</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>I&#8217;m using the excellent online Visio clone <a href="http://www.gliffy.com">Gliffy</a> to draw the diagrams for this section. It takes quite a long time to draw them, but understanding these diagrams is very important. If you&#8217;re still not 100% clear on what is exactly meant by <em>lexical scope</em>, read this section several times until you understand.</p>
+
+
+	<p>For those who already understand what it is and how the real evaluation model of Lisp works, constructing these diagrams is still important in order to understand the implementation of the Scheme evaluator in chapter 4 of the book.</p>
+
+
+	<h4>Exercise 3.9</h4>
+
+
+	<p>Since it&#8217;s tiresome to draw diagrams, I&#8217;ll assume the call is <code>(factorial 3)</code> instead of <code>(factorial 6)</code>. It illustrates the point just the same. Here&#8217;s the environment for the recursive call:</p>
+
+
+	<p><img src="../../../images/2007/09/factorial_rec.png" /></p>
+
+
+	<p>The iterative version produces the following environment diagram:</p>
+
+
+	<p><img src="../../../images/2007/09/factorial_iter.png" /></p>
+
+
+	<h4>Exercise 3.10</h4>
+
+
+	<p>The result of defining <code>make-withdraw</code> is similar to figure 3.6 in the book, except for the body of the <code>make-withdraw</code> function which is a little different (as defined in the exercise).</p>
+
+
+	<p>The two versions of <code>make-withdraw</code> create objects with the same behavior. To demonstrate the subtle difference, it is enough to consider what happens when <code>(define W1 (make-withdraw 100))</code> is evaluated:</p>
+
+
+	<p><img src="../../../images/2007/09/make_withdraw_let.png" /></p>
+
+
+	<p>Since <code>let</code> is equivalent to <code>lambda</code>, another environment is created &#8211; in which <code>balance</code> is defined. Now the <code>W1</code> object has two &#8220;private&#8221; variables &#8211; <code>balance</code> and <code>initial-amount</code>, and both can be changed separately from one another.</p>
+
+
+	<h4>Exercise 3.11</h4>
+
+
+	<p>After the line:</p>
+
+
+<pre>
+(define acc (make-account 50))
+</pre>
+
+	<p>The environment is:</p>
+
+
+	<p><img src="../../../images/2007/09/acc_make_withdraw.png" /></p>
+
+
+	<p>The call:</p>
+
+
+<pre>
+((acc 'deposit) 40)
+</pre>
+
+	<p>Produces:</p>
+
+
+	<p><img src="../../../images/2007/09/acc_call_deposit.png" /></p>
+
+
+	<p>I removed the pointer from <code>withdraw</code> to the internal <code>withdraw</code> lambda in environment <code>E1</code> for clarity. The call <code>(acc 'deposit)</code> evaluates to a call to <code>dispatch</code> with the argument <code>deposit</code>, which is depicted in environment <code>E2</code>. Note that the environment&#8217;s ancestor is <code>E1</code> and not the global env, since this <code>E1</code> is the env for <code>acc</code>.</p>
+
+
+	<p>I&#8217;ll skip the call to <code>withdraw</code> because it&#8217;s similar. The call:</p>
+
+
+<pre>
+(define acc2 (make-account 100))
+</pre>
+
+	<p>Generates (the <code>balance</code> of <code>E1</code> is the result of the <code>deposit</code> and <code>withdraw</code>):</p>
+
+
+	<p><img src="../../../images/2007/09/acc_acc2.png" /></p>
+
+
+	<p>The accounts in <code>acc</code> and <code>acc2</code> are distinct because each one has an environment of its own. In drawing this diagram I assumed that the code is shared, although this is an implementation detail, as explained in footnote 15 in the book.</p>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-section-32';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/09/28/sicp-section-32';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-section-32#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

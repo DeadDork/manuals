@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP - conclusion - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-conclusion"
+                       rel="bookmark"
+                       title="Permalink to SICP - conclusion">
+                        SICP - conclusion
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> April 18, 2008 at 16:54</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>I've completed the <span class="caps">SICP</span> reading project, which I began on <a href="http://eli.thegreenplace.net/2007/06/19/introducing-the-sicp-reading-notes/">June 19th, 2007</a>. In hindsight, it seems like a very long time (almost a year!), during which this was my main hacking project at home. So, in this conclusion I want to examine my progress, and compare the result with my initial goals.</p>
+
+
+	<p><a href="http://eli.thegreenplace.net/2007/06/19/introducing-the-sicp-reading-notes/">The original plan</a> was:</p>
+
+
+	<ol>
+	<li>Read the book</li>
+		<li>See all the video lectures by Sussman and Abelson themselves </li>
+		<li>Do most of the interesting exercises in the book</li>
+		<li>Do some of the larger projects listed <a href="http://mitpress.mit.edu/sicp/psets/index.html">here</a> and <a href="http://ocw.mit.edu/OcwWeb/Electrical-Engineering-and-Computer-Science/6-001Spring-2005/CourseHome/index.htm">here</a></li>
+	</ol>
+
+
+	<p>Let's see how I've managed:</p>
+
+
+	<ol>
+	<li>Done</li>
+		<li>Done</li>
+		<li>This is the point I'm most happy with. I've completed the vast majority of the exercises in <span class="caps">SICP</span> and posted them online. Of the 356 exercises in the book, I've skipped about 20, so I've completed 94% of the exercises &#8211; which is far above my initial plans.</li>
+		<li>I didn't do this, but there's no need, having completed so many of the exercises. I feel I gained a completely solid understanding of the material, and won't gain much by doing the projects.</li>
+	</ol>
+
+
+	<p>Also, I originally planned to reimplement all the code do all the exercises in Common Lisp. Later I changed my mind and decided to use <span class="caps">PLT</span> Scheme for some of them. Eventually, I've been using both languages interchangeably, which is a good thing, as I got some practice with both.</p>
+
+
+	<p>Here are some numerical statistics that emphasize the magnitude of this endeavor:</p>
+
+
+	<ol>
+	<li>I've written 52 blog posts (not including this one) in the <span class="caps">SICP</span> category, spread over 10 months.</li>
+		<li>The combined total length of my posts (including code snippets) is 66,265 words. For comparison, Jack London's "Son of the Wolf" is 50K words long.</li>
+		<li>Some of the large projects from the book I've re-implemented in wholeness: a constraint propagation solver, an evaluator (interpreter) for Scheme, a generic object-oriented arithmetic package including complex and polynomial arithmetic, Huffman encoding, an interpreter for a logic programming language similar to Prolog (as a <span class="caps">DSL</span> on top of Lisp), a picture-language interpreter, a simulator for digital circuits, a symbolic differentiation package, a virtual machine for a simplified pseudo-assembly <span class="caps">DSL</span>, an interpreter for Scheme written in this pseudo-assembly, and finally, a compiler for Scheme that spits out pseudo-assembly code.</li>
+		<li>Counting with the <a href="http://sourceforge.net/project/showfiles.php?group_id=174787">cloc</a> tool (Count Lines Of Code), the total physical <span class="caps">LOC</span> count<sup><a href="sicp-conclusion#fn1">1</a></sup> for the code I've written during this time: 7,300 <span class="caps">LOC</span> of Common Lisp, 4,100 <span class="caps">LOC</span> of Scheme. If you prefer raw LOCs<sup><a href="sicp-conclusion#fn2">2</a></sup>, it's 10,800 <span class="caps">LOC</span> of Common Lisp, 5,600 <span class="caps">LOC</span> of Scheme. So this is more than 10 <span class="caps">KLOC</span> of Lisp code, any way you look at it, which is a lot, since Lisp is a very expressive high-level functional language.</li>
+	</ol>
+
+
+	<p>A word on <span class="caps">SICP</span> and its exercises. Abelson and Sussman have created a masterpiece, a book initially written in the 1980s, and that still hasn't lost one bit of relevance. Everything it contains must, <strong>must</strong> be learned and understood by any aspiring programmer. It teaches algorithms and data structures, good programming style, provides some contact with large systems, experimenting with their implementation and modification. You will learn about functional programming, imperative programming, object-oriented programming in it. You will learn how to implement interpreters, compilers, arithmetic systems, simulators, a whole virtual machine in it, and much more.</p>
+
+
+	<p>The exercises of <span class="caps">SICP</span> are essential to understanding. Looking back at the work I've done on the book, I don't think I would have understood it near so well without doing a lot of the exercises. There's only so much material that can be gained from reading. Getting your hands dirty with code is essential to true understanding. And the authors of <span class="caps">SICP</span> brought this concept to perfection, with their excellent exercises, that are an unreplaceable companion to the book. Although they're not 100% perfect, for the most part the exercises are very well thought out and tuned to aid understanding and practice writing parts of large systems.</p>
+
+
+<img class="align-center" src="../../../images/hline.jpg" style="width: 320px; height: 5px;" />
+
+	<p id="fn1"><sup>1</sup> Physical <span class="caps">LOC</span>: lines of code, excluding comments and blank lines. To test my Common Lisp and Scheme code counts with <code>cloc.pl</code>, I used these commands:</p>
+
+
+<pre>
+cloc.pl --force-lang="Lisp",lisp *.lisp
+cloc.pl --force-lang="Lisp",scm *.scm
+</pre>
+
+	<p id="fn2"><sup>2</sup> Including comments and blank lines, as output by <code>wc -l</code>.</p>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-conclusion';
+            var disqus_url = 'http://eli.thegreenplace.net/2008/04/18/sicp-conclusion';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-conclusion#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

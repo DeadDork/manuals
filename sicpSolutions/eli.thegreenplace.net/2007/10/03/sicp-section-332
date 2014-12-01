@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP section 3.3.2 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-section-332"
+                       rel="bookmark"
+                       title="Permalink to SICP section 3.3.2">
+                        SICP section 3.3.2
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> October 03, 2007 at 10:54</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>The code for this section is in Common Lisp.</p>
+
+
+	<p>Here&#8217;s all the queue code written before the exercises:</p>
+
+
+<pre>
+(defun front-ptr (queue) 
+  (car queue)) 
+
+(defun rear-ptr (queue) 
+  (cdr queue)) 
+
+(defun set-front-ptr! (queue item) 
+  (setf (car queue) item))
+
+(defun set-rear-ptr! (queue item)
+  (setf (cdr queue) item))
+
+(defun empty-queue? (queue)
+  (null (front-ptr queue)))
+
+(defun make-queue ()
+  (cons '() '()))
+
+(defun front-queue (queue)
+  (if (empty-queue? queue)
+    (error "FRONT on empty queue")
+    (car (front-ptr queue))))
+
+(defun insert-queue! (queue item)
+  (let ((new-pair (cons item '())))
+    (cond ((empty-queue? queue)
+            (set-front-ptr! queue new-pair)
+            (set-rear-ptr! queue new-pair)
+            queue)
+          (t
+            (setf (cdr (rear-ptr queue)) new-pair)
+            (set-rear-ptr! queue new-pair)
+            queue))))
+
+(defun delete-queue! (queue)
+  (cond ((empty-queue? queue)
+          (error "DELETE! on empty queue"))
+        (t
+          (set-front-ptr! 
+            queue 
+            (cdr (front-ptr queue)))
+          queue)))
+</pre>
+
+	<p>Note that although I&#8217;ve rewritten it in CL, I kept the Scheme convention of appending ? to predicates and ! to mutators. I think it&#8217;s a useful naming convention and can be used in CL too.</p>
+
+
+	<h4>Exercise 3.21</h4>
+
+
+	<p>When printing a queue, the Lisp printer sees just a pair created with <code>cons</code>, so it prints its <code>car</code> and <code>cdr</code>. Its <code>car</code> is the front queue pointer, which points to a list. This is the first element printed. The rear pointer points to the last element of the list. Hence that last element is shown twice.</p>
+
+
+	<p>Here&#8217;s a printing function that just prints the queue itself:</p>
+
+
+<pre>
+(defun print-queue (queue)
+  (format t "~a~%" (car queue)))
+</pre>
+
+	<h4>Exercise 3.22</h4>
+
+
+<pre>
+(defun make-queue ()
+  (let ((front '())
+        (rear '()))
+    (labels (
+      (front-ptr ()
+        front)
+      (rear-ptr ()
+        rear)
+      (empty-queue? ()
+        (null front))
+      (set-front-ptr! (item)
+        (setf front item))
+      (set-rear-ptr! (item)
+        (setf rear item))
+      (front-queue ()
+        (if (empty-queue?)
+          (error "FRONT on empty queue")
+          (car front-ptr)))
+      (insert-queue! (item)
+        (let ((new-pair (cons item '())))
+          (cond ((empty-queue?)
+                  (set-front-ptr! new-pair)
+                  (set-rear-ptr! new-pair))
+                (t
+                  (setf (cdr (rear-ptr)) new-pair)
+                  (set-rear-ptr! new-pair)))))
+      (delete-queue! ()
+        (cond ((empty-queue?)
+                (error "DELETE! on empty queue"))
+              (t
+                (set-front-ptr! 
+                  (cdr (front-ptr))))))
+      (print-queue ()
+        (format t "~a~%" (front-ptr)))
+      (dispatch (m)
+        (case m
+          ('front-ptr #'front-ptr)
+          ('rear-ptr #'rear-ptr)
+          ('empty-queue? #'empty-queue?)
+          ('set-front-ptr! #'set-front-ptr!)
+          ('set-rear-ptr! #'set-rear-ptr!)
+          ('front-queue #'front-queue)
+          ('insert-queue! #'insert-queue!)
+          ('delete-queue! #'delete-queue!)
+          ('print-queue #'print-queue)
+          (otherwise (error "Bad dispatch ~A" m)))))
+
+      #'dispatch)))
+</pre>
+
+	<p>CL&#8217;s semantics of function objects are less clean than Scheme&#8217;s. We begin seeing it in the #&#8217; signs above, but it becomes much worse when we see how to call these methods:</p>
+
+
+<pre>
+(defvar q (make-queue))
+
+(funcall (funcall q 'insert-queue!) 't)
+(funcall (funcall q 'insert-queue!) 'a)
+
+(funcall (funcall q 'print-queue))
+</pre>
+
+	<p>In Scheme all those <code>funcall</code> calls wouldn&#8217;t be there at all, but in CL they&#8217;re a must because it&#8217;s a Lisp-2 &#8211; function symbols and normal symbols &#8220;live&#8221; in different namespaces.</p>
+
+
+	<p>In reality, code is rarely written in this fashion in Common Lisp. When objects are needed, programmers prefer to use the Common Lisp Object System.</p>
+
+
+	<h4>Exercise 3.23</h4>
+
+
+	<p>This exercise at first looks simpler than it really is. Note that rear-deletion must be done in <code>O(1)</code> as well. This means we can no longer use singly linked lists, because when we delete the last element we have no <code>O(1)</code> way to get to the one-before-last element and point the rear pointer to it.</p>
+
+
+	<p>So, the solution is to use a doubly linked list. Each list element will now hold another pair in its <code>car</code> (and a pointer to the next element in the <code>cdr</code>, as before). In this pair, the <code>car</code> will be the data, and the <code>cdr</code> will be a back pointer to the previous element. Draw a box-and-pointer diagram if this isn&#8217;t immediately clear.</p>
+
+
+	<p>Here&#8217;s the code:</p>
+
+
+<pre>
+(defun make-deque ()
+  (cons '() '()))
+
+(defun front-ptr (deque) 
+  (car deque)) 
+
+(defun rear-ptr (deque) 
+  (cdr deque)) 
+
+(defun set-front-ptr! (deque item) 
+  (setf (car deque) item))
+
+(defun set-rear-ptr! (deque item)
+  (setf (cdr deque) item))
+
+(defun empty-deque? (deque)
+  (null (front-ptr deque)))
+
+(defun front-deque (deque)
+  (if (empty-deque? deque)
+    (error "FRONT on empty deque")
+    (caar (front-ptr deque))))
+
+(defun rear-deque (deque)
+  (if (empty-deque? deque)
+    (error "REAR on empty deque")
+    (caar (rear-ptr deque))))
+
+(defun front-insert-deque! (deque item)
+  (let ((new-pair 
+          (cons 
+            (cons item '())
+            '())))
+    (cond ((empty-deque? deque)
+            (set-front-ptr! deque new-pair)
+            (set-rear-ptr! deque new-pair)
+            deque)
+          (t
+            (setf (cdr new-pair) (front-ptr deque))
+            (setf (cdar (front-ptr deque)) new-pair)
+            (set-front-ptr! deque new-pair)
+            deque))))
+
+(defun rear-insert-deque! (deque item)
+  (let ((new-pair 
+          (cons 
+            (cons item (rear-ptr deque))
+            '())))
+    (cond ((empty-deque? deque)
+            (set-front-ptr! deque new-pair)
+            (set-rear-ptr! deque new-pair)
+            deque)
+          (t
+            (setf (cdr (rear-ptr deque)) new-pair)
+            (set-rear-ptr! deque new-pair)
+            deque))))
+
+(defun front-delete-deque! (deque)
+  (cond ((empty-deque? deque)
+          (error "FRONT-DELETE on empty deque"))
+        (t
+          (set-front-ptr!
+            deque
+            (cdr (front-ptr deque)))
+          deque)))
+
+(defun rear-delete-deque! (deque)
+  (cond ((empty-deque? deque)
+          (error "REAR-DELETE on empty deque"))
+        (t
+          (set-rear-ptr!
+            deque
+            (cdar (rear-ptr deque)))
+          (setf (cdr (rear-ptr deque)) '())
+          deque)))
+
+(defun print-deque (deque)
+  (format t "(")
+  (mapcar 
+    (lambda (e)
+      (format t "~a " (car e)))
+    (front-ptr deque))
+  (format t ")"))
+</pre>
+
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-section-332';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/10/03/sicp-section-332';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-section-332#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

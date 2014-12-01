@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP section 2.2.1 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-section-221"
+                       rel="bookmark"
+                       title="Permalink to SICP section 2.2.1">
+                        SICP section 2.2.1
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> August 10, 2007 at 08:31</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>The authors start this section by presenting the &#8220;Closure Property&#8221; of Lisp&#8217;s data combinator <code>cons</code>. Note that this isn&#8217;t what&#8217;s usually implied by the term &#8220;closure&#8221; in describing programming languages. This is explained in the book:</p>
+
+
+	<blockquote>
+		<p>The ability to create pairs whose elements are pairs is the essence of list structure&#8217;s importance as a representational tool. We refer to this ability as the <em>closure property</em> of <code>cons</code>. In general, an operation for combining data objects satisfies the closure property if the results of combining things with that operation can themselves be combined using the same operation.</p>
+	</blockquote>
+
+
+	<p>And there is a clarification in footnote 6:</p>
+
+
+	<blockquote>
+		<p>The use of the word &#8220;closure&#8221; here comes from abstract algebra, where a set of elements is said to be closed under an operation if applying the operation to elements in the set produces an element that is again an element of the set. The Lisp community also (unfortunately) uses the word &#8220;closure&#8221; to describe a totally unrelated concept: A closure is an implementation technique for representing procedures with free variables. We do not use the word &#8220;closure&#8221; in this second sense in this book.</p>
+	</blockquote>
+
+
+	<p>It is very curious that the more familiar usage of the word &#8220;closure&#8221; (which usually means a function with the values of free variables captured from the enclosing lexical context) is discouraged by the authors of <span class="caps">SICP</span>. I can only guess that the traditional meaning is indeed the one defined in the book, since it fits the mathematical meaning of &#8220;closure&#8221; better. I will try to use the full term &#8220;closure property&#8221; to avoid confusion, whenever possible.</p>
+
+
+	<h4>Exercise 2.17</h4>
+
+
+<pre>
+(defun last-pair (items)
+  (if (null (cdr items))
+    items
+    (last-pair (cdr items))))
+</pre>
+
+	<h4>Exercise 2.18</h4>
+
+
+<pre>
+(defun my-reverse (items)
+  (if (null items)
+    nil
+    (append 
+      (my-reverse (cdr items)) 
+      (list (car items)))))
+</pre>
+
+	<h4>Exercise 2.19</h4>
+
+
+	<p>This exercise is a definite antithesis to anyone who claims that the exercises in <span class="caps">SICP</span> are too difficult :-) The authors basically chop and chew the answer and feed it to you with a spoon. It would have been more challenging to try and solve it without having the skeleton of <code>cc</code> in front of the eyes.</p>
+
+
+<pre>
+(defun no-more? (coins)
+  (null coins))
+
+(defun except-first-denomination (coins)
+  (cdr coins))
+
+(defun first-denomination (coins)
+  (car coins))
+
+(defun cc (amount coin-values)
+  (cond ((= amount 0) 1)
+        ((or (&lt; amount 0) (no-more? coin-values)) 0)
+        (t
+          (+  (cc amount
+                  (except-first-denomination coin-values))
+              (cc (-  amount
+                      (first-denomination coin-values))
+                  coin-values)))))
+</pre>
+
+	<p>The order of the list <code>coin-values</code> does not affect the answer of <code>cc</code>. To understand why this is so, note that the first recursive call will try to match the amount with all the possibilities, no matter what is their order.</p>
+
+
+	<h4>Exercise 2.20</h4>
+
+
+	<p>In Common Lisp the <em>dotted-tail notation</em> for specifying functions with arbitrary number of arguments is not supported. Instead, the specifier &#38;rest is used to achieve the same purpose.</p>
+
+
+<pre>
+(defun same-parity (elem &#38;rest others)
+  (let ((result (list elem)))
+    (dolist (other others)
+      (when (= (rem elem 2) (rem other 2))
+        (setf result (append result (list other)))))
+    result))
+</pre>
+
+	<p>This could&#8217;ve been implemented in dozens of ways &#8211; I chose to practice <code>dolist</code> because it&#8217;s so suitable for iteration over a list. I&#8217;m sure this can be done much more succinctly using <code>loop</code>.</p>
+
+
+	<p>Trivia: The test <code>(= (rem elem 2) (rem other 2))</code> can be rewritten as <code>(= 0 (rem (+ elem other) 2))</code> because the parity of the sum of two numbers is even <span class="caps">IFF</span> their parities are the same.</p>
+
+
+	<h4>Exercise 2.21</h4>
+
+
+	<p>Common Lisp doesn&#8217;t suffer from a shortage of mapping methods, that&#8217;s for sure ! <code>map, map-into, mapc, mapcan, mapcar, mapcon, maphash, mapl, maplist</code> &#8211; pick your favorite :-) To really understand the differences it is essential to read the documentation (the HyperSpec is particularly helpul, as usual). In my code I will just use the mapping method I find most suitable.</p>
+
+
+<pre>
+(defun square-list-solo (items)
+  (if (null items)
+    nil
+    (cons (square (car items))
+          (square-list-solo (cdr items)))))
+
+(defun square-list-map (items)
+  (mapcar #'square items))
+</pre>
+
+	<p>In this case it&#8217;s <code>mapcar</code>, which is probably the function closest to Scheme&#8217;s <code>map</code> that&#8217;s used in the book.</p>
+
+
+	<h4>Exercise 2.22</h4>
+
+
+	<p>Here&#8217;s Luis&#8217;s function with an embedded printout to help understanding what&#8217;s going on:</p>
+
+
+<pre>
+(defun square-list-iter (items)
+  (labels (
+    (iter (things answer)
+      (format t "~A - ~A~%" things answer)
+      (if (null things)
+        answer
+        (iter (cdr things)
+              (cons (square (car things))
+                    answer)))))
+    (iter items nil)))
+
+(print (square-list-iter '(1 2 3 4)))
+
+=&gt;
+
+(1 2 3 4) - NIL
+(2 3 4) - (1)
+(3 4) - (4 1)
+(4) - (9 4 1)
+NIL - (16 9 4 1)
+
+(16 9 4 1)
+</pre>
+
+	<p>Since each new square value is consed in front of the existing answer, the result comes out reversed. It is as if you&#8217;re taking a deck of cards and start taking cards from the top and placing them in another deck, in order. What you&#8217;ll get in the end is a reversed deck.</p>
+
+
+	<p>When Luis reverses the order of arguments to <code>cons</code>:</p>
+
+
+<pre>
+(defun square-list-iter (items)
+  (labels (
+    (iter (things answer)
+      (format t "~A - ~A~%" things answer)
+      (if (null things)
+        answer
+        (iter (cdr things)
+              (cons answer
+                    (square (car things)))))))
+    (iter items nil)))
+
+(print (square-list-iter '(1 2 3 4)))
+
+=&gt;
+
+(1 2 3 4) - NIL
+(2 3 4) - (NIL . 1)
+(3 4) - ((NIL . 1) . 4)
+(4) - (((NIL . 1) . 4) . 9)
+NIL - ((((NIL . 1) . 4) . 9) . 16)
+
+((((NIL . 1) . 4) . 9) . 16) 
+</pre>
+
+	<p>In some sense this is better because the order of the elements is right. However, cons builds a conventional list only when the new element is prepended to the existing list, not appended to its end. Consider this:</p>
+
+
+<pre>
+[6]&gt; (cons 20 '(1 2 3 4))
+(20 1 2 3 4)
+[7]&gt; (cons '(1 2 3 4) 20)
+((1 2 3 4) . 20)
+</pre>
+
+	<p>If you think in terms of the box and pointer notation, what we have prior to consing is:</p>
+
+
+	<p><img src="../../../images/2007/08/before_cons.png" /></p>
+
+
+	<p>What <code>(cons 20 '(1 2 3 4))</code> does is:</p>
+
+
+	<p><img src="../../../images/2007/08/cons_20_first.png" /></p>
+
+
+	<p>While <code>(cons '(1 2 3 4) 20)</code> does this:</p>
+
+
+	<p><img src="../../../images/2007/08/cons_list_first.png" /></p>
+
+
+	<h4>Exercise 2.23</h4>
+
+
+	<p>Interestingly, such a function exists in CL &#8211; it&#8217;s <code>mapc</code>, which doesn&#8217;t accumulate the result but just returns its argument:</p>
+
+
+<pre>
+[11]&gt; (mapc #'print '(1 2 3 4))
+
+1
+2
+3
+4
+(1 2 3 4)
+</pre>
+
+	<p><code>for-each</code> can also be simply defined in terms of <code>dolist</code>:</p>
+
+
+<pre>
+(defun for-each (func items)
+  (dolist (item items)
+    (funcall func item)))
+
+(for-each (lambda (x) (print x))
+          (list 57 321 88))
+=&gt;
+
+57 
+321 
+88 
+</pre>
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-section-221';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/08/10/sicp-section-221';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-section-221#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

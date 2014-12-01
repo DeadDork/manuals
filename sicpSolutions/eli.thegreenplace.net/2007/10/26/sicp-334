@@ -1,0 +1,409 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP 3.4 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-334"
+                       rel="bookmark"
+                       title="Permalink to SICP 3.4">
+                        SICP 3.4
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> October 26, 2007 at 11:05</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>I&#8217;m going to use <span class="caps">PLT</span> Scheme for this section, because <span class="caps">CLISP</span> doesn&#8217;t have thread support. <span class="caps">PLT</span> Scheme supports &#8220;green&#8221; threads<sup><a href="sicp-334#fn1">1</a></sup> and synchronization elements.</p>
+
+
+	<p>This is <code>parallel-execute</code>:</p>
+
+
+<pre>
+(define (parallel-execute . thunks)
+  (for-each thread thunks))
+</pre>
+
+	<p>The <code>thread</code> function invokes its argument in a separate thread and returns immediately<sup><a href="sicp-334#fn2">2</a></sup>.</p>
+
+
+	<p>And this is <code>make-serializer</code>:</p>
+
+
+<pre>
+(define (make-serializer)
+  (let ((mutex (make-semaphore 1)))
+    (lambda (p)
+      (define (serialized-p . args)
+        (semaphore-wait mutex)
+        (let ((val (apply p args)))
+          (semaphore-post mutex)
+          val))
+      serialized-p)))
+</pre>
+
+	<p>It uses <span class="caps">PLT</span>&#8217;s <em>semaphore</em> object to do its work.</p>
+
+
+	<h4>Exercise 3.38</h4>
+
+
+	<p><strong>a.</strong> To list the possible values, I&#8217;ll map the possible orders of execution:</p>
+
+
+<pre>
+[peter, paul, mary] -&gt; 45
+[peter, mary, paul] -&gt; 35
+[mary, peter, paul] -&gt; 40
+[mary, paul, peter] -&gt; 40
+[paul, peter, mary] -&gt; 45
+[paul, mary, peter] -&gt; 50
+</pre>
+
+	<p>It is interesting to notice here that order between commutative operations (Peter and Paul) doesn&#8217;t matter. The relative order of Mary does matter, however.</p>
+
+
+	<p><strong>b.</strong> Consider one option: Peter&#8217;s code runs first, fetches the <code>balance</code> of 100 and adds 10 to it, but doesn&#8217;t get the chance to store it back before a task switch. Then comes a task switch and Paul&#8217;s code runs fully, setting the balance to 80. Peter&#8217;s code then comes back and stores the 110 it has computed to <code>balance</code> (thus completely hiding Paul&#8217;s operation). Mary&#8217;s code then sets <code>balance</code> to 55.</p>
+
+
+	<h4>Exercise 3.39</h4>
+
+
+	<p>Note that this is not a full serialization of the computations. The second computation can still interfere between the computation and assignment of the first. Therefore, the possible results are:</p>
+
+
+	<ul>
+	<li>101: P1 completes, then P2 completes</li>
+		<li>100: P1 computes <code>(* x x)</code>, then P2 completes (and sets <code>x</code> to 101), then P1 executes the assignment.</li>
+		<li>121: P2 completes, then P1 completes</li>
+	</ul>
+
+
+	<h4>Exercise 3.40</h4>
+
+
+	<p>Now we have a full serialization, and the only thing that can differ between two executions is the order in the execution of P1 and P2. However, since the operations P1 and P2 are commutative, the same result will be produced in both cases: 1,000,000</p>
+
+
+	<h4>Exercise 3.41</h4>
+
+
+	<p>Since both <code>withdraw</code> and <code>deposit</code> make a single modification to the balance, I can&#8217;t see how accessing it can result in anomalous behavior. Depending on the order of execution of the access relatively to <code>withdraw</code>, one can either see the old or the new value &#8211; but this is allowed, since the value is consistent with reality.</p>
+
+
+	<p>Perhaps, had <code>withdraw</code> did two assignments to the balance, for whatever reason, we could hit an intermediate state with an access.</p>
+
+
+	<h4>Exercise 3.42</h4>
+
+
+	<p>It is a safe change to make, and I can&#8217;t see any kind of concurrency allowed by the original solution but not this one.</p>
+
+
+	<p>The reason for this is that the real work of the serializer is done in the call to protected procedures, and not in their creation. In their creation the function <code>serialized-p</code> is created and returned, and only when it&#8217;s called it waits on the mutex.</p>
+
+
+	<h4>Exercise 3.43</h4>
+
+
+	<p>First, let&#8217;s examine the serial case. The exchange operation given two accounts with balances A and B leaves the balances B and A, changing the order<sup><a href="sicp-334#fn3">3</a></sup> but not the sums. The same principle applies to exchanging any number of accounts.</p>
+
+
+	<p>This will be violated in the first version of <code>exchange</code> defined in the book. Suppose that the accounts are: a1(10), a2(20), a3(30). Peter exchanges a1 and a2 while Paul concurrently exchanges a1 and a3. Let&#8217;s examine the following scenario:</p>
+
+
+	<p>Peter&#8217;s <code>exchange</code> computes the difference: -10. Now, Paul&#8217;s <code>exchange</code> is switched to, and completes its whole work by leaving the accounts as: a1(30), a2(20), a3(10). Peter&#8217;s <code>exchange</code> resumes its work, withdraws -10 from a1, and adds -10 to a2. The final state is: a1(40), a2(10), a3(10), which is completely inconsistent.</p>
+
+
+	<p>However, <code>exchange</code> always preserves the sum of the balances of its input accounts, by taking the same sum from one account and adding it to another.</p>
+
+
+	<p>Had the individual accesses not been serialized, we&#8217;d get back to the problems examined in the beginning of the chapter. A call to <code>withdraw</code> could become intermixed with a call to <code>deposit</code> for the same account, leaving its balance completely incorrect.</p>
+
+
+	<h4>Exercise 3.44</h4>
+
+
+	<p>I&#8217;ll take Ben&#8217;s side here. Since the withdrawal and deposit are serialized, I can&#8217;t see how the <code>transfer</code> operation can leave any of the account in an inconsistent state. Even if the transfer is interrupted between the withdraw and deposit, it still holds the correct sum to deposit into the target account and will do it eventually. In any given moment, an account holds its balance plus amounts &#8220;owed to it&#8221; by all pending <code>transfer</code> operations. Therefore, if all transfers complete, eventually the balances in all accounts will be correct.</p>
+
+
+	<p>There is an essential difference between the transfer problem and the exchange problem, and it is the lack of computation of <code>difference</code>, which may examine some intermediate state of the balance which no longer reflects reality if <code>exchange</code> is switched out and in between the computation of the difference and the account operations.</p>
+
+
+	<h4>Exercise 3.45</h4>
+
+
+	<p>When <code>serialized-exchange</code> is called, the serializers of both accounts are activated. Then, when <code>exchange</code> tries to call <code>deposit</code> or <code>withdraw</code>, it can&#8217;t because these functions also try to use the serializer. It will block on the call of <code>withdraw</code> from account1 and stay in this state indefinitely.</p>
+
+
+	<h4>Exercise 3.46</h4>
+
+
+	<p>Suppose that p1 executes the test <code>(if (car cell)</code> on an untaken mutex. The test suceeds, but p1 is switched out. p2 executes the same test which also suceeds (since p1 still hasn&#8217;t reached the acquiring code). In this way, both p1 and p2 will eventually acquire the mutex.</p>
+
+
+	<h4>Exercise 3.47</h4>
+
+
+	<p>Note that the implementation of <code>make-serializer</code> in <span class="caps">PLT</span> Scheme I posted above uses semaphores to implement mutexes. This is trivial, since a mutex is just a special case of a semaphore. In this exercise, we&#8217;ll see how to implement semaphores in terms of mutexes, which is a little more complicated.</p>
+
+
+	<p><strong>a.</strong> Here&#8217;s the implementation using a mutex:</p>
+
+
+<pre>
+(define (make-semaphore-mtx maximal)
+  (let ((count maximal)
+        (mutex (make-mutex)))
+    (define (the-sema m)
+      (cond ((eq? m 'release)
+              (mutex 'acquire)
+              (unless (= count maximal)
+                (set! count (+ 1 count)))
+              (mutex 'release))
+            ((eq? m 'acquire)
+              (mutex 'acquire)
+              (cond 
+                ((> count 0)
+                  (set! count (- count 1))
+                  (mutex 'release))
+                (else
+                  (mutex 'release)
+                  (the-sema 'acquire))))
+            (else
+              (error "Unknown request -- " m))))
+    the-sema))
+</pre>
+
+	<p>This semaphore is a fancy counter that blocks when asked to acquire when empty. It uses a mutex to protect all accesses to the counter so that concurrent calls will leave it in a consistent state.</p>
+
+
+	<p><strong>b.</strong> Using <code>test-and-set!</code> is almost identical, except that we&#8217;ll have to implement the wait on a locked cell manually:</p>
+
+
+<pre>
+(define (loop-test-and-set! cell)
+  (if (test-and-set! cell)
+    (loop-test-and-set! cell)
+    '()))
+
+(define (make-semaphore-ts maximal)
+  (let ((count maximal)
+        (guard (cons #f '())))
+    (define (the-sema m)
+      (cond ((eq? m 'release)
+              (loop-test-and-set! guard)
+                (unless (= count maximal)
+                  (set! count (+ 1 count)))
+              (clear! guard))
+            ((eq? m 'acquire)
+              (cond 
+                (loop-test-and-set! guard)
+                ((> count 0)
+                  (set! count (- count 1))
+                  (clear! guard))
+                (else
+                  (clear! guard)
+                  (the-sema 'acquire))))
+            (else
+              (error "Unknown request -- " m))))
+    the-sema))
+</pre>
+
+	<h4>Exercise 3.48</h4>
+
+
+	<p>In the current implementation, given the exchange between a1 and a2, in parallel with the exchange between a2 and a1, we may have a situation where one process holds a lock on a1 while another holds a lock on a2. If we number the accounts, when both processes will first attempt to lock a1. Since a2 can be locked only when a1 is locked, we&#8217;ll have no deadlock.</p>
+
+
+	<p>Here&#8217;s the implementation:</p>
+
+
+<pre>
+(define (make-account number balance)
+  (define (withdraw amount)
+    (if (&gt;= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Insufficient funds"))
+  (define (deposit amount)
+    (set! balance (+ balance amount))
+    balance)
+  (let ((balance-serializer (make-serializer)))
+    (define (dispatch m)
+      (cond ((eq? m 'withdraw) withdraw)
+            ((eq? m 'deposit) deposit)
+            ((eq? m 'number) number)
+            ((eq? m 'balance) balance)
+            ((eq? m 'serializer) balance-serializer)
+            (else (error "Unknown request -- MAKE-ACCOUNT" 
+                         m))))
+    dispatch))
+</pre>
+
+<pre>
+(define (serialized-exchange account1 account2)
+  (let ((serializer1 (account1 'serializer))
+        (serializer2 (account2 'serializer)))
+    (if (&lt; (account1 'number) (account2 'number))
+      ((serializer2 (serializer1 exchange))
+        account1 account2)
+      ((serializer1 (serializer2 exchange))
+        account1 account2))))
+</pre>
+
+<img class="align-center" src="../../../images/hline.jpg" style="width: 320px; height: 5px;" />
+
+	<p id="fn1"><sup>1</sup> Also called &#8220;interpreter threads&#8221;. These are threads implemented in the interpreter, unrelated to the OS native threads. This means that such threads can&#8217;t really be utilized to increase performance on parallel machines (since they run in a single process), and also that if one thread waits on a system call it blocks all the others. On the other hand, on uniprocessor computers, green threads have been found to be faster than native threads for some applications, because they're very light weight and context switching is very fast. Additionally, being implemented on the level of the interpreter, green threads behave exactly the same way on all platforms.
+
+<em>Thanks to Jens Axel Soegaard for bringing this trade off to my attention.</em></p>
+
+
+	<p id="fn2"><sup>2</sup> It actually returns the thread <em>descriptor</em> by which we can later access the thread, but we don&#8217;t use this feature here.</p>
+
+
+	<p id="fn3"><sup>3</sup> Order is defined if we sort the accounts in some way unrelated to the balance in them. Say, lexicographically by the account&#8217;s object name.</p>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-334';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/10/26/sicp-334';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-334#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

@@ -1,0 +1,466 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP sections 1.3.2 - 1.3.3 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-sections-132-133"
+                       rel="bookmark"
+                       title="Permalink to SICP sections 1.3.2 - 1.3.3">
+                        SICP sections 1.3.2 - 1.3.3
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> July 13, 2007 at 13:30</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p><code>lambda</code> is a very important tool in our quest for meaningful abstractions to make programming easier. Some procedures are inherently simple and one-time, and it&#8217;s a shame to spend the extra time writing out their full definitions and making up names for them. So anonymous procedures, created with <code>lambda</code>, are the answer.</p>
+
+
+	<p>Here is some of the code from the previous sections rewritten with <code>lambda</code> instead of explicitly defined auxiliary functions:</p>
+
+
+<pre>
+(defun sum (term a next b)
+  (if (&gt; a b)
+    0
+    (+  (funcall term a)
+        (sum term (funcall next a) next b))))
+
+(defun pi-sum (a b)
+  (sum  (lambda (x) 
+          (/ 1.0 (* x (+ x 2)))) 
+        a 
+        (lambda (x) (+ x 4)) 
+        b))
+
+(defun integral (f a b dx)
+  (*  (sum f 
+          (+ a (/ dx 2.0)) 
+          (lambda (x) (+ x dx)) 
+          b)
+      dx))
+</pre>
+
+	<p>The authors also presented <code>let</code> for defining temporary variables. I&#8217;ve been using <code>let</code> in some of the code already written for the previous sections, so there is no need to reintroduce it here.</p>
+
+
+	<h4>Exercise 1.34</h4>
+
+
+	<p>Here is the perverse invocation the authors refer to:</p>
+
+
+<pre>
+(defun f (g)
+  (funcall g 2))
+
+(f #'f)
+</pre>
+
+	<p>Since <code>f</code> is passed as an argument to <code>f</code>, it will be called with 2 as the argument. But what is <code>f</code>, again ? A function that calls its argument as a function on 2. So, the second call will attempt to call 2 as a function (on 2), which is an error. <span class="caps">CLISP</span> complains:</p>
+
+
+<pre>
+
+*** - FUNCALL: 2 is not a function name; try using a symbol instead
+
+</pre>
+
+	<h4>Section 1.3.3</h4>
+
+
+	<p>Here is the CL implementation of the fixed point search and finding the square root of 2 using it:</p>
+
+
+<pre>
+(defvar tolerance 0.00001)
+
+(defun fixed-point (f first-guess)
+  (labels ( 
+    (close-enough? (v1 v2)
+      (&lt; (abs (- v1 v2)) tolerance))
+    (try (guess)
+      (let ((next (funcall f guess)))
+        (if (close-enough? guess next)
+          next
+          (try next)))))
+
+    (try first-guess)))
+
+(defun average (a b)
+  (/ (+ a b) 2))
+
+(defun dampen-sqrt (x) 
+  (fixed-point 
+    (lambda (y) 
+      (average y (/ x y)))
+    1.0))
+</pre>
+
+	<p>I&#8217;m using here the <code>labels</code> form of CL instead of an internal <code>defun</code>, following a good advice given in the comments to the previous <span class="caps">SICP</span> post. In CL, unlike in Scheme, an internal <code>defun</code> creates a function with global scope, so it doesn&#8217;t really do what we want it to do &#8211; which is define a localized function that is seen only inside the function definition it appears in. <code>labels</code> is the correct way to do this in CL. There are other forms that can achieve this goal, like <code>flet</code> &#8211; for differences between them turn to the <a href="http://www.lispworks.com/documentation/HyperSpec/Front/index.htm">Common Lisp Hyperspec</a></p>
+
+
+	<p>Note that the authors define <code>close-enough?</code> as an explicit function with a name, instead of using a <code>lambda</code>. This makes sense in this case, because the name <code>close-enough?</code> is meaningful and using the explicit function makes the code more readable. On the other hand, in the definition of <code>dampen-sort</code> the authors choose to represent the function computing the average of y and x/y as a <code>lambda</code>, because it doesn&#8217;t harm readability and there is no point in making up a special function name for this singular case. There are no hard rules set in stone about when to use <code>lambda</code> and when to use an explicit function. In some cases one is better, in some the other. My rule of thumb in such situations is to go with the intuition &#8211; whatever feels more natural and readable in any specific case. This intuition improves with experience.</p>
+
+
+	<h4>Exercise 1.35</h4>
+
+
+	<p>First let&#8217;s prove that phi is a fixed point of <code>x -&gt; 1 + 1/x</code>. It&#8217;s quite simple, since:</p>
+
+
+<pre>
+phi^2 = phi + 1   (1)
+</pre>
+
+	<p>So substituting phi into the transformation:</p>
+
+
+<pre>
+1 + 1/phi = 
+(phi + 1)/phi =   / Applying (1)
+(phi^2)/phi = 
+phi
+</pre>
+
+	<p>So, indeed phi is a fixed point of <code>x -&gt; 1 + 1/x</code>. Now, the code that computes it:</p>
+
+
+<pre>
+(fixed-point (lambda (x) (1+ (/ 1 x))) 1.0)
+=&gt;
+1.618
+</pre>
+
+	<h4>Exercise 1.36</h4>
+
+
+	<p>Here is the code:</p>
+
+
+<pre>
+(defvar tolerance 0.00001)
+
+(defun fixed-point (f first-guess)
+  (labels ( 
+    (close-enough? (v1 v2)
+      (&lt; (abs (- v1 v2)) tolerance))
+    (try (guess)
+      (format t "Trying ~F~%" guess)
+      (let ((next (funcall f guess)))
+        (if (close-enough? guess next)
+          next
+          (try next)))))
+
+    (try first-guess)))
+
+(defun average (a b)
+  (/ (+ a b) 2))
+
+(defun xx (x)
+  (/ (log 1000) (log x)))
+
+(defun dampen-xx (x)
+  (average x (xx x)))
+</pre>
+
+	<p>Running without dampening:</p>
+
+
+<pre>
+(print (fixed-point #'xx 2.0))
+=&gt;
+Trying 2.0
+Trying 9.965784
+Trying 3.0044723
+Trying 6.279196
+Trying 3.7598507
+Trying 5.215844
+Trying 4.182207
+Trying 4.827765
+Trying 4.3875937
+Trying 4.67125
+Trying 4.481404
+Trying 4.6053658
+Trying 4.523085
+Trying 4.5771146
+Trying 4.541383
+Trying 4.5649033
+Trying 4.5493727
+Trying 4.5596066
+Trying 4.552854
+Trying 4.5573053
+Trying 4.5543694
+Trying 4.5563054
+Trying 4.5550284
+Trying 4.5558705
+Trying 4.555315
+Trying 4.555681
+Trying 4.55544
+Trying 4.5555987
+Trying 4.5554943
+Trying 4.555563
+Trying 4.5555177
+Trying 4.5555477
+Trying 4.555528
+Trying 4.555541
+
+4.5555325 
+</pre>
+
+	<p>34 steps. Now, with dampening:</p>
+
+
+<pre>
+(print (fixed-point #'dampen-xx 2.0))
+=&gt;
+Trying 2.0
+Trying 5.982892
+Trying 4.9221687
+Trying 4.6282244
+Trying 4.5683465
+Trying 4.5577307
+Trying 4.55591
+Trying 4.555599
+Trying 4.5555468
+
+4.5555377 
+</pre>
+
+	<p>9 steps. Dampening certainly makes the computation converge much quicker in this case.</p>
+
+
+	<h4>Exercise 1.37</h4>
+
+
+	<p>Here is the implementation:</p>
+
+
+<pre>
+(defun cont-frac (n d k)
+  (labels (
+    (frac (i)
+      (/  (funcall n i) 
+          (+  (funcall d i)
+              (if (= i k) 
+                  0
+                  (frac (1+ i)))))))
+
+    (frac 1)))
+</pre>
+
+	<p>This is a recursive process, of course. It takes k = 11 to reach 4-digit accuracy in the computation of 1/phi:</p>
+
+
+<pre>
+(print (cont-frac (lambda (i) 1.0) (lambda (i) 1.0) 11))
+=&gt;
+0.6180556
+</pre>
+
+	<p>And this is the iterative version:</p>
+
+
+<pre>
+(defun cont-frac-iter (n d k)
+  (labels (
+    (frac-iter (i result)
+      (if (= i 0) 
+        result
+        (frac-iter 
+          (1- i)
+          (/  (funcall n i)
+              (+ (funcall d i) result))))))
+
+    (frac-iter k 0)))
+</pre>
+
+	<p>As usual, it is a bit less elegant and obvious. I wonder if anyone first produces the iterative version for these exercises, and only then the recursive one. Somehow, resursive functions often greatly simplify matters. In the case of <code>cont-frac</code>, for instance, the recursive function is almost a transcription of the formula into a program. The iterative version, on the other hand, takes somewhat more thought to understand &#8211; because it has to generate the result from the bottom up (note that it counts down while the recursive function counts up).</p>
+
+
+	<h4>Exercise 1.38</h4>
+
+
+	<p>The only trick here is to realize the rule by which the elements of <code>Di</code> are generated, and this isn&#8217;t too hard if you notice that the non-1s are all 3 elements away from each other and are successive multiples of 2.</p>
+
+
+<pre>
+(print 
+  (cont-frac 
+    (lambda (i) 1.0)
+    (lambda (i) 
+      (let ((i+1 (1+ i)))
+        (if (= (rem i+1 3) 0)
+          (* 2.0 (/ i+1 3))
+          1.0)))
+    10))
+=&gt;
+0.7182817
+</pre>
+
+	<p>Which is <code>e - 2</code>!</p>
+
+
+	<h4>Exercise 1.39</h4>
+
+
+	<p>Again, transforming the fraction into a recursive process is very straightforward:</p>
+
+
+<pre>
+(defun tan-cf (x k)
+  (labels ((tan-step (i)
+    (/  (if (= i 1)
+          x
+          (square x))
+        (-  (1- (* i 2))
+            (if (= i k)
+              0
+              (tan-step (1+ i)))))))
+
+    (tan-step 1)))
+</pre>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-sections-132-133';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/07/13/sicp-sections-132-133';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-sections-132-133#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP sections 4.4.2 - 4.4.4 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-sections-442-444"
+                       rel="bookmark"
+                       title="Permalink to SICP sections 4.4.2 - 4.4.4">
+                        SICP sections 4.4.2 - 4.4.4
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> February 09, 2008 at 08:11</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <h4>Exercise 4.64</h4>
+
+
+	<p>Let's follow the procedure for applying rules described in section 4.4.2, to see what happens when the badly rewritten rule <code>outranked-by</code> is applied to the query issued by De Witt Aull:</p>
+
+
+	<p>First, we'll unify the query:</p>
+
+
+<pre>
+(outranked-by (Bitdiddle Ben) ?who)
+</pre>
+
+	<p>With the conclusion of the rule:</p>
+
+
+<pre>
+(outranked-by ?staff-person ?boss)
+</pre>
+
+<!--more-->
+
+	<p>The unification succeeds with the bindings <code>?staff-person -&gt; (Bitdiddle Ben)</code> and <code>?boss -&gt; ?who</code>. Now, we will evaluate the query formed by the body of the rule:</p>
+
+
+<pre>
+(or (supervisor ?staff-person ?boss)
+    (and (outranked-by ?middle-manager ?boss)
+         (supervisor ?staff-person ?middle-manager))))
+</pre>
+
+	<p>Relative to the extended frame. Consider what happens when we come to evaluate the sub-query <code>(outranked-by ?middle-manager ?boss)</code>. Again, this is a query that will match the <code>outranked-by</code> rule. Unifying it with the rule's conclusion succeeds, producing the bindings <code>?staff-person -&gt; ?middle-manager</code> and <code>?boss -&gt; ?who</code>. So we once again evaluate the rule's body, now with these bindings. And again, and again &#8211; this is an infinite loop.</p>
+
+
+	<p>Why didn't the original rule have this problem ?</p>
+
+
+	<p>Because the <code>(supervisor ?staff-person ?middle-manager)</code> sub-query came first in the <code>and</code>, and created bindings that narrowed the search when re-applying the <code>outranked-by</code> rule.</p>
+
+
+	<h4>Exercise 4.65</h4>
+
+
+	<p>Oliver Warbucks is listed four times because the rule matches four times over the database. I.e., there are four middle-managers of whom Oliver Warbucks is a manager. To find out who these are, we can unroll the rule:</p>
+
+
+<pre>
+(and (supervisor ?middle-manager ?person)
+     (supervisor ?x ?middle-manager))
+=&gt;
+(AND (SUPERVISOR (SCROOGE EBEN) (WARBUCKS OLIVER)) (SUPERVISOR (CRATCHET ROBERT) (SCROOGE EBEN)))
+(AND (SUPERVISOR (BITDIDDLE BEN) (WARBUCKS OLIVER)) (SUPERVISOR (TWEAKIT LEM E) (BITDIDDLE BEN)))
+(AND (SUPERVISOR (HACKER ALYSSA P) (BITDIDDLE BEN)) (SUPERVISOR (REASONER LOUIS) (HACKER ALYSSA P)))
+(AND (SUPERVISOR (BITDIDDLE BEN) (WARBUCKS OLIVER)) (SUPERVISOR (FECT CY D) (BITDIDDLE BEN)))
+(AND (SUPERVISOR (BITDIDDLE BEN) (WARBUCKS OLIVER)) (SUPERVISOR (HACKER ALYSSA P) (BITDIDDLE BEN)))
+</pre>
+
+	<h4>Exercise 4.66</h4>
+
+
+	<p>Suppose that Ben will try to compute the sum of the salaries of the wheels in the organization:</p>
+
+
+<pre>
+(qinterpret
+  '(and (wheel ?who)
+        (salary ?who ?amount)))
+=&gt;
+(AND (WHEEL (WARBUCKS OLIVER)) (SALARY (WARBUCKS OLIVER) 150000))
+(AND (WHEEL (WARBUCKS OLIVER)) (SALARY (WARBUCKS OLIVER) 150000))
+(AND (WHEEL (BITDIDDLE BEN)) (SALARY (BITDIDDLE BEN) 60000))
+(AND (WHEEL (WARBUCKS OLIVER)) (SALARY (WARBUCKS OLIVER) 150000))
+(AND (WHEEL (WARBUCKS OLIVER)) (SALARY (WARBUCKS OLIVER) 150000))
+</pre>
+
+	<p>Obviously, if Ben tries to apply the <code>sum</code> on <code>?amount</code> over these results, he'll get too much because of the duplications.</p>
+
+
+	<p>One way to circumvent this problem is to install a <em>uniqueness filter</em> that will filter out all the duplicates from the resulting frames produced by <code>qeval</code>.</p>
+
+
+	<h4>Exercise 4.67</h4>
+
+
+	<pre><code>???</code></pre>
+
+
+	<h4>Exercise 4.68</h4>
+
+
+<pre>
+(qinterpret
+  '(assert!
+    (rule (reverse () ()))))
+(qinterpret
+  '(assert!
+    (rule
+      (reverse ?x ?y)
+      (and 
+        (append-to-form (?car) ?cdr ?x)
+        (append-to-form ?rev-cdr (?car) ?y)
+        (reverse ?cdr ?rev-cdr)))))
+</pre>
+
+	<p>This rule answers:</p>
+
+
+<pre>
+(qinterpret
+  '(reverse ?x (1 2 3)))
+=&gt;
+(REVERSE (3 2 1) (1 2 3))
+</pre>
+
+	<p>But not:</p>
+
+
+<pre>
+(qinterpret
+  '(reverse (1 2 3) ?x))
+=&gt;
+*** - Program stack overflow. RESET
+</pre>
+
+	<h4>Exercise 4.69</h4>
+
+
+<pre>
+(rule (ends-with-grandson ?x)
+      (append-to-form ?head (grandson) ?x))
+
+(rule ((great . ?rel) ?x ?y)
+      (and
+        (ends-with-grandson ?rel)
+        (?rel ?sx ?y)
+        (son ?x ?sx)))
+</pre>
+
+	<h4>Exercise 4.70</h4>
+
+
+	<p>The problem with this alternative implementation is that <code>cons-stream</code> doesn't evaluate its second argument. Therefore, <code>THE-ASSERTIONS</code> will point to itself. In the original implementation, the purpose of the <code>let</code> was to force an evaluation of <code>THE-ASSERTIONS</code>, storing its pre-<code>set!</code> value in <code>old-assertions</code>.</p>
+
+
+	<p>It took me much longer than expected to solve this, because of one fact that puzzled me. I wrote a few unit tests for the logic evaluator, and ran them with the modified version. Everything worked. This was a surprise because I expected the self reference in the stream of assertions to cause an infinite loop.</p>
+
+
+	<p>The solution of this problem can teach us a lesson: complex systems are difficult to understand, test and debug. What actually happened is that all the assertions in my tests were <em>indexable</em>. Note that <code>store-assertion-in-index</code> in the implementation of <code>add-assertion!</code>, and the complementary <code>get-indexed-assertions</code> in <code>fetch-assertions</code> ? These do the actual job for most assertions, without ever getting to really searching in the big stream. To float this problem I wrote a few <em>unindexable</em> assertions<sup><a href="sicp-sections-442-444#fn1">1</a></sup>:</p>
+
+
+<pre>
+(assert! ((jay bird) sam 10))
+(assert! ((jay bird) tom 12))
+</pre>
+
+	<p>Indeed, these caused an infinite loop with the alternative implementation when searched. Phew. I'm rarely as glad to see a stack overflow in my program :-)</p>
+
+
+	<h4>Exercise 4.71</h4>
+
+
+	<p>These delays can postpone infinite looping in some cases, providing more meaningful answers to the user. Consider these assertions:</p>
+
+
+<pre>
+(qinterpret
+  '(assert! (dummy a))
+  '(assert! (dummy b))
+  '(assert! (dummy c))
+  '(assert! (rule (dummy ?x) (dummy ?x))))
+</pre>
+
+	<p>The last one asserts an infinitely-recursive rule. Now, if we issue the query:</p>
+
+
+<pre>
+(qinterpret
+  '(dummy ?who))
+</pre>
+
+	<p>With the delays in place, we'll get:</p>
+
+
+<pre>
+(DUMMY C)
+(DUMMY B)
+(DUMMY A)
+(DUMMY C)
+(DUMMY B)
+(DUMMY A)
+(DUMMY C)
+(DUMMY B)
+(DUMMY A)
+...
+...
+</pre>
+
+	<p>To understand why, look at this portion of <code>simple-query</code>:</p>
+
+
+<pre>
+      (stream-append-delayed
+        (find-assertions query-pattern frame)
+        (delay (apply-rules query-pattern frame))))
+</pre>
+
+	<p>Note that the application of rules is delayed. In our case, there are valid assertions answering the query, but the rule is invalid, since trying to apply it causes an infinite loop.</p>
+
+
+	<p>Without the delay we get:</p>
+
+
+<pre>
+*** - Program stack overflow. RESET
+</pre>
+
+	<p>Without any useful output, because <code>simple-query</code> deepens more and more into the recursive rule without ever printing results.</p>
+
+
+	<p><sub>Thanks to Flavio Cruz for suggesting this solution</sub></p>
+
+
+	<h4>Exercise 4.72</h4>
+
+
+	<p>As the hint suggests, this is done for exactly the same reason as the original <code>interleave</code> in section 3.5.3 &#8211; for handling infinite streams. Suppose that <code>stream-flatmap</code> is called on two streams. The first is infinite, for some (maybe valid) reason. Without using <code>interleave</code>, the elements of the second stream won't be reached, ever.</p>
+
+
+	<h4>Exercise 4.74</h4>
+
+
+	<p><strong>a.</strong></p>
+
+
+	<p><code>simple-flatten</code> assumes that it has a stream of streams, in which each stream is either the empty stream or a singleton stream. It has to do the following:</p>
+
+
+	<p>1. Filter out all the empty streams
+2. Extract the elements from the singleton streams<sup><a href="sicp-sections-442-444#fn2">2</a></sup>
+3. Stitch all those elements together into a new stream</p>
+
+
+	<p>Therefore the implementation is as follows:</p>
+
+
+<pre>
+(defun simple-stream-flatmap (proc s)
+  (simple-flatten (stream-map proc s)))
+
+(defun simple-flatten (stream)
+  (stream-map 
+    #'stream-car
+    (stream-filter 
+      (lambda (s)
+        (not (stream-null? s)))
+      stream)))
+</pre>
+
+	<p><strong>b.</strong></p>
+
+
+	<p>I don't think this change will affect the system's behavior. It does not affect correctness, because the named functions indeed only generate either singleton or empty streams. Also, as far as I can see, all the tests pass.</p>
+
+
+	<p>I also don't see how it can change the order of assertions that are output from queries. <code>flatten-stream</code> that uses <code>interleave</code> creates the same elements as those created by <code>simple-flatten</code>, in the same order.</p>
+
+
+	<h4>Exercise 4.75</h4>
+
+
+<pre>
+(defun uniquely-asserted (query frame-stream)
+  "Return only those frames for whom the query
+  produces a single match in the database" 
+  (simple-stream-flatmap
+    (lambda (frame)
+      (let ((eval-stream 
+              (qeval 
+                (query-of-unique query) 
+                (singleton-stream frame))))
+        (if (singleton-stream? eval-stream)
+          eval-stream
+          the-empty-stream)))
+    frame-stream))
+
+(defun singleton-stream? (stream)
+  (and 
+    (stream-car stream)
+    (not (stream-cadr stream))))  
+
+(defun query-of-unique (uniq) (car uniq))
+
+(put-op 'unique 'qeval #'uniquely-asserted)
+</pre>
+
+	<p>Some tests with the database:</p>
+
+
+<pre>
+(qinterpret
+  '(unique (job ?x (computer wizard))))
+=&gt;
+(UNIQUE (JOB (BITDIDDLE BEN) (COMPUTER WIZARD)))
+
+(qinterpret
+  '(and (job ?x ?j) (unique (job ?anyone ?j))))
+=&gt;
+(AND (JOB (AULL DEWITT) (ADMINISTRATION SECRETARY)) (UNIQUE (JOB (AULL DEWITT) (ADMINISTRATION SECRETARY))))
+(AND (JOB (CRATCHET ROBERT) (ACCOUNTING SCRIVENER)) (UNIQUE (JOB (CRATCHET ROBERT) (ACCOUNTING SCRIVENER))))
+(AND (JOB (SCROOGE EBEN) (ACCOUNTING CHIEF ACCOUNTANT))
+ (UNIQUE (JOB (SCROOGE EBEN) (ACCOUNTING CHIEF ACCOUNTANT))))
+(AND (JOB (WARBUCKS OLIVER) (ADMINISTRATION BIG WHEEL))
+ (UNIQUE (JOB (WARBUCKS OLIVER) (ADMINISTRATION BIG WHEEL))))
+(AND (JOB (REASONER LOUIS) (COMPUTER PROGRAMMER TRAINEE))
+ (UNIQUE (JOB (REASONER LOUIS) (COMPUTER PROGRAMMER TRAINEE))))
+(AND (JOB (TWEAKIT LEM E) (COMPUTER TECHNICIAN)) (UNIQUE (JOB (TWEAKIT LEM E) (COMPUTER TECHNICIAN))))
+(AND (JOB (BITDIDDLE BEN) (COMPUTER WIZARD)) (UNIQUE (JOB (BITDIDDLE BEN) (COMPUTER WIZARD))))
+
+(qinterpret
+  '(and (supervisor ?peon ?boss)
+        (unique (supervisor ?others ?boss))))
+=&gt;
+(AND (SUPERVISOR (CRATCHET ROBERT) (SCROOGE EBEN)) (UNIQUE (SUPERVISOR (CRATCHET ROBERT) (SCROOGE EBEN))))
+(AND (SUPERVISOR (REASONER LOUIS) (HACKER ALYSSA P))
+ (UNIQUE (SUPERVISOR (REASONER LOUIS) (HACKER ALYSSA P))))
+</pre>
+
+	<h4>Exercise 4.76</h4>
+
+
+	<p>Here's <code>merge-frames</code> that merges a pair of frames:</p>
+
+
+<pre>
+(defun merge-frames (f1 f2)
+  (if (null f1)
+    f2
+    (let ((var (caar f1))
+          (val (cdar f1)))
+      (let ((extension (extend-if-possible var val f2)))
+        (if (equal extension 'failed)
+          'failed
+          (merge-frames (cdr f1) extension))))))
+</pre>
+
+	<p>And this is <code>merge-frame-streams</code> that merges two streams of frames, using <code>merge-frames</code> for each pair:</p>
+
+
+<pre>
+(defun merge-frame-streams (s1 s2)
+  "Tries to merge each frame of s1 with each frame
+  of s2. Returns the stream of successful merges." 
+  (stream-flatmap
+    (lambda (f1)
+      (stream-filter
+        (lambda (f) (not (equal f 'failed)))
+        (stream-map
+          (lambda (f2)
+            (merge-frames f1 f2))
+          s2)))
+    s1))
+</pre>
+
+	<p><code>conjoin</code> can then be written thus:</p>
+
+
+<pre>
+(defun conjoin (conjuncts frame-stream)
+  (if (empty-conjunction? conjuncts)
+    frame-stream
+    (merge-frame-streams
+      (qeval (first-conjunct conjuncts) frame-stream)
+      (conjoin (rest-conjuncts conjuncts) frame-stream))))
+</pre>
+
+	<p>This works satisfactorily, in most cases. For example:</p>
+
+
+<pre>
+(qinterpret
+  '(and 
+    (job ?x ?j) 
+    (supervisor ?x (bitdiddle ben))
+    (salary ?x 25000)))
+=&gt;
+(AND (JOB (TWEAKIT LEM E) (COMPUTER TECHNICIAN)) (SUPERVISOR (TWEAKIT LEM E) (BITDIDDLE BEN))
+ (SALARY (TWEAKIT LEM E) 25000))
+
+; the 'grandson' rule uses /and/
+(qinterpret
+  '(grandson ?d ?w))
+=&gt;
+(GRANDSON MEHUJAEL LAMECH)
+(GRANDSON IRAD METHUSHAEL)
+(GRANDSON ENOCH MEHUJAEL)
+(GRANDSON CAIN IRAD)
+(GRANDSON ADAM ENOCH)
+</pre>
+
+	<p>However, there are also problems. For example, consider this:</p>
+
+
+<pre>
+(qinterpret
+  '(and 
+    (job ?x ?j) 
+    (not (supervisor ?x (bitdiddle ben)))))
+=&gt;
+</pre>
+
+	<p>It should have printed out many items, but it doesn't. This is because of the problem with <code>not</code> described in section 4.4.3; <code>not</code> needs something to filter, and the new implementation of <code>conjoin</code> simply runs it on the full input frame stream, and merges the result.</p>
+
+
+	<p>A more serious error with this approach happens when resursive rules are used. When this rule is added to the Biblical hierarchy database:</p>
+
+
+<pre>
+(qinterpret
+  '(assert!
+    (rule (son ?m ?s)
+          (and
+            (wife ?m ?w)
+            (son ?w ?s)))))
+</pre>
+
+	<p>The evaluator goes into an infinite loop when matching <code>son</code> rules. This is because the <code>son</code> rule invokes another <code>son</code> rule in the <code>and</code> expression, and with the new implementation of <code>conjoin</code> this call is not on a reduced set of frames.</p>
+
+
+	<p>I suppose the authors didn't make a mistake with their suggestion, but it's rather a problem with my implementation. I'll be glad if someone points me to it.</p>
+
+
+<img class="align-center" src="../../../images/hline.jpg" style="width: 320px; height: 5px;" />
+
+	<p id="fn1"><sup>1</sup> In the authors' implementation, an assertion is indexable if its first element is either a constant or a variable name, but not a list.</p>
+
+
+	<p id="fn2"><sup>2</sup> Recall that a singleton stream is simply an element wrapped up as a stream.</p>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-sections-442-444';
+            var disqus_url = 'http://eli.thegreenplace.net/2008/02/09/sicp-sections-442-444';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-sections-442-444#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

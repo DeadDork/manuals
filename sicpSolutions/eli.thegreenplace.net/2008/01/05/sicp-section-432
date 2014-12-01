@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP section 4.3.2 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-section-432"
+                       rel="bookmark"
+                       title="Permalink to SICP section 4.3.2">
+                        SICP section 4.3.2
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> January 05, 2008 at 17:38</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <h4>Exercise 4.38</h4>
+
+
+	<p>The modification is done by commenting out this line:</p>
+
+
+<pre>
+(require (not (= (abs (- smith fletcher)) 1)))
+</pre>
+
+	<p>And the interaction is:</p>
+<!--more-->
+
+<pre>
+;;; Amb-Eval input:
+(multiple-dwelling)
+
+;;; Starting a new problem
+;;; Amb-Eval value:
+((BAKER 1) (COOPER 2) (FLETCHER 4) (MILLER 3) (SMITH 5))
+
+;;; Amb-Eval input:
+try-again
+
+;;; Amb-Eval value:
+((BAKER 1) (COOPER 2) (FLETCHER 4) (MILLER 5) (SMITH 3))
+
+;;; Amb-Eval input:
+try-again
+
+;;; Amb-Eval value:
+((BAKER 1) (COOPER 4) (FLETCHER 2) (MILLER 5) (SMITH 3))
+
+;;; Amb-Eval input:
+try-again
+
+;;; Amb-Eval value:
+((BAKER 3) (COOPER 2) (FLETCHER 4) (MILLER 5) (SMITH 1))
+
+;;; Amb-Eval input:
+try-again
+
+;;; Amb-Eval value:
+((BAKER 3) (COOPER 4) (FLETCHER 2) (MILLER 5) (SMITH 1))
+
+;;; Amb-Eval input:
+try-again
+
+;;; there are no more values of
+(MULTIPLE-DWELLING)
+</pre>
+
+	<p>There are 5 solutions without this constraint.</p>
+
+
+	<h4>Exercise 4.39</h4>
+
+
+	<p>The order of the restrictions does not affect the answer, because eventually the answer must comply to all of the restrictions anyway.</p>
+
+
+	<p>The runtime, however, is affected. For example, this version:</p>
+
+
+<pre>
+'(define (md2)
+  (let ((baker (amb 1 2 3 4 5))
+        (cooper (amb 1 2 3 4 5))
+        (fletcher (amb 1 2 3 4 5))
+        (miller (amb 1 2 3 4 5))
+        (smith (amb 1 2 3 4 5)))
+    (require (not (= cooper 1)))
+    (require (not (= fletcher 1)))
+    (require (not (= fletcher 5)))
+    (require (not (= baker 5)))
+    (require (&gt; miller cooper))
+    (require (not (= (abs (- smith fletcher)) 1)))
+    (require (not (= (abs (- fletcher cooper)) 1)))
+    (require
+     (distinct? (list baker cooper fletcher miller smith)))
+    (list (list 'baker baker)
+          (list 'cooper cooper)
+          (list 'fletcher fletcher)
+          (list 'miller miller)
+          (list 'smith smith)))))
+</pre>
+
+	<p>Runs more than twice as fast as the one given in the book. Note that the requirement of distinctness was moved to the end. <code>distinct?</code> is a function that runs in quadratic time, and so moving it to the end saves us time because it is called less. When located first, it is continuously called until satisfied, on many possible 5-tuples. In the end, many possibilities were thrown out by the earlier restrictions and <code>distinct?</code> takes less time to run.</p>
+
+
+	<h4>Exercise 4.40</h4>
+
+
+	<p>The first improvement that can be made is to remove the &#8220;static&#8221; restrictions (such as <code>(not (= cooper 1))</code>), and not include those floors in the <code>amb</code> assignments in the first place:</p>
+
+
+<pre>
+'(define (md2)
+  (let ((baker (amb 1 2 3 4))
+        (cooper (amb 2 3 4 5))
+        (fletcher (amb 2 3 4))
+        (miller (amb 1 2 3 4 5))
+        (smith (amb 1 2 3 4 5)))
+    (require (&gt; miller cooper))
+    (require (not (= (abs (- smith fletcher)) 1)))
+    (require (not (= (abs (- fletcher cooper)) 1)))
+    (require
+     (distinct? (list baker cooper fletcher miller smith)))
+    (list (list 'baker baker)
+          (list 'cooper cooper)
+          (list 'fletcher fletcher)
+          (list 'miller miller)
+          (list 'smith smith)))))
+</pre>
+
+	<p>This runs 3 times faster than even the fast version from exercise 4.39</p>
+
+
+	<p>An even further improvement can be made, however. We can suspend the generation of possible floors to people only until restrictions on this people appear:</p>
+
+
+<pre>
+'(define (md3)
+  (let ((cooper (amb 2 3 4 5))
+        (miller (amb 1 2 3 4 5)))
+    (require (&gt; miller cooper))
+    (let ((fletcher (amb 2 3 4)))
+      (require (not (= (abs (- fletcher cooper)) 1)))
+      (let ((smith (amb 1 2 3 4 5)))
+        (require (not (= (abs (- smith fletcher)) 1)))
+        (let ((baker (amb 1 2 3 4)))
+          (require
+            (distinct? (list baker cooper fletcher miller smith)))
+          (list (list 'baker baker)
+          (list 'cooper cooper)
+          (list 'fletcher fletcher)
+          (list 'miller miller)
+          (list 'smith smith))))))))
+</pre>
+
+	<p>This runs much faster than the previous version. All improvements combined, <code>md3</code> runs aboiyt 30 times as fast as the original <code>multiple-dwelling</code>.</p>
+
+
+	<h4>Exercise 4.41</h4>
+
+
+	<p>Here&#8217;s a naive implementation:</p>
+
+
+<pre>
+(defun baker (f) (first f))
+(defun cooper (f) (second f))
+(defun fletcher (f) (third f))
+(defun miller (f) (fourth f))
+(defun smith (f) (fifth f))
+
+(deflex *constraints*
+  (list
+    #'(lambda (f)
+        (/= (baker f) 5))
+    #'(lambda (f)
+        (/= (fletcher f) 5))
+    #'(lambda (f)
+        (/= (fletcher f) 1))
+    #'(lambda (f)
+        (/= (cooper f) 1))
+    #'(lambda (f)
+        (&gt; (miller f) (cooper f)))
+    #'(lambda (f)
+        (/= (abs (- (smith f) (fletcher f))) 1))
+    #'(lambda (f)
+        (/= (abs (- (cooper f) (fletcher f))) 1))))
+
+(let ((options (permutations '(1 2 3 4 5))))
+  (dolist (constraint *constraints*)
+    (setf options
+      (remove-if-not constraint options)))
+
+  (format t "~a~%" options))
+=&gt;
+((3 2 4 5 1))
+1
+</pre>
+
+	<p>It first builds the list of all options, by using the <code>permutations</code> function, and then applies the constraints one by one, shortening the list of possibilities each time. <code>permutations</code> is defined as follows:</p>
+
+
+<pre>
+(defun permutations (bag)
+  "Returns a list of all permutations of 
+  the input list" 
+  (if (null bag)
+    '(())
+    (mapcan 
+      #'(lambda (e)
+          (mapcar 
+            #'(lambda (p) (cons e p))
+            (permutations
+              (remove e bag :count 1 :test #'eq))))
+      bag)))
+</pre>
+
+	<p>Note that the <code>distinct?</code> constraint is not required now, since <code>permutations</code> returns a list of distinct permutations.</p>
+
+
+	<h4>Exercise 4.42</h4>
+
+
+	<p>From the book it&#8217;s not entirely clear <em>how</em> we&#8217;re expected to solve this puzzle, but I assume the authors meant using <code>amb</code>. So, first let&#8217;s add some utilities:</p>
+
+
+<pre>
+(interpret
+  '(define (distinct? items)
+    (cond ((null? items) true)
+          ((null? (cdr items)) true)
+          ((member (car items) (cdr items)) false)
+          (else (distinct? (cdr items))))))
+</pre>
+
+Additionally, the following primitive is added to the evaluator:
+<pre>
+    (list 'xor (lambda (a b) (and (or a b) (not (and a b)))))    
+</pre>
+
+Now the problem formulation:
+
+<pre>
+(interpret
+  '(define (liars)
+    (let ((betty (amb 1 2 3 4 5))
+          (ethel (amb 1 2 3 4 5))
+          (joan (amb 1 2 3 4 5))
+          (kitty (amb 1 2 3 4 5))
+          (mary (amb 1 2 3 4 5)))
+    (require (distinct? (list betty ethel joan kitty mary)))
+    (require (xor (= kitty 2) (= betty 3)))
+    (require (xor (= ethel 1) (= joan 2)))
+    (require (xor (= joan 3) (= ethel 5)))
+    (require (xor (= kitty 2) (= mary 4)))
+    (require (xor (= mary 4) (= betty 1)))
+    (list (list 'betty betty)
+	  (list 'ethel ethel)
+	  (list 'joan joan)
+	  (list 'kitty kitty)
+	  (list 'mary mary)))))
+</pre>
+
+Result:
+
+<pre>
+(interpret '(liars)) =>
+((betty 3) (ethel 5) (joan 2) (kitty 1) (mary 4))
+</pre>
+
+Note: This answer is due to Brian Maissy. It appears correct but throws a stack overflow with my CLISP (which, as I've mentioned before) isn't too great with deep recursions. If you manage to reproduce the result or make it run in CLISP or another system, drop me a line.
+
+	<h4>Exercise 4.43</h4>
+
+
+	<p>As always, I will begin with the most naive solution, putting efficiency aside for a moment. Once I have a working correct version, I can optimize it.</p>
+
+
+	<p>Perhaps there are several ways to represent the data set of this puzzle, but I chose the variables to be the girls&#8217; last names:</p>
+
+
+<pre>
+(interpret
+  '(define (yachts)
+    (let ((gabrielle (amb 'moore 'downing 'hall 'barnacle 'parker))
+          (lorna (amb 'moore 'downing 'hall 'barnacle 'parker))
+          (rosalind (amb 'moore 'downing 'hall 'barnacle 'parker))
+          (melissa (amb 'moore 'downing 'hall 'barnacle 'parker))
+          (maryann (amb 'moore 'downing 'hall 'barnacle 'parker)))
+      (require (not (eq? gabrielle 'barnacle)))
+      (require (not (eq? lorna 'moore)))
+      (require (not (eq? rosalind 'hall)))
+      (require (eq? melissa 'barnacle))
+      (require (eq? maryann 'moore))
+      (require 
+        (cond ((eq? gabrielle 'moore) (eq? lorna 'parker))
+              ((eq? gabrielle 'downing) (eq? melissa 'parker))
+              ((eq? gabrielle 'hall) (eq? rosalind 'parker))
+              (else false)))
+      (require 
+        (distinct? (list gabrielle lorna rosalind melissa maryann)))
+      (list (list 'gabrielle gabrielle)
+            (list 'lorna lorna)
+            (list 'rosalind rosalind)
+            (list 'melissa melissa)
+            (list 'maryann maryann)))))
+</pre>
+
+	<p>With this representation, all the constrains given in the puzzle are simple, except the last one, which gave me quite some trouble.</p>
+
+
+	<blockquote>
+		<p>Gabrielle&#8217;s father owns the yacht that is named after Dr. Parker&#8217;s daughter.</p>
+	</blockquote>
+
+
+	<p>This constraint is complex, because it intermixes a lot of the variables. To translate it into a constraint on the variables I&#8217;ve chosen, I had to first apply some logic in my head. To see why it translates to:</p>
+
+
+<pre>
+(require 
+  (cond ((eq? gabrielle 'moore) (eq? lorna 'parker))
+        ((eq? gabrielle 'downing) (eq? melissa 'parker))
+        ((eq? gabrielle 'hall) (eq? rosalind 'parker))
+        (else false)))
+</pre>
+
+	<p>Consider that the puzzle gives us the names of the yachts of all the friends<sup><a href="sicp-section-432#fn1">1</a></sup>. Since this constraint talks about Gabrielle&#8217;s father&#8217;s yacht, we can infer the name of Parker&#8217;s daughter by keeping in mind who owns which yacht.</p>
+
+
+	<p>Anyway, running this I get the result:</p>
+
+
+<pre>
+ ((GABRIELLE HALL) 
+  (LORNA DOWNING) 
+  (ROSALIND PARKER) 
+  (MELISSA BARNACLE)
+  (MARYANN MOORE))
+</pre>
+
+	<p>So the answer is: &#8220;Lorna&#8217;s father is Colonel Downing&#8221;. If we remove the constraint on Mary Ann&#8217;s last names, we get two solutions: the one we got with the constraint, and this one:</p>
+
+
+<pre>
+ ((GABRIELLE MOORE) 
+  (LORNA PARKER) 
+  (ROSALIND DOWNING) 
+  (MELISSA BARNACLE)
+  (MARYANN HALL))
+</pre>
+
+	<p>Now, on to the optimization. Measuring the speed of the original implementation first:</p>
+
+
+<pre>
+* (time (dotimes (i 100 t) (interpret '(yachts))))
+
+Evaluation took:
+  2.875 seconds of real time
+  2.78125 seconds of user run time
+  0.03125 seconds of system run time
+  [Run times include 0.109 seconds GC run time.]
+  0 calls to %EVAL
+  0 page faults and
+  322,418,992 bytes consed.
+</pre>
+
+	<p>I&#8217;ll remove all the static constraints, and instead will list only partial possibility lists in the first place. For instance, it is very inefficient to first set <code>maryann</code> to <code>(amb 'moore 'downing 'hall 'barnacle 'parker)</code> and then require <code>(eq? maryann 'moore)</code>. It is much better to just set <code>maryann</code> to <code>moore</code> in the first place. So the optimized version is:</p>
+
+
+<pre>
+(interpret
+  '(define (yachts2)
+    (let ((gabrielle (amb 'moore 'downing 'hall 'parker))
+          (lorna (amb 'downing 'hall 'barnacle 'parker))
+          (rosalind (amb 'moore 'downing 'barnacle 'parker))
+          (melissa 'barnacle)
+          (maryann 'moore))
+      (require 
+        (cond ((eq? gabrielle 'moore) (eq? lorna 'parker))
+              ((eq? gabrielle 'downing) (eq? melissa 'parker))
+              ((eq? gabrielle 'hall) (eq? rosalind 'parker))
+              (else false)))
+      (require 
+        (distinct? (list gabrielle lorna rosalind melissa maryann)))
+      (list (list 'gabrielle gabrielle)
+            (list 'lorna lorna)
+            (list 'rosalind rosalind)
+            (list 'melissa melissa)
+            (list 'maryann maryann)))))
+</pre>
+
+	<p>And it runs <em>much</em> faster:</p>
+
+
+<pre>
+* (time (dotimes (i 100 t) (interpret '(yachts2))))
+
+Evaluation took:
+  0.078 seconds of real time
+  0.0625 seconds of user run time
+  0.015625 seconds of system run time
+  [Run times include 0.016 seconds GC run time.]
+  0 calls to %EVAL
+  0 page faults and
+  6,586,888 bytes consed.
+</pre>
+
+	<p><span class="caps">A 46</span>-fold improvement. Not bad!</p>
+
+
+	<h4>Exercise 4.44</h4>
+
+
+	<p>First let&#8217;s build some scaffolding. This function will enumerate the sequence from 1 to <code>n</code>:</p>
+
+
+<pre>
+(interpret
+  '(define (enumerate-seq n)
+    (define (enum-seq-iter seq)
+      (if (&gt; seq n) 
+        '()
+        (cons seq
+              (enum-seq-iter (+ seq 1)))))
+    (enum-seq-iter 1)))
+</pre>
+
+	<p>And this one is a list version of <code>amb</code>. Instead of picking one of its arguments, it picks one of the elements from the list it&#8217;s given:</p>
+
+
+<pre>
+(interpret
+  '(define (list-amb lst)
+    (if (null? lst)
+      (amb)
+      (amb (car lst) (list-amb (cdr lst))))))
+</pre>
+
+	<p>Now to chess-specific functions:</p>
+
+
+<pre>
+(interpret
+  '(define (nth i lst)
+    (cond ((null? lst) '())
+          ((= i 0) (car lst))
+          (else (nth (- i 1) (cdr lst))))))
+
+(interpret
+  '(define (attacks? row1 col1 row2 col2)
+    (cond ((= row1 row2) true)
+          ((= col1 col2) true)
+          ((= (abs (- col1 col2))
+              (abs (- row1 row2))) true)
+          (else false))))
+
+(interpret
+  '(define (safe-kth? k pos)
+    (let ((kth-col (nth k pos))
+          (pos-len (length pos)))
+      (define (safe-iter i)
+        (cond ((= i pos-len) true)
+              ((= i k) (safe-iter (+ i 1)))
+              (else
+                (let ((ith-col (nth i pos)))
+                  (if (attacks? i ith-col k kth-col)
+                    false
+                    (safe-iter (+ i 1)))))))
+      (safe-iter 0))))
+</pre>
+
+	<p>The most important function is <code>safe-kth?</code>. It is given a row number and a position and finds out whether the queen in the given row is safe in relation to all the other queens. The position is a list of columns. For example: <code>(1 3 5 4 7 8 6 2)</code> means there queen in the first row is in column 1, the queen in the second row is in column 3, etc. The <code>k</code> given to <code>safe-kth?</code> is 0-based.</p>
+
+
+	<p>Finally:</p>
+
+
+<pre>
+(interpret
+  '(define (queens n)
+    (define (queens-iter pos i)
+      (cond ((&gt; i (- n 1)) pos)
+            (else
+              (let ((new-col (list-amb (enumerate-seq n))))
+                (let ((new-pos (append pos (list new-col))))
+                  (require (safe-kth? i new-pos))
+                  (queens-iter new-pos (+ i 1)))))))
+    (queens-iter '() 0)))
+</pre>
+
+	<p>Will provide the solutions for the n-queens problem for any <code>n</code>. The algorithm is simple: generate a new queen in the next row, one at a time, and check if it&#8217;s safe in relation to all the other queens. Compare this to the solution of exercise 2.42 &#8211; <code>amb</code> replaces all the complex filtering done there.</p>
+
+
+	<h4>Concluding &#8211; usage of <code>amb</code> for puzzles</h4>
+
+
+	<p>As we&#8217;ve seen, <code>amb</code> is very handy for solving puzzles like the ones presented in this section so far. <code>amb</code>&#8217;s main usefullness comes from its including a search on all possibilities, implicitly. To see how cumbersome it is to perform this search explicitly, compare with the solution of exercise 4.41</p>
+
+
+	<p>Like many other constructs presented in the book, <code>amb</code> is a language abstraction that makes a complex idea transparent and easy to use. In what follows, we&#8217;ll use it for quite a different purpose &#8211; parsing natural language.</p>
+
+
+	<h4>Exercise 4.45</h4>
+
+
+<pre>
+;;; Amb-Eval input:
+(parse '(the professor lectures to the student in the class with the cat))
+
+;;; Starting a new problem
+;;; Amb-Eval value:
+(SENTENCE (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN PROFESSOR))
+ (VERB-PHRASE
+  (VERB-PHRASE
+   (VERB-PHRASE (VERB LECTURES)
+    (PREP-PHASE (PREP TO) (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN STUDENT))))
+   (PREP-PHASE (PREP IN) (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN CLASS))))
+  (PREP-PHASE (PREP WITH) (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN CAT)))))
+
+;;; Amb-Eval input:
+try-again
+
+;;; Amb-Eval value:
+(SENTENCE (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN PROFESSOR))
+ (VERB-PHRASE
+  (VERB-PHRASE (VERB LECTURES)
+   (PREP-PHASE (PREP TO) (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN STUDENT))))
+  (PREP-PHASE (PREP IN)
+   (NOUN-PHRASE (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN CLASS))
+    (PREP-PHASE (PREP WITH) (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN CAT)))))))
+
+;;; Amb-Eval input:
+try-again
+
+;;; Amb-Eval value:
+(SENTENCE (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN PROFESSOR))
+ (VERB-PHRASE
+  (VERB-PHRASE (VERB LECTURES)
+   (PREP-PHASE (PREP TO)
+    (NOUN-PHRASE (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN STUDENT))
+     (PREP-PHASE (PREP IN) (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN CLASS))))))
+  (PREP-PHASE (PREP WITH) (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN CAT)))))
+
+;;; Amb-Eval input:
+try-again
+
+;;; Amb-Eval value:
+(SENTENCE (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN PROFESSOR))
+ (VERB-PHRASE (VERB LECTURES)
+  (PREP-PHASE (PREP TO)
+   (NOUN-PHRASE
+    (NOUN-PHRASE (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN STUDENT))
+     (PREP-PHASE (PREP IN) (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN CLASS))))
+    (PREP-PHASE (PREP WITH) (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN CAT)))))))
+
+;;; Amb-Eval input:
+try-again
+
+;;; Amb-Eval value:
+(SENTENCE (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN PROFESSOR))
+ (VERB-PHRASE (VERB LECTURES)
+  (PREP-PHASE (PREP TO)
+   (NOUN-PHRASE (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN STUDENT))
+    (PREP-PHASE (PREP IN)
+     (NOUN-PHRASE (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN CLASS))
+      (PREP-PHASE (PREP WITH)
+       (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN CAT)))))))))
+
+;;; Amb-Eval input:
+try-again
+
+;;; there are no more values of
+(PARSE '(THE PROFESSOR LECTURES TO THE STUDENT IN THE CLASS WITH THE CAT))
+</pre>
+
+	<h4>Exercise 4.46</h4>
+
+
+	<p><code>parse-word</code> advances the <code>*unparsed*</code> list from left to right, because it knows that the parser works this way. Without being sure of the order, we couldn&#8217;t implement <code>parse-word</code>.</p>
+
+
+	<p>I&#8217;m not 100% sure of my answer to this exercise. If you have a better one, let me know.</p>
+
+
+	<h4>Exercise 4.47</h4>
+
+
+	<p>Yes, the change Louis suggests works. However, when we interchange the order of expressions in the <code>amb</code>:</p>
+
+
+<pre>
+(interpret
+  '(define (parse-verb-phrase)
+    (amb 
+      (list 'verb-phrase
+            (parse-verb-phrase)
+            (parse-prepositional-phrase)))
+      (parse-word verbs)))
+</pre>
+
+	<p>The program enters an infinite loop. This can be explained by considering how <code>amb</code> works. Whenever it&#8217;s called, it first tries to pick its first option. However, note that in this case picking the first option means calling <code>amb</code> again, with the same first option. This is a recursion without a stop condition.</p>
+
+
+	<h4>Exercise 4.48</h4>
+
+
+	<p>I&#8217;ll add the possibility to prepend adjectives to nouns:</p>
+
+
+<pre>
+(interpret
+  '(define adjectives '(adjective gray tired nice)))
+
+(interpret
+  '(define (parse-simple-noun-phrase)
+    (amb
+      (list 'simple-noun-phrase
+            (parse-word articles)
+            (parse-word nouns))
+      (list 'adjective-noun-phrase
+            (parse-word articles)
+            (parse-word adjectives)
+            (parse-word nouns)))))
+</pre>
+
+	<p>Now calling:</p>
+
+
+<pre>
+(interpret
+  '(parse '(The tired professor lectures to a gray cat)))
+=&gt;
+(SENTENCE (ADJECTIVE-NOUN-PHRASE (ARTICLE THE) (ADJECTIVE TIRED) (NOUN PROFESSOR))
+ (VERB-PHRASE (VERB LECTURES)
+  (PREP-PHASE (PREP TO) (ADJECTIVE-NOUN-PHRASE (ARTICLE A) (ADJECTIVE GRAY) (NOUN CAT)))))
+</pre>
+
+	<h4>Exercise 4.49</h4>
+
+
+	<p>I&#8217;ll change <code>parse-word</code> to the following:</p>
+
+
+<pre>
+(interpret
+  '(define (parse-word word-list)
+    (require (not (null? *unparsed*)))
+    (let ((found-word (random-list-element (cdr word-list))))
+      (set! *unparsed* (cdr *unparsed*))
+      (list (car word-list) found-word))))
+</pre>
+
+	<p>With these support functions:</p>
+
+
+<pre>
+(interpret
+  '(define (nth i lst)
+    (cond ((null? lst) '())
+          ((= i 0) (car lst))
+          (else (nth (- i 1) (cdr lst))))))
+
+(interpret
+  '(define (random-list-element lst)
+    (nth (random (length lst)) lst)))
+</pre>
+
+	<p>Note that I &#8220;loaned&#8221; <code>random</code> from Common Lisp&#8217;s library<sup><a href="sicp-section-432#fn2">2</a></sup>. Now I can provide a &#8220;template&#8221; and random sentences will be generated:</p>
+
+
+<pre>
+(parse '(The professor lectures))
+=&gt;
+(SENTENCE (SIMPLE-NOUN-PHRASE (ARTICLE A) (NOUN CAT)) (VERB STUDIES))
+...
+(SENTENCE (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN STUDENT)) (VERB SLEEPS))
+...
+(SENTENCE (SIMPLE-NOUN-PHRASE (ARTICLE THE) (NOUN PROFESSOR)) (VERB LECTURES))
+...
+</pre>
+
+<img class="align-center" src="../../../images/hline.jpg" style="width: 320px; height: 5px;" />
+
+	<p id="fn1"><sup>1</sup> Except Parker&#8217;s yacht, but that can be inferred by elimination to be Mary Ann.</p>
+
+
+	<p id="fn2"><sup>2</sup> I always do this by attaching the function I want to the list of <code>primitive-procedures</code> in the core <code>evaluator</code>.</p>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-section-432';
+            var disqus_url = 'http://eli.thegreenplace.net/2008/01/05/sicp-section-432';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-section-432#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

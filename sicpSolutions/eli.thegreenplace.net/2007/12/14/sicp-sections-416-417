@@ -1,0 +1,667 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP sections 4.1.6 - 4.1.7 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-sections-416-417"
+                       rel="bookmark"
+                       title="Permalink to SICP sections 4.1.6 - 4.1.7">
+                        SICP sections 4.1.6 - 4.1.7
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> December 14, 2007 at 11:09</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <h4>Exercise 4.16</h4>
+
+
+	<p>Changing <code>lookup-variable-value</code>:</p>
+
+
+<pre>
+(defun lookup-variable-value (var env)
+  (labels ( 
+      (env-loop (env)
+        (when (&gt; *evaluator-debug-level* 2)
+          (format t "scanning env: ~a~%" env))
+        (if (eq env the-empty-environment)
+          (error "Unbound variable ~a" var))
+          (let* ( (result (find-binding-in-frame (first-frame env) var))
+                  (found (car result))
+                  (value (cdr result)))
+            (if found
+              (if (eq value '*unassigned*)
+                (error "Using an unassigned var ~a" var)
+                value)
+              (env-loop (enclosing-environment env))))))
+    (env-loop env)))
+</pre>
+
+	<p>The procedure <code>scan-out-defines</code>:</p>
+
+<!--more-->
+<pre>
+(defun scan-out-defines (body)
+  "Takes a procedure body and returns an equivalent 
+  one that has no internal definition, by 
+  transforming:
+
+  (lambda &lt;vars&gt;
+    (define u &lt;e1&gt;)
+    (define v &lt;e2&gt;)
+    &lt;e3&gt;)
+
+  Into:
+
+  (lambda &lt;vars&gt;
+    (let ((u '*unassigned*)
+          (v '*unassigned*))
+      (set! u &lt;e1&gt;)
+      (set! v &lt;e2&gt;)
+      &lt;e3&gt;))" 
+
+  (let ((defines '())
+        (non-defines '()))
+    (dolist (exp body)
+      (if (definition? exp)
+        (push exp defines)
+        (push exp non-defines)))
+    (if (null defines)
+      body
+      (progn
+        ; The order of non-defines is important, so
+        ; we restore the order that was reversed by
+        ; using -push-. The order of defines, OTOH,
+        ; is not important
+        ;
+        (nreverse non-defines)
+        (list 
+          (make-let
+            (mapcar 
+              #'(lambda (def)
+                  (list 
+                    (definition-variable def) 
+                    (make-quoted '*unassigned*)))
+                defines)
+            (make-begin
+              (append
+                (mapcar
+                  #'(lambda (def)
+                      (make-assignment
+                        (definition-variable def)
+                        (definition-value def)))
+                    defines)
+                non-defines))))))))
+</pre>
+
+	<p>And finally, installing <code>scan-out-defines</code> inside <code>make-procedure</code>:</p>
+
+
+<pre>
+(defun make-procedure (parameters body env) 
+  (list 
+    'procedure 
+    parameters 
+    (scan-out-defines body)
+    env))
+</pre>
+
+	<p><span class="caps">IMHO</span> <code>make-procedure</code> is a better place, because it is done once when the procedure is defined and not in each application of the procedure.</p>
+
+
+	<h4>Exercise 4.17</h4>
+
+
+	<p>There is an extra frame in the scanned-out version, because we added a <code>let</code> which is, to remind you, a disguised <code>lambda</code>. Each <code>lambda</code> creates a sub-environment of its own to give local values to its arguments. This is the environment in which <code>e3</code> is evaluated.</p>
+
+
+	<p>Since the <code>let</code> is defined to completely enclose the body of the outer <code>lambda</code>, its new environment doesn&#8217;t really add any necessary scope that can&#8217;t be defined in the outer lambda.</p>
+
+
+	<p>Alternatively, we could just regroup the statements in the outer <code>lambda</code> to move all internal definitions to the top. This would work because when a definition is evaluated, the body of the lambda is <em>not</em> evaluated. It is evaluated only when the procedure is actually applied. Therefore, it can contain references to other definitions that are defined after it. What is important is that no executable line in the code is evaluated before all those internal definitions were defined.</p>
+
+
+	<h4>Exercise 4.18</h4>
+
+
+	<p>This won&#8217;t work. When <code>dy</code> is defined, it expects <code>y</code> to be already defined. But <code>y</code> was only assigned to <code>a</code>, not yet to <code>u</code>. The definition of <code>dy</code> is transformed to <code>b</code> which evaluates to <code>e2</code> in the <code>let</code> form and expects <code>u</code> to be there.</p>
+
+
+	<p>For the same reason this <em>will</em> work in the original scanned-out version<sup><a href="sicp-sections-416-417#fn1">1</a></sup>, because there the assignments to <code>u</code> and <code>v</code> are direct, and not through other proxy values.</p>
+
+
+	<h4>Exercise 4.19</h4>
+
+
+	<p>If we&#8217;ve decided that all definitions must be simultaneous, then of course Eva is right, because the behavior she describes is the one that fits the requirement of simultaneity.</p>
+
+
+	<p>We must somehow sort the definitions in a way that for each pair of definitions X and Y, if X uses Y, Y&#8217;s assignment must come before X. Fortunately, this is a common request and the <em>Topological sort</em> algorithm was made up just for such uses. So we can sort the internal definitions topologically by usage and end up with the correct order.</p>
+
+
+	<p>There is a problem though &#8211; things aren&#8217;t as trivial as they appear at first. Consider recursive definitions. Obviously, the following is wrong and must result in an error:</p>
+
+
+<pre>
+(define (f x)
+  (define b (f a))
+  (define a (g b))
+  (+ a b))
+</pre>
+
+	<p>Because of the mutual reference, this can&#8217;t be resolved. However, what about delayed (lazy) evaluation:</p>
+
+
+<pre>
+(define (f x)
+  (define b (f (delay a)))
+  (define a (g b))
+  (+ a b))
+</pre>
+
+	<p>In principle, there&#8217;s no problem with this code, and in fact the <code>solve</code> function mentioned in the previous exercise does just this.</p>
+
+
+	<p>So, we must also be able to resolve recursive definitions, and pay attention to delayed evaluation. All in all, it is far from simple to implement.</p>
+
+
+	<h4>Exercise 4.20</h4>
+
+
+	<p><strong>a.</strong> The implementation is somewhat similar to <code>scan-out-defines</code>:</p>
+
+
+<pre>
+(defun letrec? (exp) (tagged-list? exp 'letrec))
+
+(defun letrec-&gt;let (exp)
+  "Transforms into a let, such that all variables
+  are created with a let and then assigned their
+  values with set!" 
+  ; Note that since letrec is identical in syntax to
+  ; let, we can freely use the let- accessors.
+  ;
+  (let ((initforms (let-initforms exp))
+        (body (let-body exp)))
+    (make-let
+      (mapcar ; initforms
+        #'(lambda (initform)
+            (list 
+              (car initform) 
+              (make-quoted '*unassigned*)))
+        initforms)
+      (make-begin ; body
+        (append
+          (mapcar
+            #'(lambda (initform)
+                (make-assignment
+                  (car initform)
+                  (cadr initform)))
+              initforms)
+            (list body))))))
+</pre>
+
+	<p><strong>b.</strong> To understand better what happens under the hood, let&#8217;s see how a <code>let</code> is transformed:</p>
+
+
+<pre>
+(let-&gt;combination
+  '(let ((even?
+            (lambda (n)
+              (if (= n 0)
+                  true
+                  (odd? (- n 1)))))
+           (odd?
+            (lambda (n)
+              (if (= n 0)
+                  false
+                  (even? (- n 1))))))
+      1))
+=&gt;
+((LAMBDA (EVEN? ODD?) 1) 
+    (LAMBDA (N) (IF (= N 0) TRUE (ODD? (- N 1))))
+    (LAMBDA (N) (IF (= N 0) FALSE (EVEN? (- N 1)))))
+</pre>
+
+	<p>The environment of the outer <code>lambda</code> which was created from <code>let</code> isn&#8217;t the enclosing environment of the internal <code>lambda@s. Rather, these are applied as arguments. Therefore, the body of the @lambda</code> representing <code>even?</code> doesn&#8217;t see the variable <code>odd?</code>.</p>
+
+
+	<p>On the other hand, consider the expansion of <code>letrec</code>:</p>
+
+
+<pre>
+(let-&gt;combination
+  (letrec-&gt;let
+    '(letrec  ((even?
+                (lambda (n)
+                  (if (= n 0)
+                      true
+                      (odd? (- n 1)))))
+              (odd?
+                (lambda (n)
+                  (if (= n 0)
+                      false
+                      (even? (- n 1))))))
+        1))))
+=&gt;
+((LAMBDA (EVEN? ODD?)
+  (BEGIN
+    (SET! EVEN? (LAMBDA (N) (IF (= N 0) TRUE (ODD? (- N 1)))))
+    (SET! ODD? (LAMBDA (N) (IF (= N 0) FALSE (EVEN? (- N 1))))) 
+    1))
+ '*UNASSIGNED* '*UNASSIGNED*)
+</pre>
+
+	<p>Now both <code>lambda@s are defined within the same lexical scope under the outer @lambda</code> and can see each other.</p>
+
+
+	<h4>Exercise 4.21</h4>
+
+
+	<p><strong>a.</strong></p>
+
+
+<pre>
+(interpret
+  '((lambda (n)
+     ((lambda (fact)
+        (fact fact n))
+      (lambda (ft k)
+        (if (= k 1)
+            1
+            (* k (ft ft (- k 1)))))))
+   10))
+=&gt;
+3628800
+</pre>
+
+	<p>We can understand this in stages. The outermost function (let&#8217;s call it <code>lambda-n</code>) takes one argument and returns a result. That&#8217;s easy.</p>
+
+
+	<p>Now, <code>lambda-fact</code> takes an argument and applies it to itself and <code>n</code>. It is in fact applied to the function <code>lambda-ft</code> which takes two arguments, and applies the first to itself with the second argument decreased.</p>
+
+
+	<p>So, when <code>lambda-fact</code> is called, it is given <code>lambda-ft</code> and <code>n</code> as an argument. It calls <code>lambda-ft</code>, giving it <code>lambda-ft</code> and <code>n</code> as arguments. <code>lambda-ft</code>, in turn, can now call itself recursively, because it has received itself as an argument. This way we allow unnamed functions to call themselves &#8211; by passing them as an argument to themselves.</p>
+
+
+	<p>Computing Fibonacci is very similar, based on the same trick of a function that takes an argument and applies it to itself.</p>
+
+
+<pre>
+(interpret
+'((lambda (n)
+  ((lambda (fib)
+      (fib fib n))
+    (lambda (ft k)
+      (if (&lt; k 2)
+        1
+        (+  (ft ft (- k 1)) 
+            (ft ft (- k 2)))))))
+ 6))
+=&gt;
+13
+</pre>
+
+	<p><strong>b.</strong></p>
+
+
+<pre>
+(interpret
+'(define (f x)
+    ((lambda (even? odd?)
+        (even? even? odd? x))
+      (lambda (ev? od? n)
+        (if (= n 0) 
+          true 
+          (od? ev? od? (- n 1))))
+      (lambda (ev? od? n)
+        (if (= n 0) 
+          false 
+          (ev? ev? od? (- n 1)))))))
+
+(interpret '(f 6))
+=&gt; T
+
+(interpret '(f 13))
+=&gt; NIL
+</pre>
+
+	<h3>Section 4.1.7</h3>
+
+
+	<p>Here is the code of the optimized evaluator, translated into CL:</p>
+
+
+<pre>
+(defun eval-opt. (exp env)
+  (funcall (analyze. exp) env))
+
+(defun analyze. (exp)
+  (cond ((self-evaluating? exp)
+          (analyze-self-evaluating exp))
+        ((quoted? exp) 
+          (analyze-quoted exp))
+        ((variable? exp) 
+          (analyze-variable exp))
+        ((assignment? exp) 
+          (analyze-assignment exp))
+        ((definition? exp) 
+          (analyze-definition exp))
+        ((if? exp) 
+          (analyze-if exp))
+        ((lambda? exp) 
+          (analyze-lambda exp))
+        ((begin? exp) 
+          (analyze-sequence (begin-actions exp)))
+        ((cond? exp) 
+          (analyze. (cond-&gt;if exp)))
+        ((application? exp) 
+          (analyze-application exp))
+        (t
+          (error "Unknown expression in EVAL: " exp))))
+
+(defun analyze-self-evaluating (exp)
+  (lambda (env) exp))
+
+(defun analyze-quoted (exp)
+  (let ((qval (text-of-quotation exp)))
+    (lambda (env) qval)))
+
+(defun analyze-variable (exp)
+  (lambda (env)
+    (lookup-variable-value exp env)))
+
+(defun analyze-assignment (exp)
+  (let ((var (assignment-variable exp))
+        (vproc (analyze. (assignment-value exp))))
+    (lambda (env)
+      (set-variable-value! var (funcall vproc env) env)
+      'ok)))
+
+(defun analyze-definition (exp)
+  (let ((var (definition-variable exp))
+        (vproc (analyze. (definition-value exp))))
+    (lambda (env)
+      (define-variable! var (funcall vproc env) env)
+      'ok)))
+
+(defun analyze-if (exp)
+  (let ((pproc (analyze. (if-predicate exp)))
+        (cproc (analyze. (if-consequent exp)))
+        (aproc (analyze. (if-alternative exp))))
+    (lambda (env)
+      (if (true? (funcall pproc env))
+          (funcall cproc env)
+          (funcall aproc env)))))
+
+(defun analyze-lambda (exp)
+  (let ((vars (lambda-parameteres exp))
+        (bproc (analyze-sequence (lambda-body exp))))
+    (lambda (env)
+      (make-procedure vars bproc env))))
+
+(defun analyze-sequence (exps)
+  (labels (
+      (sequentially (proc1 proc2)
+        (lambda (env)
+          (funcall proc1 env)
+          (funcall proc2 env)))
+      (sloop (first-proc rest-procs)
+        (if (null rest-procs)
+          first-proc
+          (sloop
+            (sequentially first-proc (car rest-procs))
+            (cdr rest-procs)))))
+    (let ((procs (mapcar #'analyze. exps)))
+      (if (null procs)
+        (error "Empty sequence in ANALYZE-SEQUENCE"))
+      (sloop (car procs) (cdr procs)))))
+
+(defun analyze-application (exp)
+  (let ((fproc (analyze. (operator exp)))
+        (aprocs (mapcar #'analyze. (operands exp))))
+    (lambda (env)
+      (execute-application 
+        (funcall fproc env)
+        (mapcar 
+          #'(lambda (aproc) (funcall aproc env))
+          aprocs)))))
+
+(defun execute-application (proc args)
+  (cond ((primitive-procedure? proc)
+          (apply-primitive-procedure proc args))
+        ((compound-procedure? proc)
+         (funcall
+          (procedure-body proc)
+          (extend-environment 
+            (procedure-parameters proc)
+            args
+            (procedure-env proc))))
+        (t
+         (error
+          "Unknown procedure type -- EXECUTE-APPLICATION ~a" 
+          proc))))
+
+(defun interpret (exp)
+  (eval-opt. exp the-global-environment))
+</pre>
+
+	<p>It uses the primitives defined in the original evaluator, with one small exception. The <code>scan-out-defines</code> call in <code>make-procedure</code> must be disabled, because the underlying implementation of a procedure was changed.</p>
+
+
+	<h4>Exercise 4.22</h4>
+
+
+	<p>We just have to add this to <code>analyze.</code>:</p>
+
+
+<pre>
+  ((let? exp)
+    (analyze. (let-&gt;combination exp)))
+</pre>
+
+	<p><code>let-&gt;combination</code> transforms the <code>let</code> form into a <code>lambda</code> form which <code>analyze.</code> knows how to handle.</p>
+
+
+	<h4>Exercise 4.23</h4>
+
+
+	<p>Alyssa&#8217;s version defers the call to <code>execute-sequence</code> to the runtime, while the version in the text unrolls the calls at analysis time.</p>
+
+
+	<h4>Exercise 4.24</h4>
+
+
+	<p>I&#8217;ll perform a benchmark using the factorial function. With the original evaluator:</p>
+
+
+<pre>
+(interpret 
+  '(define (factorial n)
+    (if (= n 1)
+      1
+      (* (factorial (- n 1)) n))))
+
+(time 
+  (dotimes (i 1000 t)
+    (interpret 
+    '(factorial 50))))
+=&gt;
+Real time: 32.875 sec.
+Run time: 32.078125 sec.
+</pre>
+
+	<p>And with the optimized evaluator:</p>
+
+
+<pre>
+(interpret 
+  '(define (factorial2 n)
+    (if (= n 1)
+      1
+      (* (factorial2 (- n 1)) n))))
+
+(time 
+  (dotimes (i 1000 t)
+    (interpret 
+      '(factorial2 50))))
+=&gt;
+Real time: 24.078125 sec.
+Run time: 23.8125 sec.
+</pre>
+
+	<p>This suggests that the original evaluator spends around 30% of its time analyzing the same expressions all over again.</p>
+
+	<h4>Updated code</h4>
+
+
+The latest version of the evaluator code: evaluator.lisp, evaluator_testing.lisp, evaluator_optimized_analysis.lisp
+
+<img class="align-center" src="../../../images/hline.jpg" style="width: 320px; height: 5px;" />
+
+	<p id="fn1"><sup>1</sup> Given that we&#8217;ve implemented the <code>delay</code> function, which is unusual in that it doesn&#8217;t evaluate its argument.</p>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-sections-416-417';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/12/14/sicp-sections-416-417';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-sections-416-417#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

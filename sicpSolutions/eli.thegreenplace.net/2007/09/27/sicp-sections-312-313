@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP sections 3.1.2 - 3.1.3 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-sections-312-313"
+                       rel="bookmark"
+                       title="Permalink to SICP sections 3.1.2 - 3.1.3">
+                        SICP sections 3.1.2 - 3.1.3
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> September 27, 2007 at 09:55</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>The code for this section is in Scheme.</p>
+
+
+	<h3>Section 3.1.2</h3>
+
+
+	<h4>Exercise 3.5</h4>
+
+
+	<p>Here&#8217;s the code for integral estimation using the monte-carlo method. Note that I changed the definition of <code>random-in-range</code> a little, since <span class="caps">PLT</span> Scheme&#8217;s <code>random</code> doesn&#8217;t accept inexact numbers.</p>
+
+
+<pre>
+(define (random-in-range low high)
+  (let ((range (- high low)))
+    (+ low (* (random) range))))
+
+(define (monte-carlo trials experiment)
+  (define (iter trials-remaining trials-passed)
+    (cond ((= trials-remaining 0)
+           (/ trials-passed trials))
+          ((experiment)
+           (iter (- trials-remaining 1) (+ trials-passed 1)))
+          (else
+           (iter (- trials-remaining 1) trials-passed))))
+  (iter trials 0))
+
+(define (rect-area x1 x2 y1 y2)
+  (abs (* (- x2 x1) (- y2 y1))))
+
+(define (estimate-integral p x1 x2 y1 y2 n-trials)
+  (let ((integral-test
+          (lambda () 
+            (p (random-in-range x1 x2)
+               (random-in-range y1 y2)))))
+    (*  (rect-area x1 x2 y1 y2)
+        (monte-carlo n-trials integral-test))))
+</pre>
+
+	<p>To estimate <code>pi</code>:</p>
+
+
+<pre>
+(define (unit-pred x y)
+  (&lt;= 
+    (+ (square x) (square y))
+    1))
+
+(do ((i 0 (+ i 1)))
+    ((= i 10) '())
+  (printf "Pi estimated: ~a~%" 
+    (estimate-integral unit-pred 1.0 -1.0 1.0 -1.0 100000)))
+</pre>
+
+	<p>The results I got in one run:</p>
+
+
+<pre>
+Pi estimated: 3.14004
+Pi estimated: 3.1354
+Pi estimated: 3.14428
+Pi estimated: 3.13584
+Pi estimated: 3.14064
+Pi estimated: 3.13584
+Pi estimated: 3.13852
+Pi estimated: 3.1366
+Pi estimated: 3.14224
+Pi estimated: 3.14808
+</pre>
+
+	<p>These aren&#8217;t as stable as I&#8217;d like after 100,000 iterations. The reason for the relative poorness of the results is either because of the exactness limit of Scheme numbers, or the poorness of the pseudorandom number generator, or both.</p>
+
+
+	<h4>Exercise 3.6</h4>
+
+
+	<p>There are two ways to go about this exercise &#8211; either use the imaginary <code>rand-update</code> function the authors refer to in the text, or write something that will surely work in a concrete Scheme implemenentation. I&#8217;ll take the second way, using the random-number facilities of <span class="caps">PLT</span> Scheme.</p>
+
+
+<pre>
+(define (rand command)
+  (case command
+    ('generate (random))
+    ('reset 
+      (lambda (new)
+        (random-seed new)))
+    (else
+      (error "Bad command -- " command))))
+</pre>
+
+	<p><code>random-seed</code> is a built in function of the MzScheme language<sup><a href="sicp-sections-312-313#fn1">1</a></sup>.</p>
+
+
+	<h3>Section 3.1.3</h3>
+
+
+	<h4>Exercise 3.7</h4>
+
+
+	<p>I think this is quite possible to achieve without actually modifying the solution to exercise 3.3:</p>
+
+
+<pre>
+(define (make-joint acc acc-pass new-pass)
+  (define (proxy-dispatch password m)
+    (if (eq? password new-pass)
+      (acc acc-pass m)
+      (error "Bad joint password -- " password)))
+  proxy-dispatch)
+</pre>
+
+	<p>We have to carefully understand where the state is stored here&#8230; <code>make-joint</code> accepts <code>acc</code> as the original account, and <code>proxy-dispatch</code> &#8220;closes over&#8221; it. The same with <code>acc-pass</code> which is the original password to the account. Then, when the proxy<sup><a href="sicp-sections-312-313#fn2">2</a></sup> function is called, it just checks if its password is correct and forwards the call to the original account (which, in turn, checks that <em>its</em> password is correct).</p>
+
+
+	<h4>Exercise 3.8</h4>
+
+
+	<p>Here&#8217;s one such function. It is very contrived and file-tailored to the exercise, of course:</p>
+
+
+<pre>
+(define f
+  (let ((state 1))
+    (lambda (n)
+      (set! state (* state n))
+      state)))
+</pre>
+
+	<p><span class="caps">PLT</span> Scheme evaluates arguments left-to-right. So:</p>
+
+
+<pre>
+(+ (f 0) (f 1))
+=&gt; 0
+</pre>
+
+	<p>To &#8220;simulate&#8221; right-to-left evaluation, I&#8217;ll just change the order of the arguments to <code>+</code>:</p>
+
+
+<pre>
+(+ (f 1) (f 0))
+=&gt; 1
+</pre>
+
+<img class="align-center" src="../../../images/hline.jpg" style="width: 320px; height: 5px;" />
+
+	<p id="fn1"><sup>1</sup> MzScheme is the formal name of the Scheme dialect used in <span class="caps">PLT</span> Scheme. It&#8217;s a superset of <span class="caps">R5RS</span> Scheme.</p>
+
+
+	<p id="fn2"><sup>2</sup> This functions doesn&#8217;t do anything by itself, but rather forwards all calls to another function. Such a pattern is often called <em>proxy</em>.</p>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-sections-312-313';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/09/27/sicp-sections-312-313';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-sections-312-313#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

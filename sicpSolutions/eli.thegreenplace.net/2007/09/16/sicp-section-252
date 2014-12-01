@@ -1,0 +1,531 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP section 2.5.2 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-section-252"
+                       rel="bookmark"
+                       title="Permalink to SICP section 2.5.2">
+                        SICP section 2.5.2
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> September 16, 2007 at 06:09</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>The code for this section is in Scheme.</p>
+
+
+	<h4>A short review of the material</h4>
+
+
+	<p>This section is about combining data of different types. This is where the generic type system we&#8217;re developing will really shine. But before we delve deeper into the code, it is beneficial to first gain a more thorough understanding of how we implement tagging.</p>
+
+
+	<p>Like many things in Lisp, lists can be used to simply represent tagged types. Attaching a tag type is just prepending its name to the datum:</p>
+
+
+<pre>
+(define (attach-tag type-tag contents)
+  (if (number? contents)
+    contents
+    (cons type-tag contents)))
+</pre>
+
+	<p>The code above includes an optimization for scheme numbers, but other than that, it&#8217;s a simple <code>cons</code>.</p>
+
+
+	<p>We even saw how to use this simple technique to build hierarchical tag systems. In this case the attached tags act in a <span class="caps">LIFO</span> manner &#8211; the higher-level tags (&#8220;a complex number&#8221;) come before the lower-level tags (&#8220;a rectangular implementation of a complex number&#8221;).</p>
+
+
+	<p>The key function in all of this is <code>apply-generic</code>, and it&#8217;s worth understanding it thoroughly:</p>
+
+
+<pre>
+(define (apply-generic op . args)
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+          (apply proc (map contents args))
+          (error
+            "No method for these types -- APPLY-GENERIC" 
+            (list op type-tags))))))
+</pre>
+
+	<p>Recall that our operation table (<code>get</code> and <code>put</code>) dispatches to functions based on the requested operation and the types of the arguments. The authors thoughtfully included provisions for multiple arguments of different types in the previous section &#8211; to use it fully only here.</p>
+
+
+	<p><code>apply-generic</code> takes an operation (say, <code>add</code>) and a list of arguments &#8211; normal Lisp variables. It queries the arguments for their types, using the generic <code>type-tag</code> accessor, builds a list of types (with <code>map</code>) and passes it together with the operation to <code>get</code>. This way it gets the correct function for the requested operation and types.</p>
+
+
+	<p>Keep this point in mind &#8211; it will be crucial in the understanding of the code of this section. The whole type tagging and operation dispatching thing is implemented using the familiar abstraction of lists and accessors to list elements. There&#8217;s a small detour into more advanced data structures to implement <code>put</code> and <code>get</code> efficiently<sup><a href="sicp-section-252#fn1">1</a></sup>, but that could have easily been done with lists too. There&#8217;s nothing magical and special about it &#8211; we&#8217;ve been using list abstractions from the very start of this book, and this topic should be very familiar by now.</p>
+
+
+	<h4>Coercion</h4>
+
+
+	<p>Here&#8217;s the code that implements the coercion table. It is very similar to the operator dispatch table:</p>
+
+
+<pre>
+(define *coercion-table* (make-hash-table 'equal))
+
+(define (put-coercion type-from type-to proc)
+  (hash-table-put! 
+    *coercion-table* 
+    (list type-from type-to) 
+    proc))
+
+(define (get-coercion type-from type-to)
+  (hash-table-get 
+    *coercion-table* 
+    (list type-from type-to) 
+    #f))
+</pre>
+
+	<p>And the <code>apply-generic</code> that uses it is:</p>
+
+
+<pre>
+(define (apply-generic op . args)
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+          (apply proc (map contents args))
+          (if (= (length args) 2)
+              (let ((type1 (car type-tags))
+                    (type2 (cadr type-tags))
+                    (a1 (car args))
+                    (a2 (cadr args)))
+                (let ((t1-&gt;t2 (get-coercion type1 type2))
+                      (t2-&gt;t1 (get-coercion type2 type1)))
+                  (cond (t1-&gt;t2
+                         (apply-generic op (t1-&gt;t2 a1) a2))
+                        (t2-&gt;t1
+                         (apply-generic op a1 (t2-&gt;t1 a2)))
+                        (else
+                         (error "No method for these types" 
+                                (list op type-tags))))))
+              (error "No method for these types" 
+                     (list op type-tags)))))))
+</pre>
+
+	<h4>Exercise 2.81</h4>
+
+
+	<p><strong>a.</strong> Louis&#8217;s coercion procedures don&#8217;t help much. It becomes very obvious if you study the code of <code>apply-generic</code> &#8211; it calls itself recursively on coerced types, and hence for numbers it doesn&#8217;t add any value. For complex numbers (or any other numbers for which the requested operation is not implemented) it&#8217;s even worse &#8211; <code>apply-generic</code> gets into an infinite recursion<sup><a href="sicp-section-252#fn1">1</a></sup>.</p>
+
+
+	<p><strong>b.</strong> Louis is wrong. <code>apply-generic</code> works just fine as-is. If two arguments are of the same type and <code>apply-generic</code> couldn&#8217;t find an operation for them with <code>get</code>, self coercion won&#8217;t help.</p>
+
+
+	<p><strong>c.</strong> Here&#8217;s <code>apply-generic</code> that doesn&#8217;t try coercion for two arguments of the same type:</p>
+
+
+<pre>
+(define (apply-generic op . args)
+  (define (no-method type-tags)
+    (error "No method for these types" 
+      (list op type-tags)))
+
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+          (apply proc (map contents args))
+          (if (= (length args) 2)
+              (let ((type1 (car type-tags))
+                    (type2 (cadr type-tags))
+                    (a1 (car args))
+                    (a2 (cadr args)))
+                (if (equal? type1 type2)
+                  (no-method type-tags)
+                  (let ((t1-&gt;t2 (get-coercion type1 type2))
+                        (t2-&gt;t1 (get-coercion type2 type1))
+                        (a1 (car args))
+                        (a2 (cadr args)))
+                    (cond (t1-&gt;t2
+                           (apply-generic op (t1-&gt;t2 a1) a2))
+                          (t2-&gt;t1
+                           (apply-generic op a1 (t2-&gt;t1 a2)))
+                          (else (no-method type-tags))))))
+              (no-method type-tags))))))
+</pre>
+
+	<p>Note that I defined <code>no-method</code> to avoid repetitive code.</p>
+
+
+	<h4>Exercise 2.82</h4>
+
+
+	<p>This strategy requires a much more complicated <code>apply-generic</code>. We can contain the complexity by defining a few internal functions that give convenient names to processes. Now the main flow of <code>apply-generic</code> should not be too hard to understand.</p>
+
+
+<pre>
+(define (apply-generic op . args)
+  (define (can-coerce-into? types target-type)
+    "Can all _types_ be coerced into _target-type_ ?" 
+    (andmap 
+      (lambda (type)
+        (or
+          (equal? type target-type)
+          (get-coercion type target-type)))
+      types))
+  (define (find-coercion-target types)
+    "Find a type among _types_ that all _types_ can be
+    coerced into." 
+    (ormap
+      (lambda (target-type)
+        (if (can-coerce-into? types target-type)
+          target-type
+          #f))
+      types))
+  (define (coerce-all args target-type)
+    "Coerce all _args_ to _target-type_" 
+    (map 
+      (lambda (arg)
+        (let ((arg-type (type-tag arg)))
+          (if (equal? arg-type target-type)
+            arg
+            ((get-coercion arg-type target-type) arg))))
+      args))
+  (define (no-method type-tags)
+    (error "No method for these types" 
+      (list op type-tags)))      
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+        (apply proc (map contents args))
+        (let ((target-type (find-coercion-target type-tags)))
+          (if target-type
+            (apply
+              apply-generic
+              (append 
+                (list op)
+                (coerce-all args target-type)))
+            (no-method type-tags)))))))
+</pre>
+
+	<p>A situation where this strategy is not sufficiently general: we are trying to coerce the arguments only to types that are present in the call, and so can miss other types.</p>
+
+
+	<p>Consider the example in Figure 2.26 in the book. Suppose we have a call with these types: <code>(kite quadrilateral)</code>. Since <code>kite</code> can be coerced into <code>quadrilateral</code>, everything works as expected.</p>
+
+
+	<p>But now suppose we have a call with: <code>(triangle kite quadrilateral)</code>. Going over each of these types and trying to coerce them to each other won&#8217;t work. But they <em>can</em> all be coerced into <code>polygon</code>. This demonstrates the flaw of this method. What we should be really going is finding some common &#8220;ancestor&#8221; type for all the types we work on.</p>
+
+
+	<h4>Exercise 2.83</h4>
+
+
+<pre>
+;; Into integer package
+(define (integer-&gt;rational n)
+  (make-rational n 1))
+
+(put 'raise '(integer)
+  (lambda (i) (integer-&gt;rational i)))
+
+;; Into rational package
+(define (rational-&gt;real r)
+  (make-real
+    (exact-&gt;inexact
+      (/ (numer r) (denom r)))))
+
+(put 'raise '(rational)
+  (lambda (r) (rational-&gt;real r)))
+
+;; Into real package
+(define (real-&gt;complex r)
+  (make-complex-from-real-imag r 0))
+
+(put 'raise '(real)
+  (lambda (r) (real-&gt;complex r)))
+
+(define (raise x)
+  (apply-generic 'raise x))
+</pre>
+
+	<h4>Exercise 2.84</h4>
+
+
+	<p>For simplicity&#8217;s sake, I&#8217;m going to use the <code>apply-generic</code> that only works with two arguments. Also, I&#8217;ll employ only the types we&#8217;re familiar with: scheme number, rational, complex.</p>
+
+
+<pre>
+(define (apply-generic-r op . args)
+  (define (no-method type-tags)
+    (error "No method for these types" 
+      (list op type-tags)))      
+  (define (raise-into s t)
+    "Tries to raise s into the type of t. On success, 
+    returns the raised s. Otherwise, returns #f" 
+    (let ((s-type (type-tag s))
+          (t-type (type-tag t)))
+      (cond 
+        ((equal? s-type t-type) s)
+        ((get 'raise (list s-type))
+          (raise-into ((get 'raise (list s-type)) (contents s)) t))
+        (t #f))))
+
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+          (apply proc (map contents args))
+          (if (= (length args) 2)
+            (let ((o1 (car args))
+                  (o2 (cadr args)))
+              (cond 
+                ((raise-into o1 o2)
+                  (apply-generic-r op (raise-into o1 o2) o2))
+                ((raise-into o2 o1)
+                  (apply-generic-r op o2 (raise-into o2 o1)))
+                (t (no-method type-tags))))
+            (no-method type-tags))))))
+</pre>
+
+	<p>The auxiliary function <code>raise-into</code> plays a key role here. It tries to recursively raise its first argument into the type of the second argument. If successful, it returns the first argument with the type of the second. Otherwise it returns <code>#f</code>.</p>
+
+
+	<p>Although this method is compatible with the rest of the system and imposes the minimal overhead to the action of adding new types, it is not very efficient. In a real system, it probably would have made sense to precompute the relationships between types and not try to figure it out every time anew.</p>
+
+
+	<h4>Exercise 2.85</h4>
+
+
+	<p>Let&#8217;s begin with the <code>project</code> functions for the various types:</p>
+
+
+<pre>
+
+  (put 'project '(rational)
+    (lambda (r) 
+      (make-scheme-number
+        (floor (/ (numer r) (denom r))))))
+
+  (put 'project '(real)
+    (lambda (r) 
+      (let ((scheme-rat 
+              (rationalize 
+                (inexact-&gt;exact r) 1/100)))
+        (make-rational
+          (numerator scheme-rat)
+          (denominator scheme-rat)))))
+
+  (put 'project '(complex)
+    (lambda (c) (make-real (real-part c))))
+
+</pre>
+
+	<p>The functions <code>floor</code>, <code>rationalize</code> and <code>inexact-&gt;exact</code> are standard Scheme functions for dealing with conversions between different numbers. The functions <code>numerator</code> and <code>denominator</code> are Scheme&#8217;s own accessors to rational numbers. It was convenient to use them together with the output of <code>rationalize</code>.</p>
+
+
+	<p>Here is <code>drop</code> and a modified <code>apply-generic-r</code>:</p>
+
+
+<pre>
+(define (drop num)
+  (let ((project-proc 
+          (get 'project (list (type-tag num)))))
+    (if project-proc
+      (let ((dropped (project-proc (contents num))))
+        (if (equ? num (raise dropped))
+          (drop dropped)
+          num))
+      num)))
+
+(define (apply-generic-r op . args)
+  (define (no-method type-tags)
+    (error "No method for these types" 
+      (list op type-tags)))      
+  (define (raise-into s t)
+    "Tries to raise s into the type of t. On success, 
+    returns the raised s. Otherwise, returns #f" 
+    (let ((s-type (type-tag s))
+          (t-type (type-tag t)))
+      (cond 
+        ((equal? s-type t-type) s)
+        ((get 'raise (list s-type))
+          (raise-into ((get 'raise (list s-type)) (contents s)) t))
+        (t #f))))
+
+  (let ((type-tags (map type-tag args)))
+    (let ((proc (get op type-tags)))
+      (if proc
+          (drop (apply proc (map contents args)))
+          (if (= (length args) 2)
+            (let ((o1 (car args))
+                  (o2 (cadr args)))
+              (cond 
+                ((raise-into o1 o2)
+                  (apply-generic-r op (raise-into o1 o2) o2))
+                ((raise-into o2 o1)
+                  (apply-generic-r op o2 (raise-into o2 o1)))
+                (t (no-method type-tags))))
+            (no-method type-tags))))))
+</pre>
+
+	<p>Note that the only change <code>apply-generic-r</code> has undergone is the call to <code>drop</code> on <code>apply</code> &#8211; which is the exit point, in order to simplify the answer.</p>
+
+
+	<p>The way I decided to implement <code>drop</code> allows, <span class="caps">IMHO</span>, for the most generic type system. <code>drop</code> tests if the type it&#8217;s given has a <code>project</code> function, so new types without <code>project</code> will also work as expected.</p>
+
+
+	<h4>Exercise 2.86</h4>
+
+
+	<p>We should first think about the abstraction level on which we&#8217;d want to implement this feature. On the level of <code>complex</code>, only accessors are used (<code>real-part</code>, <code>angle</code> etc.) so if we implement those, everything will work as expected. So, we should operate on the level of <code>rectangular</code> and <code>polar</code>.</p>
+
+
+	<p>What is needed is pretty simple; we can just make the operations: <code>square</code>, <code>arctan</code>, <code>sine</code> and <code>cosine</code> generic procedures, and implement them for each number system we&#8217;re installing. Then, the accessors of <code>rectangular</code> and <code>polar</code> will just use these generic procedures without worrying about the internals. This way we also ensure that when new types are added into the system, they can be easily be incorporated as the elements of complex numbers, by implementing the appropriate generic procedures.</p>
+
+<img class="align-center" src="../../../images/hline.jpg" style="width: 320px; height: 5px;" />
+
+	<p id="fn1"><sup>1</sup> Recall that we used Scheme&#8217;s hash tables for that.</p>
+
+
+	<p id="fn2"><sup>2</sup> It&#8217;s a curious fact to note that the Scheme interpreter (I&#8217;m using <span class="caps">PLT</span>&#8217;s MzScheme) doesn&#8217;t throw a stack overflow error, but dutifully engages in an infinite loop. This is because the recursive call of <code>apply-generic</code> is a <em>tail call</em>, and the Scheme interpreter automatically optimizes it into a loop. Contrast this with the CL runtime we were using in other sections &#8211; while it implements the tail call optimization for compiled code, it doesn&#8217;t do it for interpreted code, so it throws a stack overflow.</p>
+
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-section-252';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/09/16/sicp-section-252';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-section-252#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

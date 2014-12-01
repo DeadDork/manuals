@@ -1,0 +1,622 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP section 2.2.4 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-section-224"
+                       rel="bookmark"
+                       title="Permalink to SICP section 2.2.4">
+                        SICP section 2.2.4
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> August 24, 2007 at 09:12</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>As I mentioned in a recent post, I&#8217;m going to implement the solutions for this section in <span class="caps">PLT</span> Scheme rather than in Common Lisp. This is because of the very easy access to a <span class="caps">GUI</span> library in <span class="caps">PLT</span> Scheme, which is a difficult task with CL if you&#8217;re on Windows.</p>
+
+	<p>The picture I&#8217;m going to use for these sections is just some funny collection of lines I&#8217;ve built named &#8220;krest&#8221; (I&#8217;ll show the code that creates it later):</p>
+
+
+	<p>
+<img src="../../../images/2007/08/krest.PNG" /></p>
+
+
+	<p>Also, note that the solutions to the first exercises &#8220;assume&#8221; the existence of code written for later exercises. Ultimately, all the code for the picture language is here, it is just arranged in the order of the exercises it solves.</p>
+
+
+	<p>There&#8217;s a very important point the authors are making in the beginning of the section that is worth mentioning:</p>
+
+
+	<blockquote>
+		<p>Once we can combine painters, we would like to be able to abstract typical patterns of combining painters. We will implement the painter operations as Scheme procedures. This means that we don&#8217;t need a special abstraction mechanism in the picture language: Since the means of combination are ordinary Scheme procedures, we automatically have the capability to do anything with painter operations that we can do with procedures.</p>
+	</blockquote>
+
+
+	<p>DSLs (Domain Specific Languages) are hot stuff lately. But they&#8217;ve always been used by serious programmers (SICP was written more than 20 years ago&#8230;), and their theoretical base is very solid. DSLs can be external (like the language of Makefiles) and internal (like Ruby-on-Rails). Internal DSLs are built on top of an existing programming language, and can therefore use all its facilities. This is exactly what the authors mean in the quote above. The picture language is an internal <span class="caps">DSL</span>, built on top of Scheme.</p>
+
+
+	<h4>Exercise 2.44</h4>
+
+
+	<p>Here is the definition of <code>up-split</code> (again, note this is Scheme code, not Common Lisp):</p>
+
+
+<pre>
+(define (up-split painter n)
+  (if (zero? n)
+    painter
+    (let ((smaller (up-split painter (- n 1))))
+      (below painter (beside smaller smaller))))) 
+</pre>
+
+	<p>And this is what it produces, applied to krest 4 times:</p>
+
+
+	<p>
+<img src="../../../images/2007/08/upsplit.PNG" /></p>
+
+
+	<p>And <code>square-limit</code> produces:</p>
+
+
+	<p>
+<img src="../../../images/2007/08/squarelimit.PNG" /></p>
+
+
+	<h4>Exercise 2.45</h4>
+
+
+	<p>The key here is to look carefully at <code>right-split</code> and <code>up-split</code> and see what&#8217;s similar between them. It is immediately obvious that the two functions are very much alike, and the only difference between them is the order of calls to <code>blow</code> and <code>beside</code> on the last line. So we can define the generic <code>split</code> as follows:</p>
+
+
+<pre>
+(define (split combine-main combine-smaller)
+  (lambda (painter n)
+    (if (zero? n)
+      painter
+      (let ((smaller ((split combine-main combine-smaller) painter (- n 1))))
+        (combine-main 
+          painter 
+          (combine-smaller smaller smaller))))))
+</pre>
+
+	<h4>Exercise 2.46</h4>
+
+
+<pre>
+(define (make-vect x y)
+  (cons x y))
+
+(define (xcor-vect v)
+  (car v))
+
+(define (ycor-vect v)
+  (cdr v))
+
+(define (add-vect v1 v2)
+  (make-vect 
+    (+ (xcor-vect v1) (xcor-vect v2))
+    (+ (ycor-vect v1) (ycor-vect v2))))
+
+(define (sub-vect v1 v2)
+  (make-vect
+    (- (xcor-vect v1) (xcor-vect v2))
+    (- (ycor-vect v1) (ycor-vect v2))))
+
+(define (scale-vect s v)
+  (make-vect 
+    (* s (xcor-vect v)) 
+    (* s (ycor-vect v))))
+</pre>
+
+	<h4>Exercise 2.47</h4>
+
+
+	<p>Here is the implementation for the list representation:</p>
+
+
+<pre>
+(define (make-frame dc origin edge1 edge2)
+  (list dc origin edge1 edge2))
+
+(define (dc-frame f)
+  (car f))
+
+(define (origin-frame f)
+  (cadr f))
+
+(define (edge1-frame f)
+  (caddr f))
+
+(define (edge2-frame f)
+  (cadddr f))
+</pre>
+
+	<p>Whoa, stop right there ! What is that <code>dc</code> thingy ? <code>dc</code> is a shortname for &#8220;device context&#8221;, which is an object commonly used in GUIs for an area you can draw on. As I mentioned, I use the <span class="caps">PLT</span> Scheme implementation for this section, with its <span class="caps">GUI</span> library MrEd (based on wxWindows).</p>
+
+
+	<p>This is how I create new frames for drawing:</p>
+
+
+<pre>
+(define (make-fr1)
+  (make-frame
+    dc
+    (make-vect 0 0)
+    (make-vect 300 0)
+    (make-vect 0 300)))
+</pre>
+
+	<p>Here is the infrastructure drawing code:</p>
+
+
+<pre>
+(define frame 
+  (instantiate 
+    frame% 
+    ("Drawing Example") 
+    (width 700) 
+    (height 700)))
+
+;; Make the drawing area
+(define canvas (instantiate canvas% (frame)))
+;; Get the canvas's drawing context
+(define dc (send canvas get-dc))
+
+(define red-pen (instantiate pen% ("RED" 1 'solid)))
+
+;; Show the frame
+(send frame show #t) 
+;; Wait a second to let the window get ready
+(sleep/yield 1) 
+
+(my-draw)
+</pre>
+
+	<p>As you can see, <code>dc</code> is a global variable &#8211; the device context of the canvas on which I draw. The drawing code itself is in the function <code>my-draw</code>. Here&#8217;s a sample <code>my-draw</code>:</p>
+
+
+<pre>
+(define (my-draw)   
+  (send dc set-pen red-pen)
+  ((right-split krest-painter 4) (make-fr1))
+)
+</pre>
+
+	<p>What is <code>krest-painter</code>, though ?</p>
+
+
+<pre>
+(define (segments-&gt;painter segment-list)
+  (lambda (frame)
+    (for-each 
+      (lambda (segment)
+        (draw-line 
+          (dc-frame frame)
+          ((frame-coord-map frame) (start-segment segment))
+          ((frame-coord-map frame) (end-segment segment))))
+      segment-list)))
+
+(define (draw-segment dc seg)
+  (let ((v-start (start-segment seg))
+        (v-end (end-segment seg)))
+    (send dc draw-line
+      (xcor-vect v-start)
+      (ycor-vect v-start)
+      (xcor-vect v-end)
+      (ycor-vect v-end))))
+
+(define (draw-line dc v1 v2)
+  (draw-segment dc (make-segment v1 v2)))
+
+(define krest-segments
+  (list
+    (make-segment 
+      (make-vect 0.4 0.2)
+      (make-vect 0.6 0.2))
+    (make-segment 
+      (make-vect 0.5 0.0)
+      (make-vect 0.5 1.0))
+    (make-segment 
+      (make-vect 0.0 0.4)
+      (make-vect 1.0 0.4))
+    (make-segment 
+      (make-vect 0.2 0.4)
+      (make-vect 0.2 0.6))
+    (make-segment 
+      (make-vect 1.0 0.4)
+      (make-vect 1.0 0.6))
+    (make-segment 
+      (make-vect 0.0 0.6)
+      (make-vect 0.2 0.6))))
+
+(define krest-painter (segments-&gt;painter krest-segments))
+</pre>
+
+	<p>The rest of the code (segments, etc.) will be shown below. I know this is a lot of code and can be a little confusing, but all there is to it is the code presented by the authors, plus solutions to exercises, plus a little code for drawing with the MrEd <span class="caps">GUI</span> framework (which I don&#8217;t intend to teach here).</p>
+
+
+	<p>Hmm&#8230; that was quite a detour. Let&#8217;s get back to exercise 2.47 now.</p>
+
+
+	<p>The other representation uses <code>cons</code>:</p>
+
+
+<pre>
+(define (make-frame dc origin edge1 edge2)
+  (cons dc (cons origin (cons edge1 edge2))))
+
+(define (dc-frame f)
+  (car f))
+
+(define (origin-frame f)
+  (cadr f))
+
+(define (edge1-frame f)
+  (caddr f))
+
+(define (edge2-frame f)
+  (cdddr f))
+</pre>
+
+	<p>The only difference is in <code>edge2-frame</code>. While it wastes another <em>cons cell</em>, the list representation is much more comfortable and all the sequence functions work on it, so I find it preferable.</p>
+
+
+	<h4>Exercise 2.48</h4>
+
+
+<pre>
+(define (make-segment v-start v-end)
+  (cons v-start v-end))
+
+(define (start-segment seg)
+  (car seg))
+
+(define (end-segment seg)
+  (cdr seg))
+</pre>
+
+	<h4>Exercise 2.49</h4>
+
+
+<pre>
+(define outline-segments
+  (list
+    (make-segment
+      (make-vect 0.0 0.0)
+      (make-vect 0.0 1.0))
+    (make-segment
+      (make-vect 0.0 0.0)
+      (make-vect 1.0 0.0))
+    (make-segment
+      (make-vect 1.0 0.0)
+      (make-vect 1.0 1.0))
+    (make-segment
+      (make-vect 0.0 1.0)
+      (make-vect 1.0 1.0))))
+
+(define outline-painter (segments-&gt;painter outline-segments))
+
+(define x-segments
+  (list
+    (make-segment
+      (make-vect 1.0 0.0)
+      (make-vect 0.0 1.0))
+    (make-segment
+      (make-vect 0.0 0.0)
+      (make-vect 1.0 1.0))))
+
+(define x-painter (segments-&gt;painter x-segments))
+
+(define diamond-segments
+  (list
+    (make-segment
+      (make-vect 0.5 0.0)
+      (make-vect 1.0 0.5))
+    (make-segment
+      (make-vect 1.0 0.5)
+      (make-vect 0.5 1.0))
+    (make-segment
+      (make-vect 0.0 0.5)
+      (make-vect 0.5 0.0))
+    (make-segment
+      (make-vect 0.0 0.5)
+      (make-vect 0.5 1.0))))
+
+(define diamond-painter (segments-&gt;painter diamond-segments))
+</pre>
+
+	<p>I won&#8217;t do the <code>wave</code> painter. Too much work (17 segments!) that won&#8217;t get me much farther in grasping the wisdoms of <span class="caps">SICP</span>, as this is only a drawing exercise.</p>
+
+
+	<h4>Exercise 2.50</h4>
+
+
+	<p>I&#8217;m not sure the authors have got <code>rotate90</code> right. It appears to me it rotates the painter 90 degrees clockwise, rather than counterclockwise.</p>
+
+
+	<p>Here&#8217;s my set of counterclockwise rotations:</p>
+
+
+<pre>
+(define (rotate90 painter)
+  (transform-painter 
+    painter
+    (make-vect 0.0 1.0)     ; new origin
+    (make-vect 0.0 0.0)     ; new end of edge1
+    (make-vect 1.0 1.0)))   ; new end of edge2
+
+(define (rotate180 painter)
+  (transform-painter
+    painter
+    (make-vect 1.0 1.0)
+    (make-vect 0.0 1.0)
+    (make-vect 1.0 0.0)))
+
+(define (rotate270 painter)
+  (transform-painter
+    painter
+    (make-vect 1.0 0.0)
+    (make-vect 1.0 1.0)
+    (make-vect 0.0 0.0)))
+</pre>
+
+	<p>To prove my point, here is the image of <code>krest-painter</code> rotated counterclockwise 0, 90, 180 and 270 degrees using my functions:</p>
+
+
+	<p><img src="../../../images/2007/08/rotations.PNG" /></p>
+
+
+	<p>Looks correct, doesn&#8217;t it ? But my <code>rotate90</code> is different from the one in the book! Is this the first bug I find in <span class="caps">SICP</span>, or have I misunderstood something ?!</p>
+
+
+	<p>Anyway, to complete the exercise, here&#8217;s <code>flip-horiz</code>:</p>
+
+
+<pre>
+(define (flip-horiz painter)
+  (transform-painter
+    painter
+    (make-vect 1.0 0.0)
+    (make-vect 0.0 0.0)
+    (make-vect 1.0 1.0)))
+</pre>
+
+	<h4>Exercise 2.51</h4>
+
+
+	<p>This is the straightforward implementation of <code>below</code>:</p>
+
+
+<pre>
+(define (below painter1 painter2)
+  (let* ( (split-point (make-vect 0.0 0.5))
+          (paint-up
+            (transform-painter
+              painter2
+              (make-vect 0.0 0.0)
+              (make-vect 1.0 0.0)
+              split-point))
+          (paint-down
+            (transform-painter
+              painter1
+              split-point
+              (make-vect 1.0 0.5)
+              (make-vect 0.0 1.0))))
+    (lambda (frame)
+      (paint-up frame)
+      (paint-down frame))))
+</pre>
+
+	<p>And this is <code>below</code> using rotations and <code>beside</code>:</p>
+
+
+<pre>
+(define (below-rot painter1 painter2)
+  (rotate90 (beside
+              (rotate270 painter1)
+              (rotate270 painter2))))
+</pre>
+
+	<h4>Exercise 2.52</h4>
+
+
+	<p>I added a horizontal line to <code>krest-painter</code> and changed the way <code>corner-split</code> works (as suggested in b.):</p>
+
+
+<pre>
+(define (corner-split painter n)
+  (if (zero? n)
+    painter
+    (let* ( (up (up-split painter (- n 1)))
+            (right (right-split painter (- n 1)))
+            (top-left up)
+            (bottom-right right)
+            (corner (corner-split painter (- n 1))))
+      (beside (below painter top-left)
+              (below bottom-right corner)))))
+
+(define krest-segments
+  (list
+    (make-segment 
+      (make-vect 0.4 0.2)
+      (make-vect 0.6 0.2))
+    (make-segment 
+      (make-vect 0.5 0.0)
+      (make-vect 0.5 1.0))
+    (make-segment
+      (make-vect 0.3 1.0)
+      (make-vect 0.7 0.7))
+    (make-segment 
+      (make-vect 0.0 0.4)
+      (make-vect 1.0 0.4))
+    (make-segment 
+      (make-vect 0.2 0.4)
+      (make-vect 0.2 0.6))
+    (make-segment 
+      (make-vect 1.0 0.4)
+      (make-vect 1.0 0.6))
+    (make-segment 
+      (make-vect 0.0 0.6)
+      (make-vect 0.2 0.6))))
+</pre>
+
+	<p>Here&#8217;s the result:</p>
+
+
+	<p><img src="../../../images/2007/08/newtype.PNG" /></p>
+
+
+	<p>The options for playability are limitless, of course.</p>
+
+
+	<p>To conclude this fascinating section, I want to mention something one of the authors said in the video lecture on this topic. The picture language is a whole new way to describe pictures, and indeed for the specific need it was created it&#8217;s very convenient and flexible. Moreover, it really blurs the distinction between functions and data, because the main object is the painter, which is a function. It is an excellent exercise in abstraction and in higher order procedures.</p>
+
+
+	<p>Another small note: I think this language looks much better in Scheme than in Common Lisp, mainly because <code>funcall</code>  is not needed. In any higher-order-procedure-heavy language, Scheme will look much cleaner.</p>
+
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-section-224';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/08/24/sicp-section-224';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-section-224#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

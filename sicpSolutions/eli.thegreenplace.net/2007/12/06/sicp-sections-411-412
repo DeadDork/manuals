@@ -1,0 +1,576 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP sections 4.1.1 - 4.1.2 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-sections-411-412"
+                       rel="bookmark"
+                       title="Permalink to SICP sections 4.1.1 - 4.1.2">
+                        SICP sections 4.1.1 - 4.1.2
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> December 06, 2007 at 23:23</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>The code for this section is in Common Lisp. However, the language I&#8217;m going to implement the evaluator for is Scheme. This is for two reasons. First, this is the language being implemented in the book, and I don&#8217;t want to deviate from it too much. Second, the semantics of Scheme are somewhat simpler than those of CL, so for a first Lisp evaluator Scheme will do.</p>
+
+
+	<p>Note that I will first reimplement the authors&#8217; evaluator wholly in Common Lisp, in order to be able to test the solutions to the exercises. This includes rewriting code that is presented in later sections. Since the full code of the evaluator is quite big, I won&#8217;t paste it wholly here but if you&#8217;re interested, you can download it as a evaluator.lisp.</p>
+
+
+	<p>I also wrote a set of unit tests for the evaluator - evaluator_testing.lisp</a>, using the <a href="http://www.cs.northwestern.edu/academics/courses/325/readings/lisp-unit.html">lisp-unit unit testing package. Unit testing is an important part of developing correct software, and evaluators are one of the areas where unit testing is especially applicable, since their inputs and outputs can be easily tested, and a set of unit tests can exercise the code in a very good fashion. This unit testing suite will prove itself helpful when I&#8217;ll want to test that the various changed to the evaluator made in the exercises haven&#8217;t harmed its correctness.</p>
+
+	<p>Once I have this code loaded, I can play with the evaluator &#8211; and this is actually quite some fun, since I now know exactly what goes on under the hood. For example:</p>
+
+
+<pre>
+(interpret '(define xx 14))
+(interpret 
+  '(define (average x y)
+      (/ (+ x y) 2)))
+(print (interpret '(average xx 66)))
+=&gt; 40
+</pre>
+
+	<p>Another example, using a higher-order function:</p>
+
+
+<pre>
+(interpret
+  '(define (make-adder-func x)
+    (lambda (y) (+ x y))))
+
+(interpret
+  '(define add2 (make-adder-func 2)))
+
+(print (interpret '(add2 6)))
+=&gt;
+8
+</pre>
+
+	<p>I&#8217;m using the helper function <code>interpret</code> which is implemented as follows:</p>
+
+
+<pre>
+(defun interpret (exp)
+  (eval. exp the-global-environment))
+</pre>
+
+	<p>Note the period in the name <code>eval.</code> &#8211; it is there to avoid a clash between the built-in <code>eval</code> and my own <code>eval</code>. A period was also, appended to <code>apply</code>, for the same reason.</p>
+
+	<h4>Exercise 4.1</h4>
+
+
+	<p>I can use the <code>let*</code> form to impose an order<sup><a href="sicp-sections-411-412#fn1">1</a></sup>.</p>
+
+
+<pre>
+(defun list-of-values (exps env)
+  (if (no-operands? exps)
+    '()
+    (let*  ((left (eval. (first-operand exps) env))
+            (right (list-of-values (rest-operands exps) env)))
+      (cons left right))))
+</pre>
+
+	<p>The same trick can be used to evaluate from right to left.</p>
+
+
+	<h4>Exercise 4.2</h4>
+
+
+	<p><strong>a.</strong> The evaluator accepts any list as a procedure application, so its clause must be last &#8211; after all the special cases were tested. Therefore Louis&#8217;s plan is flawed &#8211; the evaluator will recognize definitions and assignments as procedure applications. For example, for the expression <code>(define x 3)</code> the evaluator will attempt to call the procedure <code>define</code> on arguments <code>x</code> and <code>3</code>, which is not what was intended.</p>
+
+
+	<p>You might wonder whether it&#8217;s possible to just make <code>define</code> a procedure. It isn&#8217;t, because a procedure application evaluates its arguments<sup><a href="sicp-sections-411-412#fn2">2</a></sup>, and we wouldn&#8217;t want to evaluate the <code>x</code> in the <code>define</code> shown above, because it is obviously undefined before the <code>define</code> is executed. Whenever we want to impose special evaluation rules on the arguments, we must introduce a special form.</p>
+
+
+	<p><strong>b.</strong> We only need to change what the evaluator considers to be an applications. Since the evaluator was built in a very modular style that permits changing the underlying implementations of constructs easily, all we really have to do is rewrite:</p>
+
+
+<pre>
+(defun application? (exp) 
+  (tagged-list? exp 'call))
+(defun operator (exp) (cadr exp))
+(defun operands (exp) (cddr exp))
+</pre>
+
+	<h4>Exercise 4.3</h4>
+
+
+	<p>Back in chapter 2, I implemented the data-directed dispatch code in Scheme. Now, as I&#8217;m coding the evaluator in Common Lisp, I will need the support tools for the operation table. Fortunately, using a hash table in CL is as simple as in Scheme:</p>
+
+
+<pre>
+(defvar *op-table* (make-hash-table :test #'equal))
+
+(defun get-op (type)
+  (gethash type *op-table*))
+
+(defun put-op (type proc)
+  (setf (gethash type *op-table*) proc))
+</pre>
+
+	<p>If you carefully look at <code>eval</code> in the book (or at <code>eval.</code> in my CL code), you will notice that except a couple of special cases which can&#8217;t be dispatched (like recognizing a variable, an application and a self-evaluating expression), all the other operations are handled similarly. First, the expression is recognized with a specialized test that checks if it&#8217;s a tagged list of some sort, and then the appropriate evaluation procedure is called and handled the expression and environment as arguments.</p>
+
+
+	<p>To make all the operations data-dispatchable, we&#8217;ll add a few more specialized evaluation functions:</p>
+
+
+<pre>
+(defun eval-lambda (exp env)
+  (make-procedure
+    (lambda-parameteres exp)
+    (lambda-body exp)
+    env))
+
+(defun eval-begin (exp env)
+  (eval-sequence (begin-actions exp) env))
+
+(defun eval-cond (exp env)
+  (eval. (cond-&gt;if exp) env))
+
+(defun eval-quoted (exp env)
+  (text-of-quotation exp))
+</pre>
+
+	<p>Now we can insert all operations into the dispatch table:</p>
+
+
+<pre>
+(put-op 'quote #'eval-quoted)
+(put-op 'set! #'eval-assignment)
+(put-op 'define #'eval-definition)
+(put-op 'if #'eval-if)
+(put-op 'lambda #'eval-lambda)
+(put-op 'begin #'eval-begin)
+(put-op 'cond #'eval-cond)
+</pre>
+
+	<p>And finally, implement <code>eval.</code> in a data-dispatch fashion:</p>
+
+
+<pre>
+(defun eval. (exp env)
+  (cond ((self-evaluating? exp) 
+          exp)
+        ((variable? exp) 
+          (lookup-variable-value exp env))
+        ((get-op (car exp))
+          (funcall (get-op (car exp)) exp env))
+        ((application? exp)
+          (apply. 
+            (eval. (operator exp) env)
+            (list-of-values (operands exp) env)))
+        (t
+          (error "Unknown expression in EVAL: " exp))))
+</pre>
+
+	<p>Having the unit test suite at hand proves very useful here, as I can quickly use it to verify that this code works correctly.</p>
+
+
+	<p>Note that had we used Louis&#8217;s idea of identifying applications with <code>call</code>, as was implemented in exercise 4.2b, we could dispatch to an application as well, instead of keeping it as a &#8220;special&#8221; operation in <code>eval.</code>.</p>
+
+
+	<h4>Exercise 4.4</h4>
+
+
+	<p>Here are the functions to recognize and handle <code>and</code> and <code>or</code> as special forms:</p>
+
+
+<pre>
+; (or &lt;exp1&gt; ... &lt;expN&gt;)
+(defun or? (exp) (tagged-list? exp 'or))
+
+(defun eval-or (exp env)
+  (dolist (e (cdr exp) nil)
+    (let ((result (eval. e env)))
+      (when (true? result)
+        (return result)))))
+
+; (and &lt;exp1&gt; ... &lt;expN&gt;)
+(defun and? (exp) (tagged-list? exp 'and))
+
+(defun eval-and (exp env)
+  (dolist (e (cdr exp) (car (last exp)))
+    (let ((result (eval. e env)))
+      (when (false? result)
+        (return nil)))))
+</pre>
+
+	<p>And here is their part in <code>eval.</code> (using the original, not data-dispatch approach):</p>
+
+
+<pre>
+...
+((or? exp)
+  (eval-or exp env))
+((and? exp)
+  (eval-and exp env))
+...
+</pre>
+
+	<p>Alternatively, they can be implemented as derived expressions in terms of nested <code>if</code> expressions, similarly to the implementation of <code>cond</code>.</p>
+
+
+	<h4>Exercise 4.5</h4>
+
+
+	<p>The <code>expand-cond-clauses</code> function has to be modified thus:</p>
+
+
+<pre>
+(defun expand-cond-clauses (clauses)
+  (if (null clauses)
+    'false              ; no _else_ clause
+    (let ((first (car clauses))
+          (rest (cdr clauses)))
+      (cond
+        ((cond-else-clause? first)
+          (if (null rest)
+            (sequence-&gt;exp (cond-actions first))
+            (error "ELSE clause isn't last " clauses)))
+        ((extended-cond-syntax? first)
+          (make-if
+            (extended-cond-test first)
+            (list 
+              (extended-cond-recipient first)
+              (extended-cond-test first))
+            (expand-cond-clauses rest)))
+        (t
+          (make-if
+            (cond-predicate first)
+            (sequence-&gt;exp (cond-actions first))
+            (expand-cond-clauses rest)))))))
+</pre>
+
+	<p>With some helper functions:</p>
+
+
+<pre>
+(defun extended-cond-syntax? (clause)
+  (and
+    (listp clause)
+    (&gt; (length clause) 2)
+    (eq (cadr clause) '=&gt;)))
+
+(defun extended-cond-test (clause)
+  (car clause))
+
+(defun extended-cond-recipient (clause)
+  (caddr clause))
+</pre>
+
+	<p>Note the call to <code>make-if</code> in case of an extended syntax, it is an interesting case. What we want is to <em>create code</em> that will be run by <code>eval.</code>, so we simply create a list, which represents the procedure application. In some sense, writing such code is reminiscent of writing macros with CL&#8217;s <code>defmacro</code> facility &#8211; because this is code that is being executed during the &#8220;compilation&#8221; phase.</p>
+
+
+	<h4>Exercise 4.6</h4>
+
+
+	<p>Here&#8217;s the addition into <code>eval.</code>:</p>
+
+
+<pre>
+  ((let? exp)
+    (eval. (let-&gt;combination exp) env))
+</pre>
+
+	<p>And the corresponding utilities:</p>
+
+
+<pre>
+(defun let? (exp) (tagged-list? exp 'let))
+(defun let-body (exp) (cddr exp))
+(defun let-vars (exp)
+  (mapcar #'car (cadr exp)))
+(defun let-inits (exp)
+  (mapcar #'cadr (cadr exp)))
+
+(defun let-&gt;combination (exp)
+  (cons
+    (make-lambda (let-vars exp) (list (let-body exp)))
+    (let-inits exp)))
+</pre>
+
+	<h4>Exercise 4.7</h4>
+
+
+	<p>The example given in the book:</p>
+
+
+<pre>
+(let* ((x 3)
+       (y (+ x 2))
+       (z (+ x y 5)))
+  (* x z))
+</pre>
+
+	<p>Is equivalent to:</p>
+
+
+<pre>
+(let ((x 3))
+  (let ((y (+ x 2)))
+    (let ((z (+ x y 5)))
+      (* x z))))
+</pre>
+
+	<p>With this in mind, we can write the expansion code:</p>
+
+
+<pre>
+(defun let*-&gt;nested-lets (exp)
+  (labels (
+      (make-rec-let (initforms body)
+        (if (null initforms)
+          body
+          (make-let
+            (list (car initforms))
+            (make-rec-let (cdr initforms) body)))))
+    (make-rec-let (cadr exp) (caddr exp))))
+</pre>
+
+	<p>I added <code>make-let</code> to encapsulate <code>let</code>&#8217;s creation:</p>
+
+
+<pre>
+(defun make-let (initforms body)
+  (list 'let initforms body))
+</pre>
+
+	<p>It is sufficient to add this to <code>eval.</code> to make <code>let*</code> work in the interpreter:</p>
+
+
+<pre>
+  ((let*? exp)
+    (eval. (let*-&gt;nested-lets exp) env))
+</pre>
+
+	<h4>Exercise 4.8</h4>
+
+
+	<p>Here&#8217;s the modified <code>let-&gt;combination</code>:</p>
+
+
+<pre>
+(defun let-&gt;combination (exp)
+  (if (named-let? exp)
+    (sequence-&gt;exp
+      (list
+        (list 
+          'define 
+          (cons (named-let-name exp) (named-let-vars exp))
+          (named-let-body exp))
+        (cons
+          (cadr exp)
+          (named-let-inits exp))))
+    (cons
+      (make-lambda (let-vars exp) (list (let-body exp)))
+      (let-inits exp))))
+</pre>
+
+	<p>And these are the utility functions it uses:</p>
+
+
+<pre>
+(defun named-let? (exp)
+  (atom (cadr exp)))
+(defun named-let-name (exp) (cadr exp))
+(defun named-let-vars (exp) (let-vars (cdr exp)))
+(defun named-let-inits (exp) (let-inits (cdr exp)))
+(defun named-let-body (exp) (let-body (cdr exp)))
+</pre>
+
+	<h4>Exercise 4.9</h4>
+
+
+	<p>Here, for example, is the <code>while</code> iteration construct:</p>
+
+
+<pre>
+; (while &lt;condition&gt; &lt;body&gt;)
+(defun while? (exp) (tagged-list? exp 'while))
+(defun while-condition (exp) (cadr exp))
+(defun while-body (exp) (caddr exp))
+
+(defun while-&gt;combination (exp)
+  (sequence-&gt;exp
+    (list
+      (list 
+        'define 
+        (list 'while-iter)
+        (sequence-&gt;exp
+          (list
+            (while-body exp)            
+            (make-if 
+              (while-condition exp)
+              (list 'while-iter)
+              'true))))
+      (list 'while-iter))))
+</pre>
+
+	<p>With this addition to <code>eval.</code>:</p>
+
+
+<pre>
+  ((while? exp)
+    (eval. (while-&gt;combination exp) env))
+</pre>
+
+	<p>As I noted before, the similarity of this code to writing CL macros with <code>defmacro</code> is great. Using <code>defmacro</code> we can literally extend the CL compiler with our own constructs. Just as with macros there is the <em>expander</em> code that&#8217;s evaluated at compile-time and <em>expanded</em> code that&#8217;s evaluated at run-time, in our Scheme interpreter there&#8217;s the code written in CL as part of the interpreter which is evaluated by CL, and the code in Scheme which is evaluated by <code>eval.</code>.</p>
+
+
+	<p>Note that untrivial pieces of code like <code>while-&gt;combination</code> are littered with calls to <code>list</code>, which is essential to build up expressions. When writing CL macros, the convenient back-quote ` and comma , provide facilities which allows one to avoid almost all calls to <code>list</code> when building code.</p>
+
+
+<img class="align-center" src="../../../images/hline.jpg" style="width: 320px; height: 5px;" />
+
+	<p id="fn1"><sup>1</sup> Note that I could use a nested <code>let</code> for the same purpose. The outer <code>let</code> would be for the side to be evaluated first, and the inner <code>let</code> for the side to be evaluated second.</p>
+
+
+	<p id="fn2"><sup>2</sup> In <em>applicative order</em> evaluation, which is what Lisp uses.</p>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-sections-411-412';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/12/06/sicp-sections-411-412';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-sections-411-412#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

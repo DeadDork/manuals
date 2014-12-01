@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP section 5.4 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-section-54"
+                       rel="bookmark"
+                       title="Permalink to SICP section 5.4">
+                        SICP section 5.4
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> April 04, 2008 at 08:39</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>When I began writing the explicit-control evaluator code for this section, I ran into a minor language incompatibility. While I've used CL to implement the meta-circular evaluator of chapter 4, I've employed Scheme for the implementation of the register machine simulator earlier in this chapter. This means that I can't use the meta-circular evaluator's primitive functions directly in my register-machine code.</p>
+
+<!--more-->
+	<p>So I've downloaded the code from chapter 4 of the book from <a href="http://mitpress.mit.edu/sicp/code/index.html">here</a>. The specific file that is included in my code is this one &#8211; I've cleaned it up and modified it a little to be compatible with <span class="caps">PLT</span> Scheme, and provide only the required functionality.</p>
+
+
+	<p>The explicit-control evaluator itself is available here. I've modified it a little, adding some functionality for non-interactive evaluation. Specifically, this code:</p>
+
+
+<pre>
+non-interactive-eval
+  (perform (op initialize-stack))
+  (test (op null?) (reg machine-args))
+  (branch (label machine-end))
+  (assign exp (op car) (reg machine-args))
+  (assign machine-args (op cdr) (reg machine-args))
+  (assign env (op get-global-environment))
+  (assign continue (label non-interactive-eval))
+  (goto (label eval-dispatch))
+</pre>
+
+	<p>Can be jumped to instead of <code>read-eval-print-loop</code>. It assumes there is a list of expressions to be evaluated in the <code>machine-args</code> register, and goes over them, evaluating them from left to right. This allows for convenient execution of the evaluator as follows:</p>
+
+
+<pre>
+(define code
+  '(
+    (define (sumsq a b)
+      (+ (* a a) (* b b)))
+    (define x 5)
+    (define y 7)
+    (define ans (sumsq x y))
+    (print ans)
+    ))
+
+(set-register-contents! ec-eval 'machine-args code)
+(start ec-eval)
+=&gt;
+74
+</pre>
+
+	<p>You'll also see in the beginning of the controller code these two lines:</p>
+
+
+<pre>
+  ; (goto (label read-eval-print-loop))
+  (goto (label non-interactive-eval))
+</pre>
+
+	<p>Currently the jump to <code>read-eval-print-loop</code> is commented, but this can be easily changed.</p>
+
+
+	<p>Another change you'll note in the definition of the machine's operations. I got tired of writing each operator name twice (once quoted, and once plain), and wrote the macro<sup><a href="sicp-section-54#fn1">1</a></sup> <code>qq</code> to handle it for me:</p>
+
+
+<pre>
+(define-macro (qq e)
+  `(list ',e ,e))
+</pre>
+
+	<p>For example, <code>(qq adjoin-arg)</code> gets translated in "compile-time" into <code>(list 'adjoin-arg adjoin-arg)</code> so I have less repetitive typing to do.</p>
+
+
+	<h4>Exercise 5.23</h4>
+
+
+	<p>Adding support for <code>cond</code>:</p>
+
+
+<pre>
+ev-cond
+  (assign exp (op cond-&gt;if) (reg exp))
+  (goto (label ev-if))
+</pre>
+
+	<p>And the appropriate dispatch is:</p>
+
+
+<pre>
+(test (op cond?) (reg exp))
+(branch (label ev-cond))
+</pre>
+
+	<p>Finally, to make it all work the operations <code>cond?</code> and <code>cond-&gt;if</code> must be added to the machine.</p>
+
+
+	<h4>Exercise 5.24</h4>
+
+
+	<p>Here's the code:</p>
+
+
+<pre>
+  ;; Implemented explicitly as a basic special form, 
+  ;; without converting to a nested if
+  ;;
+ev-cond-basic
+  (assign unev (op cond-clauses) (reg exp))
+ev-cond-ev-clause
+  (assign exp (op first-exp) (reg unev))
+  (test (op cond-else-clause?) (reg exp))
+  (branch (label ev-cond-action))
+  (save exp)
+  (save env)
+  (save unev)
+  (save continue)
+  ;; Setup an evaluation of the clause predicate
+  (assign exp (op cond-predicate) (reg exp))
+  (assign continue (label ev-cond-clause-decide))
+  (goto (label eval-dispatch))
+
+ev-cond-clause-decide
+  (restore continue)
+  (restore unev)
+  (restore env)
+  (restore exp)
+  (test (op true?) (reg val))
+  (branch (label ev-cond-action))
+ev-cond-next-clause
+  (assign unev (op rest-exps) (reg unev))
+  (goto (label ev-cond-ev-clause)) ; loop to next clause
+
+  ;; We get here when the clause condition was found to
+  ;; be true (or it was an 'else' clause), and we want
+  ;; the actions to be evaluated. The clause is in exp.
+  ;; We setup a call to ev-sequence and jump to it.
+  ;;
+ev-cond-action
+  (assign unev (op cond-actions) (reg exp))
+  (save continue)
+  (goto (label ev-sequence))
+</pre>
+
+	<p>Now <code>eval-dispatch</code> can jump to <code>ev-cond-basic</code>:</p>
+
+
+<pre>
+  (test (op cond?) (reg exp))
+  (branch (label ev-cond-basic))
+</pre>
+
+	<h4>Exercise 5.25</h4>
+
+
+	<p>I'll pass.</p>
+
+
+	<h4>Exercise 5.26</h4>
+
+
+	<p>To make this work, I've re-included the modified <code>make-new-machine</code> and <code>make-stack</code> from exercise 5.14, and removed the command to reinitialize the stack after each executed expression in <code>non-interactive-eval</code>. The code I'm running is:</p>
+
+
+<pre>
+(define code
+  '(
+    (define (factorial n)
+      (define (iter product counter)
+        (if (&gt; counter n)
+            product
+            (iter (* counter product)
+                  (+ counter 1))))
+      (iter 1 1))
+
+    (newline)
+    (print (factorial 3))
+    (newline)
+  ))
+
+(set-register-contents! ec-eval 'machine-args code)
+(start ec-eval)
+
+(newline)
+(newline)
+</pre>
+
+	<p><strong>a.</strong> The maximal depth required for this code is 13</p>
+
+
+	<p><strong>b.</strong></p>
+
+
+	<table>
+		<tr>
+			<th>n</th>
+			<th>pushes</th>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>113</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>148</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>183</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>218</td>
+		</tr>
+	</table>
+
+
+
+
+	<p>From this, the number of pushes is <code>35n + 43</code>.</p>
+
+
+	<h4>Exercise 5.27</h4>
+
+
+	<table>
+		<tr>
+			<th>Type</th>
+			<th>Maximal depth</th>
+			<th>Number of pushes</th>
+		</tr>
+		<tr>
+			<td>Recursive</td>
+			<td>5n + 6</td>
+			<td>32n &#8211; 2</td>
+		</tr>
+		<tr>
+			<td>Iterative</td>
+			<td>13</td>
+			<td>35n + 43</td>
+		</tr>
+	</table>
+
+
+
+
+	<h4>Exercise 5.28</h4>
+
+
+	<p>After changing <code>ev-sequence</code> to:</p>
+
+
+<pre>
+ev-sequence
+  (test (op no-more-exps?) (reg unev))
+  (branch (label ev-sequence-end))
+  (assign exp (op first-exp) (reg unev))
+  (save unev)
+  (save env)
+  (assign continue (label ev-sequence-continue))
+  (goto (label eval-dispatch))
+ev-sequence-continue
+  (restore env)
+  (restore unev)
+  (assign unev (op rest-exps) (reg unev))
+  (goto (label ev-sequence))
+ev-sequence-end
+  (restore continue)
+  (goto (reg continue))
+</pre>
+
+	<p>The table of exercise 5.27 turns into:</p>
+
+
+	<table>
+		<tr>
+			<th>Type</th>
+			<th>Maximal depth</th>
+			<th>Number of pushes</th>
+		</tr>
+		<tr>
+			<td>Recursive</td>
+			<td>8n + 6</td>
+			<td>34n &#8211; 2</td>
+		</tr>
+		<tr>
+			<td>Iterative</td>
+			<td>3n + 17</td>
+			<td>37n + 47</td>
+		</tr>
+	</table>
+
+
+
+
+	<h4>Exercise 5.29</h4>
+
+
+	<p><strong>a.</strong></p>
+
+
+	<table>
+		<tr>
+			<th>n</th>
+			<th>depth</th>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>16</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>21</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>26</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>31</td>
+		</tr>
+	</table>
+
+
+
+
+	<p>From this, the formula for depth is <code>5n + 6</code>.</p>
+
+
+	<p><strong>b.</strong></p>
+
+
+	<p>Let's collect some more data for this:</p>
+
+
+	<table>
+		<tr>
+			<th>n</th>
+			<th>pushes</th>
+		</tr>
+		<tr>
+			<td>2</td>
+			<td>86</td>
+		</tr>
+		<tr>
+			<td>3</td>
+			<td>142</td>
+		</tr>
+		<tr>
+			<td>4</td>
+			<td>254</td>
+		</tr>
+		<tr>
+			<td>5</td>
+			<td>422</td>
+		</tr>
+		<tr>
+			<td>6</td>
+			<td>702</td>
+		</tr>
+		<tr>
+			<td>7</td>
+			<td>1150</td>
+		</tr>
+		<tr>
+			<td>8</td>
+			<td>1878</td>
+		</tr>
+	</table>
+
+
+
+
+	<p>It can be easily seen that <code>S(n) = S(n-1) + S(n-2) + 26</code>.</p>
+
+
+	<p>To find out <code>a</code> and <code>b</code>, I'll subtract <code>S(n)</code> from <code>S(n+1)</code> to cancel out <code>b</code>: <code>S(n+1)-S(n) = a*Fib(n+2) - a*Fib(n+1) = a*(Fib(n+2) - Fib(n+1))</code>. But due to the property of the Fibonacci series, this means that: <code>S(n+1)-S(n) = a*Fib(n)</code>. And since <code>S(n) = S(n-1) + S(n-2) + 26</code>, we can rewrite it as <code>a*Fib(n-1) = S(n-2) + 26</code>, or <code>S(n) = a*Fib(n+1) - 26</code>.</p>
+
+
+	<p>Now we're ready to assign the various results into this to compute <code>a</code>. Having the formula and <code>b</code> in our hands, it's easy to see that <code>a = 56</code>.</p>
+
+
+	<p>So, finally: <code>S(n) = 56Fib(n+1) - 26</code></p>
+
+
+	<h4>Exercise 5.30</h4>
+
+
+	<p><strong>a.</strong> 
+Maybe I'm missing something, but this doesn't seem to be so much work. After all, a variable is only handled in a single place in the <code>eval</code> dispatch, so this is the place to make a modification. First of all, I'll change the supporting Scheme code to have special values for unbound variables:</p>
+
+
+<pre>
+(define (lookup-variable-value var env)
+  (define (env-loop env)
+    (define (scan vars vals)
+      (cond ((null? vars)
+              (env-loop (enclosing-environment env)))
+            ((eq? var (car vars))
+              (cons 'bound (car vals)))
+            (else (scan (cdr vars) (cdr vals)))))
+    (if (eq? env the-empty-environment)
+        (cons 'unbound '())
+        (let ((frame (first-frame env)))
+          (scan (frame-variables frame)
+                (frame-values frame)))))
+  (env-loop env))
+
+(define (var-val-bound? varval)
+  (and 
+    (pair? varval) 
+    (eq? (car varval) 'bound)))
+
+(define (var-val-extract-value varval)
+  (cdr varval))
+</pre>
+
+	<p>Now, changing <code>ev-variable</code> in the evaluator code:</p>
+
+
+<pre>
+ev-variable
+  (assign val (op lookup-variable-value) (reg exp) (reg env))
+  (test (op var-val-bound?) (reg val))
+  (branch (label ev-variable-var-bound))
+  (goto (label unbound-variable))
+ev-variable-var-bound
+  (assign val (op var-val-extract-value) (reg val))
+  (goto (reg continue))
+</pre>
+
+	<p>And finally, a new error type:</p>
+
+
+<pre>
+unbound-variable
+  (assign val (const unbound-variable-error))
+  (goto (label signal-error))
+</pre>
+
+	<p><strong>b.</strong>
+Well, this indeed is a lot of work, and it's very repetitive, so I'm reluctant to do it. The basic model is identical to what I've written in part <strong>a</strong> of this question.</p>
+
+
+	<p>Each primitive that can signal an error must be modified similarly to the way <code>lookup-variable-value</code> was modified, to return a pair of <code>(error? value)</code>, with the appropriate support procedures. The evaluator code in <code>primitive-apply</code> must check for the error, similarly to the modified <code>ev-variable</code> in the code above.</p>
+
+
+<img class="align-center" src="../../../images/hline.jpg" style="width: 320px; height: 5px;" />
+
+	<p id="fn1"><sup>1</sup> Personally, I like the <code>define-macro</code> utility more than the Scheme's <code>syntax-rules</code> and <code>syntax-case</code> macro tools. <code>define-macro</code> is almost identical to Common Lisp's <code>defmacro</code> and is natively supported by the most common Scheme implementations (Bigloo, Chicken, Gambit, Gauche and <span class="caps">PLT</span> Scheme). To use it in <span class="caps">PLT</span> Scheme you'll have to include the <code>defmacro.ss</code> library:</p>
+
+
+<pre>
+(require (lib "defmacro.ss"))
+</pre>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-section-54';
+            var disqus_url = 'http://eli.thegreenplace.net/2008/04/04/sicp-section-54';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-section-54#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

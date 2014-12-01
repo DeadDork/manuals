@@ -1,0 +1,366 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP section 1.3.1 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-section-131"
+                       rel="bookmark"
+                       title="Permalink to SICP section 1.3.1">
+                        SICP section 1.3.1
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> July 11, 2007 at 05:45</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>I like that higher-order functions are presented so early in the book. In some sense, it makes the inherent simplicity and power of Lisp apparent. Imagine pointers to functions explained in the first chapter of a book about C ! Since the syntax of Lisp is so uniform, the distinctions between code and data blend, which makes higher-order functions much more natural.</p>
+
+
+	<p>Anyway, this section is a good place to recall the major difference between Scheme and Common Lisp in regards to treating symbols as functions. I referred to this topic in the <a href="http://eli.thegreenplace.net/2007/06/19/introducing-the-sicp-reading-notes/">introduction post</a> of this series, so I&#8217;ll get right to the code. This is the implementation of <code>sum</code>, in CL:</p>
+
+
+<pre>
+(defun cube (x)
+  (* x x x))
+
+(defun sum (term a next b)
+  (if (&gt; a b)
+    0
+    (+  (funcall term a)
+        (sum term (funcall next a) next b))))
+
+(defun sum-integers (a b)
+  (sum #'identity a #'1+ b))
+
+(defun pi-sum (a b)
+  (defun pi-term (x)
+    (/ 1.0 (* x (+ x 2))))
+  (defun pi-next (x)
+    (+ x 4))    
+  (sum #'pi-term a #'pi-next b))
+
+(defun integral (f a b dx)
+  (defun add-dx (x) 
+    (+ x dx))
+  (* (sum f (+ a (/ dx 2.0)) #'add-dx b)
+    dx))
+</pre>
+
+	<p>In short &#8211; functions live in a separate namespace from variables in CL. Therefore, we can&#8217;t just call a function by placing it as the leftmost symbol in a form (unlike Scheme). Rather, we must specify explicitly that it is a function call by using the <code>funcall</code> function. In addition, we can&#8217;t just pass a name of a function around like a variable, we must use the special #&#8217; tag (which is really syntactic sugar for the <code>function</code> form), as the code above shows<sup><a href="sicp-section-131#fn1">1</a></sup>.</p>
+
+
+	<h4>Exercise 1.29</h4>
+
+
+	<p>Below is the implementation of Simpson&#8217;s Rule in terms of <code>sum</code>.</p>
+
+
+<pre>
+(defun simpson-integral (f a b n)
+  (let ((h (float (/ (- b a) n))))
+    (defun simpson-term (k)
+      (*  (funcall f (+ a (* k h)))
+          (cond ((or (= k 0) (= k n)) 1)
+                ((oddp k) 4)
+                (t 2))))
+    (*  (/ h 3)
+        (sum #'simpson-term 0 #'1+ n))))
+</pre>
+
+	<p>Note that it is different from <code>integral</code> in the sense that the <code>sum</code> is invoked on the range 0..n and not a..b, because the computation of <code>simpson-term</code> must be aware of the k.</p>
+
+
+	<p>Also note the explicit call to <code>float</code>. This is because <span class="caps">CLISP</span> did the computation in rational numbers instead of floating point numbers, and to compare the results to <code>integral</code> I wanted floating point. Here is the comparison:</p>
+
+
+<pre>
+(print 'integral)
+(print (integral #'cube 0 1 0.01))
+(print (integral #'cube 0 1 0.001))
+(print 'simpson-integral)
+(print (simpson-integral #'cube 0 1 100))
+(print (simpson-integral #'cube 0 1 1000))
+
+==&gt;
+
+INTEGRAL 
+0.24998708 
+0.24999388 
+SIMPSON-INTEGRAL 
+0.24999997 
+0.2500002 
+</pre>
+
+	<p>Obviouly, the approximation provided by Simpson&#8217;s Rule is better &#8211; the results converges better with the same amount of iterations.</p>
+
+
+	<h4>Exercise 1.30</h4>
+
+
+<pre>
+(defun sum-iter (term a next b)
+  (defun iter (a result)
+    (if (&gt; a b)
+      result
+      (iter (funcall next a) 
+            (+ (funcall term a) result))))
+  (iter a 0))
+</pre>
+
+	<h4>Exercise 1.31</h4>
+
+
+	<p>It is very simple to design <code>product</code> since it&#8217;s very similar to <code>sum</code> (this similarity is the central topic of this and the following two exercises).</p>
+
+
+<pre>
+(defun product (term a next b)
+  (if (&gt; a b)
+    1
+    (*  (funcall term a)
+        (product term (funcall next a) next b))))
+</pre>
+
+	<p>And here we use <code>product</code>:</p>
+
+
+<pre>
+(defun factorial (n)
+  (product #'identity 1 #'1+ n))
+
+(defun wallis-pi (n)
+  (defun wallis-term (k)
+    (let ((nom
+            (if (evenp k)
+              (+ k 2)
+              (+ k 1)))
+          (denom 
+            (if (evenp k)
+              (+ k 1)
+              (+ k 2))))
+      (float (/ nom denom))))
+  (* 4 (product #'wallis-term 1 #'1+ n)))
+</pre>
+
+	<p>The second part of the exercise asks to design an iterative process for <code>product</code>, which is also very similar to <code>sum-iter</code>:</p>
+
+
+<pre>
+(defun product-iter (term a next b)
+  (defun iter (a result)
+    (if (&gt; a b)
+      result
+      (iter (funcall next a)
+            (* (funcall term a) result))))
+  (iter a 1))
+</pre>
+
+	<h4>Exercise 1.32</h4>
+
+
+	<p>Here is the recursive definition of <code>accumulator</code> and <code>sum</code> defined in terms of it:</p>
+
+
+<pre>
+(defun accumulator (combiner null-value term a next b)
+  (if (&gt; a b)
+    null-value
+    (funcall combiner 
+      (funcall term a)
+      (accumulator combiner null-value term (funcall next a) next b))))
+
+(defun sum (term a next b)
+  (accumulator #'+ 0 term a next b))
+</pre>
+
+	<p>And here is the iterative version and <code>product</code> defined in terms of it:</p>
+
+
+<pre>
+(defun accumulator-iter (combiner null-value term a next b)
+  (defun iter (a result)
+    (if (&gt; a b)
+      result
+      (iter (funcall next a)
+            (funcall combiner (funcall term a) result))))
+  (iter a null-value))
+
+(defun product (term a next b)
+  (accumulator-iter #'* 1 term a next b))
+</pre>
+
+	<h4>Exercise 1.33</h4>
+
+
+<pre>
+(defun filtered-accumulator (combiner null-value term a next b filter)
+  (cond ((&gt; a b) null-value)
+        ((funcall filter a) 
+          (funcall combiner 
+              (funcall term a)
+              (filtered-accumulator combiner null-value term (funcall next a) next b filter)))
+        ; call without combining this term
+        (t (filtered-accumulator combiner null-value term (funcall next a) next b filter))))
+
+(defun sum-squares-of-primes (a b)
+  (filtered-accumulator #'+ 0 #'square a #'1+ b #'prime?))
+
+(defun product-of-relatively-prime (n)
+  (defun relatively-prime-to-n? (k)
+    (= (gcd k n) 1))
+  (filtered-accumulator #'* 1 #'identity 1 #'1+ (1- n) #'relatively-prime-to-n?))
+</pre>
+
+	<h4>Conclusion</h4>
+
+
+	<p>I firmly believe that abstraction is one of the (if not <em>the</em>) most important concepts to grasp about programming. If you understand what abstractions are and how to use them, you are a better programmer. Curiously, many programmers are unaware of a whole level of abstraction &#8211; the higher-order functional abstraction. This is probably because the more popular languages (of until a few years ago) don&#8217;t allow such abstractions in any simple manner. Imagine writing <code>filtered-accumulator</code> in C or Pascal! Lisp, however, supports these abstractions at its very base. Moreover, the uniform syntax of Lisp makes these abstractions look very natural, which allows tutorials on Lisp to introduce them very early in the teaching. Seeing and using such powerful abstractions right from the beginning is definitely very helpful for developing good programming skills. This is probably why people say that merely learning and understanding Lisp can make you a better programmer for life.</p>
+
+	<h4>Footnotes</h4>
+
+
+	<p id="fn1"><sup>1</sup> There are several ways to do these things in Common Lisp. For example, the <code>apply</code> function can be used in a similar manner to <code>funcall</code>. Also, function names can be passed with the simple &#8217; quote instead of the special #&#8217; quote. I don&#8217;t want to delve too much into the details of CL, however, unless there is a very specific need.</p>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-section-131';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/07/11/sicp-section-131';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-section-131#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

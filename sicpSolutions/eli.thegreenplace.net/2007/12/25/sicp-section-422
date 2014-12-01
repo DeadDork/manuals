@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP section 4.2.2 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-section-422"
+                       rel="bookmark"
+                       title="Permalink to SICP section 4.2.2">
+                        SICP section 4.2.2
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> December 25, 2007 at 06:07</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>A reminder for folks who&#8217;ve reached this page directly: this is part of my <span class="caps">SICP</span> reading and exercise solving <a href="../../../tag/sicp">project</a>, introduced <a href="http://eli.thegreenplace.net/2007/06/19/introducing-the-sicp-reading-notes/">here</a>. The code for chapter 4 is written in Common Lisp.</p>
+
+<!--more-->
+	<h4>Exercise 4.25</h4>
+
+
+	<p>In ordinary applicative-order Scheme, with the definition of <code>unless</code> as provided, the call <code>(factorial 5)</code> will enter an infinite loop. This will happen because this <code>unless</code> in applicative-order Scheme evaluates its <em>exceptional-value</em> argument in any case, disregarding the value of <em>condition</em>. Therefore, no matter what the value of <em>condition</em> is, the call <code>(factorial 5)</code> executes <code>(factorial 4)</code>, which in turn executes <code>factorial</code> for <code>3, 2, 0, -1, -2</code> ... and so on ad-(minus)-infinitum.</p>
+
+
+	<p>In normal-order evaluation this will work, because <code>(factorial 1)</code> won&#8217;t call <code>factorial</code> for 0, as <code>unless</code> won&#8217;t evaluate <em>exceptional-value</em> when <em>condition</em> is true.</p>
+
+
+	<h4>Exercise 4.26</h4>
+
+
+	<p>Ben&#8217;s side:</p>
+
+
+	<p><code>unless</code> can be very easily implemented in our Scheme evaluator, as a derived expression that&#8217;s transformed into <code>if</code>. This information is much simpler than <code>cond-&gt;if</code> which exists in the evaluator&#8217;s code. We&#8217;ll add this clause to <code>eval.</code>:</p>
+
+
+<pre>
+  ((unless? exp)
+    (eval. (unless-&gt;if exp) env))
+</pre>
+
+	<p>And the implementation is:</p>
+
+
+<pre>
+(defun unless? (exp) (tagged-list? exp 'unless))
+(defun unless-predicate (exp) (cadr exp))
+(defun unless-consequent (exp)
+  (if (not (null (cdddr exp)))
+    (cadddr exp)
+    'false))
+(defun unless-alternative (exp) (caddr exp))
+
+(defun unless-&gt;if (exp)
+  (make-if 
+    (unless-predicate exp)
+    (unless-consequent exp)
+    (unless-alternative exp)))
+</pre>
+
+	<p>Alyssa&#8217;s side:</p>
+
+
+	<p>Boy, I can&#8217;t imagine any really useful application of <code>unless</code> as a higher-order procedure. I have no idea what the book authors had in mind here. In Common Lisp, for instance, <code>unless</code> is a macro and therefore can not be used as a procedure<sup><a href="sicp-section-422#fn1">1</a></sup></p>
+
+
+	<h4>Exercise 4.27</h4>
+
+
+<pre>
+(define w (id (id 10)))
+;;; L-Eval input:
+count
+;;; L-Eval value:
+1
+</pre>
+
+	<p>Because so far the call to <code>id</code> was forced only once, in the outer call. The argument to it, <code>(id 10)</code> was not evaluated because it&#8217;s not needed yet.</p>
+
+
+<pre>
+;;; L-Eval input:
+w
+;;; L-Eval value:
+10
+</pre>
+
+	<p>The evaluation of <code>w</code> forces both calls to <code>id</code>. Since the inner call returns 10, the outer does too.</p>
+
+
+<pre>
+;;; L-Eval input:
+count
+;;; L-Eval value:
+2
+</pre>
+
+	<p>Since, as I mentioned, the evaluation of <code>w</code> forced the second <code>id</code> call as well, <code>count</code> was incremented twice.</p>
+
+
+	<h4>Exercise 4.28</h4>
+
+
+	<p>Consider this code:</p>
+
+
+<pre>
+(interpret
+  '(define adder (lambda (x) (+ x 1))))
+
+(interpret
+  '(define (doer func arg)
+    (func arg)))
+
+(interpret
+  '(doer adder 5))
+</pre>
+
+	<p>With the way the lazy evaluator is currently implemented, this works and prints 6 as expected. However, had we not forced the operator before passing it to <code>apply.</code>, this would throw an error.</p>
+
+
+	<p>Why? Because in execution of <code>(func arg)</code> in <code>doer</code>, the operator <code>func</code> is passed in as an argument. When we call <code>(doer adder 5)</code>, the arguments of <code>doer</code> are not forced, and so <code>func</code> is not an actual value but a thunk.</p>
+
+
+	<h4>Exercise 4.29</h4>
+
+
+	<p>Even the simple factorial computation function would exhibit worse performance without memoization of arguments:</p>
+
+
+<pre>
+(interpret
+  '(define (fact n)
+    (if (= n 0) 
+      1
+      (* n (fact (- n 1))))))
+
+(time (interpret '(fact 150))) ; with memoization
+=&gt; 0.109 sec
+
+(time (interpret '(fact 150))) ; without memoization
+=&gt; 4.5 sec
+</pre>
+
+	<p>Each time <code>fact</code> is called recursively, memoization saves the operation of obtaining the code from the call.</p>
+
+
+	<p>Also, with memoization:</p>
+
+
+<pre>
+(square (id 0))
+=&gt; 100
+count
+=&gt; 1
+</pre>
+
+	<p>Without memoization:</p>
+
+
+<pre>
+(square (id 0))
+=&gt; 100
+count
+=&gt; 2
+</pre>
+
+	<p>It&#8217;s clear why this happens. In <code>square</code>, <code>x</code> is the same object in both arguments to the multiplication operator. With memoization, its value is computed only once and is obtained from the cache the second time &#8211; hence <code>count</code> gets incremented only once.</p>
+
+
+	<h4>Exercise 4.30</h4>
+
+
+	<p><strong>a.</strong> <code>eval.</code> is called on each expression of the sequence. Since <code>for-each</code> uses <code>begin</code> which is evaluated as a sequence, each iteration of the <code>for-each</code> is evaluated with <code>eval.</code> &#8211; and since <code>display</code> is a primitive procedure, the actual value of its argument is eventually computed.</p>
+
+
+	<p><strong>b.</strong> With the original <code>eval-sequence</code>:</p>
+
+
+<pre>
+(p1 1)
+=&gt; (1 2)
+(p2 1)
+=&gt; 1
+</pre>
+
+	<p>Let&#8217;s see what happens in <code>p2</code>. The crucial point here is the call to the internal function <code>p</code>. When the call is executed, as with any application of a compound procedure, the body of <code>p</code> is evaluated with the environment extended with its arguments tied to their delayed values. The body of <code>p</code> is evaluated in sequence. When <code>e</code> is evaluated, the assignment thunk is substituted instead of it, but since its value isn&#8217;t passed to any primitive procedure, it is not forced and the assignment doesn&#8217;t really happen. So later, when <code>x</code> is evaluated and returned, it has its old value. To understand it better, we&#8217;ll rewrite <code>p2</code> as follows<sup><a href="sicp-section-422#fn2">2</a></sup>:</p>
+
+
+<pre>
+(define (p2 x)
+  (define (p e)
+    e
+    (print e)
+    x)
+  (p (set! x (cons x '(2)))))
+</pre>
+
+	<p>Now:</p>
+
+
+<pre>
+(p2 1)
+=&gt; OK (1 2)
+</pre>
+
+	<p>What has happened here ? The call <code>(print e)</code> passes <code>e</code> to a primitive procedure, and that forces it. While it&#8217;s being forced, it assigns a new value to <code>x</code>.</p>
+
+
+	<p>Using Cy&#8217;s proposed <code>eval-sequence</code>:</p>
+
+
+<pre>
+(p1 1)
+=&gt; (1 2)
+(p2 1)
+=&gt; (1 2)
+</pre>
+
+	<p>Because <code>e</code> is forced in the sequence even without being passed to a primitive procedure.</p>
+
+
+	<p><strong>c.</strong> As I explained in the answer to <strong>a.</strong>, the calls to <code>display</code> force the arguments anyway because <code>display</code> is a primitive procedure. So calling <code>actual-value</code> on them can&#8217;t hurt.</p>
+
+
+	<p><strong>d.</strong> I like Cy&#8217;s approach because it behaves better when there are statements with side effects.</p>
+
+
+	<h4>Exercise 4.31</h4>
+
+
+	<p>While at first this exercise looks intimidating, it really isn&#8217;t that difficult once you sit down and start coding. I highly recommend trying to solve it on your own &#8211; I found the process very interesting and educational.</p>
+
+
+	<p>First of all, let&#8217;s add new &#8220;syntax recognizers&#8221; for the lazy operands of procedure applications. Now each operand can be either an atom (a Lisp name for a &#8220;scalar&#8221;, or non-list: symbols, numbers, etc.) or a list, which means it&#8217;s a lazy operand:</p>
+
+
+<pre>
+(defun evaluated-operand? (op) (atom op))
+
+(defun lazy-operand? (op) 
+  (and 
+    (consp op) 
+    (or
+      (eql (cadr op) 'lazy)
+      (eql (cadr op) 'lazy-memo))))
+
+(defun lazy-memo-operand? (op)
+  (and (consp op) (eql (cadr op) 'lazy-memo)))
+
+(defun lazy-operand-name (op) (car op))
+</pre>
+
+	<p>Also, to support both memoized and unmemoized thunks we&#8217;ll add the <code>thunk-memo</code> type:</p>
+
+
+<pre>
+(defun delay-it-memo (exp env) (list 'thunk-memo exp env))
+(defun thunk-memo? (obj) (tagged-list? obj 'thunk-memo))
+</pre>
+
+	<p>And <code>force-it</code> will have to be changed to accomodate this difference:</p>
+
+
+<pre>
+(defun force-it (obj)
+  (cond ((thunk-memo? obj)
+          (let ((result 
+                  (actual-value
+                    (thunk-exp obj)
+                    (thunk-env obj))))
+            (setf (car obj) 'evaluated-thunk)
+            (setf (car (cdr obj)) result)
+            (setf (cdr (cdr obj)) '())
+            result))
+        ((thunk? obj)
+          (actual-value (thunk-exp obj) (thunk-env obj)))
+        ((evaluated-thunk? obj)
+          (thunk-value obj))
+        (t obj)))
+</pre>
+
+	<p>Now, the main change is done only in <code>apply.</code>:</p>
+
+
+<pre>
+(defun apply. (proc args env)
+  (when (&gt; *evaluator-debug-level* 0)
+    (format t "applying ~a to ~a~%" proc args))
+  (cond ((primitive-procedure? proc)
+          (apply-primitive-procedure 
+            proc 
+            (list-of-arg-values args env)))
+        ((compound-procedure? proc)
+          (eval-sequence
+            (procedure-body proc)
+            (setup-arguments-env              
+              (procedure-parameters proc)
+              args
+              env
+              (procedure-env proc))))
+        (t
+          (error
+            "Unknown procedure type in APPLY: " proc))))
+</pre>
+
+	<p>The difference here is in the call to <code>eval-sequence</code> in case of a compound procedure. Instead of directly calling <code>extend-environment</code> with a list of delayed arguments, I&#8217;m calling a special resolution function that will treat all arguments appropriately. Here it is:</p>
+
+
+<pre>
+(defun setup-arguments-env (operands args args-env proc-env)
+  (let ((vars '())
+        (vals '()))
+    (loop 
+      for op in operands
+      for arg in args
+      do
+        (cond ((lazy-memo-operand? op)
+                (push (lazy-operand-name op) vars)
+                (push (delay-it-memo arg args-env) vals))
+              ((lazy-operand? op)
+                (push (lazy-operand-name op) vars)
+                (push (delay-it arg args-env) vals))
+              (t ; evaluated-operand?
+                (push op vars)
+                (push (actual-value arg args-env) vals))))
+    (extend-environment vars vals proc-env)))
+</pre>
+
+	<p>It &#8220;pattern matches&#8221; the list of operands the of the procedure with the list of actual arguments, and builds up a list of values to extend this environment. For some arguments the values are computed directly, and for some thunks (or memoized thunks) are placed in the list.</p>
+
+
+	<p>Note that I&#8217;m not changing <code>eval.</code> at all. This is a design decision that could have been different. I decided to resolve the procedure parameter list at the very last moment (when the procedure is applied). This is not the most efficient way to do this (the resolution can be done at definition time) but it&#8217;s the one requiring the least amount of code. Figuring out such a way for yourself is a great boost to the understanding of the evaluator&#8217;s code structure &#8211; which is exactly why I recommend trying this exercise on your own.</p>
+
+
+<img class="align-center" src="../../../images/hline.jpg" style="width: 320px; height: 5px;" />
+
+	<p id="fn1"><sup>1</sup> Perhaps this is not a perfect example because CL&#8217;s <code>unless</code> is a bit different from the one proposed in this chapter. Read about it <a href="http://www.lispworks.com/documentation/HyperSpec/Body/m_when_.htm">here</a>.</p>
+
+
+	<p id="fn2"><sup>2</sup> <code>print</code> is just like <code>display</code> for the sake of our discussion &#8211; a primitive procedure.</p>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-section-422';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/12/25/sicp-section-422';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-section-422#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

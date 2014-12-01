@@ -1,0 +1,445 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>SICP sections 2.1.1 - 2.1.3 - Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="../../../favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="../../../theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="../../../theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="../../../theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="../../../theme/css/style.css" type="text/css"/>
+
+        <link href="../../../feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="../../../index.html" class="navbar-brand">
+                <img src="../../../images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="../../../pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="../../../archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+    <section id="content">
+        <article>
+            <header class="page-header">
+                <h1>
+                    <a href="sicp-sections-211-212"
+                       rel="bookmark"
+                       title="Permalink to SICP sections 2.1.1 - 2.1.3">
+                        SICP sections 2.1.1 - 2.1.3
+                    </a>
+                </h1>
+            </header>
+            <div class="entry-content">
+                <div class="panel">
+                    <div class="panel-body">
+<footer class="post-info">
+    <span class="published">
+        <i class="fa fa-calendar"></i>
+        <time> July 25, 2007 at 05:48</time>
+    </span>
+<span class="label label-default">Tags</span>
+    <a href="../../../tag/sicp">SICP</a>
+</footer><!-- /.post-info -->                    </div>
+                </div>
+                
+        <p>In chapter 1, computational processes and procedures were in the spotlight. Now we&#8217;ll plunge right into chapter 2 which deals with another fundamental topic of programming &#8211; data. How data is represented, processed and abstracted is the name of the game now. So, join me for a discussion of the text and the solution of the exercises of chapter 2. Let&#8217;s go.</p>
+
+
+	<h4>Exercise 2.1</h4>
+
+
+<pre>
+(defun make-rat (n d)
+  (labels (
+    (make-rat-reduce (n d)
+      (let ((g (gcd n d)))
+        (cons (/ n g) (/ d g)))))
+
+    (cond ((and (&lt; n 0) (&lt; d 0))
+            (make-rat-reduce (- n) (- d)))
+          ((and (&lt; d 0) (&gt; n 0))
+            (make-rat-reduce (- n) (- d)))
+          (t
+            (make-rat-reduce n d)))))
+
+(defun numer (x)
+  (car x))
+
+(defun denom (x)
+  (cdr x))
+</pre>
+
+	<p>Note that the first two cases in the <code>cond</code> return the same result, so they can be unified (via an <code>or</code> form). However, for the sake of simplicity I prefer it this way &#8211; it makes the different cases clearer.</p>
+
+
+	<h4>Section 2.1.2</h4>
+
+
+	<p>Data abstraction is presented in this section &#8211; &#8220;Abstraction Barriers&#8221;. As I&#8217;ve mentioned before in my blog, I firmly believe that abstraction is the most important thing a programmer must understand in order to be any good. Perhaps this applies to other engineering disciplines as well. The problems we face are either not interesting or very complex, and very complex problems must be somehow divided into layers of abstraction, or otherwise we wouldn&#8217;t be able to create anything. You can&#8217;t write code for a web application constantly thinking of the voltage levels on transistors&#8217; gates inside the <span class="caps">CPU</span>. This is taken way too far, of course, but it makes the point. Naturally, you can&#8217;t even write web applications worrying about the underlying implementation of the C runtime, atop which most of your OS, web-server and scripting language run.</p>
+
+
+	<p>OK, enough philosophy for now, let&#8217;s see the solutions of the exercises for this section.</p>
+
+
+	<h4>Exercise 2.2</h4>
+
+
+<pre>
+(defun make-segment (start end)
+  (cons start end))
+
+(defun start-segment (segment)
+  (car segment))
+
+(defun end-segment (segment)
+  (cdr segment))
+
+(defun make-point (x y)
+  (cons x y))
+
+(defun x-point (point)
+  (car point))
+
+(defun y-point (point)
+  (cdr point))
+
+(defun print-point (point)
+  (format t "(~F,~F)~%" (x-point point) (y-point point)))
+
+(defun midpoint-segment (segment)
+  (let ((segstart (start-segment segment))
+        (segend (end-segment segment)))    
+    (make-point (average  (x-point segstart)
+                          (x-point segend))
+                (average  (y-point segstart)
+                          (y-point segend)))))
+
+(defvar aa (make-point 4 6))
+(defvar bb (make-point 9 15))
+
+(print-point 
+  (midpoint-segment (make-segment aa bb)))
+=&gt; (6.5,10.5)
+</pre>
+
+	<h4>Exercise 2.3</h4>
+
+
+	<p>If we define the interface to the rectangle abstraction, we can go on defining the computation of perimeters and areas without actually seeing the code for the rectangle:</p>
+
+
+<pre>
+; Rectangle abstraction:
+;
+; * make-rect: constructs a rectangle given its two opposing
+;   points
+; * rect-width: returns the rectangle's width
+; * rect-height: returns the rectangle's height
+;
+
+(defun rect-perimeter (rect)
+  (+  (* 2 (rect-width rect))
+      (* 2 (rect-height rect))))
+
+(defun rect-area (rect)
+  (*  (rect-width rect)
+      (rect-height rect)))
+</pre>
+
+	<p>And here are two different representations:</p>
+
+
+<pre>
+; Representation 1: stores the two opposing points
+;
+(defun make-rect (p1 p2)
+  (cons p1 p2))
+
+(defun rect-width (rect)
+  (abs (- (x-point (car rect)) 
+          (x-point (cdr rect)))))
+
+(defun rect-height (rect)
+  (abs (- (y-point (car rect)) 
+          (y-point (cdr rect)))))
+
+; Representation 2: stores the diagonal segment
+;
+(defun make-rect (p1 p2)
+  (make-segment p1 p2))
+
+(defun rect-width (rect)
+  (abs (- (x-point (start-segment rect)) 
+          (x-point (end-segment rect)))))
+
+(defun rect-height (rect)
+  (abs (- (y-point (start-segment rect)) 
+          (y-point (end-segment rect)))))
+</pre>
+
+	<p>These two representations are very similar, and we can easily envision others. For example: store a &#8220;width segment&#8221; and a &#8220;height segment&#8221;, or store all 4 points, or store one corner stone, width, height and the angle of one of them above the X plane.</p>
+
+
+	<h4>Section 2.1.3</h4>
+
+
+	<p>This section contains the most beautiful example of code in the book so far. First, the authors state that <code>cons, car, cdr</code> can be any three procedures as long as for any <code>x</code> and <code>y</code>, if <code>z</code> is <code>(cons x y)</code>, then <code>(car z)</code> is <code>x</code> and <code>(cdr z)</code> is <code>y</code>. So any conceivable implementation of these procedures that satisfies these conditions will do. Consider then, this implementation:</p>
+
+
+<pre>
+(defun my-cons (x y)
+  (lambda (m)
+    (cond ((= m 0) x)
+          ((= m 1) y)
+          (t (error "Argument not 0 or 1 -- CONS ~S~%" m)))))
+
+(defun my-car (z) 
+  (funcall z 0))
+
+(defun my-cdr (z) 
+  (funcall z 1))
+</pre>
+
+	<p>These will comply to the definition stated above. Functionally, they&#8217;re undistinguishable from the original <code>cons, car, cdr</code>. But where exactly is the data structure here ? Where is the data stored ? It is stored in a <em>closure</em> &#8211; the anonymous procedure returned by <code>my-cons</code>. This procedure is a closure because it captures some information from the external environment (in this case the values of <code>x</code> and <code>y</code>) at the moment of its definition. Closures and the progamming technique of dispatching (or message passing) will be discussed at length in the book, so we&#8217;ll meet them a lot.</p>
+
+
+	<h4>Exercise 2.4</h4>
+
+
+	<p>Here it is even less clear where the data is stored. <code>my-cons</code> returns a function that takes a function argument and calls it on its two own arguments. <code>my-car</code> provides it with a function that selects the first of its two arguments. Thinking like this, <code>my-cdr</code> is very simple:</p>
+
+
+<pre>
+(defun my-cons (x y)
+  (lambda (m) (funcall m x y)))
+
+(defun my-car (z)
+  (funcall z (lambda (p q) p)))
+
+(defun my-cdr (z)
+  (funcall z (lambda (p q) q)))
+</pre>
+
+	<h4>Exercise 2.5</h4>
+
+
+<pre>
+(defun divides? (a b)
+  (= (rem b a) 0))
+
+(defun my-cons (a b)
+  (* (expt 2 a) (expt 3 b)))
+
+(defun my-car (z)
+  (do ( (n 0 (1+ n))
+        (aa z (/ aa 2)))
+      ((not (divides? 2 aa)) n)))
+
+(defun my-cdr (z)
+  (do ( (n 0 (1+ n))
+        (aa z (/ aa 3)))
+      ((not (divides? 3 aa)) n)))
+</pre>
+
+	<p>After writing code like this, it becomes immediately obvious that there&#8217;s a repetition we can remove by abstracting it as a function:</p>
+
+
+<pre>
+(defun degree-of-factor (num f)
+  "Finds the degree of factor f in number num" 
+  (do ( (deg 0 (1+ deg))
+        (div num (/ div f)))
+      ((not (divides? f div)) deg)))
+
+(defun my-car (z)
+  (degree-of-factor z 2))
+
+(defun my-cdr (z)
+  (degree-of-factor z 3))
+</pre>
+
+	<p>Remember: <strong><span class="caps">DRY</span></strong> &#8211; <strong>D*on&#8217;t *R</strong>epeat <strong>Y</strong>ourself &#8211; is one of the most fundamental rules in programming.</p>
+
+
+	<h4>Exercise 2.6</h4>
+
+
+	<p>Church Numerals are part of <a href="http://en.wikipedia.org/wiki/Lambda_calculus">Lambda Calculus</a> &#8211; a fascinating theoretic concept that is worth to learn about. Studying unusual topics like this can really stretch your mind in unexpected directions, and give you ideas on how to deal with practical problems in a better way.</p>
+
+
+	<blockquote>
+		<p>Church numerals are the representations of natural numbers under Church encoding. The higher-order function that represents natural number n is a function that maps any other function f to its n-fold composition</p>
+	</blockquote>
+
+
+	<p>First let&#8217;s rewrite in Lisp the definitions given in the book for <code>zero</code> and <code>add-1</code>:</p>
+
+
+<pre>
+(defvar zero 
+  (lambda (f)
+    (lambda (x) x)))
+
+(defun add-1 (n)
+  (lambda (f)
+    (lambda (x) (funcall f (funcall (funcall n f) x)))))
+</pre>
+
+	<p>Now, let&#8217;s use the substitution rule to see how <code>one</code> and <code>two</code> are created with applications of <code>add-1</code>:</p>
+
+
+<pre>
+; (add-1 zero)
+; =&gt;
+; (lambda (f)
+;   (lambda (x) (funcall f (funcall (funcall zero f) x))))
+; =&gt; 
+; (lambda (f)
+;   (lambda (x) (funcall f (funcall (lambda (x) x) x))))
+; =&gt;
+; (lambda (f)
+;   (lambda (x) (funcall f x)))
+
+(defvar one
+  (lambda (f)
+    (lambda (x) (funcall f x))))
+
+; (add-1 one)
+; =&gt;
+; (lambda (f)
+;   (lambda (x) (funcall f (funcall (funcall one f) x))))
+; =&gt; 
+; (lambda (f)
+;   (lambda (x) (funcall f (funcall (lambda (x) (funcall f x)) x))))
+; =&gt;
+; (lambda (f)
+;   (lambda (x) (funcall f (funcall f x))))
+
+(defvar two 
+  (lambda (f)
+    (lambda (x) (funcall f (funcall f x)))))
+</pre>
+
+	<p>Indeed, this fits the definition quoted above (n-fold composition of <code>f</code> on <code>x</code>). We can easily think of the implementation of addition in these terms &#8211; adding Church numerals a and b is applying the composition a+b times:</p>
+
+
+<pre>
+(defun add (a b)
+  (lambda (f)
+    (lambda (x) (funcall (funcall a f) (funcall (funcall b f) x)))))
+</pre>
+
+    
+            </div>
+            <!-- /.entry-content -->
+    <hr />
+    <section class="comments" id="comments">
+        <h2>Comments</h2>
+        <div id="disqus_thread"></div>
+        <script type="text/javascript">
+            /* * * CONFIGURATION VARIABLES: EDIT BEFORE PASTING INTO YOUR WEBPAGE * * */
+            var disqus_shortname = 'elibenderskyswebsite'; // required: replace example with your forum shortname
+            var disqus_identifier = 'sicp-sections-211-212';
+            var disqus_url = 'http://eli.thegreenplace.net/2007/07/25/sicp-sections-211-212';
+            var disqus_config = function () {
+                this.language = "en";
+            };
+
+            /* * * DON'T EDIT BELOW THIS LINE * * */
+            (function () {
+                var dsq = document.createElement('script');
+                dsq.type = 'text/javascript';
+                dsq.async = true;
+                dsq.src = '//' + disqus_shortname + '.disqus.com/embed.js';
+                (document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(dsq);
+            })();
+        </script>
+        <noscript>Please enable JavaScript to view the <a href="http://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+        <a href="http://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+
+    </section>
+        </article>
+    </section>
+
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="sicp-sections-211-212#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="../../../theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="../../../theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>

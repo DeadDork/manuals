@@ -1,0 +1,1140 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:og="http://ogp.me/ns#"
+      xmlns:fb="https://www.facebook.com/2008/fbml">
+<head>
+    <title>Eli Bendersky's website</title>
+    <!-- Using the latest rendering mode for IE -->
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <link href="favicon.ico" rel="icon">
+
+    <!-- Bootstrap -->
+        <link rel="stylesheet" href="theme/css/bootstrap.min.css" type="text/css"/>
+    <link href="theme/css/font-awesome.min.css" rel="stylesheet">
+
+    <link href="theme/css/pygments/vs.css" rel="stylesheet">
+    <link rel="stylesheet" href="theme/css/style.css" type="text/css"/>
+
+        <link href="feeds/all.atom.xml" type="application/atom+xml" rel="alternate"
+              title="Eli Bendersky's website ATOM Feed"/>
+
+</head>
+<body>
+
+<div class="navbar navbar-default navbar-fixed-top" role="navigation">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-ex1-collapse">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="index.html" class="navbar-brand">
+                <img src="images/logosmall.png" width="32"/> 
+Eli Bendersky's website            </a>
+        </div>
+        <div class="collapse navbar-collapse navbar-ex1-collapse">
+            <ul class="nav navbar-nav navbar-right">
+                <li>
+                    <a href="pages/about">
+                        <i class="fa fa-question"></i>
+                        <span class="icon-label">About</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="pages/code">
+                        <i class="fa fa-github"></i>
+                        <span class="icon-label">Code</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="archives/all">
+                        <i class="fa fa-th-list"></i>
+                        <span class="icon-label">Archives</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
+        <!-- /.navbar-collapse -->
+    </div>
+</div> <!-- /.navbar -->
+
+<div class="container">
+    <div class="row">
+            <article>
+                <h2><a href="http://eli.thegreenplace.net/2014/perfect-forwarding-and-universal-references-in-c/">Perfect forwarding and universal references in C++</a></h2>
+
+                <span class="published">
+                    <i class="fa fa-calendar"></i>
+                    <time> November 03, 2014 at 05:52</time>
+                </span>
+                <br/><br/>
+
+                <div class="entry-content">
+                    <p>One of the new features in C++11 aimed at increased code efficiency is the
+<tt class="docutils literal">emplace</tt> family of methods in containers.  <tt class="docutils literal"><span class="pre">std::vector</span></tt>, for example, has
+an <tt class="docutils literal">emplace_back</tt> method to parallel <tt class="docutils literal">push_back</tt>, and <tt class="docutils literal">emplace</tt> to
+parallel <tt class="docutils literal">insert</tt>.</p>
+<p>Here's a short demonstration of the benefits these new methods bring:</p>
+<div class="highlight"><pre><span class="k">class</span> <span class="nc">MyKlass</span> <span class="p">{</span>
+<span class="nl">public:</span>
+  <span class="n">MyKlass</span><span class="p">(</span><span class="kt">int</span> <span class="n">ii_</span><span class="p">,</span> <span class="kt">float</span> <span class="n">ff_</span><span class="p">)</span> <span class="p">{...}</span>
+
+<span class="nl">private:</span>
+  <span class="p">{...}</span>
+<span class="p">};</span>
+
+<span class="n">some</span> <span class="n">function</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="n">MyKlass</span><span class="o">&gt;</span> <span class="n">v</span><span class="p">;</span>
+
+  <span class="n">v</span><span class="p">.</span><span class="n">push_back</span><span class="p">(</span><span class="n">MyKlass</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">3.14f</span><span class="p">));</span>
+  <span class="n">v</span><span class="p">.</span><span class="n">emplace_back</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mf">3.14f</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>If you trace the execution of the constructors and destructor of <tt class="docutils literal">MyKlass</tt>,
+you'll see something like the following for the <tt class="docutils literal">push_back</tt> call:</p>
+<ul class="simple">
+<li>Constructor for a temporary <tt class="docutils literal">MyKlass</tt> object</li>
+<li>Move constructor (if one was defined for <tt class="docutils literal">MyKlass</tt>, otherwise a copy
+constructor) for the object actually allocated inside the vector</li>
+<li>Destructor for the temporary</li>
+</ul>
+<p>This is quite a lot of work. Much of it isn't required though, since the object
+passed to <tt class="docutils literal">push_back</tt> is obviously an rvalue that ceases to exist after the
+statement is completed; there's no reason to create and destroy a temporary -
+why not just construct the object inside the vector directly?</p>
+<p>This is exactly what <tt class="docutils literal">emplace_back</tt> does. For the <tt class="docutils literal">v.emplace_back(2, 3.14f)</tt>
+call above, all you see is a single constructor invocation. This is the object
+constructed <em>inside</em> the vector. No temporaries are needed.</p>
+<p><tt class="docutils literal">emplace_back</tt> accomplishes this by invoking the constructor of <tt class="docutils literal">MyKlass</tt> on
+its own and forwarding its arguments to the constructor. This feat is made
+possible by two new features in C++11:
+<a class="reference external" href="http://eli.thegreenplace.net/2014/variadic-templates-in-c/">variadic templates</a>
+and perfect forwarding. In this article I want to explain how perfect forwarding
+works and how to use it.</p>
+<div class="section" id="the-perfect-forwarding-problem">
+<h2>The perfect forwarding problem</h2>
+<p>Let <tt class="docutils literal">func(E1, E2, <span class="pre">...,</span> En)</tt> be an arbitrary function call with generic
+parameters <tt class="docutils literal">E1, E2, <span class="pre">...,</span> En</tt>. We'd like to write a function <tt class="docutils literal">wrapper</tt> such
+that <tt class="docutils literal">wrapper(E1, E2, <span class="pre">...,</span> En)</tt> is equivalent to <tt class="docutils literal">func(E1, E2, <span class="pre">...,</span> En)</tt>. In
+other words, we'd like to define a function with generic parameters that
+forwards its parameters <em>perfectly</em> to some other function.</p>
+<p>To have something concrete to relate this definition to, think of the
+<tt class="docutils literal">emplace_back</tt> method discussed above. <tt class="docutils literal"><span class="pre">vector&lt;T&gt;::emplace_back</span></tt> forwards
+its parameters to a constructor of <tt class="docutils literal">T</tt>, without actually knowing how <tt class="docutils literal">T</tt>
+looks like.</p>
+<p>Next, I'm going to show a few examples of how we might approach this in pre-11
+C++. For simplicity's sake, I'll put variadic templates aside; let's assume all
+we need to forward is two arguments.</p>
+<p>The first approach that comes to mind is:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">T1</span> <span class="n">e1</span><span class="p">,</span> <span class="n">T2</span> <span class="n">e2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">func</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>This will obviously not work if <tt class="docutils literal">func</tt> accepts its parameters by reference,
+since <tt class="docutils literal">wrapper</tt> introduces a by-value passing step. If <tt class="docutils literal">func</tt> modifies its
+by-reference parameter, it won't be visible in the caller of <tt class="docutils literal">wrapper</tt> (only
+the copy created by <tt class="docutils literal">wrapper</tt> itself will be affected).</p>
+<p>OK, then, we can make <tt class="docutils literal">wrapper</tt> accept its parameters by reference. This
+should not interfere with <tt class="docutils literal">func</tt>'s taking parameters by value, because the
+call to <tt class="docutils literal">func</tt> within <tt class="docutils literal">wrapper</tt> will create the required copy.</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">T1</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">func</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>This has another problem, though. Rvalues cannot be bound to function parameters
+that are references, so the following completely reasonable calls will now fail:</p>
+<div class="highlight"><pre><span class="n">wrapper</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mf">3.14f</span><span class="p">);</span>                  <span class="c1">// error: invalid initialization of</span>
+                                     <span class="c1">//        non-const reference from</span>
+                                     <span class="c1">//        an rvalue</span>
+
+<span class="n">wrapper</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">foo_returning_float</span><span class="p">());</span>   <span class="c1">// same error</span>
+</pre></div>
+<p>And no, making those reference parameters <tt class="docutils literal">const</tt> won't cut it either, because
+<tt class="docutils literal">func</tt> may legitimately want to accept non-<tt class="docutils literal">const</tt> reference parameters.</p>
+<p>What remains is the brute-force approach taken by some libraries: define
+overloads for both <tt class="docutils literal">const</tt> and non-<tt class="docutils literal">const</tt> references:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">T1</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">)</span>                <span class="p">{</span> <span class="n">func</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="k">const</span> <span class="n">T1</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">)</span>          <span class="p">{</span> <span class="n">func</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">T1</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="k">const</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">)</span>          <span class="p">{</span> <span class="n">func</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">);</span> <span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="k">const</span> <span class="n">T1</span><span class="o">&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="k">const</span> <span class="n">T2</span><span class="o">&amp;</span> <span class="n">e2</span><span class="p">)</span>    <span class="p">{</span> <span class="n">func</span><span class="p">(</span><span class="n">e1</span><span class="p">,</span> <span class="n">e2</span><span class="p">);</span> <span class="p">}</span>
+</pre></div>
+<p>Exponential explosion. You can imagine how much fun this becomes when we want to
+cover some reasonable amount of function parameters. To make things worse, C++11
+adds rvalue references to the mix (which we'd also want to forward correctly),
+and this clearly isn't a scalable solution.</p>
+</div>
+<div class="section" id="reference-collapsing-and-special-type-deduction-for-rvalues">
+<h2>Reference collapsing and special type deduction for rvalues</h2>
+<p>To explain how C++11 solves the perfect forwarding problem, we have to first
+understand two new rules that were added to the language.</p>
+<p>Reference collapsing is the easier one to explain, so let's start with it.
+Taking a reference to a reference is illegal in C++. However, it can sometimes
+arise in the context of templates and type deduction:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">baz</span><span class="p">(</span><span class="n">T</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">T</span><span class="o">&amp;</span> <span class="n">k</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>What happens if we call this function as follows:</p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">ii</span> <span class="o">=</span> <span class="mi">4</span><span class="p">;</span>
+<span class="n">baz</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">ii</span><span class="p">);</span>
+</pre></div>
+<p>In the template instantiation, <tt class="docutils literal">T</tt> is explicitly set to <tt class="docutils literal">int&amp;</tt>. So what is
+the type of <tt class="docutils literal">k</tt> inside? What the compiler &quot;sees&quot; is <tt class="docutils literal">int&amp; &amp;</tt> - while this
+isn't something the user is allowed to write in code, the compiler simply infers
+a single reference from this. In fact, prior to C++11 this wasn't standardized,
+but many compilers accepted such code anyway because these cases occasionally
+arise in template metaprogramming. With the addition of <a class="reference external" href="http://eli.thegreenplace.net/2011/12/15/understanding-lvalues-and-rvalues-in-c-and-c">rvalue references</a>
+in C++11, it became important to define what happens when various reference
+types augment (e.g. what does <tt class="docutils literal">int&amp;&amp; &amp;</tt> mean?).</p>
+<p>The result is the <em>reference collapsing</em> rule. The rule is very simple. <tt class="docutils literal">&amp;</tt>
+always wins. So <tt class="docutils literal">&amp; &amp;</tt> is <tt class="docutils literal">&amp;</tt>, and so are <tt class="docutils literal">&amp;&amp; &amp;</tt> and <tt class="docutils literal">&amp; &amp;&amp;</tt>. The only
+case where <tt class="docutils literal">&amp;&amp;</tt> emerges from collapsing is <tt class="docutils literal">&amp;&amp; &amp;&amp;</tt>. You can think of it as a
+logical-OR, with <tt class="docutils literal">&amp;</tt> being 1 and <tt class="docutils literal">&amp;&amp;</tt> being 0.</p>
+<p>The other addition to C++11 relevant to this article is special type deduction
+rules for rvalue references in some cases <a class="footnote-reference" href="index.html#id5" id="id1">[1]</a>. Given a function template like:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">func</span><span class="p">(</span><span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+<span class="p">}</span>
+</pre></div>
+<p>Don't let <tt class="docutils literal">T&amp;&amp;</tt> fool you here - <tt class="docutils literal">t</tt> is not an rvalue reference <a class="footnote-reference" href="index.html#id6" id="id2">[2]</a>. When it
+appears in a type-deducing context, <tt class="docutils literal">T&amp;&amp;</tt> acquires a special meaning. When
+<tt class="docutils literal">func</tt> is instantiated, <tt class="docutils literal">T</tt> depends on whether the argument passed to
+<tt class="docutils literal">func</tt> is an lvalue or an rvalue. If it's an lvalue of type <tt class="docutils literal">U</tt>, <tt class="docutils literal">T</tt> is
+deduced to <tt class="docutils literal">U&amp;</tt>. If it's an rvalue, <tt class="docutils literal">T</tt> is deduced to <tt class="docutils literal">U</tt>:</p>
+<div class="highlight"><pre><span class="n">func</span><span class="p">(</span><span class="mi">4</span><span class="p">);</span>            <span class="c1">// 4 is an rvalue: T deduced to int</span>
+
+<span class="kt">double</span> <span class="n">d</span> <span class="o">=</span> <span class="mf">3.14</span><span class="p">;</span>
+<span class="n">func</span><span class="p">(</span><span class="n">d</span><span class="p">);</span>            <span class="c1">// d is an lvalue; T deduced to double&amp;</span>
+
+<span class="kt">float</span> <span class="nf">f</span><span class="p">()</span> <span class="p">{...}</span>
+<span class="n">func</span><span class="p">(</span><span class="n">f</span><span class="p">());</span>          <span class="c1">// f() is an rvalue; T deduced to float</span>
+
+<span class="kt">int</span> <span class="nf">bar</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">func</span><span class="p">(</span><span class="n">i</span><span class="p">);</span>          <span class="c1">// i is an lvalue; T deduced to int&amp;</span>
+<span class="p">}</span>
+</pre></div>
+<p>This rule may seem unusual and strange. That's because it is. However, it starts
+making sense when we realize it was designed to solve the perfect forwarding
+problem.</p>
+</div>
+<div class="section" id="solving-perfect-forwarding-with-std-forward">
+<h2>Solving perfect forwarding with std::forward</h2>
+<p>Let's get back to our original <tt class="docutils literal">wrapper</tt> template. Here's how it should be
+written in C++11:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T1</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T2</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">wrapper</span><span class="p">(</span><span class="n">T1</span><span class="o">&amp;&amp;</span> <span class="n">e1</span><span class="p">,</span> <span class="n">T2</span><span class="o">&amp;&amp;</span> <span class="n">e2</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">func</span><span class="p">(</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">T1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">e1</span><span class="p">),</span> <span class="n">forward</span><span class="o">&lt;</span><span class="n">T2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">e2</span><span class="p">));</span>
+<span class="p">}</span>
+</pre></div>
+<p>And this is <tt class="docutils literal">forward</tt> <a class="footnote-reference" href="index.html#id7" id="id3">[3]</a>:</p>
+<div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="n">T</span><span class="o">&amp;&amp;</span> <span class="n">forward</span><span class="p">(</span><span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">remove_reference</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="n">noexcept</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>Let's say we call:</p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="n">ii</span> <span class="p">...;</span>
+<span class="kt">float</span> <span class="n">ff</span> <span class="p">...;</span>
+<span class="n">wrapper</span><span class="p">(</span><span class="n">ii</span><span class="p">,</span> <span class="n">ff</span><span class="p">);</span>
+</pre></div>
+<p>Examining the first argument (since the second is handled similarly): <tt class="docutils literal">ii</tt>
+is an lvalue, so <tt class="docutils literal">T1</tt> is deduced to <tt class="docutils literal">int&amp;</tt> following the special deduction
+rules. We get the call <tt class="docutils literal"><span class="pre">func(forward&lt;int&amp;&gt;(e1),</span> <span class="pre">...)</span></tt>. Therefore, <tt class="docutils literal">forward</tt>
+is instantiated with <tt class="docutils literal">int&amp;</tt> and we get this version of it:</p>
+<div class="highlight"><pre><span class="kt">int</span><span class="o">&amp;</span> <span class="o">&amp;&amp;</span> <span class="n">forward</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="n">noexcept</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;</span> <span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>Now it's time to apply the reference collapsing rule:</p>
+<div class="highlight"><pre><span class="kt">int</span><span class="o">&amp;</span> <span class="n">forward</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="n">noexcept</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>In other words, the argument is passed on by reference to <tt class="docutils literal">func</tt>, as needed
+for lvalues.</p>
+<p>The other case to handle is:</p>
+<div class="highlight"><pre><span class="n">wrapper</span><span class="p">(</span><span class="mi">42</span><span class="p">,</span> <span class="mf">3.14f</span><span class="p">);</span>
+</pre></div>
+<p>Here the arguments are rvalues, so <tt class="docutils literal">T1</tt> is deduced to <tt class="docutils literal">int</tt>. We get the
+call <tt class="docutils literal"><span class="pre">func(forward&lt;int&gt;(e1),</span> <span class="pre">...)</span></tt>. Therefore, <tt class="docutils literal">forward</tt> is instantiated
+with <tt class="docutils literal">int</tt> and we get this version of it:</p>
+<div class="highlight"><pre><span class="kt">int</span><span class="o">&amp;&amp;</span> <span class="n">forward</span><span class="p">(</span><span class="kt">int</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="n">noexcept</span> <span class="p">{</span>
+    <span class="k">return</span> <span class="k">static_cast</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&amp;&amp;&gt;</span><span class="p">(</span><span class="n">t</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>The by-reference argument is casted to an rvalue reference, which is what we
+wanted from <tt class="docutils literal">forward</tt>.</p>
+<p>One can see <tt class="docutils literal">forward</tt> as a pretty wrapper around <tt class="docutils literal"><span class="pre">static_cast&lt;T&amp;&amp;&gt;(t)</span></tt>
+when <tt class="docutils literal">T</tt> can be deduced to either <tt class="docutils literal">U&amp;</tt> or <tt class="docutils literal">U&amp;&amp;</tt>, depending on the kind of
+argument to the wrapper (lvalue or rvalue). Now we get <tt class="docutils literal">wrapper</tt> as a single
+template that handles all kinds of forwarding cleanly.</p>
+<p>The <tt class="docutils literal">forward</tt> template exists in C++11, in the <tt class="docutils literal">&lt;utility&gt;</tt> header, as
+<tt class="docutils literal"><span class="pre">std::forward</span></tt>.</p>
+<p>Another thing I want to mention is the use of <tt class="docutils literal"><span class="pre">std::remove_reference&lt;T&gt;</span></tt>. In
+fact, it you think about it, <tt class="docutils literal">forward</tt> could do without it. Reference
+collapsing does the job already, so <tt class="docutils literal"><span class="pre">std::remove_reference&lt;T&gt;</span></tt> is superfluous.
+It's there to turn the <tt class="docutils literal">T&amp; t</tt> into a non-deducing context (according to the
+C++ standard, section 14.8.2.5), thus forcing us to explicitly specify the
+template parameter when calling <tt class="docutils literal"><span class="pre">std::forward</span></tt>.</p>
+</div>
+<div class="section" id="universal-references">
+<h2>Universal references</h2>
+<p>In his talks, blog posts and book, Scott Myers gave the name &quot;universal
+references&quot; to rvalues that appear in a type-deducing context. Whether this is a
+useful mnemonic or not depends on the beholder; personally, when I first read
+the relevant chapters of the new &quot;Effective C++&quot;, I found myself seriously
+confused on this topic. Only later, when I understood the underlying mechanisms
+(reference collapsing and special deduction rules), the topic became somewhat
+clearer.</p>
+<p>The trap is that saying &quot;universal references&quot; <a class="footnote-reference" href="index.html#id8" id="id4">[4]</a> is surely more succinct and
+nice than &quot;rvalue references in a type deducing context&quot;, but once you want to
+really understand some piece of code (rather than just cargo-culting
+boilerplate), you'll find that avoiding the full definition is impossible.</p>
+</div>
+<div class="section" id="examples-of-using-perfect-forwarding">
+<h2>Examples of using perfect forwarding</h2>
+<p>Perfect forwarding is extremely useful, because it enables a kind of higher
+order programming. <em>Higher order functions</em> are functions that may take other
+functions as arguments or return them. Without perfect forwarding, higher order
+functions are cumbersome because there is no convenient way to forward arguments
+to wrapped functions. And by &quot;functions&quot; here I mean classes as well, whose
+constructors are still functions.</p>
+<p>In the beginning of the article I mentioned the <tt class="docutils literal">emplace_back</tt> method of
+containers. Another good examples is <tt class="docutils literal">make_unique</tt>, which I described in the
+<a class="reference external" href="http://eli.thegreenplace.net/2014/variadic-templates-in-c/">previous article</a>:</p>
+<div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">make_unique</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">T</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...));</span>
+<span class="p">}</span>
+</pre></div>
+<p>There, I pleaded to ignore the strange <tt class="docutils literal">&amp;&amp;</tt> syntax and focus on the variadic
+template packs, but now there's no trouble fully understanding the code. It goes
+without saying that perfect forwarding and variadic templates very often go hand
+in hand, because we generally don't know how many arguments the
+functions or constructors we pass around accept.</p>
+<p>For a significantly more complex use of perfect forwarding, you may also want
+to take a look at <tt class="docutils literal"><span class="pre">std::bind</span></tt>.</p>
+</div>
+<div class="section" id="links-to-resources">
+<h2>Links to resources</h2>
+<p>Here are some of the resources I found helpful while preparing this article:</p>
+<ol class="arabic simple">
+<li>The 4th edition of &quot;The C++ Programming Language&quot; by Bjarne Stroustrup</li>
+<li>The new &quot;Effective Modern C++&quot; by Scott Myers has an extensive discussion of
+&quot;universal references&quot;. In fact, more than 1/5th of the book is dedicated to
+the topic (gasp!).</li>
+<li>Technical paper <a class="reference external" href="http://www.open-std.org/jtc1/sc22/wg21/docs/papers/2002/n1385.htm">n1385</a>:
+&quot;The forwarding problem: Arguments&quot;.</li>
+<li>Thomas Becker's <a class="reference external" href="http://thbecker.net/articles/rvalue_references/section_01.html">C++ Rvalue references explained</a>
+is extremely well-written and useful.</li>
+</ol>
+<hr class="docutils" />
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id1">[1]</a></td><td>There rules apply in other situations, like <tt class="docutils literal">auto</tt> and <tt class="docutils literal">decltype</tt>.
+Here I'm only presenting the template case.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id6" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id2">[2]</a></td><td>I think it's unfortunate that the C++ commitee didn't pick a different
+syntax for this case and overloaded the meaning of <tt class="docutils literal">&amp;&amp;</tt> instead. I
+realize it seems like a relatively uncommon use, for which it'd be a
+shame to change the language syntax (a thing the commitee tries to avoid
+as much as possible), but IMHO the situation is too confusing now. Even
+Scott Myers admitted in a talk and some comments on his blog that after 3
+years this material is still &quot;sinking in&quot;. And Bjarne Stroustrup has a
+mistake in the 4th edition of &quot;The C++ Programming Language&quot; when
+describing <tt class="docutils literal"><span class="pre">std::forward</span></tt> - forgetting to explicitly provide a template
+argument when calling it. This stuff is complex!</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id3">[3]</a></td><td>This is a simplified version of <tt class="docutils literal"><span class="pre">std::forward</span></tt> from the C++11 standard
+library. That one has an additional overload explicitly for rvalues, the
+goal of which I'm still trying to decipher. Let me know if you have an
+idea.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id4">[4]</a></td><td>&quot;Forwarding references&quot; is another name I've heard used elsewhere.</td></tr>
+</tbody>
+</table>
+</div>
+
+                </div>
+            </article>
+            <!-- Don't emit the hr after the last article, since there's already
+                 one there from the footer -->
+<hr class="style-eight"/>            <article>
+                <h2><a href="http://eli.thegreenplace.net/2014/variadic-templates-in-c/">Variadic templates in C++</a></h2>
+
+                <span class="published">
+                    <i class="fa fa-calendar"></i>
+                    <time> October 24, 2014 at 06:11</time>
+                </span>
+                <br/><br/>
+
+                <div class="entry-content">
+                    <p>Prior to C++11, the only way to write functions that take an arbitrary number of
+arguments was to use variadic functions like <tt class="docutils literal">printf</tt>, with the ellipsis
+syntax (<tt class="docutils literal">...</tt>) and the accompanying <tt class="docutils literal">va_</tt> family of macros. If you've ever
+written code using this approach you know how cumbersome it is. In addition to
+being type unsafe (all type resolution has to be done explicitly with casts in
+<tt class="docutils literal">va_arg</tt>, at runtime), it's also tricky to get right. The <tt class="docutils literal">va_</tt> macros
+perform low-level memory manipulation, and I've seen a lot of code that
+segfaults because it isn't using them carefully enough.</p>
+<p>But what always bothered me most with this approach is leaving something that
+is clearly known at compile-time, to run-time. Yes, when we write a variadic
+function we don't know all the ways it's going to be used. But when the compiler
+puts the whole program together, <em>it does know</em>. It sees perfectly well all the
+invocations of the function throughout the program, and all the possible
+argument types it gets passed (types are, after all, resolved at compile-time in
+C++).</p>
+<div class="section" id="variadic-templates">
+<h2>Variadic templates</h2>
+<p>One of the new features of C++11 is <em>variadic templates</em>. Finally, there's a way
+to write functions that take an arbitrary number of arguments in a type-safe way
+and have all the argument handling logic resolved at compile-time, rather than
+run-time. Variadic templates can be used for much more than just functions that
+take an arbitrary number of arguments; in this article I want to demonstrate
+some of these capabilities.</p>
+</div>
+<div class="section" id="basic-example">
+<h2>Basic example</h2>
+<p>Let's dive in, by implementing a function that adds all of its arguments
+together:</p>
+<div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="n">T</span> <span class="n">adder</span><span class="p">(</span><span class="n">T</span> <span class="n">v</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">v</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="n">T</span> <span class="n">adder</span><span class="p">(</span><span class="n">T</span> <span class="n">first</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">first</span> <span class="o">+</span> <span class="n">adder</span><span class="p">(</span><span class="n">args</span><span class="p">...);</span>
+<span class="p">}</span>
+</pre></div>
+<p>And here are a couple of ways we could call it:</p>
+<div class="highlight"><pre><span class="kt">long</span> <span class="n">sum</span> <span class="o">=</span> <span class="n">adder</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">7</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">s1</span> <span class="o">=</span> <span class="s">&quot;x&quot;</span><span class="p">,</span> <span class="n">s2</span> <span class="o">=</span> <span class="s">&quot;aa&quot;</span><span class="p">,</span> <span class="n">s3</span> <span class="o">=</span> <span class="s">&quot;bb&quot;</span><span class="p">,</span> <span class="n">s4</span> <span class="o">=</span> <span class="s">&quot;yy&quot;</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">string</span> <span class="n">ssum</span> <span class="o">=</span> <span class="n">adder</span><span class="p">(</span><span class="n">s1</span><span class="p">,</span> <span class="n">s2</span><span class="p">,</span> <span class="n">s3</span><span class="p">,</span> <span class="n">s4</span><span class="p">);</span>
+</pre></div>
+<p><tt class="docutils literal">adder</tt> will accept any number of arguments, and will compile properly as long
+as it can apply the <tt class="docutils literal">+</tt> operator to them. This checking is done by the
+compiler, at compile time. There's nothing magical about it - it follows C++'s
+usual template and overload resolution rules.</p>
+<p><tt class="docutils literal"><span class="pre">typename...</span> Args</tt> is called a <em>template parameter pack</em>, and <tt class="docutils literal">Args.. args</tt>
+is called a <em>function parameter pack</em> (<tt class="docutils literal">Args</tt> is, of course, a completely
+arbitrary name and could be anything else). Variadic templates are written just
+the way you'd write recursive code - you need a base case (the <tt class="docutils literal">adder(T v)</tt>
+declaration above) and a general case which &quot;recurses&quot; <a class="footnote-reference" href="index.html#id7" id="id1">[1]</a>. The recursion
+itself happens in the call <tt class="docutils literal"><span class="pre">adder(args...)</span></tt>. Note how the general <tt class="docutils literal">adder</tt> is
+defined - the first argument is peeled off the template parameter pack into type
+<tt class="docutils literal">T</tt> (and accordingly, argument <tt class="docutils literal">first</tt>). So with each call, the parameter
+pack gets shorter by one parameter. Eventually, the base case is encountered.</p>
+<p>To get a better feel for the process, one can use the <tt class="docutils literal">__PRETTY_FUNCTION__</tt>
+macro <a class="footnote-reference" href="index.html#id8" id="id2">[2]</a>. If we insert the following as the first line in both versions
+of <tt class="docutils literal">adder</tt> above:</p>
+<div class="highlight"><pre><span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">__PRETTY_FUNCTION__</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</pre></div>
+<p>And then execute <tt class="docutils literal">adder(1, 2, 3, 8, 7)</tt>, we'll see:</p>
+<div class="highlight"><pre>T adder(T, Args...) [T = int, Args = &lt;int, int, int, int&gt;]
+T adder(T, Args...) [T = int, Args = &lt;int, int, int&gt;]
+T adder(T, Args...) [T = int, Args = &lt;int, int&gt;]
+T adder(T, Args...) [T = int, Args = &lt;int&gt;]
+T adder(T) [T = int]
+</pre></div>
+</div>
+<div class="section" id="some-simple-variations">
+<h2>Some simple variations</h2>
+<p>When reading about C++ template meta-programming, one often hears about &quot;pattern
+matching&quot; and how this part of the language constitutes a fairly complete
+compile-time functional language.</p>
+<p>The example shown above is very basic - template arguments are peeled off one
+by one until the base case is hit. Here's a somewhat more interesting display
+of pattern matching:</p>
+<div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">bool</span> <span class="n">pair_comparer</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// In real-world code, we wouldn&#39;t compare floating point values like</span>
+  <span class="c1">// this. It would make sense to specialize this function for floating</span>
+  <span class="c1">// point types to use approximate comparison.</span>
+  <span class="k">return</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">bool</span> <span class="n">pair_comparer</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">,</span> <span class="n">T</span> <span class="n">b</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">a</span> <span class="o">==</span> <span class="n">b</span> <span class="o">&amp;&amp;</span> <span class="n">pair_comparer</span><span class="p">(</span><span class="n">args</span><span class="p">...);</span>
+<span class="p">}</span>
+</pre></div>
+<p><tt class="docutils literal">pair_comparer</tt> accepts any number of arguments and returns <tt class="docutils literal">true</tt> if and
+only if they are pair-wise equal. The types are not enforced - everything that
+can be compared goes. For example:</p>
+<div class="highlight"><pre><span class="n">pair_comparer</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">)</span>
+</pre></div>
+<p>Returns <tt class="docutils literal">true</tt>. But if we change the second argument to just <tt class="docutils literal">1</tt>, this won't
+compile since a <tt class="docutils literal">double</tt> and <tt class="docutils literal">int</tt> are not the same type.</p>
+<p>More interestingly, <tt class="docutils literal">pair_comparer</tt> will only work for an even number of
+arguments because they are peeled off in pairs and the base case compares two.
+The following:</p>
+<div class="highlight"><pre><span class="n">pair_comparer</span><span class="p">(</span><span class="mf">1.5</span><span class="p">,</span> <span class="mf">1.5</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">)</span>
+</pre></div>
+<p>Does not compile; the compiler complains that the base case expects 2 arguments
+but only 1 is provided. To fix this, we can add another variation of the
+function template:</p>
+<div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">bool</span> <span class="n">pair_comparer</span><span class="p">(</span><span class="n">T</span> <span class="n">a</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="nb">false</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Here, we force all odd-numbered sequences of arguments to return <tt class="docutils literal">false</tt>,
+because when only a single argument is left this version is matched.</p>
+<p>Note that <tt class="docutils literal">pair_comparer</tt> forces both members of the compared pair to be of
+the exact same type. A simple variation would be to allow different types,
+as long as they can be compared. I'll leave this an an exercise to the
+interested reader.</p>
+</div>
+<div class="section" id="performance">
+<h2>Performance</h2>
+<p>If you're concerned with the performance of code that relies on variadic
+templates, worry not. As there's no actual recursion involved, all we have is
+a sequence of function calls pre-generated at compile-time. This sequence is, in
+practice, fairly short (variadic calls with more than 5-6 arguments are rare).
+Since modern compilers are aggressively inlining code, it's likely to end up
+being compiled to machine code that has absolutely no function calls. What you
+end up with, actually, is not unlike loop unrolling.</p>
+<p>Compared to the C-style variadic functions, this is a marked win, because
+C-style variadic arguments have to be resolved at runtime. The <tt class="docutils literal">va_</tt> macros
+are literally manipulating the runtime stack. Therefore, variadic templates are
+often a performance optimization for variadic functions.</p>
+</div>
+<div class="section" id="type-safe-variadic-functions">
+<h2>Type-safe variadic functions</h2>
+<p>I have mentioned <tt class="docutils literal">printf</tt> in the beginning of the article, as an example of a
+variadic function that doesn't use templates. However, as we all know,
+<tt class="docutils literal">printf</tt> and its kin are not <em>type safe</em>. If you pass a number into a <tt class="docutils literal">%s</tt>
+format, bad things may happen and the compiler won't warn you about it <a class="footnote-reference" href="index.html#id9" id="id3">[3]</a>.</p>
+<p>It's pretty obvious how variadic templates enable us to write type safe
+functions. In the case of <tt class="docutils literal">printf</tt>, when the implementation reaches a new
+formatting directive it can actually assert the type of the argument passed.
+This assertion won't fire at compile-time, but it <em>will</em> fire - and a nice error
+message can be generated instead of undefined behavior.</p>
+<p>I will not discuss the implementation of a type-safe <tt class="docutils literal">printf</tt> further - it has
+been rehashed many times already. For some good examples see Stroustrup's new
+edition of &quot;The C++ Programming Language&quot;, or Alexandrescu's &quot;Variadic templates
+are funadic&quot; talk.</p>
+</div>
+<div class="section" id="varidic-data-structures">
+<h2>Varidic data structures</h2>
+<p>This use-case is much more interesting, IMHO, because it was something that just
+wasn't possible prior to introduction of C++11, at least without considerable
+hackery.</p>
+<p>Custom data structures (<tt class="docutils literal">struct</tt>s since the times of C and <tt class="docutils literal">class</tt>es in
+C++) have compile-time defined fields. They can represent types that grow at
+runtime (<tt class="docutils literal"><span class="pre">std::vector</span></tt>, for example) but if you want to add new fields, this
+is something the compiler has to see. Variadic templates make it possible to
+define data structures that could have an arbitrary number of fields, and have
+this number configured per use. The prime example of this is a <tt class="docutils literal">tuple</tt> class,
+and here I want to show how to construct one <a class="footnote-reference" href="index.html#id10" id="id4">[4]</a>.</p>
+<p>Let's start with the type definition:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="n">class</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span> <span class="k">struct</span> <span class="n">tuple</span> <span class="p">{};</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span> <span class="o">:</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="n">tuple</span><span class="p">(</span><span class="n">T</span> <span class="n">t</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span> <span class="n">ts</span><span class="p">)</span> <span class="o">:</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ts</span><span class="p">...),</span> <span class="n">tail</span><span class="p">(</span><span class="n">t</span><span class="p">)</span> <span class="p">{}</span>
+
+  <span class="n">T</span> <span class="n">tail</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<p>We start with the base case - the definition of a class template named
+<tt class="docutils literal">tuple</tt>, which is empty. The specialization that follows peels off the first
+type from the parameter pack, and defines a member of that type named <tt class="docutils literal">tail</tt>.
+It also derives from the tuple instantiated with the rest of the pack. This is a
+recursive definition that stops when there are no more types to peel off, and
+the base of the hierarchy is an empty <tt class="docutils literal">tuple</tt>. To get a better feel for the
+resulting data structure, let's use a concrete example:</p>
+<div class="highlight"><pre><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="kt">uint64_t</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*&gt;</span> <span class="n">t1</span><span class="p">(</span><span class="mf">12.2</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="s">&quot;big&quot;</span><span class="p">);</span>
+</pre></div>
+<p>Ignoring the constructor, here's a pseudo-trace of the <tt class="docutils literal">tuple</tt> structs
+created:</p>
+<div class="highlight"><pre>struct tuple&lt;double, uint64_t, const char*&gt; : tuple&lt;uint64_t, const char*&gt; {
+  double tail;
+}
+
+struct tuple&lt;uint64_t, const char*&gt; : tuple&lt;const char*&gt; {
+  uint64_t tail;
+}
+
+struct tuple&lt;const char*&gt; : tuple {
+  const char* tail;
+}
+
+struct tuple {
+}
+</pre></div>
+<p>The layout of data members in the original 3-element <tt class="docutils literal">tuple</tt> will be:</p>
+<div class="highlight"><pre>[const char* tail, uint64_t tail, double tail]
+</pre></div>
+<p>Note that the empty base consumes no space, due to
+<a class="reference external" href="http://en.cppreference.com/w/cpp/language/ebo">empty base optimization</a>.
+Using Clang's <a class="reference external" href="http://eli.thegreenplace.net/2012/12/17/dumping-a-c-objects-memory-layout-with-clang/">layout dump feature</a>,
+we can verify this:</p>
+<div class="highlight"><pre>*** Dumping AST Record Layout
+   0 | struct tuple&lt;double, unsigned long, const char *&gt;
+   0 |   struct tuple&lt;unsigned long, const char *&gt; (base)
+   0 |     struct tuple&lt;const char *&gt; (base)
+   0 |       struct tuple&lt;&gt; (base) (empty)
+   0 |       const char * tail
+   8 |     unsigned long tail
+  16 |   double tail
+     | [sizeof=24, dsize=24, align=8
+     |  nvsize=24, nvalign=8]
+</pre></div>
+<p>Indeed, the size of the data structure and the internal layout of members is as
+expected.</p>
+<p>So, the <tt class="docutils literal">struct</tt> definition above lets us create tuples, but there's not much
+else we can do with them yet. The way to access tuples is with the <tt class="docutils literal">get</tt>
+function template <a class="footnote-reference" href="index.html#id11" id="id5">[5]</a>, so let's see how it works. First, we'll have to define
+a helper type that lets us access the type of the k-th element in a tuple:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">elem_type_holder</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+  <span class="k">typedef</span> <span class="n">T</span> <span class="n">type</span><span class="p">;</span>
+<span class="p">};</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="kt">size_t</span> <span class="n">k</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">elem_type_holder</span><span class="o">&lt;</span><span class="n">k</span><span class="p">,</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&gt;</span> <span class="p">{</span>
+  <span class="k">typedef</span> <span class="k">typename</span> <span class="n">elem_type_holder</span><span class="o">&lt;</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="p">,</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&gt;::</span><span class="n">type</span> <span class="n">type</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<p><tt class="docutils literal">elem_type_holder</tt> is yet another variadic class template. It takes a number
+<tt class="docutils literal">k</tt> and the <tt class="docutils literal">tuple</tt> type we're interested in as template parameters. Note
+that this is a compile-time template metaprogramming construct - it acts on
+constants and types, not on runtime objects. For example, given
+<tt class="docutils literal">elem_type_holder&lt;2, some_tuple_type&gt;</tt>, we'll get the following pseudo
+expansion:</p>
+<div class="highlight"><pre>struct elem_type_holder&lt;2, tuple&lt;T, Ts...&gt;&gt; {
+  typedef typename elem_type_holder&lt;1, tuple&lt;Ts...&gt;&gt;::type type;
+}
+
+struct elem_type_holder&lt;1, tuple&lt;T, Ts...&gt;&gt; {
+  typedef typename elem_type_holder&lt;0, tuple&lt;Ts...&gt;&gt;::type type;
+}
+
+struct elem_type_holder&lt;0, tuple&lt;T, Ts...&gt;&gt; {
+  typedef T type;
+}
+</pre></div>
+<p>So the <tt class="docutils literal">elem_type_holder&lt;2, some_tuple_type&gt;</tt> peels off two types from the
+beginning of the tuple, and sets its <tt class="docutils literal">type</tt> to the type of the third one,
+which is what we need. Armed with this, we can implement <tt class="docutils literal">get</tt>:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="kt">size_t</span> <span class="n">k</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+<span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span>
+    <span class="n">k</span> <span class="o">==</span> <span class="mi">0</span><span class="p">,</span> <span class="k">typename</span> <span class="n">elem_type_holder</span><span class="o">&lt;</span><span class="mi">0</span><span class="p">,</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&gt;::</span><span class="n">type</span><span class="o">&amp;&gt;::</span><span class="n">type</span>
+<span class="n">get</span><span class="p">(</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="n">t</span><span class="p">.</span><span class="n">tail</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="kt">size_t</span> <span class="n">k</span><span class="p">,</span> <span class="k">class</span> <span class="nc">T</span><span class="p">,</span> <span class="n">class</span><span class="p">...</span> <span class="n">Ts</span><span class="o">&gt;</span>
+<span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span>
+    <span class="n">k</span> <span class="o">!=</span> <span class="mi">0</span><span class="p">,</span> <span class="k">typename</span> <span class="n">elem_type_holder</span><span class="o">&lt;</span><span class="n">k</span><span class="p">,</span> <span class="n">tuple</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&gt;::</span><span class="n">type</span><span class="o">&amp;&gt;::</span><span class="n">type</span>
+<span class="n">get</span><span class="p">(</span><span class="n">tuple</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">tuple</span><span class="o">&lt;</span><span class="n">Ts</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">base</span> <span class="o">=</span> <span class="n">t</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">get</span><span class="o">&lt;</span><span class="n">k</span> <span class="o">-</span> <span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">base</span><span class="p">);</span>
+<span class="p">}</span>
+</pre></div>
+<p>Here, <a class="reference external" href="http://eli.thegreenplace.net/2014/sfinae-and-enable_if/">enable_if</a> is
+used to select between two template overloads of <tt class="docutils literal">get</tt> - one for when <tt class="docutils literal">k</tt> is
+zero, and one for the general case which peels off the first type and recurses,
+as usual with variadic function templates.</p>
+<p>Since it returns a reference, we can use <tt class="docutils literal">get</tt> to both read tuple elements and
+write to them:</p>
+<div class="highlight"><pre><span class="n">tuple</span><span class="o">&lt;</span><span class="kt">double</span><span class="p">,</span> <span class="kt">uint64_t</span><span class="p">,</span> <span class="k">const</span> <span class="kt">char</span><span class="o">*&gt;</span> <span class="n">t1</span><span class="p">(</span><span class="mf">12.2</span><span class="p">,</span> <span class="mi">42</span><span class="p">,</span> <span class="s">&quot;big&quot;</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;0th elem is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">0</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;1th elem is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;2th elem is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">2</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+
+<span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="o">=</span> <span class="mi">103</span><span class="p">;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;1th elem is &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">get</span><span class="o">&lt;</span><span class="mi">1</span><span class="o">&gt;</span><span class="p">(</span><span class="n">t1</span><span class="p">)</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+</pre></div>
+</div>
+<div class="section" id="variadic-templates-for-catch-all-functions">
+<h2>Variadic templates for catch-all functions</h2>
+<p>Here is another example I find interesting. It's different from the ones already
+shown in the article, because it doesn't really use the traditional recursive
+approach of implementing variadic templates. Rather, it uses them to express the
+&quot;any template parameters can go here&quot; concept.</p>
+<p>Say we want to write a function that can print out standard library
+containers. We want it to work for any container, and we also want the user to
+type as little as possible, so we don't want to act on iterators. We just want
+<tt class="docutils literal">print_container(c)</tt> to work for any container <tt class="docutils literal">c</tt>. Here's a first approach:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span> <span class="k">typename</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">ContainerType</span><span class="p">,</span>
+          <span class="k">typename</span> <span class="n">ValueType</span><span class="p">,</span>
+          <span class="k">typename</span> <span class="n">AllocType</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">print_container</span><span class="p">(</span><span class="k">const</span> <span class="n">ContainerType</span><span class="o">&lt;</span><span class="n">ValueType</span><span class="p">,</span> <span class="n">AllocType</span><span class="o">&gt;&amp;</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">v</span> <span class="o">:</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>Many of the STL containers are templates that can be parameterized by the value
+type and an allocator type; for example <tt class="docutils literal">vector</tt>, <tt class="docutils literal">list</tt>, <tt class="docutils literal">deque</tt>, and so
+on. So we can write:</p>
+<div class="highlight"><pre><span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">double</span><span class="o">&gt;</span> <span class="n">vd</span><span class="p">{</span><span class="mf">3.14</span><span class="p">,</span> <span class="mf">8.1</span><span class="p">,</span> <span class="mf">3.2</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">};</span>
+<span class="n">print_container</span><span class="p">(</span><span class="n">vd</span><span class="p">);</span>
+
+<span class="n">std</span><span class="o">::</span><span class="n">list</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">li</span><span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">};</span>
+<span class="n">print_container</span><span class="p">(</span><span class="n">li</span><span class="p">);</span>
+</pre></div>
+<p>And this works as expected. However, if we try to use it for <tt class="docutils literal">map</tt>, we get a
+compile error:</p>
+<div class="highlight"><pre>std::map&lt;std::string, int&gt; msi{{&quot;foo&quot;, 42}, {&quot;bar&quot;, 81}, {&quot;bazzo&quot;, 4}};
+print_container(msi);
+^~~~~~~~~~~~~~~
+error: no matching function for call to &#39;print_container&#39;
+note: candidate template ignored: substitution failure :
+      template template argument has different template
+      parameters than its corresponding template template parameter
+</pre></div>
+<p>This is because <tt class="docutils literal">map</tt> is a template parameterized by 4 template arguments, not
+2. The same problem would occur for a <tt class="docutils literal">set</tt>, which has 3 template arguments.
+This is annoying - while the contents of the <tt class="docutils literal">print_container</tt> function would
+be the same for all these containers, the signature has to be different. What
+can we do without duplicating code? Variadic templates for the rescue:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span><span class="o">&gt;</span> <span class="k">class</span> <span class="nc">ContainerType</span><span class="p">,</span>
+          <span class="k">typename</span> <span class="n">ValueType</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">print_container</span><span class="p">(</span><span class="k">const</span> <span class="n">ContainerType</span><span class="o">&lt;</span><span class="n">ValueType</span><span class="p">,</span> <span class="n">Args</span><span class="p">...</span><span class="o">&gt;&amp;</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">for</span> <span class="p">(</span><span class="k">const</span> <span class="k">auto</span><span class="o">&amp;</span> <span class="n">v</span> <span class="o">:</span> <span class="n">c</span><span class="p">)</span> <span class="p">{</span>
+    <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="n">v</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39; &#39;</span><span class="p">;</span>
+  <span class="p">}</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="sc">&#39;\n&#39;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>What this says is - <tt class="docutils literal">ContainerType</tt> is a template template parameter with any
+amount of template parameters itself. We don't care really, as long as the
+compiler can type-deduce them at the call. This version of the function will
+work for <tt class="docutils literal">map</tt>, <tt class="docutils literal">set</tt>, <tt class="docutils literal">unordered_map</tt> and other containers <a class="footnote-reference" href="index.html#id12" id="id6">[6]</a>. One
+small addition we have to make to support mappings is:</p>
+<div class="highlight"><pre><span class="c1">// Implement &lt;&lt; for pairs: this is needed to print out mappings where range</span>
+<span class="c1">// iteration goes over (key, value) pairs.</span>
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span> <span class="n">U</span><span class="o">&gt;</span>
+<span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="k">operator</span><span class="o">&lt;&lt;</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">ostream</span><span class="o">&amp;</span> <span class="n">out</span><span class="p">,</span> <span class="k">const</span> <span class="n">std</span><span class="o">::</span><span class="n">pair</span><span class="o">&lt;</span><span class="n">T</span><span class="p">,</span> <span class="n">U</span><span class="o">&gt;&amp;</span> <span class="n">p</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">out</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;[&quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">first</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;, &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">p</span><span class="p">.</span><span class="n">second</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;]&quot;</span><span class="p">;</span>
+  <span class="k">return</span> <span class="n">out</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+</div>
+<div class="section" id="variadic-templates-for-forwarding">
+<h2>Variadic templates for forwarding</h2>
+<p>A somewhat related example is templates that don't do much on their own, but
+have to forward all their arguments to some other template or function. This
+turns out to be very useful because C++ has a commonly used construct that
+is inherently &quot;variadic&quot; when viewed from a template parameter point of view -
+the constructor. Given a generic type <tt class="docutils literal">T</tt>, to invoke the constructor of <tt class="docutils literal">T</tt>,
+we may need to pass in an arbitrary number of arguments. Unlike function types
+that specify their arguments at compile time, given just a generic type <tt class="docutils literal">T</tt>
+we don't know which constructor(s) it has and how many arguments the constructor
+accepts.</p>
+<p>A very important example of this is the <tt class="docutils literal"><span class="pre">std::make_unique</span></tt> function, available
+in the standard library since C++14. We want to be able to use it as follows:</p>
+<div class="highlight"><pre><span class="n">std</span><span class="o">::</span><span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">FooType</span><span class="o">&gt;</span> <span class="n">f</span> <span class="o">=</span> <span class="n">std</span><span class="o">::</span><span class="n">make_unique</span><span class="o">&lt;</span><span class="n">FooType</span><span class="o">&gt;</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="s">&quot;str&quot;</span><span class="p">,</span> <span class="mf">2.13</span><span class="p">);</span>
+</pre></div>
+<p><tt class="docutils literal">FooType</tt> is an arbitrary type and can be constructed in arbitrary ways. How
+does <tt class="docutils literal">make_unique</tt> know the signature of its constructor? With variadic
+templates, it doesn't have to know! Here's how <tt class="docutils literal">make_unique</tt> is typically
+implemented:</p>
+<div class="highlight"><pre><span class="k">template</span><span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="p">,</span> <span class="k">typename</span><span class="p">...</span> <span class="n">Args</span><span class="o">&gt;</span>
+<span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span> <span class="n">make_unique</span><span class="p">(</span><span class="n">Args</span><span class="o">&amp;&amp;</span><span class="p">...</span> <span class="n">args</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="k">return</span> <span class="n">unique_ptr</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">(</span><span class="k">new</span> <span class="n">T</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">forward</span><span class="o">&lt;</span><span class="n">Args</span><span class="o">&gt;</span><span class="p">(</span><span class="n">args</span><span class="p">)...));</span>
+<span class="p">}</span>
+</pre></div>
+<p>Ignore the <tt class="docutils literal">&amp;&amp;</tt> syntax and <tt class="docutils literal"><span class="pre">std::forward</span></tt> for now; I will cover them in a
+future article. What's important for the sake of our current discussion is the
+use of a variadic template to convey &quot;any amount of arguments can go here&quot; and
+passing them through to the constructor of <tt class="docutils literal">c</tt> in the <tt class="docutils literal">new</tt> expression.</p>
+</div>
+<div class="section" id="links-to-resources">
+<h2>Links to resources</h2>
+<p>I found a number of resources useful while preparing this article:</p>
+<ol class="arabic simple">
+<li>The 4th edition of &quot;The C++ Programming Language&quot; (by Bjarne Stroustrup) has
+a good discussion of variadic templates in chapter 28.</li>
+<li><a class="reference external" href="http://stackoverflow.com/a/14311714/8206">This StackOverflow thread</a> for
+the <tt class="docutils literal">print_container</tt> example and also for mentioning
+<tt class="docutils literal">__PRETTY_FUNCTION__</tt> in the context of variadic templates.</li>
+<li><a class="reference external" href="http://lbrandy.com/blog/2013/03/variadic_templates/">C++ variadic templates, for the doubters</a> by Louis Brandy.</li>
+<li>Andrei Alexandrescu's &quot;Variadic templates are funadic&quot; talk from Going Native
+2012 was very useful - it's also the basis for my <tt class="docutils literal">tuple</tt> example
+implementation.</li>
+<li>Finally, if recursive use of variadic templates reminds you of pattern
+matching in functional languages, you're right! <a class="reference external" href="http://bartoszmilewski.com/2009/10/21/what-does-haskell-have-to-do-with-c/">Bartosz Milewski's article</a>
+dives into more details about this.</li>
+</ol>
+<hr class="docutils" />
+<table class="docutils footnote" frame="void" id="id7" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id1">[1]</a></td><td>Technically, this is not recursion, because a different function is
+called. The compiler ends up generating a different function for every
+used length of the parameter pack. It's useful to reason about it
+recursively, though.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id8" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id2">[2]</a></td><td>It's a gcc extension, supported by Clang as well.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id9" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id3">[3]</a></td><td>To be fair, modern compilers <em>may</em> warn you about it (Clang almost
+certainly will); but this is just special-casing the <tt class="docutils literal">printf</tt> family
+of functions. In other variadic code, you're on your own.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id10" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id4">[4]</a></td><td><tt class="docutils literal"><span class="pre">std::tuple</span></tt> is part of the standard library in C++11, and it's a more
+sophisticated version of what I'm showing here.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id11" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id5">[5]</a></td><td><tt class="docutils literal">get</tt> is a standalone function rather than a member, because it would
+be awkward to use as a member. Since it requires explicit template
+parameter specification and can't use deduction, we'd have to write
+something like <tt class="docutils literal">tup.template <span class="pre">get&lt;2&gt;()</span></tt> to use it, which is ugly and
+too verbose.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id12" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id6">[6]</a></td><td>Exercise for the reader: there is a C++11 container this still won't
+work for. Which one?</td></tr>
+</tbody>
+</table>
+</div>
+
+                </div>
+            </article>
+            <!-- Don't emit the hr after the last article, since there's already
+                 one there from the footer -->
+<hr class="style-eight"/>            <article>
+                <h2><a href="http://eli.thegreenplace.net/2014/sfinae-and-enable_if/">SFINAE and enable_if</a></h2>
+
+                <span class="published">
+                    <i class="fa fa-calendar"></i>
+                    <time> October 20, 2014 at 05:48</time>
+                </span>
+                <br/><br/>
+
+                <div class="entry-content">
+                    <p>There's an interesting issue one has to consider when mixing function
+overloading with templates in C++. The problem with templates is that they are
+usually overly inclusive, and when mixed with overloading, the result may be
+surprising:</p>
+<div class="highlight"><pre><span class="kt">void</span> <span class="nf">foo</span><span class="p">(</span><span class="kt">unsigned</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;unsigned &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">i</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">foo</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+  <span class="n">std</span><span class="o">::</span><span class="n">cout</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;template &quot;</span> <span class="o">&lt;&lt;</span> <span class="n">t</span> <span class="o">&lt;&lt;</span> <span class="s">&quot;</span><span class="se">\n</span><span class="s">&quot;</span><span class="p">;</span>
+<span class="p">}</span>
+</pre></div>
+<p>What do you think a call to <tt class="docutils literal">foo(42)</tt> would print? The answer is
+<tt class="docutils literal">&quot;template 42&quot;</tt>, and the reason for this is that integer literals are signed
+by default (they only become unsigned with the <tt class="docutils literal">U</tt> suffix). When the compiler
+examines the overload candidates to choose from for this call, it sees that the
+first function needs a conversion, while the second one matches perfectly, so
+that is the one it picks <a class="footnote-reference" href="index.html#id4" id="id1">[1]</a>.</p>
+<p>When the compiler looks at overload candidates that are templates, it has to
+actually perform <em>substitution</em> of explicitly specified or deduced types into
+the template arguments. This doesn't always result in sensical code, as the
+following example demonstrates; while artificial, it's representative of a lot
+of generic code written in modern C++:</p>
+<div class="highlight"><pre><span class="kt">int</span> <span class="nf">negate</span><span class="p">(</span><span class="kt">int</span> <span class="n">i</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">-</span><span class="n">i</span><span class="p">;</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">value_type</span> <span class="n">negate</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">return</span> <span class="o">-</span><span class="n">t</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>Consider a call to <tt class="docutils literal">negate(42)</tt>. It will pick up the first overload and return
+<tt class="docutils literal"><span class="pre">-42</span></tt>. However, while looking for the best overload, all candidates have to
+be considered. When the compiler considers the templated <tt class="docutils literal">negate</tt>, it
+substitutes the deduced argument type of the call (<tt class="docutils literal">int</tt> in this case) into
+the template, and comes up with the declaration:</p>
+<div class="highlight"><pre><span class="kt">int</span><span class="o">::</span><span class="n">value_type</span> <span class="n">negate</span><span class="p">(</span><span class="k">const</span> <span class="kt">int</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">);</span>
+</pre></div>
+<p>This code is invalid, of course, since <tt class="docutils literal">int</tt> has no member named
+<tt class="docutils literal">value_type</tt>. So one could ask - should the compiler fail and emit an error
+message in this case? Well, no. If it did, writing generic code in C++ would be
+very difficult. In fact, the C++ standard has a special clause for such cases,
+explaining exactly how a compiler should behave.</p>
+<div class="section" id="sfinae">
+<h2>SFINAE</h2>
+<p>In the latest draft of the C++11 standard, the relevant section is 14.8.2; it
+states that when a substitution failure, such as the one shown above, occurs,
+type deduction for this particular type fails. That's it. There's no error
+involved. The compiler simply ignores this candidate and looks at the others.</p>
+<p>In the C++ folklore, this rule was dubbed &quot;Substitution Failure Is Not An
+Error&quot;, or
+<a class="reference external" href="http://en.wikipedia.org/wiki/Substitution_failure_is_not_an_error">SFINAE</a>.</p>
+<p>The standard states:</p>
+<blockquote>
+If a substitution results in an invalid type or expression, type deduction
+fails. An invalid type or expression is one that would be ill-formed if
+written using the substituted arguments. Only invalid types and expressions
+in the immediate context of the function type and its template parameter
+types can result in a deduction failure.</blockquote>
+<p>And then goes on to list the possible scenarios that are deemed invalid, such as
+using a type that is not a class or enumeration type in a qualified name,
+attempting to create a reference to <tt class="docutils literal">void</tt>, and so on.</p>
+<p>But wait, what does it mean by the last sentence about &quot;immediate context&quot;?
+Consider this (non-sensical) example:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">negate</span><span class="p">(</span><span class="k">const</span> <span class="n">T</span><span class="o">&amp;</span> <span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+  <span class="k">typename</span> <span class="n">T</span><span class="o">::</span><span class="n">value_type</span> <span class="n">n</span> <span class="o">=</span> <span class="o">-</span><span class="n">t</span><span class="p">();</span>
+<span class="p">}</span>
+</pre></div>
+<p>If type deduction matches this overload for some fundamental type, we'll
+actually get a compile error due to the <tt class="docutils literal"><span class="pre">T::value_type</span></tt> inside the function
+body. This is outside of the &quot;immediate context of the function type and its
+template parameter types&quot; mentioned by the standard. The lesson here is that if
+we want to write a template that only makes sense for some types, we must make
+it fail deduction for invalid types right in the declaration, to cause
+substitution failure. If the invalid type sneaks past the overload candidate
+selection phase, the program won't compile.</p>
+</div>
+<div class="section" id="enable-if-a-compile-time-switch-for-templates">
+<h2>enable_if - a compile-time switch for templates</h2>
+<p>SFINAE has proved so useful that programmers started to <em>explicitly</em> rely on it
+very early on in the history of C++. One of the most notable tools used for this
+purpose is <tt class="docutils literal">enable_if</tt>. It can be defined as follows:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="kt">bool</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">enable_if</span>
+<span class="p">{};</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">struct</span> <span class="n">enable_if</span><span class="o">&lt;</span><span class="nb">true</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="p">{</span>
+  <span class="k">typedef</span> <span class="n">T</span> <span class="n">type</span><span class="p">;</span>
+<span class="p">};</span>
+</pre></div>
+<p>And now we can do things like:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">do_stuff</span><span class="p">(</span><span class="k">typename</span> <span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// an implementation for integral types (int, char, unsigned, etc.)</span>
+<span class="p">}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">do_stuff</span><span class="p">(</span><span class="k">typename</span> <span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{</span>
+  <span class="c1">// an implementation for class types</span>
+<span class="p">}</span>
+</pre></div>
+<p>Note SFINAE at work here. When we make the call <tt class="docutils literal">do_stuff(25)</tt>, the compiler
+selects the first overload: since the condition <tt class="docutils literal"><span class="pre">std::is_integral&lt;int&gt;</span></tt> is
+<tt class="docutils literal">true</tt>, the specialization of <tt class="docutils literal">struct enable_if</tt> for <tt class="docutils literal">true</tt> is used, and
+its internal <tt class="docutils literal">type</tt> is set to <tt class="docutils literal">int</tt>. The second overload is omitted because
+without the <tt class="docutils literal">true</tt> specialization (<tt class="docutils literal"><span class="pre">std::is_class&lt;int&gt;</span></tt> is <tt class="docutils literal">false</tt>) the
+general form of <tt class="docutils literal">struct enable_if</tt> is selected, and it doesn't have a
+<tt class="docutils literal">type</tt>, so the type of the argument results in a substitution failure.</p>
+<p><tt class="docutils literal">enable_if</tt> has been part of Boost for many years, and since C++11 it's also
+in the standard C++ library as <tt class="docutils literal"><span class="pre">std::enable_if</span></tt>. Its usage is somewhat
+verbose though, so C++14 adds this type alias for convenience:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="kt">bool</span> <span class="n">B</span><span class="p">,</span> <span class="k">typename</span> <span class="n">T</span> <span class="o">=</span> <span class="kt">void</span><span class="o">&gt;</span>
+<span class="k">using</span> <span class="kt">enable_if_t</span> <span class="o">=</span> <span class="k">typename</span> <span class="n">enable_if</span><span class="o">&lt;</span><span class="n">B</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;::</span><span class="n">type</span><span class="p">;</span>
+</pre></div>
+<p>With this, the examples above can be rewritten a bit more succinctly:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">do_stuff</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">enable_if_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_integral</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{}</span>
+
+<span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="kt">void</span> <span class="n">do_stuff</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="kt">enable_if_t</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_class</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;::</span><span class="n">value</span><span class="p">,</span> <span class="n">T</span><span class="o">&gt;</span> <span class="o">&amp;</span><span class="n">t</span><span class="p">)</span> <span class="p">{}</span>
+</pre></div>
+</div>
+<div class="section" id="uses-of-enable-if">
+<h2>Uses of enable_if</h2>
+<p><tt class="docutils literal">enable_if</tt> is an extremely useful tool. There are hundreds of references to
+it in the C++11 standard template library. It's so useful because it's a key
+part in using <em>type traits</em>, a way to restrict templates to types that have
+certain properties. Without <tt class="docutils literal">enable_if</tt>, templates are a rather blunt
+&quot;catch-all&quot; tool. If we define a function with a template argument, this
+function will be invoked on all possible types. Type traits and <tt class="docutils literal">enable_if</tt>
+let us create different functions that act on different kinds of types, while
+still remaining generic <a class="footnote-reference" href="index.html#id5" id="id3">[2]</a>.</p>
+<p>One usage example I like is the two-argument constructor of <tt class="docutils literal"><span class="pre">std::vector</span></tt>:</p>
+<div class="highlight"><pre><span class="c1">// Create the vector {8, 8, 8, 8}</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v1</span><span class="p">(</span><span class="mi">4</span><span class="p">,</span> <span class="mi">8</span><span class="p">);</span>
+
+<span class="c1">// Create another vector {8, 8, 8, 8}</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v2</span><span class="p">(</span><span class="n">std</span><span class="o">::</span><span class="n">begin</span><span class="p">(</span><span class="n">v1</span><span class="p">),</span> <span class="n">std</span><span class="o">::</span><span class="n">end</span><span class="p">(</span><span class="n">v1</span><span class="p">));</span>
+
+<span class="c1">// Create the vector {1, 2, 3, 4}</span>
+<span class="kt">int</span> <span class="n">arr</span><span class="p">[]</span> <span class="o">=</span> <span class="p">{</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">,</span> <span class="mi">7</span><span class="p">};</span>
+<span class="n">std</span><span class="o">::</span><span class="n">vector</span><span class="o">&lt;</span><span class="kt">int</span><span class="o">&gt;</span> <span class="n">v3</span><span class="p">(</span><span class="n">arr</span><span class="p">,</span> <span class="n">arr</span> <span class="o">+</span> <span class="mi">4</span><span class="p">);</span>
+</pre></div>
+<p>There are two forms of the two-argument constructor used here. Ignoring
+allocators, this is how these constructors could be declared:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">typename</span> <span class="n">T</span><span class="o">&gt;</span>
+<span class="k">class</span> <span class="nc">vector</span> <span class="p">{</span>
+    <span class="n">vector</span><span class="p">(</span><span class="n">size_type</span> <span class="n">n</span><span class="p">,</span> <span class="k">const</span> <span class="n">T</span> <span class="n">val</span><span class="p">);</span>
+
+    <span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">InputIterator</span><span class="o">&gt;</span>
+    <span class="n">vector</span><span class="p">(</span><span class="n">InputIterator</span> <span class="n">first</span><span class="p">,</span> <span class="n">InputIterator</span> <span class="n">last</span><span class="p">);</span>
+
+    <span class="p">...</span>
+<span class="p">}</span>
+</pre></div>
+<p>Both constructors take two arguments, but the second one has the catch-all
+property of templates. Even though the template argument <tt class="docutils literal">InputIterator</tt> has a
+descriptive name, it has no semantic meaning - the compiler wouldn't mind
+if it was called <tt class="docutils literal">ARG42</tt> or <tt class="docutils literal">T</tt>. The problem here is that even for <tt class="docutils literal">v1</tt>,
+the <em>second</em> constructor would be invoked if we didn't do something special.
+This is because the type of <tt class="docutils literal">4</tt> is <tt class="docutils literal">int</tt> rather than <tt class="docutils literal">size_t</tt>. So to
+invoke the first constructor, the compiler would have to perform a type
+conversion. The second constructor would fit perfectly though.</p>
+<p>So how does the library implementor avoid this problem and make sure that the
+second constructor is only called for iterators? By now we know the answer -
+with <tt class="docutils literal">enable_if</tt>.</p>
+<p>Here is how the second constructor is <em>really</em> defined:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">_InputIterator</span><span class="o">&gt;</span>
+<span class="n">vector</span><span class="p">(</span><span class="n">_InputIterator</span> <span class="n">__first</span><span class="p">,</span>
+       <span class="k">typename</span> <span class="n">enable_if</span><span class="o">&lt;</span><span class="n">__is_input_iterator</span><span class="o">&lt;</span><span class="n">_InputIterator</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
+                          <span class="o">!</span><span class="n">__is_forward_iterator</span><span class="o">&lt;</span><span class="n">_InputIterator</span><span class="o">&gt;::</span><span class="n">value</span> <span class="o">&amp;&amp;</span>
+                          <span class="p">...</span> <span class="n">more</span> <span class="n">conditions</span> <span class="p">...</span>
+                          <span class="n">_InputIterator</span><span class="o">&gt;::</span><span class="n">type</span> <span class="n">__last</span><span class="p">);</span>
+</pre></div>
+<p>It uses <tt class="docutils literal">enable_if</tt> to only enable this overload for types that are input
+iterators, though not forward iterators. For forward iterators, there's a
+separate overload, because the constructors for these can be implemented more
+efficiently.</p>
+<p>As I mentioned, there are many uses of <tt class="docutils literal">enable_if</tt> in the C++11 standard
+library. The <tt class="docutils literal"><span class="pre">string::append</span></tt> method has a very similar use to the above,
+since it has several overloads that take two arguments and a template overload
+for iterators.</p>
+<p>A somewhat different example is <tt class="docutils literal"><span class="pre">std::signbit</span></tt>, which is supposed to be
+defined for all arithmetic types (integer or floating point). Here's a
+simplified version of its declaration in the <tt class="docutils literal">cmath</tt> header:</p>
+<div class="highlight"><pre><span class="k">template</span> <span class="o">&lt;</span><span class="k">class</span> <span class="nc">T</span><span class="o">&gt;</span>
+<span class="k">typename</span> <span class="n">std</span><span class="o">::</span><span class="n">enable_if</span><span class="o">&lt;</span><span class="n">std</span><span class="o">::</span><span class="n">is_arithmetic</span><span class="o">&lt;</span><span class="n">T</span><span class="o">&gt;</span><span class="p">,</span> <span class="kt">bool</span><span class="o">&gt;::</span><span class="n">type</span>
+<span class="n">signbit</span><span class="p">(</span><span class="n">T</span> <span class="n">x</span><span class="p">)</span>
+<span class="p">{</span>
+    <span class="c1">// implementation</span>
+<span class="p">}</span>
+</pre></div>
+<p>Without using <tt class="docutils literal">enable_if</tt>, think about the options the library implementors
+would have. One would be to overload the function for each of the known
+arithmetic type. That's very verbose. Another would be to just use an
+unrestricted template. But then, had we actually passed a wrong type into it,
+say <tt class="docutils literal"><span class="pre">std::string</span></tt>, we'd most likely get a fairly obscure error <em>at the point
+of use</em>. With <tt class="docutils literal">enable_if</tt>, we neither have to write boilerplate, nor to
+produce bad error messages. If we invoke <tt class="docutils literal"><span class="pre">std::signbit</span></tt> as defined above with
+a bad type we'll get a fairly helpful error saying that a suitable function
+cannot be found.</p>
+</div>
+<div class="section" id="a-more-advanced-version-of-enable-if">
+<h2>A more advanced version of enable_if</h2>
+<p>Admittedly, <tt class="docutils literal"><span class="pre">std::enable_if</span></tt> is clumsy, and even <tt class="docutils literal">enable_if_t</tt> doesn't help
+much, though it's a bit less verbose. You still have to mix it into the
+declaration of a function in a way that often obscures the return type or an
+argument type. This is why <a class="reference external" href="http://flamingdangerzone.com/cxx11/2012/06/01/almost-static-if.html">some</a>
+<a class="reference external" href="http://loungecpp.wikidot.com/tips-and-tricks:enable-if-for-c-11">sources</a>
+online suggest crafting more advanced versions that &quot;get out of the way&quot;.
+Personally, I think this is the wrong tradeoff to make.</p>
+<p><tt class="docutils literal"><span class="pre">std::enable_if</span></tt> is a rarely used construct. So making it less verbose doesn't
+buy us much. On the other hand, making it more mysterious is detrimental,
+because every time we see it we have to think about how it works. The
+implementation shown here is fairly simple, and I'd keep it this way. Finally
+I'll note that the C++ standard library uses the verbose, &quot;clumsy&quot; version of
+<tt class="docutils literal"><span class="pre">std::enable_if</span></tt> without defining more complex versions. I think that's the
+right decision.</p>
+<hr class="docutils" />
+<table class="docutils footnote" frame="void" id="id4" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id1">[1]</a></td><td>If we had an overload for <tt class="docutils literal">int</tt>, however, this is the one that would be
+picked, because in overload resolution non-templates are preferred over
+templates.</td></tr>
+</tbody>
+</table>
+<table class="docutils footnote" frame="void" id="id5" rules="none">
+<colgroup><col class="label" /><col /></colgroup>
+<tbody valign="top">
+<tr><td class="label"><a class="fn-backref" href="index.html#id3">[2]</a></td><td>Think of it as a mid-way between overloading and templates. C++ has
+another tool to implement something similar - runtime polymorphism.
+Type traits let us do that at compile time, without incurring any runtime
+cost.</td></tr>
+</tbody>
+</table>
+</div>
+
+                </div>
+            </article>
+            <!-- Don't emit the hr after the last article, since there's already
+                 one there from the footer -->
+    </div>
+</div>
+<footer>
+   <div class="container">
+      <hr>
+      <div class="row">
+         <div class="col-xs-10">
+            &copy; 2003-2014 Eli Bendersky
+         </div>
+         <div class="col-xs-2"><p class="pull-right"><i class="fa fa-arrow-up"></i> <a href="index.html#">Back to top</a></p></div>
+      </div>
+   </div>
+</footer>
+<script src="http://code.jquery.com/jquery-2.1.1.min.js"></script>
+
+<!-- Include all compiled plugins (below), or include individual files as needed -->
+<script src="theme/js/bootstrap.min.js"></script>
+
+<!-- Enable responsive features in IE8 with Respond.js (https://github.com/scottjehl/Respond) -->
+<script src="theme/js/respond.min.js"></script>
+
+<script type="text/javascript">
+
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+
+  ga('create', 'UA-54426790-1', 'auto');
+  ga('send', 'pageview');
+
+</script>
+</body>
+</html>
