@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="265px" height="194px" viewBox="0 0 265 194" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <title>Add-on name - Dont</title>
+    <description>Created with Sketch (http://www.bohemiancoding.com/sketch)</description>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.7 0" in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Left" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Add-on-name---Dont" sketch:type="MSArtboardGroup">
+            <g id="Don't" sketch:type="MSLayerGroup" transform="translate(5.000000, 5.000000)">
+                <g id="Main">
+                    <path d="M0,25.5 L0,0 L64,0 L64,23 L255,23 L255,184 L0,184 L0,25.5 Z" id="bg" stroke="#CCCCCC" fill="#FFFFFF" filter="url(#filter-1)" sketch:type="MSShapeGroup"></path>
+                    <text id="Manage-add-ons…" sketch:type="MSTextLayer" font-family="Arial" font-size="13" font-weight="normal" fill="#CCCCCC">
+                        <tspan x="16" y="166">Manage add-ons…</tspan>
+                    </text>
+                    <text id="Get-add-ons…" sketch:type="MSTextLayer" font-family="Arial" font-size="13" font-weight="normal" fill="#333333">
+                        <tspan x="16" y="139">Get add-ons…</tspan>
+                    </text>
+                    <rect id="-" fill="#EBEBEB" sketch:type="MSShapeGroup" x="1" y="114" width="253" height="1"></rect>
+                    <path d="M237,47 L237,41 L243,44 L237,47 Z" id="Triangle" fill="#999999" sketch:type="MSShapeGroup"></path>
+                    <path d="M237,74 L237,68 L243,71 L237,74 Z" id="Triangle" fill="#999999" sketch:type="MSShapeGroup"></path>
+                    <path d="M237,101 L237,95 L243,98 L237,101 Z" id="Triangle" fill="#999999" sketch:type="MSShapeGroup"></path>
+                    <text id="Kitty-care-tracker-(" sketch:type="MSTextLayer" font-family="Arial" font-size="13" font-weight="normal" line-spacing="13.5" fill="#333333">
+                        <tspan x="16" y="49">Kitty care tracker (5.2)</tspan>
+                        <tspan x="24.6391602" y="65.0761719"></tspan>
+                        <tspan x="16" y="76">The Best Stock Photo Gallery Ever</tspan>
+                        <tspan x="24.6391602" y="92.0761719"></tspan>
+                        <tspan x="16" y="103">MemeifyIt for Docs</tspan>
+                    </text>
+                    <text id="Add-ons" sketch:type="MSTextLayer" font-family="Arial" font-size="13" font-weight="normal" fill="#333333">
+                        <tspan x="8" y="18">Add-ons</tspan>
+                    </text>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

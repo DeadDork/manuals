@@ -1,0 +1,287 @@
+#sandbar {
+  background: #F1F1F1;
+  height: 77px;
+  overflow: hidden;
+}
+
+.gc-search .searchbox {
+  overflow: hidden;
+}
+
+#gc-topnav, #gc-appnav {
+  display: none;
+}
+
+#gc-appbar {
+  padding-top: 57px;
+}
+
+.page-title {
+  border-bottom: 0;
+  padding-bottom: 0;
+}
+
+#maps-topnav {
+  background: #444;
+  clear: both;
+  overflow: hidden;
+  position: absolute;
+  top: 77px;
+  left: 0;
+  right: 0;
+  z-index: 10000;
+}
+
+#maps-topnav-inner {
+  overflow: hidden;
+  clear: both;
+  padding: 0 44px;
+  height: 39px;
+  position: relative;
+  min-width: 600px;
+}
+
+#maps-devsite-nav {
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+
+#maps-topnav .global-home {
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+}
+
+#maps-topnav .global-home a {
+  color: #b2b2b2;
+  text-decoration: none;
+  font-weight: 300;
+  font-size: 14px;
+  line-height: 39px;
+  font-family: Arial, sans-serif !important;
+}
+
+#maps-topnav .active a {
+  font-weight: 700;
+  color: #fff;
+}
+
+#maps-topnav ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: inline-block;
+}
+
+#maps-topnav ul li {
+  display: inline-block;
+  line-height: 39px;
+  margin: 0;
+}
+
+#maps-topnav ul li a,
+#maps-topnav .nav-separator {
+  text-decoration: none;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 0 14px;
+  line-height: 39px;
+  font-family: Arial, sans-serif !important;
+}
+
+#maps-topnav .nav-separator {
+  color: #b2b2b2;
+  margin: 0;
+  padding: 0 4px;
+  position: relative;
+  top: -1px;
+}
+
+#maps-topnav ul li.active a {
+  font-weight: 700;
+}
+
+#maps-footer {
+  font-family: 'Open Sans';
+  background: url(../images/hero-bg.png) repeat-x;
+  padding: 44px 0;
+  background-position: 50% 50%;
+}
+
+#maps-footer #maps-footer-inner {
+  margin: 0 auto;
+  width: 1000px;
+  text-align: center;
+}
+
+#maps-footer-inner,
+#maps-footer-inner h3 {
+  color: #868686;
+  font-weight: 200;
+  font-size: 20px;
+}
+
+#maps-footer-inner h3 {
+  margin: 0;
+  padding: 0;
+}
+
+#maps-footer-inner a {
+  text-decoration: none;
+  color: #333;
+}
+
+#maps-footer .gc-hero-devices {
+  height: 418px;
+  position: relative;
+  margin: 0 auto;
+  width: 590px;
+}
+
+#maps-footer .gc-hero-devices div {
+  position: absolute;
+  background-position: 6px bottom;
+  background-repeat: no-repeat;
+  -moz-transition: all .3s;
+  -o-transition: all .3s;
+  -webkit-transition: all .3s;
+  transition: all .3s;
+  background-size: 100% auto;
+}
+
+#maps-footer .gc-device-chromebook {
+  left: 0;
+  bottom: 56px;
+  background-image: url(../images/hero-chromebook-shadow.png);
+}
+
+#maps-footer .gc-device-chromebook img {
+  margin-bottom: 4px;
+  width: 442px;
+  height: 267px;
+}
+
+#maps-footer .gc-device-ios {
+  left: 31px;
+  bottom: 0;
+  background-image: url(../images/hero-iphone-shadow.png);
+}
+
+#maps-footer .gc-device-ios img {
+  margin-bottom: 2px;
+  width: 87px;
+  height: 178px;
+}
+
+#maps-footer .gc-device-android {
+  right: 0;
+  bottom: 13px;
+  background-image: url(../images/hero-nexus10-shadow.png);
+}
+
+#maps-footer .gc-device-android img {
+  margin-bottom: 6px;
+  width: 307px;
+  height: 210px;
+}
+
+#maps-footer .gc-hero-devices div:hover {
+  padding-bottom: 20px;
+}
+
+@media only screen and (max-width: 1000px) {
+  #maps-footer #maps-footer-inner {
+    width: auto;
+  }
+
+  #maps-footer .gc-hero-devices {
+    width: auto;
+    overflow: hidden;
+  }
+
+  #maps-footer .gc-device-chromebook {
+    left: 50%;
+    margin-left: -221px;
+  }
+}
+
+
+@media only screen and (max-width: 850px) {
+  #maps-topnav ul li a {
+    padding: 0 6px;
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  #maps-devsite-nav {
+    display: none !important;
+  }
+}
+
+/* Use this to make text not selectable. */
+body .noselect {
+  -webkit-touch-callout: none;
+  -webkit-user-select: none;
+  -khtml-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+/* Redesign fixes (backwards-compatible) */
+.slim #sandbar {
+  height: 71px;
+}
+
+body.docs.slim #gc-appnav {
+  display: block;
+  margin-bottom: 60px;
+}
+
+.slim #maps-site h2::after,
+.slim #maps-devsite h2::after {
+  content: none;
+}
+
+.slim #maps-topnav {
+  top: 117px;
+}
+
+.slim #maps-topnav-inner {
+  height: 46px;
+  margin: auto;
+  width: 1100px;
+}
+
+.slim #maps-topnav .global-home {
+  display: none;
+}
+
+.slim #maps-topnav .nav-separator {
+  display: none;
+}
+
+.slim #maps-topnav ul {
+  padding-top: 2px;
+}
+
+.slim #maps-topnav ul li a,
+.slim #maps-topnav .nav-separator {
+  font-family: Roboto !important;
+  font-size: 12px;
+  font-weight: normal;
+  padding-left: 0;
+  padding-right: 22px;
+}
+
+.slim ul#maps-devsite-nav li a{
+  padding-left: 22px;
+  padding-right: 0;
+}
+
+.slim #maps-devsite-nav {
+  float: right;
+  position: relative;
+}

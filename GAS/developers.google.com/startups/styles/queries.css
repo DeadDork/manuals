@@ -1,0 +1,890 @@
+/* For interior template grid */
+
+@media only screen and (max-width : 1773px) {  /* 3 columns */
+	#articles {
+	    width: 1214px;
+	}
+
+}
+
+@media only screen and (max-width : 1373px) {  /* 2 columns */
+	#articles {
+	    width: 801px;
+	}
+}
+
+@media only screen and (max-width : 891px) {  /* 1 column  */
+	#articles {
+	    width: 362px;
+	}
+	
+	#articles article {
+		margin-right: 0;
+	}
+
+
+	#articles article.written-article-big {
+		width: 360px;
+	}
+
+	#articles article.written-article-big img {
+		display: none;
+	}
+
+
+	#hero .content #description {
+		width: 90%;
+	}
+
+
+}
+
+
+/* tablet (landscape) ----------- */
+@media only screen and (max-width : 1280px) {
+
+	#hero-home, #design-success, #distribute, #launch-startup {
+		padding-bottom: 100px;
+		height: auto;
+		min-height: 0;
+	}
+
+	#hero .content {
+	    margin: 80px auto 0 auto;
+	    padding: 0px 30px 0 30px;
+	    
+	    width: auto;
+	    z-index: 33;
+	}
+
+	#header nav {
+	    margin: 26px 25px 10px 0;
+	    padding: 0;
+	    float: right;
+	}
+
+	header#header  h1 a {
+	    margin: 16px 0 0 45px;
+	    padding: 0;
+	    float: left;
+	    width: 400px;
+	    height: 80px;
+	    font-size: 1.1em;
+	}
+
+	#develop-platform .content #description {
+		width: 100%;
+		font-size: 19px;
+	}
+
+
+	#develop-platform .content #description {
+		width: 500px;
+		font-size: 19px;
+	}
+
+	#launch-grow .content-inner {
+	    margin: 30px 0 0 90px;
+	}
+
+
+	#main-resources {
+	    margin: 40px auto 0 auto;
+	    padding: 0px;
+	    clear: both;
+	    width: auto;
+	    z-index: 33;
+	} 
+
+	#main-resources ul li {
+	    margin: 0px 20px 0 0;
+	    padding: 0px;
+	    width: 28%;
+	    float: left;
+	    z-index: 33;
+ 	} 
+
+	#main-resources ul li img {
+	    margin: 0px 20px 0 0;
+	    padding: 0px;
+	    width: 100%;
+	    float: left;
+	    z-index: 33;
+ 	} 
+
+ 	#feature {
+ 		padding: 0px 30px 0 30px;
+ 		width: auto;
+ 	}
+
+ 	#feature section {
+ 		width: auto;
+ 	}
+
+ 	footer#footer.interior p {
+ 		width: 60%;
+ 		line-height: 1.4;
+ 	}
+
+
+	 
+}
+
+
+
+@media only screen and (max-width : 1220px) {  
+	#join-wrap {
+		margin: 0px auto 0 auto;
+	    width: 100%;
+	    float: none;
+	}
+
+
+	#join-form {
+		margin: 100px auto 0 auto;
+	    width: 80%;
+	    float: none;
+	}
+
+	#join-copy {
+		margin: 0 auto;
+		float: none;
+	    width: 85%;
+	}
+
+	footer#footer.footer-join {
+		margin: 60px auto 0px auto;
+		padding: 10px 40px 40px 40px;
+		float: none;
+		overflow: hidden;
+	}
+
+	footer#footer .footer-join-inner {
+	    margin: 0px auto;
+	    padding: 0px;
+	    width: auto;
+	}
+
+	#partner-logos {
+		margin: 0px auto;
+	    padding: 0px;
+	    width: 510px;
+	}
+
+	
+	#partner-logos li {
+		margin: 18px 52px 0 0;		
+	}
+
+	#partner-logos li#fivestartups {
+	    margin: 18px 52px 0 0;
+	}
+
+
+	#partner-logos li#angelpad {
+	    margin: 60px 52px 0 0;
+	    clear: both;
+	}
+
+
+	#partner-logos li#ycomb {
+	    margin: 45px 0px 0 0;
+	}
+
+	#hero-home {
+		padding: 100px 0 100px 0px;
+	}
+
+	#hero-home .content {
+		margin: 0px auto 0 auto;
+		width: 892px;
+	}
+
+
+	#hero-home img {
+		float: right;
+		width: 256px;
+	}
+
+	#design-success .content {
+		width: 950px;
+	}
+
+	#design-success .content ul li {
+		width: 247px;
+	}
+
+	#develop-platform #front-end .content-inner {
+		padding: 0px 0 0 0px;
+	}
+
+	#distribute .content-inner {
+		width: 400px;
+	}
+
+	#distribute .content {
+		width: 825px;
+	}
+
+	#launch-startup .content {
+		width: auto;
+	}
+
+	#launch-startup .content h2 {
+		width: auto;
+	}
+
+	#launch-startup .join {
+		float: none;
+		width: auto;
+	}
+
+	#launch-startup .description {
+		width: 80%;
+	}
+}
+
+
+
+
+/* iPads (landscape) ----------- */
+@media only screen and (max-width : 1024px)  {
+	#design-success .content ul {
+		width: 586px;
+	}
+
+	#design-success .content ul li {
+		margin: 0px 20px 20px 0;
+		height: auto;
+	}
+
+	#design-success .content {
+		width: 631px;
+	}
+
+	#design-success .content .description {
+		width: 631px;
+	}
+
+	#design-success .content ul {
+		width: 322px;
+	}
+
+	#develop-platform {
+		height: auto;
+		background: #f1f1f1;
+	}
+
+	#develop-platform #front-end {
+		padding: 0 0 56px 0;
+		width: 100%;
+		min-height: 0;
+	}
+
+	#develop-platform #back-end {
+		padding: 0 0 56px 0;
+		width: 100%;
+		min-height: 0;
+		height: auto;
+	}
+
+	#develop-platform #back-end .content-inner {
+		margin: 73px auto 0 auto !important;
+	}
+
+	#develop-platform .join {
+		position: static;
+		top: auto;
+		bottom: auto;
+		left: auto;
+	}
+
+	#develop-platform #devices {
+		margin: 0 auto -12px auto;
+		padding: 0;
+		position: static;
+		top: auto;
+		bottom: auto;
+		left: auto;
+		clear: both;
+		width: 100%;
+		height: auto;
+		text-align: center;
+	}
+
+	#develop-platform #devices img {
+		width: 80%;
+
+	}
+
+	#distribute .content-inner {
+	    margin: 0px 0 0 0px;
+	    padding: 0px 0 0 0;
+	    width: 525px;
+	    z-index: 33;
+	    float: left;
+	    clear: both;
+	    text-align: left;
+	    color: #a9a9a9;
+	}
+
+	#distribute #graph-wrap {
+	    margin: 20px auto 0 auto;
+	    padding: 0px 0 0 0;
+	    float: left;
+	    width: 419px;
+	    z-index: 33;
+	    text-align: left;
+	    color: #a9a9a9;
+	}
+
+	#distribute .content {
+		width: 492px;
+	}
+
+}
+
+
+
+@media only screen and (max-width : 960px) {
+
+	#hero-home .content {
+		margin: 0px auto 0 auto;
+		padding: 0 0 0 20px;
+		width: 800px;
+	}
+
+
+	#hero-home img {
+		float: left;
+		width: 256px;
+	}
+
+}
+
+
+/* iPads (portrait) ----------- */
+@media only screen and (max-width : 768px) {
+	 	#header nav { 
+	   		display: none;
+		}	
+
+ 		#partner-network-inner {
+ 			width: 100%;
+ 		}
+
+}
+
+
+/* iPhone & Nexus (portrait) ----------- */
+@media only screen and (max-width : 640px) {
+	#hero {
+		height: 352px;
+	}
+
+	header#header  h1 a {
+    	margin: 12px 0 0 20px;
+    	height: 40px;
+	}
+
+	#main-resources ul li {
+	    margin: 0px 20px 0 0;
+	    padding: 0px;
+	    width: 100%;
+	    float: left;
+	    z-index: 33;
+ 	}
+
+
+	#hero .content #description {
+		/*width: auto;*/
+	}
+ 	
+	header#header {
+		height: 60px;
+	}
+ 
+
+	#header nav {
+	    margin: 0px 0px  0 0px;
+	    padding: 0;
+	    width: 100%;
+	    float: left;
+	    clear: both;
+		display: none;
+	}
+
+	#header nav ul {
+	    margin: 0 0px 0 0;
+	    padding: 0;
+	    clear: both;
+	    list-style: none;
+	}
+
+	#header nav ul li {
+	    margin: 0;
+	    padding: 10px 0px 10px 20px;
+	    border: 1px solid #ccc;
+	    border-width: 1px 0 0 0;
+	    background: #fff;
+	    width: 100%;
+	    color: #00afea;
+	    text-align: left;
+	    line-height: 1;
+	    display: block;
+	    float: left;
+	    clear: both;
+	}
+
+	#menu-icon {
+		/*display: block; */
+	}
+
+
+	#hero .content h2 {
+		font-size: 36px;
+	}
+
+	#hero .content #description {
+		font-size: 24px;
+	}
+
+
+	footer#footer.interior {
+		padding: 40px 0 50px 40px;
+	}
+
+	footer#footer .arrow-right {
+		right: 40px;
+	}
+
+
+	#join-header {
+		margin: 59px auto 0 auto;
+	}
+
+	#join-header h2 {
+		margin: 0px auto 0 auto;
+		padding: 0px;
+		font-size: 36px;
+		font-weight: 300;
+	}	
+
+	#partner-network {
+		width: 100%;
+	}
+
+
+	#partner-network-inner {
+		width: 100%;
+	}
+	.ss-form-entry input {
+		width: 87%;
+	}
+
+	#hero-home {
+		padding: 50px 0 50px 0px !important;
+	}
+
+	#hero-home .content img {
+		margin: 52px auto 0 auto;
+		float: none;
+		width: 170px;
+		text-align: center;
+	}
+
+	#hero-home .hero-copy {
+		clear: both;
+		width: 100%;
+		text-align: center;
+	}
+
+	#hero-home .content {
+		width: 90%;
+		text-align: center;
+	}
+
+	#hero-home .content h2 {
+		font-size: 29px;
+		float: none;
+	}
+
+	#hero-home .content .description {
+		padding: 0px 40px 0 0;
+		width: auto;
+		font-size: 19px;
+	}
+
+	#hero-home .content .description {
+		width: 100%;
+	}
+
+	#hero-home .content ul {
+		width: 93%;
+		text-align: left;
+	}
+
+	#hero-home .content ul li {
+		width: auto;
+		font-size: 17px;
+	}
+
+	#hero-home .content .join {
+		padding: 35px 0 0 0;
+		width: auto;
+		float: none;
+	}
+
+	#design-success {
+		padding: 0 0 70px 0 !important;
+		width: 100%;
+	}
+
+	#design-success .content {
+		margin: 20px auto 0 auto;
+		width: 100%;
+		height: auto;
+		float: left;
+		text-align: center;
+	}
+
+	#design-success .content h2 {
+		float: none;
+	}
+
+	#design-success .content .description {
+		margin: 50px auto 0 auto;
+		width: 100%;
+		text-align: center;
+	}
+
+	#design-success .content ul {
+		margin: 20px auto 0 auto;
+		padding: 20px;
+		text-align: left;
+		float: none;
+	}
+
+	#design-success img {
+		margin: 0 auto;
+		float: none;
+		width: 45%;
+	}
+
+	#design-success .content .join {
+		float: none;
+	}
+
+
+	#design-success .content {
+		padding: 0px;
+	}
+
+	footer#footer .footer-join-inner {
+	    margin: 0px auto;
+	    padding: 20px;
+	    width: auto;
+	}
+
+	#develop-platform #front-end {
+		width: 100%;
+		text-align: center;
+	}
+
+
+	#develop-platform #front-end, #develop-platform #back-end {
+		padding-bottom: 56px !important;
+	}
+
+	#develop-platform #front-end .content-inner, #develop-platform #back-end .content-inner {
+		margin: 47px auto 0 auto !important;
+		text-align: center;
+		width: auto;
+	}
+
+	#develop-platform #front-end h2, #develop-platform #back-end h2 {
+		text-align: center;
+	}
+
+	#develop-platform #front-end h3, #develop-platform #back-end h3 {
+		text-align: center;
+	}
+
+	#develop-platform #front-end .description p, #develop-platform #back-end .description p {
+		margin: 20px 0 0 20px;
+		padding: 0px;
+		text-align: left;
+		width: 100%;
+	}
+
+	#develop-platform #front-end .description p span, #develop-platform #back-end .description p span {
+		margin: 0px 0 0 70px;
+		width: 67%;
+	}
+
+	#develop-platform #devices {
+		width: 80%;
+	}
+
+	#develop-platform #front-end .content-inner, #develop-platform #back-end .content-inner  {
+
+	}
+
+
+	#distribute {
+		padding: 60px 0 60px 0 !important;
+		width: auto;
+		text-align: center;
+	}
+
+	#distribute .content {
+		width: auto;
+	}
+
+	#distribute .content h2 {
+		width: auto;
+		text-align: center;
+		float: none;
+	}
+
+	#distribute .content-inner {
+		width: 100%;
+	}
+
+	#distribute .content ul {
+		margin: 10px auto 0 auto;
+		padding: 20px;
+		width: 322px;
+		float: none;
+ 	}
+
+	#distribute .content ul li {
+		width: 247px;
+	}
+
+	#distribute .content ul li span {
+		width: 222px;
+	}
+
+	#distribute .content .description {
+		margin: 15px auto 0 auto;
+		width: 100%;
+	}
+
+	#distribute #graph-wrap {
+		margin: 50px auto 0 auto;
+		width: 100%;
+		height: auto;
+		text-align: center;
+	}
+
+
+	#distribute #graph {
+		width: 100%;
+		height: auto;
+		text-align: center;
+	}
+
+
+	#distribute img {
+		float: none;
+		width: 80%;
+	}
+
+
+	#distribute .content .join {
+		float: none;
+		text-align: center;
+	}
+
+
+	#launch-startup .content {
+		padding: 58px 0 0 0;
+	}
+
+	#launch-startup .content h2 {
+		padding: 0px 20px 0 20px;
+	}
+
+
+
+
+}
+
+
+
+/*iphone portrait */
+@media only screen and (max-width: 568px)   {
+	#header nav {
+
+	}
+
+	#articles, #articles article {
+	    width: 320px !important;
+	}
+
+
+	#articles article  .feature-content { 
+	    width: 320px;
+	}
+
+	#articles article.video-tip img {
+		margin: 0 0 0 -160px; 
+	   	position: relative;
+	   	left: 50%;
+	    width: 320px;
+	}
+
+	footer#footer.interior p {
+		width: 77%;
+	}
+
+	#hero  {
+		margin: 59px auto 0 auto;
+		padding: 0px 0px 0 0px;
+	}
+
+	#hero .content {
+		margin: 54px auto 0 auto;
+		padding: 0px 5px 0 5px;
+	}
+
+	#hero .content #description {
+		font-size: 19px;
+	}
+
+	#hero nav {
+		margin: 0 0 0 -102px;
+		width: 205px;
+	}
+
+	#hero nav ul li {
+		margin: 0 5px 0 0;
+	}
+
+	footer#footer .arrow-right {
+		top: 47px;
+	}
+
+
+	#join-wrap h3 {
+		font-size: 24px;
+	}
+
+	#join-form {
+		margin: 100px auto 0 auto;
+		padding: 20px 20px 20px 20px;
+		width: auto;
+
+	}
+
+	#join-form h4 {
+		font-size: 24px;
+	}
+
+	.ss-form-entry input {
+		font: 300 14px 'Roboto', sans-serif !important;
+	}
+
+	#partner-logos img {
+		width: 70%;
+	}
+
+	#partner-logos li {
+		margin: 18px 12px 0 0;		
+	}
+
+	#partner-logos li#fivestartups {
+	    margin: 18px 12px 0 0;
+	    clear: both;
+	}
+
+
+	#partner-logos li#angelpad {
+	    margin: 40px 12px 0 0;
+	    clear: none;
+	}
+
+
+	#partner-logos li#ycomb {
+	    margin: 45px 0px 0 0;
+	    clear: both;
+	}
+
+
+
+}
+ 
+@media only screen and (max-device-width: 1280px)  and (orientation: landscape) {
+	 
+    
+}
+
+
+
+@media only screen and (max-height: 1040px)   {
+
+
+	#develop-platform #front-end .content-inner {
+		margin: 35px auto 0 auto;
+	}
+
+	#develop-platform #back-end .content-inner {
+		margin: 133px auto 0 auto;
+	}
+
+	#devices {
+		margin: 0 0 0 -200px;
+ 		width: 100%;
+		bottom: -16px;
+
+	}
+
+	#devices img {
+		text-align: center;
+ 		width: 400px;
+		bottom: -16px;
+	}
+
+}
+
+
+
+
+
+
+@media only screen and (max-height: 860px)   {
+	#hero-home .content {
+		margin: -30px auto 0 auto;
+	}
+
+	#hero-home, #design-success, #distribute, #launch-startup {
+		padding-bottom: 100px;
+		height: auto;
+		min-height: 0;
+	}
+
+	#develop-platform {
+		height: auto;
+	}
+
+	#develop-platform #front-end, #develop-platform #back-end {
+		padding-bottom: 200px;
+	}
+
+	#develop-platform .join {
+		position: static;
+		clear: both;
+	}
+
+}
+
+@media only screen and (max-device-width: 1024px) and (max-height: 860px)   {
+	 #hero-home {
+		padding-top: 100px !important;
+	}
+
+}
+
+
+

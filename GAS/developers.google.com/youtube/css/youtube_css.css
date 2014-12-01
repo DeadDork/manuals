@@ -1,0 +1,120 @@
+.noborder {border:0}
+.valignTop {vertical-align:top}
+.valignMiddle {vertical-align:middle}
+.noLeftPad {padding-left:0px}
+.noRightPad {padding-right:0px}
+.noTopMargin {margin-top:0px}
+
+a.plain {
+  color:#333;
+  text-decoration:none;
+}
+
+dt code {
+  font-weight:bold;
+}
+
+#caution-table {
+  border:solid 1px #999;
+}
+
+#caution-table td {
+  padding:4px 10px 4px 4px;
+  background-color:#EFEFEF;
+  border:0;
+}
+
+.caution-table {
+  border:solid 1px #999;
+}
+
+.caution-table td {
+  padding:4px 10px 4px 4px;
+  background-color:#EFEFEF;
+  border:0;
+}
+.supported-players {
+  color: #777;
+  padding-left: 6px;
+  width: 100%;
+}
+
+#player-demo-table {
+  border:0;
+  vertical-align:top;
+}
+#embedded-player-demo {
+  border:0;
+  vertical-align:top;
+}
+div.embedded-video {
+  border-left: dotted 1px #555;
+  float: right;
+  margin-bottom: 20px;
+  margin-left: 20px;
+  padding: 0px 0px 12px 12px;
+}
+div.embedded-video p {
+  font-weight: bold;
+  text-align: center;
+}
+span.hidden-bold {
+  color: #fff;
+  font-weight: bold;
+}
+span.player-option-status {
+  color: #777;
+  font-weight: bold;
+}
+span.player-support {
+  color: #777;
+  font-weight: normal;
+}
+span.player-demo-group {
+  color: #222;
+  font-size: 120%;
+  position: fixed;
+}
+span.player-demo-group-subheading {
+  color: #222;
+  font-size: 110%;
+  padding-bottom: 10px;
+}
+.player-demo-group-options {
+  padding-left: 100px;
+  padding-bottom: 22px;
+}
+td.supported-method {
+  color: green;
+  font-weight: bold;
+  text-align: center;
+}
+td.unsupported-method {
+  color: red;
+  font-weight: bold;
+  text-align: center;
+}
+.matchpre td.error-name {
+  width: 20%;
+}
+.matchpre td.error-reason {
+  width: 20%;
+}
+.matchpre td.error-cause {
+  width: 60%;
+}
+.ui-datasection-main {
+  border: 0;
+}
+.ui-datasection-main .selector {
+  text-align: left;
+  padding: 0 0 15px 0;
+}
+body.docs table.borderless, body.docs table.borderless td {
+  border: 0;
+  padding-top: 0;
+}
+p.marginless-header {
+  font-size: 125%;
+  font-weight: bold;
+}

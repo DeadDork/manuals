@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<svg width="367px" height="178px" viewBox="0 0 367 178" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" xmlns:sketch="http://www.bohemiancoding.com/sketch/ns">
+    <title>Menu items - Do</title>
+    <description>Created with Sketch (http://www.bohemiancoding.com/sketch)</description>
+    <defs>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-1">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.7 0" in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+        <filter x="-50%" y="-50%" width="200%" height="200%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.7 0" in="shadowBlurOuter1" type="matrix" result="shadowMatrixOuter1"></feColorMatrix>
+            <feMerge>
+                <feMergeNode in="shadowMatrixOuter1"></feMergeNode>
+                <feMergeNode in="SourceGraphic"></feMergeNode>
+            </feMerge>
+        </filter>
+    </defs>
+    <g id="Left" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd" sketch:type="MSPage">
+        <g id="Menu-items---Do" sketch:type="MSArtboardGroup">
+            <g id="Do" sketch:type="MSLayerGroup" transform="translate(6.000000, 5.000000)">
+                <g id="Main">
+                    <path d="M0,25.5 L0,0 L60,0 L60,23 L194,23 L194,128 L0,128 L0,25.5 Z" id="bg" stroke="#CCCCCC" fill="#FFFFFF" filter="url(#filter-1)" sketch:type="MSShapeGroup"></path>
+                    <text id="Manage-add-ons…" sketch:type="MSTextLayer" font-family="Arial" font-size="13" font-weight="normal" fill="#CCCCCC">
+                        <tspan x="16" y="116">Manage add-ons…</tspan>
+                    </text>
+                    <text id="Get-add-ons…" sketch:type="MSTextLayer" font-family="Arial" font-size="13" font-weight="normal" fill="#333333">
+                        <tspan x="16" y="89">Get add-ons…</tspan>
+                    </text>
+                    <rect id="-" fill="#EBEBEB" sketch:type="MSShapeGroup" x="1" y="64" width="192" height="1"></rect>
+                    <path d="M175,48 L175,42 L181,45 L175,48 Z" id="Triangle" fill="#999999" sketch:type="MSShapeGroup"></path>
+                    <g id="highlight" transform="translate(1.000000, 31.000000)" sketch:type="MSShapeGroup">
+                        <rect fill="#EEEEEE" x="0" y="0" width="192" height="27"></rect>
+                        <path d="M173,17 L173,11 L179,14 L173,17 Z" id="Triangle" fill="#333333"></path>
+                    </g>
+                    <text id="Charts" sketch:type="MSTextLayer" font-family="Arial" font-size="13" font-weight="normal" fill="#333333">
+                        <tspan x="16" y="49">Charts</tspan>
+                    </text>
+                    <text id="Add-ons" sketch:type="MSTextLayer" font-family="Arial" font-size="13" font-weight="normal" fill="#333333">
+                        <tspan x="7" y="17">Add-ons</tspan>
+                    </text>
+                </g>
+                <g id="Slideout" transform="translate(194.000000, 32.000000)">
+                    <rect id="bg" stroke="#CCCCCC" fill="#FFFFFF" filter="url(#filter-2)" sketch:type="MSShapeGroup" x="0" y="0" width="162" height="136"></rect>
+                    <rect id="-" fill="#EBEBEB" sketch:type="MSShapeGroup" x="1" y="102" width="160" height="1"></rect>
+                    <rect id="highlight" fill="#EEEEEE" sketch:type="MSShapeGroup" x="1" y="6" width="160" height="27"></rect>
+                    <text id="Create-chart" sketch:type="MSTextLayer" font-family="Arial" font-size="13" font-weight="normal" fill="#333333">
+                        <tspan x="21" y="24">Create chart</tspan>
+                    </text>
+                </g>
+                <text id="Pick-style" sketch:type="MSTextLayer" font-family="Arial" font-size="13" font-weight="normal" fill="#333333">
+                    <tspan x="215" y="88">Pick style</tspan>
+                </text>
+                <text id="Adjust-values" sketch:type="MSTextLayer" font-family="Arial" font-size="13" font-weight="normal" fill="#313131">
+                    <tspan x="215" y="120">Adjust values</tspan>
+                </text>
+                <text id="Help" sketch:type="MSTextLayer" font-family="Arial" font-size="13" font-weight="normal" fill="#333333">
+                    <tspan x="215" y="157">Help</tspan>
+                </text>
+            </g>
+        </g>
+    </g>
+</svg>

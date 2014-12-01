@@ -1,0 +1,477 @@
+/*
+ * Hide the Devsite "product" area
+ */
+#gc-appbar { display: none;}
+
+/* Set the Font family for all headings to use Open San */
+#page-body h1, #page-body h2, #page-body h3, #page-body h4,
+#page-body h5, #page-body h6, .subtitle {
+  font-family: 'Open Sans', sans-serif;
+}
+
+#page-body h2 { font-weight: 300; border: none !important; text-align: center; }
+#nav-links h2 { text-align: left; }
+#page-body h3 { font-weight: 300; font-size: 150%;}
+
+#page-body.platform {
+  text-align: left;
+}
+#page-body.platform h2 {
+  text-align: left;
+  padding-bottom: 0.4em;
+  line-height: 120%;
+}
+#page-body .platforms-tasks h2 {
+  margin-top: 10px;
+}
+
+.row {
+  clear: both;
+  margin-top: 2em;
+}
+
+.left  { width: 47%; float: left;}
+.right { width: 47%; float: right;}
+/* Alternate half display approach when floating isn't desired */
+.block { width: 47%; display: inline-block; vertical-align: top; }
+.block:first-of-type { padding-right: 20px; border: 1px solid transparent;}
+.block:last-of-type { padding-left: 20px; border-left: 1px solid #ccc;}
+
+.inline { display: inline;}
+.inline li { display: inline-block;}
+
+.grey {
+  background-color: #fafafa;
+  border-top: 3px solid #EFEFEF;
+  border-bottom: 3px solid #EFEFEF;
+  overflow: auto; /* Ensures bg color isn't hidden behind the floats */
+}
+
+.white { background-color: #fff; }
+
+.arrow-up, .arrow-down { width: 0; height: 0;}
+.arrow-up {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  border-bottom: 5px solid #6388f9;
+}
+.arrow-down {
+  border-left: 5px solid transparent;
+  border-right: 5px solid transparent;
+
+  border-top: 5px solid black;
+}
+
+h2 .arrow-down { display: inline-block; vertical-align: middle; }
+
+/*
+ * The design for the primary and second headings at the top of the page
+ */
+header.intro { text-align: center; margin-top: 3em; margin-bottom: 3em;}
+header.intro .title { font-weight: 300; font-size: 2.5em; }
+header.intro .subtitle { font-size: 120%; color: #999;}
+
+#overview { position: relative; height: 680px; border-top: 0;}
+#nav-links { width: 50%; margin-left: 50%;}
+/* #nav-links {position: absolute; left-50%; width: 50%; } */
+#nav-links h2 { font-size: 1em; font-weight: 600; color: #333; }
+#overview .hero-image { position: absolute; right: 50%; margin-top: 1.5em; }
+#sample-button { background: #fafafa; text-align: center; border-top: 3px solid #EFEFEF;}
+#sample-button a {  margin-top: -2em;}
+
+#case-studies-chooser { position: absolute; bottom: 2em; height: 100px; }
+#case-studies-chooser h2, #case-studies-chooser img { display: inline-block;}
+#case-studies-chooser h2 { margin-right: 2em; color: #8e8e8e; font-size: 1.4em; }
+
+.casestudy-link {
+  position: relative;
+  display: block;
+  margin: 10px 0 0 16px;
+  text-decoration: none;
+  padding-left: 4px;
+}
+.casestudy-link:before {
+  content:'';
+  position: absolute;
+  left: -16px;
+  top: 1px;
+  width: 16px;
+  height: 16px;
+  background-image: url('../images/home-icon-casestudy.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: contain;
+}
+
+
+#nav-links a {
+  color: #3971ff;
+  text-decoration: none;
+  font-size: 1.4em;
+  font-weight:
+}
+
+/* Set the spacing and borders for the right-side link blocks */
+#platform-links, #quickstart-links {
+  border-bottom: 1px solid #ccc;
+  padding-bottom: 2em;
+}
+
+/* Links and sprites for the three platforms */
+#platform-links .android-link a,
+#platform-links .ios-link a,
+#platform-links  .web-link a{
+  position: relative;
+  height: 42px;
+}
+
+/*
+ * Insert the sprites before the text to size and clip them
+ * to the correct size.
+ */
+#platform-links .android-link a,
+#platform-links .ios-link a,
+#platform-links  .web-link a {
+  background-repeat: no-repeat;
+  padding: 9px 20px 20px 42px;
+
+  }
+#platform-links .android-link a{
+  background-image: url('../images/icon-android-grey-2x.png');
+}
+#platform-links .ios-link a{
+  background-image: url('../images/icon-ios-grey-2x.png');
+}
+#platform-links .web-link a{
+  background-image: url('../images/icon-web-grey-2x.png');
+}
+
+#quickstart-links ul {
+  padding:  0; margin: 0;
+}
+
+#quickstart-links li {
+  position: relative;
+  width: 44px;
+  height: 44px;
+}
+
+#quickstart-links li a {
+  position: absolute;
+  width: 44px;
+  height: 44px;
+}
+
+/* Hide the link text when not hovered */
+#quickstart-links li span {
+  display: none;
+  z-index: 2;
+  position: absolute;
+  top: 52px;
+  font-size: 0.9em;
+  color: #000;
+}
+
+/* Show the tooltip bubble and text when hovered */
+#quickstart-links li:hover span {
+  display: inline;
+  left: -53%;
+  min-width: 70px;
+  padding: 6px;
+  text-align: center;
+  top: 50px;
+  background: #fff;
+  border: 1px solid rgba(99, 136, 249, 0.3); /* Match the RGBA in the sprite */
+  border-radius: 8px;
+  bottom: -40px;
+}
+
+/* Add triangle pointer to the tooltip */
+#quickstart-links li:hover span:before {
+  display: block;
+  content: '';
+  width: 0;
+  height: 0;
+  border-left: 7px solid transparent;
+  border-right: 7px solid transparent;
+  border-bottom: 7px solid rgba(99, 136, 249, 0.3);
+  position: absolute;
+  top: -8px;
+  left: 45%;
+}
+
+/* Hide the tooltip bubble when it would be hovered over */
+#quickstart-links li span:hover {
+  display: none;
+}
+
+#quickstart-links li {
+  background-image: url('../images/home-lang-sprite.png');
+  background-repeat: no-repeat;
+  vertical-align: top;
+  margin: 0 30px 12px 0;
+}
+
+#quickstart-links li.android-link { background-position: -8px -3px;}
+#quickstart-links li.android-link:hover { background-position: -8px -53px;}
+#quickstart-links li.ios-link { background-position: -56px -3px;}
+#quickstart-links li.ios-link:hover { background-position: -56px -53px;}
+#quickstart-links li.java-link { background-position: -104px -3px;}
+#quickstart-links li.java-link:hover { background-position: -104px -53px;}
+#quickstart-links li.csharp-link { background-position: -151px -3px;}
+#quickstart-links li.csharp-link:hover { background-position: -151px -53px;}
+#quickstart-links li.python-link { background-position: -199px -3px;}
+#quickstart-links li.python-link:hover { background-position: -199px -53px;}
+#quickstart-links li.php-link { background-position: -246px -3px;}
+#quickstart-links li.php-link:hover { background-position: -246px -53px;}
+#quickstart-links li.javascript-link { background-position: -294px -3px;}
+#quickstart-links li.javascript-link:hover { background-position: -294px -53px;}
+#quickstart-links li.ruby-link { background-position: -342px -3px;}
+#quickstart-links li.ruby-link:hover { background-position: -342px -53px;}
+#quickstart-links li.go-link { background-position: -389px -3px;}
+#quickstart-links li.go-link:hover { background-position: -389px -53px;}
+
+/* ---------------- */
+
+#success-stories .img {
+  float: left;
+  margin-top: -21px;
+}
+#success-stories .text {
+  background: #fff;
+  border: 1px solid #eaeaea;
+  padding: 10px 10px 0;
+  margin-left: 233px;
+  margin-top: -21px;
+  height: 175px;
+  font-size: 1.1em;
+  text-align: center;
+}
+#success-stories .text span { display: block; }
+#success-stories .learnmore { font-size: 1.1em; }
+#success-stories a { color: inherit; font-size: 0.87em;} /* Inherit colors from page default */
+#success-stories a.learnmore { color: #6388f9; }
+
+#feature-summary { position: relative; }
+#feature-summary .carousel-arrows {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+}
+#carousel-prev, #carousel-next {
+  background-image: url('../images/arrows-sprite.png');
+  background-repeat: no-repeat;
+  background-position: center;
+  width: 62px;
+  height: 110px;
+  position: absolute;
+  top: 50%;
+  cursor: pointer;
+}
+
+#carousel-prev { background-position: left; left: 2em;}
+#carousel-next { background-position: right; right: 2em;}
+
+
+.carousel {
+  -webkit-box-shadow: none;
+  box-shadow: none;
+}
+.carousel>.frame {
+}
+
+/* Replace the default outline with a lighter one if user clicks on carousel frame */
+.carousel>.frame:focus {
+  outline: 0;
+  border: gray dotted thin;
+}
+
+.carousel .summary {
+  position: absolute;
+  width: 270px;
+  top: 15%;
+  right: 2em;
+}
+#feature-summary .text h3 {
+  font-size: 1.8em;
+  font-weight: 300;
+  margin-bottom: 0.5em;
+}
+#auth-summary {
+  top:-5%;
+}
+
+.carousel-nav {
+  height: 172px;
+  overflow: hidden;
+}
+
+.carousel-nav li {
+  background-image: url('../features/images/feature-nav-sprite.png');
+  background-repeat: no-repeat;
+  background-position: top left;
+  width: 120px;
+  height: 80px;
+  border: 0;
+  margin: 1em 15px 1em;
+  text-align: center;
+  position: relative;
+  padding-bottom: 35px;
+}
+
+.carousel-nav li span {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 40px;
+}
+.carousel-nav li:hover span, .carousel-nav li.active span {
+  color: #6388f9;
+}
+
+.carousel-nav>*.active span {
+  font-weight: bold;
+}
+
+#carousel-appact{ background-position: 50% 3px; }
+#carousel-appact:hover, #carousel-appact.active { background-position: 50% -145px; }
+#carousel-auth { background-position: 50% -292px; }
+#carousel-auth:hover, #carousel-auth.active { background-position: 50% -440px; }
+#carousel-iposts{ background-position: 50% -588px; }
+#carousel-iposts:hover, #carousel-iposts.active{ background-position: 50% -736px; }
+#carousel-ota{ background-position: 50% -882px; }
+#carousel-ota:hover, #carousel-ota.active { background-position: 50% -1030px; }
+#carousel-socialgraph{ background-position: 50% -1177px; }
+#carousel-socialgraph:hover, #carousel-socialgraph.active { background-position: 50% -1325px; }
+
+.carousel .actions { margin: 2em 0; }
+/* Align with the learn more button text */
+.carousel .actions ul.platformslist { margin-top: 0.5em; }
+
+
+/* Set the whitespace around the other plugins and footer sections */
+#other-features h2 {margin-bottom: 2em; }
+#footer { margin: 4em 0 2em; text-align: center;}
+#footer h2 { font-size: 2em; font-weight: 100;}
+#footer .larger { font-size: 1.7em; font-weight: 100; }
+#footer ul { padding: 0; margin: 0;}
+#footer li { padding: 0 5px; }
+#footer li { border-right: 1px solid #ccc;}
+#footer li:last-child { border-right: 0; }
+
+/* Web Platform plugins break-out section
+*/
+.newstyle  {
+  bordwer-top: none;
+  border-bottom: none;
+  height: 325px;
+  margin-top: -1px;
+}
+
+.plugins-title  {
+  padding: 1em;
+}
+
+#gc-content .hero {
+  background: #fff;
+  padding: 16px 0 0 0;
+  width: 925px;
+
+}
+
+.plugins-section {
+  width: 935px;
+}
+
+.plugins-container {
+  width: 900px;
+  margin: 0;
+  padding: 0;
+  min-height: 250px;
+}
+
+.plugins-col-dotted {
+  float: left;
+  width: 235px;
+  margin: 0;
+  padding: 0px 30px;
+}
+
+.plugins-col-dotted.one {
+  border-right: 2px dotted #ddd;
+}
+
+.plugins-col-dotted.two {
+  border-right: 2px dotted #ddd;
+}
+
+/* Position the images and text in the other plugins section */
+.other-features-image { height: 320px; position: relative; }
+.other-features-image img, .other-features-image iframe {
+  position: absolute;
+  bottom: 0;
+}
+.other-features-image iframe { margin-bottom: 2em; }
+
+.platforms-content {
+  background-color: #f8f8f8;
+}
+.platforms-content, .platform header.intro {
+  width: 896px;
+}
+.platforms-content .overview {
+  position: relative;
+  width: 876px;
+  height: 370px;
+}
+
+.platforms_intro {
+  width: 286px;
+  position: relative;
+  z-index: 2;
+  margin-left: 25px;
+}
+
+.platforms-content img.hero-image {
+  position: absolute;
+  bottom: 0;
+  left: 185px; /* Want a little overlap at the bottom, need z-index too */
+  z-index: 1;
+}
+
+.platforms-content img.hero-image.android, .platforms-content img.hero-image.ios {
+  left: 340px; /* Override the setting for the Android and iOS images */
+}
+
+.platforms-tasks {
+  margin-top: 4em;
+}
+
+.block3 {
+  width: 270px;
+  display: inline-block;
+  vertical-align: top;
+  text-align: left;
+}
+.block3 img { width: 270px; }
+.block3:first-child { margin-right: 35px; }
+.block3:last-child { margin-left: 35px; }
+
+.buttons-list a { display: block; width: 140px; margin: 1em;}
+
+/* Redesign fixes (backwards-compatible) */
+
+body.docs.slim h2::after {
+  content: none;
+}
+
+.slim #feature-summary .text h3 {
+  font-size: 21px;
+}
+
+.slim div.items {
+  margin-top: 20px;
+}
+

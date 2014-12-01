@@ -1,0 +1,195 @@
+@import url(https://fonts.googleapis.com/css?family=Open+Sans:700,400,300);
+
+/* GENERAL */
+
+#gc-appbar,
+#gc-main {
+  color: #333;
+  font-family: 'Open Sans', sans-serif;
+}
+
+.center {
+  text-align: center;
+}
+
+.left {
+  text-align: left;
+}
+
+.right {
+  text-align: right;
+}
+
+td.right {
+  float: initial !important;
+}
+
+.float-left {
+   float: left;
+   margin-right: 15px;
+   margin-bottom: 15px;
+}
+
+.float-right {
+   float: right;
+   margin-left: 15px;
+   margin-bottom: 15px;
+}
+
+.right-float {
+   float: right;
+}
+
+.dont {
+  color: #db4b39;
+  font-size: 120%;
+  font-weight: bold;
+  line-height: 1px;
+  margin-right: 5px;
+}
+
+.do {
+  color: #0f9d58;
+  font-size: 120%;
+  font-weight: bold;
+  line-height: 1px;
+  margin-right: 5px;
+}
+
+.header-dont .dont,
+.header-do .do {
+  color: #fff;
+}
+
+/* TABLES */
+
+table.equals-cols {
+  table-layout: fixed;
+}
+
+#gc-content table.invisible-table,
+#gc-content .invisible-table tr,
+#gc-content .invisible-table th,
+#gc-content .invisible-table td {
+  border: 0;
+  background: #fff;
+  color: #333;
+  padding-left: 0;
+}
+
+#gc-content th.header-dont {
+  background: #db4b39;
+  border: 1px solid #db4b39;
+  border-right: 1px solid #fff;
+  color: #fff;
+}
+
+#gc-content th.header-do {
+  background: #0f9d58;
+  border: 1px solid #0f9d58;
+  border-left: 1px solid #fff;
+  color: #fff;
+}
+
+td.gray,
+td.grey {
+  background-color: #999;
+  border: 1px solid #bbb;
+  color: #fff;
+  font-weight: bold;
+}
+
+#gc-content td.no-padding {
+  padding: 0;
+}
+
+td.code-table {
+  background-color: #fafafa;
+  padding: 0 !important;
+}
+
+.code-table pre {
+  border: 0 !important;
+  margin: 0;
+}
+
+#gc-content td.hanging-indent {
+  padding-left: 34px;
+  text-indent: -24px;
+}
+
+#gc-content td.hanging-indent code {
+  display: block;
+}
+
+body.docs th a,
+body.docs th a:hover,
+body.docs th a:visited {
+  color: #fff;
+}
+
+/* WIDTHS */
+
+.ten {
+  width: 10%;
+}
+
+.twenty {
+  width: 20%;
+}
+
+.thirty {
+  width: 30%;
+}
+
+.forty {
+  width: 40%;
+}
+
+.fifty {
+  width: 50%;
+}
+
+.sixty {
+  width: 60%;
+}
+
+.seventy {
+  width: 70%;
+}
+
+.eighty {
+  width: 80%;
+}
+
+.ninety {
+  width: 90%;
+}
+
+.one-hundred {
+  width: 100%;
+}
+
+.twenty-five {
+  width: 25%;
+}
+
+.seventy-five {
+  width: 75%;
+}
+
+.thirty-three {
+  width: 33%;
+}
+
+.sixty-seven {
+  width: 67%;
+}
+
+/* Redesign fixes */
+
+.slim #gc-appbar,
+.slim #gc-main {
+  color: #222;
+  font-family: Roboto;
+}

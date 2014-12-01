@@ -1,0 +1,61 @@
+/* Override the generated inline TOC style for .md (and .html) files
+ *
+ * Can reference the file directly:
+ *   <link rel="stylesheet" type="text/css" href="/+/css/inline-toc.css" />
+ *
+ * Or import into your stylesheets:
+ *   @import url('/+/css/inline-toc.css');
+ */
+#gc-content ol.toc,
+#gc-content ul.toc {
+list-style-type: none;
+}
+
+nav.inline-toc {
+  float: right;
+  width: 300px;
+  background: #F1F1F1;
+  padding-top: 9px;
+  padding-bottom: 12px;
+  padding-left: 6px;
+  border: 1px solid rgba(0, 0, 0, 0.1);
+  margin-left: 0.8em;
+  margin-bottom: 0.5em;
+  overflow: auto;
+}
+nav.inline-toc ol.toc,
+nav.inline-toc ul.toc {
+  margin-top: 0px;
+  margin-bottom: 0px;
+  padding-left: 1em;
+}
+#gc-content nav.inline-toc ol.toc li,
+#gc-content nav.inline-toc ul.toc li {
+  font-weight: normal;
+  line-height: 15px;
+}
+#gc-content nav.inline-toc > ol.toc > li ol,
+#gc-content nav.inline-toc > ul.toc > li ul {
+  padding-left: 0;
+}
+#gc-content nav.inline-toc > ol.toc > li,
+#gc-content nav.inline-toc > ul.toc > li {
+  padding-top: 4px;
+  padding-bottom: 3px;
+  padding-left: 2em;
+  text-indent: -2em;
+}
+#gc-content nav.inline-toc > ol.toc > li > ol > li,
+#gc-content nav.inline-toc > ul.toc > li > ul > li {
+  padding-top: 3px;
+  padding-bottom: 3px;
+  padding-left: 2em;
+  text-indent: -2em;
+}
+nav.inline-toc ol ol ol {
+  display: none;
+}
+/* Prevent the background images from flowing behind the floated TOC */
+#gc-content h2, aside.special, .note, .caution, .warning, .alert-message {
+  overflow: auto;
+}

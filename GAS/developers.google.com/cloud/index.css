@@ -1,0 +1,62 @@
+body.docs h2::after {
+  content: none;
+}
+
+.docs .content .maia-aux {
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+.docs .content .more-cl-prod .more-cl-prod-wrap ul li:nth-of-type(odd) {
+  clear: left;
+}
+
+.docs .content .hero .maia-aux .hero-wrap .right-col ul li div.left a.inline-block {
+  display: inline-block;
+}
+
+.docs .content .more-cl .more-cl-wrap ul li {
+  color: #444;
+  text-align: center;
+  width: 12% !important;
+  margin-left: 4% !important;
+  margin-right: 4% !important;
+}
+
+.docs .content .more-cl .more-cl-wrap ul li a img {
+  width: 65px;
+}
+
+.docs .content .more-cl .more-cl-wrap ul li a h4 {
+  color: #5b90f8;
+  font-weight: normal;
+}
+
+th {
+  color: #fff;
+}
+
+@media screen and (max-width: 767px) {
+  .docs .content .hero .maia-aux .hero-wrap .right-col ul {
+    padding-left: 0;
+  }
+
+  .docs .content .hero .maia-aux .hero-wrap .right-col ul li img {
+    margin-left: 0;
+    margin-right: 15px;
+    margin-top: 0;
+    width: 14%;
+  }
+
+  .docs .content .maia-aux h2 {
+    text-align: left;
+  }
+
+  .docs .content .more-cl .more-cl-wrap ul li {
+    margin-left: 0 !important;
+    margin-right: 0 !important;
+    text-align: left;
+    width: initial !important;
+  }
+
+}

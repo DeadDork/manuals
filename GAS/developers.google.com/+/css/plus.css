@@ -1,0 +1,254 @@
+@import url("inline-toc.css");
+@import url("tooltip.css");
+
+/*
+ * Content wrapper is used by the full width pages to center the page and to
+ * fix the width of the content.
+ */
+.content-wrapper  {
+  width: 896px;
+  margin: auto;
+}
+
+.larger { font-size: 2.5em; }
+.blue { color: #6388f9; }
+
+.hero { background: url("../images/hangouts-banner.png") bottom right no-repeat; border: 1px solid #ebebeb; border-top: none; height: 380px; margin-top: -16px; position: relative; }
+.hero > .hangout-intro { background: url("../images/hangouts-logo.png") top left no-repeat; padding-left: 80px; position: absolute; top: 150px; left: 35px; }
+.hero > .hangout-intro > h2 { color: #666; font-weight: bold; margin: 0; }
+.hero > .hangout-intro > h3 { font-size: 200%; font-weight: bold; }
+.hero > .hangout-intro > .button { text-transform: uppercase; }
+.hero > .hangout-intro > .button:visited { color: #FFF; }
+.hero > a { color: inherit; display: block; height: 100%; padding: 0.5em; text-decoration: none; width: 100%; }
+
+.relative { position: relative; }
+
+.features { background: #f1f1f1; overflow: auto; padding: 16px; }
+.features section { -moz-box-sizing: border-box; -webkit-box-sizing: border-box; -ms-box-sizing: border-box; box-sizing: border-box; background: #fff; border: 1px solid #acacac; margin-bottom: 0; padding: 1em; width: 49%; }
+.features section.plus1button { float: left; }
+.features section.plus1button img { float: right; margin-left: 1em; }
+.features section.api { float: right; }
+.features section h3 { font-weight: bold; margin-bottom: 0; margin-top: 0; }
+.features section p { margin-bottom: 0; }
+
+/* Custom Tip annotation */
+aside.tip {
+  display: block;
+  margin-bottom: 1.5em;
+  background-color: #e5ecf9;
+  padding: 6px 8px 6px 10px;
+  -moz-box-shadow: 5px 5px rgba(0,107,182,0.5);
+  -webkit-box-shadow: 5px 5px rgba(0,107,182,0.5);
+  box-shadow: 5px 5px rgba(0,107,182,0.5);
+  }
+
+.more-info {
+  text-decoration: none;
+  border-bottom: 1px dotted green;
+  cursor: help;
+  color: green;
+}
+
+.dropshadow {
+  -moz-box-shadow: 3px 3px 4px rgba(0,0,0,0.2);
+  -webkit-box-shadow: 3px 3px 4px rgba(0,0,0,0.2);
+  box-shadow: 3px 3px 4px rgba(0,0,0,0.2);
+  /* For IE 8 */
+  -ms-filter: "progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#cccccc')";
+  /* For IE 5.5 - 7 */
+  filter: progid:DXImageTransform.Microsoft.Shadow(Strength=4, Direction=135, Color='#cccccc');
+}
+
+#gc-content-license { font-size: 80%; }
+
+aside.right {
+  float: right;
+  margin-left: 1em;
+  width: 240px;
+}
+
+aside.right-wide {
+  float: right;
+  margin-left: 1em;
+  width: 340px;
+}
+
+aside.right-wider {
+  float: right;
+  margin-left: 1em;
+  width: 400px;
+}
+
+aside.right-half {
+  float: right;
+  margin-left: 1em;
+  width: 50%;
+}
+
+.arrow-right, .arrow-left { width: 0; height: 0; display: inline-block;}
+.arrow-right:after { content: ''; padding: 0; }
+.arrow-right {
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+
+  border-left: 5px solid #000;
+}
+.arrow-left {
+  border-top: 5px solid transparent;
+  border-bottom: 5px solid transparent;
+  border-right: 5px solid #000;
+}
+
+.light-border {
+  border: thin gray dotted;
+  padding: 1em;
+}
+
+.breadcrumb {margin-left: 1em; }
+.breadcrumb a { text-decoration: none; color: #666; display: inline-block; padding-left: 1em; }
+.breadcrumb>*:after { content: ' > '; }
+.breadcrumb>*:last-child:after { content: ''; }
+.breadcrumb a:hover { text-decoration: underline; }
+
+.breadcrumb_menu { display: inline; position: relative; }
+.breadcrumb_options {
+  display: none;
+  position: absolute;
+  top: 20px;
+  left: -24px;
+  min-width: 80px;
+  border: 1px solid #999;
+  border-radius: 4px;
+  font-size: 0.85em;
+  padding: 0 4px;
+}
+.breadcrumb_menu .arrow-up { position: absolute; top: -5px; left: 30px; }
+.breadcrumb_menu:hover { cursor: pointer; }
+.breadcrumb_menu:hover .breadcrumb_options { display: block; }
+.breadcrumb_options .hoverhelper { position: absolute; top: -2em; left: 0; right: 0; bottom: 0; z-index: 1;}
+.breadcrumb_options ul { list-style: none; padding: 0; position: relative; z-index: 2; margin: 4px; }
+.breadcrumb_options ul li { white-space: nowrap; }
+
+.button-white, .button-white:visited {
+  background: #fff;
+  color: #2d60fc;
+  font-size: 1.1em;
+  border-radius: 4px;
+  font-weight: 100;
+  padding: 4px 10px;
+}
+.button-white:hover {
+  background: #6388f9; color: #fff;
+}
+
+/*
+ * The case study menu at the top and bottom of the case studies pages.
+ */
+.list-wrapper {
+  line-height: 120%;
+}
+.casestudy-menu, #casestudy-menu, .features-menu, #features-menu {
+  background-color: #E2E2E2;
+  border-bottom: 3px solid #D9D9D9;
+  text-align: center;
+  clear: both;
+  margin: 0;  /* Override default */
+  min-height: 0; /* Override default */
+}
+footer.casestudy-menu, footer.features-menu {
+  border-top: 2px #efefef solid;
+  padding-top: 6px;
+}
+.casestudy-menu .label, .features-menu label { color: #999; font-size: 110%;}
+
+.casestudy-menu ul, .features-menu ul{
+  display: inline;
+  list-style-type: none;
+}
+
+.casestudy-menu ul li, .features-menu ul li {
+  display: inline-block;
+  list-style-type: none;
+  /* height: (see below) */
+  /* width: (see below) */
+  margin: 15px;
+  vertical-align: bottom;
+  text-align: center;
+}
+.casestudy-menu ul li {
+  width: 55px;
+  height: 110px;
+}
+.features-menu ul li {
+  width: 135px;
+  height: 120px;
+}
+.casestudy-menu ul li a, .features-menu ul li a { color: #999; text-decoration: none; }
+.casestudy-menu ul li a:hover, .features-menu ul li a:hover { color: #78A2F7; }
+
+.casestudy-menu img.default, .features-menu img.default,
+.casestudy-menu img.selected, .features-menu img.selected,
+.casestudy-menu img.hover, .features-menu img.hover { width: 55px; height: 55px; }
+.casestudy-menu img.default, .features-menu img.default,
+.casestudy-menu img.selected, .features-menu img.selected {display: block;}
+.hide, .casestudy-menu img.hover, .features-menu img.hover { display: none; }
+
+.casestudy-menu li:hover img.hover, .features-menu li:hover img.hover { display: block;}
+.casestudy-menu li:hover img.default, .features-menu li:hover img.default { display: none;}
+.casestudy-menu li:hover img.selected, .features-menu li:hover img.selected { display: none;}
+
+
+.menu-control.expand-control {
+  background-color: #478AFD;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  float: right;
+  margin-right: 1em;
+  padding: 0.2em 1em;
+  cursor: pointer;
+}
+.menu-control.expand-control img { vertical-align: bottom; }
+/* Rules for the open/close expandable control */
+.menu-control.exw-collapsed .closed-text { display: none;}
+.menu-control.exw-collapsed .open-text { display: block;}
+.menu-control.exw-expanded .closed-text { display: block;}
+.menu-control.exw-expanded .open-text { display: none;}
+.menu-control.expand-control { color: #fff; font-weight: bold;}
+
+/* Three icons in a list for use in case studies and homepage */
+.platformslist { margin: 0; padding: 0; text-align: right; margin: 0; }
+.platformslist li { list-style-type: none; width: 20px; height: 20px; }
+.platformslist li a { text-decoration: none;}
+
+.android-platform-icon, .ios-platform-icon, .web-platform-icon {
+  display: block;
+  width: 20px;
+  height: 20px;
+  background-repeat: no-repeat;
+  background-image: url("../images/platform-sprite.png");
+  text-decoration: none;
+}
+
+.android-platform-icon, .android-link:before { background-position: -60px -28px;}
+.ios-platform-icon, .ios-link:before { background-position:  0px -28px;}
+.web-platform-icon, .web-link:before { background-position: -30px -28px;}
+
+.android-platform-icon:hover, .android-link:hover:before { background-position: -60px -51px; }
+.ios-platform-icon:hover, .ios-link:hover:before { background-position: 0px -51px; }
+.web-platform-icon:hover, .web-link:hover:before { background-position: -30px -51px;}
+
+.shadow-grey {
+
+  /* IE10 Preview */
+  background-image: -ms-linear-gradient(top, #EFEFEF 0%, #FFFFFF 25%);
+  /* Mozilla Firefox */
+  background-image: -moz-linear-gradient(top, #EFEFEF 0%, #FFFFFF 25%);
+  /* Opera */
+  background-image: -o-linear-gradient(top, #EFEFEF 0%, #FFFFFF 25%);
+  /* Webkit (Safari/Chrome 10) */
+  background-image: -webkit-gradient(linear, left top, left bottom, color-stop(0, #EFEFEF), color-stop(0.25, #FFFFFF));
+  /* Webkit (Chrome 11+) */
+  background-image: -webkit-linear-gradient(top, #EFEFEF 0%, #FFFFFF 25%);
+  /* W3C Markup, IE10 Release Preview */
+  background-image: linear-gradient(to bottom, #EFEFEF 0%, #FFFFFF 25%);
+}

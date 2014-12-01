@@ -1,0 +1,24 @@
+/**
+ * Custom styles for the generated reference documentation.
+ */
+
+/* Function tables */
+
+table.function.members tr td:nth-child(1) {
+  padding-left: 26px !important;
+  text-indent: -16px;
+}
+
+/* Parameter tables */
+
+table.param tr td:nth-child(1) {
+  width: 20%;
+}
+
+table.param tr td:nth-child(2) {
+  width: 15%;
+}
+
+table.param tr td:nth-child(3) {
+  width: 65%;
+}
