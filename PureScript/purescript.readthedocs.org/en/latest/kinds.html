@@ -1,0 +1,368 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Kind System &mdash; PureScript 0.5.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+
+  
+    <link rel="stylesheet" href="https://media.readthedocs.org/css/sphinx_rtd_theme.css" type="text/css" />
+  
+    <link rel="stylesheet" href="https://media.readthedocs.org/css/readthedocs-doc-embed.css" type="text/css" />
+  
+    <link rel="top" title="PureScript 0.5.0 documentation" href="http://purescript.readthedocs.org/en/latest/index.html"/>
+        <link rel="next" title="Syntax" href="syntax.html"/>
+        <link rel="prev" title="Types" href="types.html"/>
+ 
+<!-- RTD Extra Head -->
+
+
+
+  
+  <!-- 
+  Always link to the latest version, as canonical.
+  http://docs.readthedocs.org/en/latest/canonical.html
+  -->
+  <link rel="canonical" href="http://docs.purescript.org/en/latest/kinds.html" />
+  
+
+<script type="text/javascript">
+  // This is included here because other places don't have access to the pagename variable.
+  var READTHEDOCS_DATA = {
+    project: "purescript",
+    version: "latest",
+    language: "en",
+    page: "kinds",
+    theme: "sphinx_rtd_theme",
+    docroot: "/docs/source/",
+    source_suffix: ".rst",
+    api_host: "https://readthedocs.org"
+  }
+  // Old variables
+  var doc_version = "latest";
+  var doc_slug = "purescript";
+  var page_name = "kinds";
+  var html_theme = "sphinx_rtd_theme";
+</script>
+<!-- RTD Analytics Code -->
+<!-- Included in the header because you don't have a footer block. -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17997319-1']);
+  _gaq.push(['_trackPageview']);
+
+  // User Analytics Code
+  _gaq.push(['user._setAccount', 'None']);
+  _gaq.push(['user._trackPageview']);
+  // End User Analytics Code
+
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<!-- end RTD Analytics Code -->
+<!-- end RTD <extrahead> -->
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="http://purescript.readthedocs.org/en/latest/index.html" class="fa fa-home"> PureScript</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#hello-purescript">Hello, PureScript!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#another-example">Another Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#related-projects">Related Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="start.html#compiler-installation">Compiler Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#creating-a-new-purescript-project">Creating a new PureScript project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#compiler-usage">Compiler usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#psc-make">psc-make</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="types.html#primitive-types">Primitive Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#arrays">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#records">Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#tagged-unions">Tagged Unions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#polymorphic-types">Polymorphic Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#row-polymorphism">Row Polymorphism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#rank-n-types">Rank N Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#rows">Rows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#type-synonyms">Type Synonyms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#constrained-types">Constrained Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#type-annotations">Type Annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="kinds.html">Kind System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kinds.html#row-kinds">Row Kinds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kinds.html#quantification">Quantification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="syntax.html">Syntax</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#whitespace-rules">Whitespace Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#operators">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#literal-values">Literal Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#array-literals">Array Literals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#record-literals">Record Literals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#array-indexing">Array Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#property-accessors">Property Accessors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#if-then-else-expressions">If-Then-Else Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#do-notation">Do Notation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#id1">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#record-updates">Record Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#let-bindings">Let Bindings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#comments">Comments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="typeclasses.html">Type Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="typeclasses.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typeclasses.html#superclasses">Superclasses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typeclasses.html#type-annotations">Type Annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="patterns.html">Pattern Matching</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#wildcard-patterns">Wildcard Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#literal-patterns">Literal Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#variable-patterns">Variable Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#array-patterns">Array Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#cons-patterns">Cons Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#constructor-patterns">Constructor patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#record-patterns">Record Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#nested-patterns">Nested Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#named-patterns">Named Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#guards">Guards</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#importing-modules">Importing Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#qualified-imports">Qualified Imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#module-exports">Module Exports</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ffi.html">Foreign Function Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ffi.html#importing-values">Importing Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ffi.html#inline-javascript">Inline Javascript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ffi.html#importing-types">Importing Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ffi.html#importing-type-class-instances">Importing Type Class Instances</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prelude.html">Module Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-prelude">Module Prelude</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-data-function">Module Data.Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-data-eq">Module Data.Eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-prelude-unsafe">Module Prelude.Unsafe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-control-monad-eff">Module Control.Monad.Eff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-control-monad-eff-unsafe">Module Control.Monad.Eff.Unsafe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-debug-trace">Module Debug.Trace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-control-monad-st">Module Control.Monad.ST</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="http://purescript.readthedocs.org/en/latest/index.html">PureScript</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="http://purescript.readthedocs.org/en/latest/index.html">Docs</a> &raquo;</li>
+      
+    <li>Kind System</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="https://github.com/purescript/purescript/blob/master/docs/source/kinds.rst" class="fa fa-github"> Edit on GitHub</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="kind-system">
+<h1>Kind System<a class="headerlink" href="kinds.html#kind-system" title="Permalink to this headline">¶</a></h1>
+<p>The kind system defines the following kinds:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">*</span></tt>, the kind of types.</li>
+<li><tt class="docutils literal"><span class="pre">!</span></tt>, the kind of effects.</li>
+<li>Arrow kinds <tt class="docutils literal"><span class="pre">k1</span> <span class="pre">-&gt;</span> <span class="pre">k2</span></tt></li>
+<li>Row kinds <tt class="docutils literal"><span class="pre">#</span> <span class="pre">k</span></tt></li>
+</ul>
+<div class="section" id="row-kinds">
+<h2>Row Kinds<a class="headerlink" href="kinds.html#row-kinds" title="Permalink to this headline">¶</a></h2>
+<p>The kind <tt class="docutils literal"><span class="pre">#</span> <span class="pre">k</span></tt> of rows is used to classify labelled, unordered collections of types of kind <tt class="docutils literal"><span class="pre">k</span></tt>.</p>
+<p>For example <tt class="docutils literal"><span class="pre">#</span> <span class="pre">*</span></tt> is the kind of rows of types, as used to define records, and <tt class="docutils literal"><span class="pre">#</span> <span class="pre">!</span></tt> is the kind of rows of effects, used to define the monad <tt class="docutils literal"><span class="pre">Eff</span></tt> of extensible effects.</p>
+</div>
+<div class="section" id="quantification">
+<h2>Quantification<a class="headerlink" href="kinds.html#quantification" title="Permalink to this headline">¶</a></h2>
+<p>A type variable can refer to not only a type or a row, but a type constructor, or row constructor etc., and type variables with those kinds can be bound inside a <tt class="docutils literal"><span class="pre">forall</span></tt> quantifier.</p>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="syntax.html" class="btn btn-neutral float-right" title="Syntax">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="types.html" class="btn btn-neutral" title="Types"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Phil Freeman.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="index.html">latest</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://media.readthedocs.org/pdf/purescript/latest/purescript.pdf">PDF</a></dd>
+        
+          <dd><a href="https://media.readthedocs.org/htmlzip/purescript/latest/purescript.zip">HTML</a></dd>
+        
+          <dd><a href="https://media.readthedocs.org/epub/purescript/latest/purescript.epub">Epub</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>On Read the Docs</dt>
+          <dd>
+            <a href="http://readthedocs.org/projects/purescript/?fromdocs=purescript">Project Home</a>
+          </dd>
+          <dd>
+            <a href="http://readthedocs.org/builds/purescript/?fromdocs=purescript">Builds</a>
+          </dd>
+      </dl>
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+
+    </div>
+  </div>
+
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/jquery/jquery-2.0.3.min.js"></script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/jquery/jquery-migrate-1.2.1.min.js"></script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/underscore.js"></script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/doctools.js"></script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/readthedocs-doc-embed.js"></script>
+
+  
+
+  
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

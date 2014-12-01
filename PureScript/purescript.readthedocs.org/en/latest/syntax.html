@@ -1,0 +1,688 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Syntax &mdash; PureScript 0.5.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+
+  
+    <link rel="stylesheet" href="https://media.readthedocs.org/css/sphinx_rtd_theme.css" type="text/css" />
+  
+    <link rel="stylesheet" href="https://media.readthedocs.org/css/readthedocs-doc-embed.css" type="text/css" />
+  
+    <link rel="top" title="PureScript 0.5.0 documentation" href="http://purescript.readthedocs.org/en/latest/index.html"/>
+        <link rel="next" title="Type Classes" href="typeclasses.html"/>
+        <link rel="prev" title="Kind System" href="kinds.html"/>
+ 
+<!-- RTD Extra Head -->
+
+
+
+  
+  <!-- 
+  Always link to the latest version, as canonical.
+  http://docs.readthedocs.org/en/latest/canonical.html
+  -->
+  <link rel="canonical" href="http://docs.purescript.org/en/latest/syntax.html" />
+  
+
+<script type="text/javascript">
+  // This is included here because other places don't have access to the pagename variable.
+  var READTHEDOCS_DATA = {
+    project: "purescript",
+    version: "latest",
+    language: "en",
+    page: "syntax",
+    theme: "sphinx_rtd_theme",
+    docroot: "/docs/source/",
+    source_suffix: ".rst",
+    api_host: "https://readthedocs.org"
+  }
+  // Old variables
+  var doc_version = "latest";
+  var doc_slug = "purescript";
+  var page_name = "syntax";
+  var html_theme = "sphinx_rtd_theme";
+</script>
+<!-- RTD Analytics Code -->
+<!-- Included in the header because you don't have a footer block. -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17997319-1']);
+  _gaq.push(['_trackPageview']);
+
+  // User Analytics Code
+  _gaq.push(['user._setAccount', 'None']);
+  _gaq.push(['user._trackPageview']);
+  // End User Analytics Code
+
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<!-- end RTD Analytics Code -->
+<!-- end RTD <extrahead> -->
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="http://purescript.readthedocs.org/en/latest/index.html" class="fa fa-home"> PureScript</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#hello-purescript">Hello, PureScript!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#another-example">Another Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#related-projects">Related Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="start.html#compiler-installation">Compiler Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#creating-a-new-purescript-project">Creating a new PureScript project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#compiler-usage">Compiler usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#psc-make">psc-make</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="types.html">Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="types.html#primitive-types">Primitive Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#arrays">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#records">Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#tagged-unions">Tagged Unions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#polymorphic-types">Polymorphic Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#row-polymorphism">Row Polymorphism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#rank-n-types">Rank N Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#rows">Rows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#type-synonyms">Type Synonyms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#constrained-types">Constrained Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#type-annotations">Type Annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kinds.html">Kind System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kinds.html#row-kinds">Row Kinds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kinds.html#quantification">Quantification</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="syntax.html">Syntax</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#whitespace-rules">Whitespace Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#operators">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#literal-values">Literal Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#array-literals">Array Literals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#record-literals">Record Literals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#array-indexing">Array Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#property-accessors">Property Accessors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#if-then-else-expressions">If-Then-Else Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#do-notation">Do Notation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#id1">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#record-updates">Record Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#let-bindings">Let Bindings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#comments">Comments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="typeclasses.html">Type Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="typeclasses.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typeclasses.html#superclasses">Superclasses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typeclasses.html#type-annotations">Type Annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="patterns.html">Pattern Matching</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#wildcard-patterns">Wildcard Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#literal-patterns">Literal Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#variable-patterns">Variable Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#array-patterns">Array Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#cons-patterns">Cons Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#constructor-patterns">Constructor patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#record-patterns">Record Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#nested-patterns">Nested Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#named-patterns">Named Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#guards">Guards</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#importing-modules">Importing Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#qualified-imports">Qualified Imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#module-exports">Module Exports</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ffi.html">Foreign Function Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ffi.html#importing-values">Importing Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ffi.html#inline-javascript">Inline Javascript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ffi.html#importing-types">Importing Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ffi.html#importing-type-class-instances">Importing Type Class Instances</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prelude.html">Module Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-prelude">Module Prelude</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-data-function">Module Data.Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-data-eq">Module Data.Eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-prelude-unsafe">Module Prelude.Unsafe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-control-monad-eff">Module Control.Monad.Eff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-control-monad-eff-unsafe">Module Control.Monad.Eff.Unsafe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-debug-trace">Module Debug.Trace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-control-monad-st">Module Control.Monad.ST</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="http://purescript.readthedocs.org/en/latest/index.html">PureScript</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="http://purescript.readthedocs.org/en/latest/index.html">Docs</a> &raquo;</li>
+      
+    <li>Syntax</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="https://github.com/purescript/purescript/blob/master/docs/source/syntax.rst" class="fa fa-github"> Edit on GitHub</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="syntax">
+<h1>Syntax<a class="headerlink" href="syntax.html#syntax" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="whitespace-rules">
+<h2>Whitespace Rules<a class="headerlink" href="syntax.html#whitespace-rules" title="Permalink to this headline">¶</a></h2>
+<p>Syntax is whitespace sensitive. The general rule of thumb is that declarations which span multiple lines should be indented past the column on which they were first defined on their subsequent lines.</p>
+<p>That is, the following is valid:</p>
+<div class="highlight-python"><div class="highlight"><pre>foo = bar(x) +
+  baz(x)
+</pre></div>
+</div>
+<p>But this is not:</p>
+<div class="highlight-python"><div class="highlight"><pre>foo = bar(x) +
+baz(x)
+</pre></div>
+</div>
+</div>
+<div class="section" id="operators">
+<h2>Operators<a class="headerlink" href="syntax.html#operators" title="Permalink to this headline">¶</a></h2>
+<p>Binary operators in PureScript are just regular functions. The Prelude defines a number of operators which correspond to Javascript&#8217;s operators.</p>
+<p>The Prelude defines the following functions which correspond to Javascript&#8217;s unary operators:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="24%" />
+<col width="20%" />
+<col width="56%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Function</th>
+<th class="head">Operator</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>negate</td>
+<td>-</td>
+<td>Numeric negation</td>
+</tr>
+<tr class="row-odd"><td>not</td>
+<td>!</td>
+<td>Boolean negation</td>
+</tr>
+<tr class="row-even"><td>complement</td>
+<td>~</td>
+<td>Binary negation</td>
+</tr>
+</tbody>
+</table>
+<p>and the following binary operators:</p>
+<table border="1" class="docutils">
+<colgroup>
+<col width="23%" />
+<col width="26%" />
+<col width="51%" />
+</colgroup>
+<thead valign="bottom">
+<tr class="row-odd"><th class="head">Function</th>
+<th class="head">JS Operator</th>
+<th class="head">Meaning</th>
+</tr>
+</thead>
+<tbody valign="top">
+<tr class="row-even"><td>+</td>
+<td>+</td>
+<td>Numeric addition</td>
+</tr>
+<tr class="row-odd"><td>-</td>
+<td>-</td>
+<td>Numeric subtraction</td>
+</tr>
+<tr class="row-even"><td>*</td>
+<td>*</td>
+<td>Numeric multiplication</td>
+</tr>
+<tr class="row-odd"><td>/</td>
+<td>/</td>
+<td>Numeric division</td>
+</tr>
+<tr class="row-even"><td>%</td>
+<td>%</td>
+<td>Numeric modulus</td>
+</tr>
+<tr class="row-odd"><td>==</td>
+<td>==</td>
+<td>Equality check</td>
+</tr>
+<tr class="row-even"><td>/=</td>
+<td>!=</td>
+<td>Inequality check</td>
+</tr>
+<tr class="row-odd"><td>&lt;</td>
+<td>&lt;</td>
+<td>Less than</td>
+</tr>
+<tr class="row-even"><td>&lt;=</td>
+<td>&lt;=</td>
+<td>Less than or equal</td>
+</tr>
+<tr class="row-odd"><td>&gt;</td>
+<td>&gt;</td>
+<td>Greater than</td>
+</tr>
+<tr class="row-even"><td>&gt;=</td>
+<td>&gt;=</td>
+<td>Greater than or equal</td>
+</tr>
+<tr class="row-odd"><td>&amp;&amp;</td>
+<td>&amp;&amp;</td>
+<td>Boolean AND</td>
+</tr>
+<tr class="row-even"><td>||</td>
+<td>||</td>
+<td>Boolean OR</td>
+</tr>
+<tr class="row-odd"><td>&amp;</td>
+<td>&amp;</td>
+<td>Binary AND</td>
+</tr>
+<tr class="row-even"><td>|</td>
+<td>|</td>
+<td>Binary OR</td>
+</tr>
+<tr class="row-odd"><td>^</td>
+<td>^</td>
+<td>Binary XOR</td>
+</tr>
+<tr class="row-even"><td>shl</td>
+<td>&lt;&lt;</td>
+<td>Shift Left</td>
+</tr>
+<tr class="row-odd"><td>shr</td>
+<td>&gt;&gt;</td>
+<td>Shift Right</td>
+</tr>
+<tr class="row-even"><td>zshr</td>
+<td>&gt;&gt;&gt;</td>
+<td>Zero-Fill Shift Right</td>
+</tr>
+<tr class="row-odd"><td>++</td>
+<td>+</td>
+<td>String concatenation</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="literal-values">
+<h2>Literal Values<a class="headerlink" href="syntax.html#literal-values" title="Permalink to this headline">¶</a></h2>
+<p>Numeric literals can be integers or floating point numbers. Numbers in hexadecimal notation should be preceded by the characters <tt class="docutils literal"><span class="pre">0x</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="mi">16</span>
+<span class="mf">16.0</span>
+<span class="mh">0xF0</span>
+</pre></div>
+</div>
+<p>String literals are enclosed in double-quotes and may extend over multiple lines. Line breaks should be surrounded by slashes as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="s">&quot;Hello World&quot;</span>
+
+<span class="s">&quot;Hello </span><span class="se">\</span>
+<span class="s">\World&quot;</span>
+</pre></div>
+</div>
+<p>The two boolean literals are <tt class="docutils literal"><span class="pre">true</span></tt> and <tt class="docutils literal"><span class="pre">false</span></tt>.</p>
+</div>
+<div class="section" id="array-literals">
+<h2>Array Literals<a class="headerlink" href="syntax.html#array-literals" title="Permalink to this headline">¶</a></h2>
+<p>Array literals are surrounded by square brackets, as in Javascript:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">[]</span>
+<span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="record-literals">
+<h2>Record Literals<a class="headerlink" href="syntax.html#record-literals" title="Permalink to this headline">¶</a></h2>
+<p>Record literals are surrounded by braces, as in Javascript:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="p">{}</span>
+<span class="p">{</span> <span class="n">foo</span><span class="p">:</span> <span class="s">&quot;Foo&quot;</span><span class="p">,</span> <span class="n">bar</span><span class="p">:</span> <span class="mi">1</span> <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="array-indexing">
+<h2>Array Indexing<a class="headerlink" href="syntax.html#array-indexing" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">Prelude.Unsafe</span></tt> module defines the <tt class="docutils literal"><span class="pre">unsafeIndex</span></tt> function which retrieves the element of an array at an index:</p>
+<div class="highlight-python"><div class="highlight"><pre>unsafeIndex :: forall a. [a] -&gt; Number -&gt; a
+</pre></div>
+</div>
+<p>The code generator will turn the expression <tt class="docutils literal"><span class="pre">unsafeIndex</span> <span class="pre">arr</span> <span class="pre">index</span></tt> into the simplified Javascript <tt class="docutils literal"><span class="pre">arr[index]</span></tt>.</p>
+<p>The <tt class="docutils literal"><span class="pre">purescript-array</span></tt> core library defines an alternative safe version <tt class="docutils literal"><span class="pre">!!</span></tt> of <tt class="docutils literal"><span class="pre">unsafeIndex</span></tt> which checks arrays bounds and returns a value of type <tt class="docutils literal"><span class="pre">Maybe</span> <span class="pre">a</span></tt>.</p>
+</div>
+<div class="section" id="property-accessors">
+<h2>Property Accessors<a class="headerlink" href="syntax.html#property-accessors" title="Permalink to this headline">¶</a></h2>
+<p>To access a property of a record, use a dot, followed by the property name, as in Javascript:</p>
+<div class="highlight-python"><div class="highlight"><pre><span class="n">rec</span><span class="o">.</span><span class="n">propertyName</span>
+</pre></div>
+</div>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="syntax.html#functions" title="Permalink to this headline">¶</a></h2>
+<p>Functions are introduced by using a backslash followed by a list of argument names:</p>
+<div class="highlight-python"><div class="highlight"><pre>example1 = \a b -&gt; a + b
+</pre></div>
+</div>
+<p>which would correspond to the following Javascript:</p>
+<div class="highlight-python"><div class="highlight"><pre>function example1(a) {
+  return function (b) {
+    return a + b;
+  }
+}
+</pre></div>
+</div>
+<p>Function application is indicated by just the juxtaposition of a function with its arugments:</p>
+<div class="highlight-python"><div class="highlight"><pre>example1 10 20
+</pre></div>
+</div>
+<p>Functions can also be defined at the top level by providing a list of patterns and an optional guard on the left hand side of the equals sign:</p>
+<div class="highlight-python"><div class="highlight"><pre>f [] [] = []
+f (x:xs) (y:ys) = x + y : f xs ys
+</pre></div>
+</div>
+</div>
+<div class="section" id="if-then-else-expressions">
+<h2>If-Then-Else Expressions<a class="headerlink" href="syntax.html#if-then-else-expressions" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">if</span></tt>, <tt class="docutils literal"><span class="pre">then</span></tt> and <tt class="docutils literal"><span class="pre">else</span></tt> keywords can be used to create conditional expressions. In this case, the <tt class="docutils literal"><span class="pre">else</span></tt> block is always required.</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>conditional = if 2 &gt; 1 then &quot;ok&quot; else &quot;oops&quot;
+</pre></div>
+</div>
+</div>
+<div class="section" id="do-notation">
+<h2>Do Notation<a class="headerlink" href="syntax.html#do-notation" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">do</span></tt> keyword introduces simple syntactic sugar for monadic expressions.</p>
+<p>Here is an example, using the maybe monad:</p>
+<div class="highlight-python"><div class="highlight"><pre>data Maybe a = Nothing | Just a
+
+isEven :: Number -&gt; Maybe Unit
+isEven n | n % 2 == 0 = Just unit
+isEven _ = Nothing
+
+evenSum a b = do
+  n &lt;- a
+  m &lt;- b
+  let sum = n + m
+  isEven sum
+  return sum
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">isEven</span></tt> adds two values of type <tt class="docutils literal"><span class="pre">Maybe</span> <span class="pre">Number</span></tt> and returns their sum, if the sum is even. If the sum is odd, <tt class="docutils literal"><span class="pre">evenSum</span></tt> returns <tt class="docutils literal"><span class="pre">Nothing</span></tt>.</p>
+<p>When using <tt class="docutils literal"><span class="pre">do</span></tt> notation, the corresponding type constructor must be an instance of the <tt class="docutils literal"><span class="pre">Prelude.Monad</span></tt> type class.</p>
+<p>Statements can have the following form:</p>
+<ul class="simple">
+<li><tt class="docutils literal"><span class="pre">a</span> <span class="pre">&lt;-</span> <span class="pre">x</span></tt> which desugars to <tt class="docutils literal"><span class="pre">x</span> <span class="pre">&gt;&gt;=</span> <span class="pre">\a</span> <span class="pre">-&gt;</span> <span class="pre">...</span></tt></li>
+<li><tt class="docutils literal"><span class="pre">x</span></tt> which desugars to <tt class="docutils literal"><span class="pre">x</span> <span class="pre">&gt;&gt;=</span> <span class="pre">\_</span> <span class="pre">-&gt;</span> <span class="pre">...</span></tt> or just <tt class="docutils literal"><span class="pre">x</span></tt> if this is the last statement.</li>
+<li>A let binding <tt class="docutils literal"><span class="pre">let</span> <span class="pre">a</span> <span class="pre">=</span> <span class="pre">x</span></tt> where <tt class="docutils literal"><span class="pre">a</span></tt> can be either a name or a binder. Note the lack of the <tt class="docutils literal"><span class="pre">in</span></tt> keyword.</li>
+</ul>
+<p>The example <tt class="docutils literal"><span class="pre">evenSum</span></tt> desugars to:</p>
+<div class="highlight-python"><div class="highlight"><pre>evenSum a b =
+  a &gt;&gt;= \n -&gt;
+    b &gt;&gt;= \m -&gt;
+      let sum = n + m in
+      isEven sum &gt;&gt;= \_ -&gt;
+        return sum
+</pre></div>
+</div>
+<p>Binders can be used on the left hand side of <tt class="docutils literal"><span class="pre">&lt;-</span></tt> or <tt class="docutils literal"><span class="pre">=</span></tt>. For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>test arr = do
+  (x:y:_) &lt;- arr
+  ret (x + y)
+</pre></div>
+</div>
+<p>A pattern match failure will generate a runtime exception, just as in the case of a regular <tt class="docutils literal"><span class="pre">case</span></tt> statement.</p>
+</div>
+<div class="section" id="id1">
+<h2>Operators<a class="headerlink" href="syntax.html#id1" title="Permalink to this headline">¶</a></h2>
+<p>User-defined infix operators can be created by enclosing names in parentheses.</p>
+<p>E.g. to create an infix synonym for the <tt class="docutils literal"><span class="pre">Data.Array.range</span></tt> function:</p>
+<div class="highlight-python"><div class="highlight"><pre>(..) :: Number -&gt; Number -&gt; [Number]
+(..) = Data.Array.range
+</pre></div>
+</div>
+<p>This function can be used as follows:</p>
+<div class="highlight-python"><div class="highlight"><pre>oneToTen = 1 .. 10
+</pre></div>
+</div>
+<p>Regular functions can be used as operators by enclosing their names in backticks:</p>
+<div class="highlight-python"><div class="highlight"><pre>foo x y = x * y + y
+
+test = 10 `foo` 20
+</pre></div>
+</div>
+<p>Fixity declarations can associate a precedence level, which is a natural number, to a user-defined operator, and specify which way it associates:</p>
+<div class="highlight-python"><div class="highlight"><pre>infix 5 ..
+infixl 7 %%
+infixr 9 ^^
+</pre></div>
+</div>
+</div>
+<div class="section" id="record-updates">
+<h2>Record Updates<a class="headerlink" href="syntax.html#record-updates" title="Permalink to this headline">¶</a></h2>
+<p>Properties on records can be updated using the following syntax:</p>
+<div class="highlight-python"><div class="highlight"><pre>o { key = value, ..., key = value }
+</pre></div>
+</div>
+<p>For example, the following function increments the <tt class="docutils literal"><span class="pre">foo</span></tt> property on its argument:</p>
+<div class="highlight-python"><div class="highlight"><pre>incr o = o { foo = o.foo + 1 }
+</pre></div>
+</div>
+</div>
+<div class="section" id="let-bindings">
+<h2>Let Bindings<a class="headerlink" href="syntax.html#let-bindings" title="Permalink to this headline">¶</a></h2>
+<p>The <tt class="docutils literal"><span class="pre">let</span></tt> keywords a collection of local declarations, which may be mutually recursive, and which may include type declarations:</p>
+<div class="highlight-python"><div class="highlight"><pre>factorial :: Number -&gt; Number
+factorial =
+  let
+    go :: Number -&gt; Number -&gt; Number
+    go acc 1 = acc
+    go acc n = go (acc * n) (n - 1)
+  in
+    go 1
+</pre></div>
+</div>
+<p>The <tt class="docutils literal"><span class="pre">where</span></tt> keyword can also be used to introduce local declarations <cite>at the end of a value declaration</cite>:</p>
+<div class="highlight-python"><div class="highlight"><pre>factorial :: Number -&gt; Number
+factorial = go 1
+  where
+  go :: Number -&gt; Number -&gt; Number
+  go acc 1 = acc
+  go acc n = go (acc * n) (n - 1)
+</pre></div>
+</div>
+</div>
+<div class="section" id="comments">
+<h2>Comments<a class="headerlink" href="syntax.html#comments" title="Permalink to this headline">¶</a></h2>
+<p>A single line comment starts with <tt class="docutils literal"><span class="pre">--</span></tt>:</p>
+<div class="highlight-python"><div class="highlight"><pre>-- This is a comment
+</pre></div>
+</div>
+<p>Multi-line comments are enclosed in <tt class="docutils literal"><span class="pre">{-</span></tt> and <tt class="docutils literal"><span class="pre">-}</span></tt>. These can be nested:</p>
+<div class="highlight-python"><div class="highlight"><pre>{- Comment {- nested comment -} continued comment -}
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="typeclasses.html" class="btn btn-neutral float-right" title="Type Classes">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="kinds.html" class="btn btn-neutral" title="Kind System"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Phil Freeman.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="index.html">latest</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://media.readthedocs.org/pdf/purescript/latest/purescript.pdf">PDF</a></dd>
+        
+          <dd><a href="https://media.readthedocs.org/htmlzip/purescript/latest/purescript.zip">HTML</a></dd>
+        
+          <dd><a href="https://media.readthedocs.org/epub/purescript/latest/purescript.epub">Epub</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>On Read the Docs</dt>
+          <dd>
+            <a href="http://readthedocs.org/projects/purescript/?fromdocs=purescript">Project Home</a>
+          </dd>
+          <dd>
+            <a href="http://readthedocs.org/builds/purescript/?fromdocs=purescript">Builds</a>
+          </dd>
+      </dl>
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+
+    </div>
+  </div>
+
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/jquery/jquery-2.0.3.min.js"></script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/jquery/jquery-migrate-1.2.1.min.js"></script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/underscore.js"></script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/doctools.js"></script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/readthedocs-doc-embed.js"></script>
+
+  
+
+  
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>

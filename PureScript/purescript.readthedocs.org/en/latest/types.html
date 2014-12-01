@@ -1,0 +1,485 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>Types &mdash; PureScript 0.5.0 documentation</title>
+  
+
+  
+  
+
+  
+  <link href='https://fonts.googleapis.com/css?family=Lato:400,700,400italic,700italic|Roboto+Slab:400,700|Inconsolata:400,700' rel='stylesheet' type='text/css'>
+
+  
+  
+    
+
+  
+
+  
+  
+
+  
+    <link rel="stylesheet" href="https://media.readthedocs.org/css/sphinx_rtd_theme.css" type="text/css" />
+  
+    <link rel="stylesheet" href="https://media.readthedocs.org/css/readthedocs-doc-embed.css" type="text/css" />
+  
+    <link rel="top" title="PureScript 0.5.0 documentation" href="http://purescript.readthedocs.org/en/latest/index.html"/>
+        <link rel="next" title="Kind System" href="kinds.html"/>
+        <link rel="prev" title="Getting Started" href="start.html"/>
+ 
+<!-- RTD Extra Head -->
+
+
+
+  
+  <!-- 
+  Always link to the latest version, as canonical.
+  http://docs.readthedocs.org/en/latest/canonical.html
+  -->
+  <link rel="canonical" href="http://docs.purescript.org/en/latest/types.html" />
+  
+
+<script type="text/javascript">
+  // This is included here because other places don't have access to the pagename variable.
+  var READTHEDOCS_DATA = {
+    project: "purescript",
+    version: "latest",
+    language: "en",
+    page: "types",
+    theme: "sphinx_rtd_theme",
+    docroot: "/docs/source/",
+    source_suffix: ".rst",
+    api_host: "https://readthedocs.org"
+  }
+  // Old variables
+  var doc_version = "latest";
+  var doc_slug = "purescript";
+  var page_name = "types";
+  var html_theme = "sphinx_rtd_theme";
+</script>
+<!-- RTD Analytics Code -->
+<!-- Included in the header because you don't have a footer block. -->
+<script type="text/javascript">
+  var _gaq = _gaq || [];
+  _gaq.push(['_setAccount', 'UA-17997319-1']);
+  _gaq.push(['_trackPageview']);
+
+  // User Analytics Code
+  _gaq.push(['user._setAccount', 'None']);
+  _gaq.push(['user._trackPageview']);
+  // End User Analytics Code
+
+
+  (function() {
+    var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+    ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+    var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+  })();
+</script>
+<!-- end RTD Analytics Code -->
+<!-- end RTD <extrahead> -->
+
+
+  
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/modernizr/2.6.2/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav" role="document">
+
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-nav-search">
+        <a href="http://purescript.readthedocs.org/en/latest/index.html" class="fa fa-home"> PureScript</a>
+        <div role="search">
+  <form id ="rtd-search-form" class="wy-form" action="search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+      </div>
+
+      <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+        
+        
+            <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="intro.html">Introduction</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#motivation">Motivation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#hello-purescript">Hello, PureScript!</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#another-example">Another Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="intro.html#related-projects">Related Projects</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="start.html">Getting Started</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="start.html#compiler-installation">Compiler Installation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#creating-a-new-purescript-project">Creating a new PureScript project</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#compiler-usage">Compiler usage</a></li>
+<li class="toctree-l2"><a class="reference internal" href="start.html#psc-make">psc-make</a></li>
+</ul>
+</li>
+<li class="toctree-l1 current"><a class="current reference internal" href="types.html">Types</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="types.html#primitive-types">Primitive Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#arrays">Arrays</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#records">Records</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#tagged-unions">Tagged Unions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#polymorphic-types">Polymorphic Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#row-polymorphism">Row Polymorphism</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#rank-n-types">Rank N Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#rows">Rows</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#type-synonyms">Type Synonyms</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#constrained-types">Constrained Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="types.html#type-annotations">Type Annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="kinds.html">Kind System</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="kinds.html#row-kinds">Row Kinds</a></li>
+<li class="toctree-l2"><a class="reference internal" href="kinds.html#quantification">Quantification</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="syntax.html">Syntax</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#whitespace-rules">Whitespace Rules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#operators">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#literal-values">Literal Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#array-literals">Array Literals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#record-literals">Record Literals</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#array-indexing">Array Indexing</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#property-accessors">Property Accessors</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#functions">Functions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#if-then-else-expressions">If-Then-Else Expressions</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#do-notation">Do Notation</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#id1">Operators</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#record-updates">Record Updates</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#let-bindings">Let Bindings</a></li>
+<li class="toctree-l2"><a class="reference internal" href="syntax.html#comments">Comments</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="typeclasses.html">Type Classes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="typeclasses.html#example">Example</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typeclasses.html#superclasses">Superclasses</a></li>
+<li class="toctree-l2"><a class="reference internal" href="typeclasses.html#type-annotations">Type Annotations</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="patterns.html">Pattern Matching</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#wildcard-patterns">Wildcard Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#literal-patterns">Literal Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#variable-patterns">Variable Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#array-patterns">Array Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#cons-patterns">Cons Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#constructor-patterns">Constructor patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#record-patterns">Record Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#nested-patterns">Nested Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#named-patterns">Named Patterns</a></li>
+<li class="toctree-l2"><a class="reference internal" href="patterns.html#guards">Guards</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="modules.html">Modules</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#importing-modules">Importing Modules</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#qualified-imports">Qualified Imports</a></li>
+<li class="toctree-l2"><a class="reference internal" href="modules.html#module-exports">Module Exports</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="ffi.html">Foreign Function Interface</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="ffi.html#importing-values">Importing Values</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ffi.html#inline-javascript">Inline Javascript</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ffi.html#importing-types">Importing Types</a></li>
+<li class="toctree-l2"><a class="reference internal" href="ffi.html#importing-type-class-instances">Importing Type Class Instances</a></li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="prelude.html">Module Documentation</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-prelude">Module Prelude</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-data-function">Module Data.Function</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-data-eq">Module Data.Eq</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-prelude-unsafe">Module Prelude.Unsafe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-control-monad-eff">Module Control.Monad.Eff</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-control-monad-eff-unsafe">Module Control.Monad.Eff.Unsafe</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-debug-trace">Module Debug.Trace</a></li>
+<li class="toctree-l2"><a class="reference internal" href="prelude.html#module-control-monad-st">Module Control.Monad.ST</a></li>
+</ul>
+</li>
+</ul>
+
+        
+      </div>
+      &nbsp;
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" role="navigation" aria-label="top navigation">
+        <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+        <a href="http://purescript.readthedocs.org/en/latest/index.html">PureScript</a>
+      </nav>
+
+
+      
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="breadcrumbs navigation">
+  <ul class="wy-breadcrumbs">
+    <li><a href="http://purescript.readthedocs.org/en/latest/index.html">Docs</a> &raquo;</li>
+      
+    <li>Types</li>
+      <li class="wy-breadcrumbs-aside">
+        
+          <a href="https://github.com/purescript/purescript/blob/master/docs/source/types.rst" class="fa fa-github"> Edit on GitHub</a>
+        
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main">
+            
+  <div class="section" id="types">
+<h1>Types<a class="headerlink" href="types.html#types" title="Permalink to this headline">¶</a></h1>
+<p>The type system defines the following types:</p>
+<ul class="simple">
+<li>Primitive Types: Number, String, Boolean</li>
+<li>Arrays</li>
+<li>Records</li>
+<li>Tagged Unions</li>
+<li>Functions</li>
+<li>Polymorphic Types</li>
+<li>Constrained Types</li>
+<li>Type Synonyms</li>
+<li>Rows</li>
+</ul>
+<div class="section" id="primitive-types">
+<h2>Primitive Types<a class="headerlink" href="types.html#primitive-types" title="Permalink to this headline">¶</a></h2>
+<p>The three primitive types <tt class="docutils literal"><span class="pre">String</span></tt>, <tt class="docutils literal"><span class="pre">Number</span></tt> and <tt class="docutils literal"><span class="pre">Boolean</span></tt> correspond to their Javascript equivalents at runtime.</p>
+</div>
+<div class="section" id="arrays">
+<h2>Arrays<a class="headerlink" href="types.html#arrays" title="Permalink to this headline">¶</a></h2>
+<p>PureScript arrays correspond to Javascript arrays at runtime, but all elements in an array must have the same type.</p>
+</div>
+<div class="section" id="records">
+<h2>Records<a class="headerlink" href="types.html#records" title="Permalink to this headline">¶</a></h2>
+<p>PureScript records correspond to Javascript objects. They may have zero or more named fields, each with their own types.</p>
+</div>
+<div class="section" id="tagged-unions">
+<h2>Tagged Unions<a class="headerlink" href="types.html#tagged-unions" title="Permalink to this headline">¶</a></h2>
+<p>Tagged unions consist of one or more constructors, each of which takes zero or more arguments.</p>
+<p>Tagged unions can only be created using their constructors, and deconstructed through pattern matching (see later).</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>data Foo a = Foo | Bar String
+
+runFoo Foo = &quot;It&#39;s a Foo&quot;
+runFoo (Bar s) = &quot;It&#39;s a Bar. The string is &quot; ++ s
+
+test = runFoo Foo ++ runFoo (Bar &quot;Test&quot;)
+</pre></div>
+</div>
+<p>In the example, Foo is a tagged union type which has two constructors. It&#8217;s first constructor <tt class="docutils literal"><span class="pre">Foo</span></tt> takes no argument, and it&#8217;s second <tt class="docutils literal"><span class="pre">Bar</span></tt> takes one, which must be a String.</p>
+<p><tt class="docutils literal"><span class="pre">runFoo</span></tt> is an example of pattern matching on a tagged union type to discover its constructor, and the last line shows how to construct values of type <tt class="docutils literal"><span class="pre">Foo</span></tt>.</p>
+</div>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="types.html#functions" title="Permalink to this headline">¶</a></h2>
+<p>Functions in PureScript are like their Javascript counterparts, but always have exactly one argument.</p>
+</div>
+<div class="section" id="polymorphic-types">
+<h2>Polymorphic Types<a class="headerlink" href="types.html#polymorphic-types" title="Permalink to this headline">¶</a></h2>
+<p>Expressions defined at the top level may have polymorphic types.</p>
+<p>Here is an example:</p>
+<div class="highlight-python"><div class="highlight"><pre>identity x = x
+</pre></div>
+</div>
+<p><tt class="docutils literal"><span class="pre">identity</span></tt> is inferred to have (polymorphic) type <tt class="docutils literal"><span class="pre">forall</span> <span class="pre">t0.</span> <span class="pre">t0</span> <span class="pre">-&gt;</span> <span class="pre">t0</span></tt>. This means that for any type <tt class="docutils literal"><span class="pre">t0</span></tt>, <tt class="docutils literal"><span class="pre">identity</span></tt> can be given a value of type <tt class="docutils literal"><span class="pre">t0</span></tt> and will give back a value of the same type.</p>
+<p>A type annotation can also be provided:</p>
+<div class="highlight-python"><div class="highlight"><pre>identity :: forall a. a -&gt; a
+identity x = x
+</pre></div>
+</div>
+</div>
+<div class="section" id="row-polymorphism">
+<h2>Row Polymorphism<a class="headerlink" href="types.html#row-polymorphism" title="Permalink to this headline">¶</a></h2>
+<p>Polymorphism is not limited to abstracting over types. Values may also be polymorphic in types with other kinds, such as rows or effects (see &#8220;Kind System&#8221;).</p>
+<p>For example, the following function accesses two properties on a record:</p>
+<div class="highlight-python"><div class="highlight"><pre>addProps o = o.foo + o.bar
+</pre></div>
+</div>
+<p>The inferred type of <tt class="docutils literal"><span class="pre">addProps</span></tt> is:</p>
+<div class="highlight-python"><div class="highlight"><pre>forall r. { foo :: Number, bar :: Number | r } -&gt; Number
+</pre></div>
+</div>
+<p>Here, the type variable <tt class="docutils literal"><span class="pre">r</span></tt> has kind <tt class="docutils literal"><span class="pre">#</span> <span class="pre">*</span></tt> - it represents a <cite>row</cite> of <cite>types</cite>. It can be instantiated with any row of named types.</p>
+<p>In other words, <tt class="docutils literal"><span class="pre">addProps</span></tt> accepts any record which has properties <tt class="docutils literal"><span class="pre">foo</span></tt> and <tt class="docutils literal"><span class="pre">bar</span></tt>, and <em>any other record properties</em>.</p>
+<p>Therefore, the following application compiles:</p>
+<div class="highlight-python"><div class="highlight"><pre>addProps { foo: 1, bar: 2, baz: 3 }
+</pre></div>
+</div>
+<p>even though the type of <tt class="docutils literal"><span class="pre">addProps</span></tt> does not mention the property <tt class="docutils literal"><span class="pre">baz</span></tt>. However, the following does not compile:</p>
+<div class="highlight-python"><div class="highlight"><pre>addProps { foo: 1 }
+</pre></div>
+</div>
+<p>since the <tt class="docutils literal"><span class="pre">bar</span></tt> property is missing.</p>
+</div>
+<div class="section" id="rank-n-types">
+<h2>Rank N Types<a class="headerlink" href="types.html#rank-n-types" title="Permalink to this headline">¶</a></h2>
+<p>It is also possible for the <tt class="docutils literal"><span class="pre">forall</span></tt> quantifier to appear on the left of a function arrow, inside types record fields and data constructors, and in type synonyms.</p>
+<p>In most cases, a type annotation is necessary when using this feature.</p>
+<p>As an example, we can pass a polymorphic function as an argument to another function:</p>
+<div class="highlight-python"><div class="highlight"><pre>poly :: (forall a. a -&gt; a) -&gt; Boolean
+poly f = (f 0 &lt; 1) == f true
+</pre></div>
+</div>
+<p>Notice that the polymorphic function&#8217;s type argument is instantiated to both <tt class="docutils literal"><span class="pre">Number</span></tt> and <tt class="docutils literal"><span class="pre">Boolean</span></tt>.</p>
+<p>An argument to <tt class="docutils literal"><span class="pre">poly</span></tt> must indeed be polymorphic. For example, the following fails:</p>
+<div class="highlight-python"><div class="highlight"><pre>test = poly (\n -&gt; n + 1)
+</pre></div>
+</div>
+<p>since the skolemized type variable <tt class="docutils literal"><span class="pre">a</span></tt> does not unify with <tt class="docutils literal"><span class="pre">Number</span></tt>.</p>
+</div>
+<div class="section" id="rows">
+<h2>Rows<a class="headerlink" href="types.html#rows" title="Permalink to this headline">¶</a></h2>
+<p>A row of types represents an unordered collection of named types without duplicates.</p>
+<p>Rows have kind <tt class="docutils literal"><span class="pre">#</span> <span class="pre">k</span></tt> for some kind <tt class="docutils literal"><span class="pre">k</span></tt>, and so values do not have types which are rows. Rather, rows can be used in type signatures to define record types or other type where labelled, unordered types are useful.</p>
+<p>To denote a closed row, separate the fields with commas, with each label separated from its type with a double colon:</p>
+<div class="highlight-python"><div class="highlight"><pre>(name :: String, age :: Number)
+</pre></div>
+</div>
+<p>It may be necessary, depending on the context, to surround a row in parentheses.</p>
+<p>To denote an open row (i.e. one which may unify with another row to add new fields), separate the specified terms from a row variable by a pipe:</p>
+<div class="highlight-python"><div class="highlight"><pre>(name :: String, age :: Number | r)
+</pre></div>
+</div>
+</div>
+<div class="section" id="type-synonyms">
+<h2>Type Synonyms<a class="headerlink" href="types.html#type-synonyms" title="Permalink to this headline">¶</a></h2>
+<p>For convenience, it is possible to declare a synonym for a type using the <tt class="docutils literal"><span class="pre">type</span></tt> keyword. Type synonyms can include type arguments.</p>
+<p>For example:</p>
+<div class="highlight-python"><div class="highlight"><pre>type Foo = { foo :: Number, bar :: Number }
+
+addFoo :: Foo -&gt; Number
+addFoo = \o -&gt; o.foo + o.bar
+</pre></div>
+</div>
+</div>
+<div class="section" id="constrained-types">
+<h2>Constrained Types<a class="headerlink" href="types.html#constrained-types" title="Permalink to this headline">¶</a></h2>
+<p>Polymorphic types may be predicated on one or more <tt class="docutils literal"><span class="pre">constraints</span></tt>. See the chapter on type classes for more information.</p>
+</div>
+<div class="section" id="type-annotations">
+<h2>Type Annotations<a class="headerlink" href="types.html#type-annotations" title="Permalink to this headline">¶</a></h2>
+<p>Most types can be inferred (not including Rank N Types and constrained types), but annotations can optionally be provided using a double-colon:</p>
+<div class="highlight-python"><div class="highlight"><pre>one = 1 :: Number
+</pre></div>
+</div>
+</div>
+</div>
+
+
+          </div>
+          <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="kinds.html" class="btn btn-neutral float-right" title="Kind System">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="start.html" class="btn btn-neutral" title="Getting Started"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2014, Phil Freeman.
+    </p>
+  </div>
+
+  <a href="https://github.com/snide/sphinx_rtd_theme">Sphinx theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>
+</footer>
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+  <div class="rst-versions" data-toggle="rst-versions" role="note" aria-label="versions">
+    <span class="rst-current-version" data-toggle="rst-current-version">
+      <span class="fa fa-book"> Read the Docs</span>
+      v: latest
+      <span class="fa fa-caret-down"></span>
+    </span>
+    <div class="rst-other-versions">
+      <dl>
+        <dt>Versions</dt>
+        
+          <dd><a href="index.html">latest</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>Downloads</dt>
+        
+          <dd><a href="https://media.readthedocs.org/pdf/purescript/latest/purescript.pdf">PDF</a></dd>
+        
+          <dd><a href="https://media.readthedocs.org/htmlzip/purescript/latest/purescript.zip">HTML</a></dd>
+        
+          <dd><a href="https://media.readthedocs.org/epub/purescript/latest/purescript.epub">Epub</a></dd>
+        
+      </dl>
+      <dl>
+        <dt>On Read the Docs</dt>
+          <dd>
+            <a href="http://readthedocs.org/projects/purescript/?fromdocs=purescript">Project Home</a>
+          </dd>
+          <dd>
+            <a href="http://readthedocs.org/builds/purescript/?fromdocs=purescript">Builds</a>
+          </dd>
+      </dl>
+      <hr/>
+      Free document hosting provided by <a href="http://www.readthedocs.org">Read the Docs</a>.
+
+    </div>
+  </div>
+
+
+
+  
+
+    <script type="text/javascript">
+        var DOCUMENTATION_OPTIONS = {
+            URL_ROOT:'./',
+            VERSION:'0.5.0',
+            COLLAPSE_INDEX:false,
+            FILE_SUFFIX:'.html',
+            HAS_SOURCE:  true
+        };
+    </script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/jquery/jquery-2.0.3.min.js"></script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/jquery/jquery-migrate-1.2.1.min.js"></script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/underscore.js"></script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/doctools.js"></script>
+      <script type="text/javascript" src="https://media.readthedocs.org/javascript/readthedocs-doc-embed.js"></script>
+
+  
+
+  
+  
+
+  
+  
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.StickyNav.enable();
+      });
+  </script>
+   
+
+</body>
+</html>
